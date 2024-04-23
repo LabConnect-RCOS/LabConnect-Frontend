@@ -1,13 +1,11 @@
-FROM node:20-alpine
+FROM --platform=linux/amd64 node:20-alpine
 
 WORKDIR /app
 
-COPY package.json .
+COPY build /app/build
+RUN npm install -g serve
 
-RUN npm install
-
-COPY . .
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["serve", "-s", "build"]

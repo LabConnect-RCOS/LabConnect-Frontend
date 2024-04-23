@@ -55,7 +55,7 @@ const Posts = () => {
   });
 
   const fetchOpportunities = async () => {
-    const url = "http://localhost:8000/getOpportunityCards";
+    const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunityCards`;
 
     const response = await fetch(url);
 

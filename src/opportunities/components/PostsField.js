@@ -95,7 +95,7 @@ const PostsField = ({ activeId, setActive, opportunities }) => {
   var [activeOpportunity, setActiveOpportunity] = useState(null);
 
   const fetchOpportunity = async (id) => {
-    const url = `http://localhost:8000/getOpportunity/${id}`;
+    const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunity/${id}`;
     const response = await fetch(url);
     if (!response.ok) {
       console.log("Error fetching opportunity");

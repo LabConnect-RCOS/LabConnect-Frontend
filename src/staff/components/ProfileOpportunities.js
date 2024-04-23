@@ -45,7 +45,7 @@ const ProfileOpportunities = ({ id }) => {
 
   const fetchOpportunities = async () => {
     // Consider moving the base URL to a configuration
-    const baseURL = "http://localhost:8000";
+    const baseURL = `${process.env.REACT_APP_BACKEND_SERVER}`;
     const url = `${baseURL}/getProfessorOpportunityCards/${id}`;
 
     const response = await fetch(url);

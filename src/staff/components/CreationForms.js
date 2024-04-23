@@ -30,7 +30,8 @@ const CreationForms = () => {
   const { id: authorId } = state;
 
   async function fetchDetails(key) {
-    const url = "http://localhost:8000/getOpportunityMeta/" + key;
+    const url =
+      `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunityMeta/` + key;
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -79,7 +80,7 @@ const CreationForms = () => {
   }, []);
 
   const createOpportunity = async (data) => {
-    const url = "http://localhost:8000/createOpportunity";
+    const url = `${process.env.REACT_APP_BACKEND_SERVER}/createOpportunity`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -99,7 +100,7 @@ const CreationForms = () => {
   };
 
   const updateOpportunity = async (data) => {
-    const url = "http://localhost:8000/editOpportunity";
+    const url = `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity`;
 
     const response = await fetch(url, {
       method: "POST",

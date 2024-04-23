@@ -49,7 +49,7 @@ const ProfileOpportunities = ({ id }) => {
 
   const fetchOpportunities = async (key) => {
     // Consider moving the base URL to a configuration
-    const baseURL = "http://localhost:8000";
+    const baseURL = `${process.env.REACT_APP_BACKEND_SERVER}`;
     const url = `${baseURL}/getProfileOpportunities/${key}`;
 
     const response = await fetch(url);
@@ -72,7 +72,7 @@ const ProfileOpportunities = ({ id }) => {
   async function changeOpportunityActiveStatus(opportunityId, activeStatus) {
     // send a request to the backend to deactivate the opportunity
     // if the request is successful, then deactivate the opportunity from the list
-    const url = `http://localhost:8000/changeActiveStatus`;
+    const url = `${process.env.REACT_APP_BACKEND_SERVER}/changeActiveStatus`;
     console.log(opportunities);
 
     const jsonData = {
@@ -106,7 +106,7 @@ const ProfileOpportunities = ({ id }) => {
     // send a request to the backend to delete the opportunity
     // if the request is successful, then delete the opportunity from the list
 
-    const url = `http://localhost:8000/deleteOpportunity`;
+    const url = `${process.env.REACT_APP_BACKEND_SERVER}/deleteOpportunity`;
 
     const jsonData = { id: opportunityId };
 

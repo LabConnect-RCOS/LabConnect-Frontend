@@ -10,7 +10,7 @@ const useAuthActions = () => {
 
     async function getDetails() {
       const response = await fetch(
-        "http://localhost:8000/getProfessorCookies/cenzar",
+        `${process.env.REACT_APP_BACKEND_SERVER}/getProfessorCookies/cenzar`,
       );
 
       if (!response.ok) {

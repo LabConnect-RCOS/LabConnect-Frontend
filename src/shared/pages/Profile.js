@@ -5,7 +5,7 @@ import ProfileDescription from "../../staff/components/ProfileDescription";
 import ProfileOpportunities from "../components/Profile/ProfileOpportunities";
 import EditProfile from "./EditProfile";
 import useGlobalContext from "../../context/global/useGlobalContext";
-import StickyFooter from "../components/Navigation/StickyFooter.js"
+import StickyFooter from "../components/Navigation/StickyFooter.js";
 
 const PROFILES = {
   d1: {
@@ -56,7 +56,7 @@ const ProfilePage = () => {
 
   const fetchProfile = async () => {
     const response = await fetch(
-      `http://localhost:8000/getProfessorProfile/${id}`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/getProfessorProfile/${id}`,
     );
 
     if (response) {
@@ -113,7 +113,13 @@ const ProfilePage = () => {
           "Profile not found"
         )}
       </section>
-      <br/><br/><br/><br/><br/><br/><br/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </section>
   );
 };

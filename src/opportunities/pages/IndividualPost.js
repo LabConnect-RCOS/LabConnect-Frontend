@@ -63,12 +63,12 @@ const DUMMY_DATA = [
 
 const IndividualPost = () => {
   const { postID } = useParams();
-  
+
   var [details, setDetails] = useState("Searching");
 
   const fetchOpportunities = async () => {
     // Consider moving the base URL to a configuration
-    const baseURL = "http://localhost:8000";
+    const baseURL = `${process.env.REACT_APP_BACKEND_SERVER}`;
     const url = `${baseURL}/getOpportunity/${postID}`;
 
     const response = await fetch(url);
@@ -87,7 +87,6 @@ const IndividualPost = () => {
     details = data || "Nothing found";
     setDetails(details);
   }
-
 
   useEffect(() => {
     findDetails();

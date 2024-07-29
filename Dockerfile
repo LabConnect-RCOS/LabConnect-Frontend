@@ -1,10 +1,12 @@
-FROM --platform=linux/amd64 node:20-alpine
+FROM --platform=linux/amd64 node:22-alpine
 
 WORKDIR /app
 
 COPY build /app/build
 RUN npm install -g serve
 
+HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
 EXPOSE 3000
 

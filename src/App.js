@@ -11,10 +11,10 @@ import Center from "./staff/pages/Center";
 import CreatePost from "./staff/pages/CreatePost";
 import IndividualPost from "./opportunities/pages/IndividualPost";
 import ProfilePage from "./shared/pages/Profile.js";
-import SignIn from "./shared/pages/SignIn"
+import SignIn from "./shared/pages/SignIn";
 import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
 import useAuthActions from "./context/global/authActions.js";
-import StickyFooter from "./shared/components/Navigation/StickyFooter.js"
+import StickyFooter from "./shared/components/Navigation/StickyFooter.js";
 
 function App() {
   return (
@@ -39,12 +39,15 @@ function App() {
             <Route path="/signOut" element={<Home signOut={true} />} />
             <Route path="/signIn" element={<Home signIn={true} />} />
 
+            <Route path="/health">
+              <p>App is Healthy</p>
+            </Route>
+
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>
-        <StickyFooter/>
+        <StickyFooter />
       </section>
-      
     </GlobalContextProvider>
   );
 }

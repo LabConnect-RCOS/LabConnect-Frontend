@@ -1,0 +1,18 @@
+name: EsLint
+
+on: [pull_request]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: npm ci
+      - uses: sibiraj-s/action-eslint@v3
+        with:
+          eslint-args: "--ignore-path=.gitignore --max-warnings=0"
+          extensions: "js,jsx,ts,tsx"
+          annotations: true

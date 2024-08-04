@@ -1,6 +1,6 @@
-name: EsLint
+name: Lint
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   eslint:
@@ -10,9 +10,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 22
-      - run: npm ci --legacy-peer-deps
-      - uses: sibiraj-s/action-eslint@v3
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+      - name: Run EsLint
+        uses: sibiraj-s/action-eslint@v3
         with:
-          eslint-args: "--max-warnings=0"
+          eslint-args: "src/**/*.{js,jsx,ts,tsx} --max-warnings=0"
           extensions: "js,jsx,ts,tsx"
           annotations: true

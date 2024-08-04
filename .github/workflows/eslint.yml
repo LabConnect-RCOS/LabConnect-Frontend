@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 22
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
       - uses: sibiraj-s/action-eslint@v3
         with:
           eslint-args: "--max-warnings=0"

@@ -10,6 +10,7 @@ jobs:
       - name: Build React App
         run: |
           npm ci --legacy-peer-deps
+          CI=false
           npm run build
       - name: "Build Docker Image"
         run: |

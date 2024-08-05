@@ -94,9 +94,9 @@ const IndividualPost = () => {
 
   return (
     <div>
-      {details == "Searching" ? (
+      {details === "Searching" ? (
         <span className="loading loading-spinner loading-lg" />
-      ) : details == "Nothing found" ? (
+      ) : details === "Nothing found" ? (
         <p>No post found</p>
       ) : (
         <JobDetails {...details} />

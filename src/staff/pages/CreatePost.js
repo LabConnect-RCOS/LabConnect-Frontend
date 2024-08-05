@@ -6,7 +6,7 @@ const CreatePost = ({ edit }) => {
     <div className="createpost">
       <div>
         <h1>
-          {edit == true
+          {edit === true
             ? "Edit Research Opportunity"
             : "Create Research Opportunity"}
         </h1>

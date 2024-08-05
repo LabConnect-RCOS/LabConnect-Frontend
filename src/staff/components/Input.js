@@ -9,7 +9,6 @@ const Input = ({
   label,
   options,
   placeHolder,
-  
 }) => {
   // if (!formHook) {
   //   return <h1>FormHook Not Given</h1>;
@@ -41,9 +40,7 @@ const Input = ({
       defaultValue="Select a department"
       className="select select-bordered check-input"
     >
-      <option value="Select a department">
-        Select a department
-      </option>
+      <option value="Select a department">Select a department</option>
       {options ? (
         options.map((option) => {
           return (
@@ -64,9 +61,9 @@ const Input = ({
         <div className="label">
           <span className="label-text font-medium">{label}</span>
         </div>
-        {type == "select"
+        {type === "select"
           ? selectElement
-          : type == "textarea"
+          : type === "textarea"
           ? textAreaElement
           : inputElement}
 

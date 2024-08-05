@@ -129,7 +129,7 @@ const PostsField = ({ activeId, setActive, opportunities }) => {
       {activeId != "" && activeOpportunity && (
         <JobDetails {...activeOpportunity} />
       )}
-      {(activeId == "" || !activeOpportunity) && "Opportunity not found."}
+      {(activeId === "" || !activeOpportunity) && "Opportunity not found."}
     </div>
   );
 };

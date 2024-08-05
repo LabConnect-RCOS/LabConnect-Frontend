@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/eslint-parser": "^7.25.1",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@hookform/error-message": "^2.0.1",
@@ -10,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "dotenv": "^16.4.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "react": "^18.2.0",
     "react-cookie": "^7.0.2",
     "react-dom": "^18.2.0",
@@ -25,7 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +49,15 @@
     ]
   },
   "devDependencies": {
+    "@eslint/js": "^9.8.0",
     "daisyui": "^4.7.3",
-    "tailwindcss": "^3.4.3"
+    "eslint": "^9.8.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-define-config": "^2.1.0",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.0.0"
   }
 }

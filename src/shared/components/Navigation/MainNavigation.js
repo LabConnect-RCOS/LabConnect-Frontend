@@ -36,7 +36,6 @@ export default function MainNavigation() {
     { name: "Staff", href: "/staff", current: false },
     { name: "Profile", href: "/profile", current: false },
     { name: "Authenticate", href: "/auth", current: false },
-    
   ]);
 
   useEffect(() => {
@@ -46,19 +45,29 @@ export default function MainNavigation() {
         { name: "Create", href: "/createPost", current: false },
         { name: "Staff", href: "/staff", current: false },
         { name: "Profile", href: "/profile", current: false },
-        { name: "Sign Out", href: "/signOut", current: false, action: ()=>{
-          logout();
-          redirect("/");
-        } },
+        {
+          name: "Sign Out",
+          href: "/signOut",
+          current: false,
+          action: () => {
+            logout();
+            redirect("/");
+          },
+        },
       ]);
     } else {
       setNavigation([
         { name: "Jobs", href: "/jobs", current: true },
         { name: "Staff", href: "/staff", current: false },
-        { name: "Sign In", href: "/signIn", current: false, action: ()=>{
-          login();
-          redirect("/");
-        } },
+        {
+          name: "Sign In",
+          href: "/signIn",
+          current: false,
+          action: () => {
+            login();
+            redirect("/");
+          },
+        },
       ]);
     }
   }, [loggedIn]);
@@ -95,7 +104,7 @@ export default function MainNavigation() {
                           key={item.name}
                           to={item.href}
                           className={`${
-                            location == item.href
+                            location === item.href
                               ? "text-black"
                               : "text-gray-600"
                           } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
@@ -108,7 +117,7 @@ export default function MainNavigation() {
                           key={item.name}
                           onClick={item.action}
                           className={`${
-                            location == item.href
+                            location === item.href
                               ? "text-black"
                               : "text-gray-600"
                           } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}

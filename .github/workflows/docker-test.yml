@@ -6,11 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build React App
         run: |
           npm ci --legacy-peer-deps
           CI=false
+          REACT_APP_BACKEND_SERVER="http://labconnect.cs.rpi.edu:9000"
           npm run build
       - name: "Build Docker Image"
         run: |

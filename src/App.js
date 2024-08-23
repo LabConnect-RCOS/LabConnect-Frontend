@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
-import { Router, Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Home from "./shared/pages/Home";
 import PageNotFound from "./shared/pages/404";
@@ -13,10 +13,24 @@ import IndividualPost from "./opportunities/pages/IndividualPost";
 import ProfilePage from "./shared/pages/Profile.js";
 import SignIn from "./shared/pages/SignIn";
 import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
-import useAuthActions from "./context/global/authActions.js";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.js";
+import process from "process";
 
 function App() {
+  const handleCallback = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (token) {
+      localStorage.setItem("jwt", token);
+    }
+  };
+
+  React.useEffect(() => {
+    handleCallback();
+  }, []);
+
+  const baseURL = `${process.env.REACT_APP_BACKEND_SERVER}`;
+
   return (
     <GlobalContextProvider>
       <section>
@@ -39,9 +53,11 @@ function App() {
             <Route path="/signOut" element={<Home signOut={true} />} />
             <Route path="/signIn" element={<Home signIn={true} />} />
 
-            <Route path="/health">
-              <p>App is Healthy</p>
-            </Route>
+            <Route path="/health" element={<p>App is Healthy</p>} />
+            <Route
+              path="/login"
+              element={<Redirect to={`${baseURL}/login`} />}
+            />
 
             <Route path="/*" element={<PageNotFound />} />
           </Routes>

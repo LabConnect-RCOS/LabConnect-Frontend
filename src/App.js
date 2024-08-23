@@ -14,7 +14,6 @@ import ProfilePage from "./shared/pages/Profile.js";
 import SignIn from "./shared/pages/SignIn";
 import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.js";
-import process from "process";
 
 function App() {
   const handleCallback = async () => {

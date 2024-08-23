@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Redirect } from "react-router-dom";
+import { Routes, Route, redirect } from "react-router-dom";
 import "./App.css";
 import Home from "./shared/pages/Home";
 import PageNotFound from "./shared/pages/404";
@@ -55,7 +55,7 @@ function App() {
             <Route path="/health" element={<p>App is Healthy</p>} />
             <Route
               path="/login"
-              element={<Redirect to={`${baseURL}/login`} />}
+              element={<redirect to={`${baseURL}/login`} />}
             />
 
             <Route path="/*" element={<PageNotFound />} />

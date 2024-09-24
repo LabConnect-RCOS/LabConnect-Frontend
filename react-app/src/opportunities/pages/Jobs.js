@@ -5,7 +5,6 @@ import Posts from "../components/Posts";
 import SavedJobs from "../components/SavedJobs";
 import PageNavigation from "../../shared/components/Navigation/PageNavigation";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook";
-import StickyFooter from "../../shared/components/Navigation/StickyFooter.js"
 
 const Jobs = () => {
   var [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");

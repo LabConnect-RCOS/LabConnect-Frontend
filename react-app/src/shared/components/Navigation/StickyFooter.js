@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../../../images/LabConnect_Logo.png"; 
+import logo from "../../../images/LabConnect_Logo.webp"; 
 console.log(logo);
 
 const StickyFooter = () => {
@@ -10,10 +10,10 @@ const StickyFooter = () => {
             </p>
             <div className="stickyfooter-info">
                 <div className="pb-3">
-                    <img src={logo} alt="Logo" className="h-32 w-36"></img>
+                    <img src={logo} alt="Logo" width="160" height="160 / (319/289)"></img>
                 </div>
 
-                <div className="w-40">
+                <div className="w-40 text-base">
                     <p>
                         <b>Contact Us</b>
                         <p className="text-base">
@@ -30,7 +30,7 @@ const StickyFooter = () => {
                         <Link to="/signIn" className="stickyfooter-link hover:text-neutral-950">Sign In</Link><br/>
                     </p>
                 </div>
-                <div className="w-60 text-base">
+                <div className="w-40 text-base">
                     <b>Staff Pages</b>
                     <p>
                         <Link to="/profile" className="stickyfooter-link hover:text-neutral-950">Profile</Link><br/>

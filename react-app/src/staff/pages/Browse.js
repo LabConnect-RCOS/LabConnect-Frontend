@@ -3,32 +3,7 @@ import usePageNavigation from "../../shared/hooks/page-navigation-hook";
 import PageNavigation from "../../shared/components/Navigation/PageNavigation";
 import BrowseItems from "../components/BrowseItems";
 
-/**import { useEffect, useState } from 'react';
-
-const FetchGetRequest = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchDataForPosts = async () => {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts?_limit=8`
-      );
-      if (!response.ok) {
-        setData(null);
-        return <div></div>
-      }
-      let postsData = await response.json();
-      setData(postsData);
-      setLoading(false);
-    };
-
-    fetchDataForPosts();
-  }, []);
-
-  return <div></div>;
-
-};*/
+import { useEffect, useState } from 'react';
 
 const DUMMY_DATA = {
   to: "/staff",
@@ -65,6 +40,26 @@ const Browse = () => {
     ["Research Centers", "Departments"],
     "Research Centers"
   );
+  /**
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDataForPosts = async () => {
+      const response = await fetch(
+        `localhost:5000/department`
+      );
+      if (!response.ok) {
+        setData(null);
+        return <div></div>
+      }
+      let postsData = await response.json();
+      setData(postsData);
+      setLoading(false);
+    };
+
+    fetchDataForPosts();
+  }, []);*/
   
   return (
     <section className="flex2 gap-3">
@@ -73,7 +68,6 @@ const Browse = () => {
         pages={pages}
         switchPage={switchPage}
       />
-
 
       {pages.activePage === "Research Centers" && (
         <BrowseItems to={DUMMY_DATA.to} items={DUMMY_DATA.items} />

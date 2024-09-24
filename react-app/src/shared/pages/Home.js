@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import useAuthActions from "../../context/global/authActions";
 import { Link } from "react-router-dom";
-import StickyFooter from "../components/Navigation/StickyFooter.js";
-
-import logo from "../../images/LabConnect_Logo.png"; 
-console.log(logo);
+import logo from "../../images/LabConnect_Logo2.webp";
 
 const Home = ({signOut, signIn}) => {
   
@@ -25,7 +22,7 @@ const Home = ({signOut, signIn}) => {
       <section className="home-general">
         <br/><br/><br/>
         <div className="img-center">
-          <img src={logo} alt="Logo" />
+        <img src={logo} alt="Logo" height="289" fetchpriority="high"/>
 
         </div>
 

@@ -38,15 +38,12 @@ function App() {
             <Route path="/signInTemporary" element={<SignIn />} />
             <Route path="/signOut" element={<Home signOut={true} />} />
             <Route path="/signIn" element={<Home signIn={true} />} />
-
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>
         <StickyFooter/>
       </section>
-      
     </GlobalContextProvider>
   );
 }
-
 export default App;

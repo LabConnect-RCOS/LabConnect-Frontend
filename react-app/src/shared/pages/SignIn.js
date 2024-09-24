@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../../staff/components/Input.js"
-import StickyFooter from "../components/Navigation/StickyFooter.js"
 
-import logo from "../../images/LabConnect_Logo2.png";
+import logo from "../../images/LabConnect_Logo2.webp";
 console.log(logo);
 
 const SignIn = () => {

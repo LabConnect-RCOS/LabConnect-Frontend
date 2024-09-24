@@ -5,7 +5,6 @@ import ProfileDescription from "../../staff/components/ProfileDescription";
 import ProfileOpportunities from "../components/Profile/ProfileOpportunities";
 import EditProfile from "./EditProfile";
 import useGlobalContext from "../../context/global/useGlobalContext";
-import StickyFooter from "../components/Navigation/StickyFooter.js"
 
 const PROFILES = {
   d1: {

@@ -64,9 +64,9 @@ const Input = ({
         <div className="label">
           <span className="label-text font-medium">{label}</span>
         </div>
-        {type == "select"
+        {type === "select"
           ? selectElement
-          : type == "textarea"
+          : type === "textarea"
           ? textAreaElement
           : inputElement}
 

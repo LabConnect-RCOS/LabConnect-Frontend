@@ -83,8 +83,8 @@ export default function MainNavigation() {
               </div>
               <div className="mainnav-desc2 sm:items-stretch sm:justify-start">
                 <div className="mainnav-title-link">
-                  <Link to="/" className="no-underline">
-                    Labconnect
+                  <Link to="/" className="no-underline text-blue-700">
+                    LabConnect
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
@@ -95,7 +95,7 @@ export default function MainNavigation() {
                           key={item.name}
                           to={item.href}
                           className={`${
-                            location == item.href
+                            location === item.href
                               ? "text-black"
                               : "text-gray-600"
                           } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
@@ -108,7 +108,7 @@ export default function MainNavigation() {
                           key={item.name}
                           onClick={item.action}
                           className={`${
-                            location == item.href
+                            location === item.href
                               ? "text-black"
                               : "text-gray-600"
                           } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}

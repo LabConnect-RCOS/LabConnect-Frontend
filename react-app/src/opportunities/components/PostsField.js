@@ -98,7 +98,7 @@ const PostsField = ({ activeId, setActive }) => {
         {DUMMY_JOBS.map((job) => {
           return (
             <JobPost
-              active={job.id == activeId}
+              active={job.id === activeId}
               onClick={setActive}
               key={job.id}
               {...job}

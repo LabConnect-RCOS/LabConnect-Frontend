@@ -9,7 +9,7 @@ const Posts = () => {
     switch (action.type) {
       case "REMOVE_FILTER":
         if (action.filter) {
-          state.filters = state.filters.filter((item) => item != action.filter);
+          state.filters = state.filters.filter((item) => item !== action.filter);
         }
         return {...state};
       case "ADD_FILTER":

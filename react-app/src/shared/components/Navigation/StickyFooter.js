@@ -6,7 +6,7 @@ const StickyFooter = () => {
     return (
         <section className="stickyfooter-general">
             <p className="stickyfooter-header">
-                Made by <Link to="https://new.rcos.io" className="no-underline text-red-400">RCOS</Link>
+                Made by <Link to="https://new.rcos.io" className="no-underline text-red-600">RCOS</Link>
             </p>
             <div className="stickyfooter-info">
                 <div className="pb-3">

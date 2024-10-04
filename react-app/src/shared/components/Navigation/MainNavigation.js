@@ -1,6 +1,5 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Link, NavLink, redirect } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -64,7 +63,7 @@ export default function MainNavigation() {
   }, [loggedIn]);
 
   return (
-    <Disclosure as="nav" className="bg-slate-50">
+    <Disclosure as="nav" className="bg-slate-100">
       {({ open }) => (
         <>
           <div className="mainnav sm:px-6 lg:px-8">

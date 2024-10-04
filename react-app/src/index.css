@@ -84,7 +84,7 @@ code {
 .avatar-img {@apply rounded-full w-12 h-12;}
 .avatar-name {@apply text-blue-800 text-base;}
 .avatar-card {@apply p-2 border rounded min-w-fit max-w-fit;}
-.profileavatar {@apply rounded-full ring ring-primary ring-offset-base-100 ring-offset-2;}
+.profileavatar {@apply w-min h-min rounded-full ring ring-primary ring-offset-base-100 ring-offset-2;}
 .stickyfooter {@apply flex2 h-screen justify-between;}
 .signin-general {@apply flex2 justify-center text-center;}
 .img-center {@apply flex justify-center items-center;}

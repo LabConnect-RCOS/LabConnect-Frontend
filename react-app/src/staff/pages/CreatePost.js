@@ -1,5 +1,6 @@
 import React from "react";
 import CreationForms from "../components/CreationForms";
+import './CreatePost.css';
 
 const CreatePost = ({edit}) => {
   return (

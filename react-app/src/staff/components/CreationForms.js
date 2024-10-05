@@ -28,8 +28,7 @@ const CreationForms = () => {
   const state = useGlobalContext();
   const { loggedIn } = state;
   const { id: authorId } = state;
-  
-  
+
   async function fetchDetails(key) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -39,19 +38,16 @@ const CreationForms = () => {
   }
 
   async function fetchData(key) {
-    // create fake loading time
-    
     const response = await fetchDetails(key);
     response && reset(response);
     response ? setLoading(false) : setLoading("no response");
-    
   }
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm({
     defaultValues: {
       id: "",
@@ -69,118 +65,125 @@ const CreationForms = () => {
 
   useEffect(() => {
     postID && setLoading(true);
-    postID && fetchData(postID);    
+    postID && fetchData(postID);
   }, []);
-  
+
   const submitHandler = (data) => {
     if (authorId) {
-      console.log({...data, authorId});
+      console.log({ ...data, authorId });
     }
   };
 
-  var forms = (
+  return !loading ? (
     <form
       onSubmit={handleSubmit((data) => {
         submitHandler(data);
       })}
-      className="flex2 gap-2"
+      className="form-container" // Form container for vertical layout
     >
-      {/* <select {...register("department")} name="myList" id="" className="border">
-        <option className="text-black" value="Computer Science">CS</option>
-        <option value="Biology">Bio</option>
-        <option value="Physics">Phys</option>
-      </select> */}
+      {/* Group 1: Horizontal layout for Title, Department, Location, Due Date */}
+      <div className="horizontal-form">
+        <Input
+          label="Title"
+          name={"title"}
+          errors={errors}
+          errorMessage={"Title must be at least 5 characters"}
+          formHook={{
+            ...register("title", {
+              required: true,
+              minLength: 5,
+              maxLength: 100,
+            }),
+          }}
+        />
 
-      <Input
-        label="Title"
-        name={"title"}
-        errors={errors}
-        errorMessage={"Title must be at least 5 characters"}
-        formHook={{
-          ...register("title", {
-            required: true,
-            minLength: 5,
-            maxLength: 100,
-          }),
-        }}
-      />
+        <Input
+          errors={errors}
+          label="Department"
+          name={"department"}
+          type="select"
+          options={["Computer Science", "Biology", "Physics"]}
+          errorMessage={"Department must be at least 3 characters"}
+          formHook={{
+            ...register("department", {
+              required: true,
+              minLength: 3,
+              maxLength: 40,
+            }),
+          }}
+        />
 
-      <Input
-        errors={errors}
-        label="Department"
-        name={"department"}
-        type="select"
-        options={["Computer Science", "Biology", "Physics"]}
-        errorMessage={"Department must be at least 3 characters"}
-        formHook={{
-          ...register("department", {
-            required: true,
-            minLength: 3,
-            maxLength: 40,
-          }),
-        }}
-      />
-      <Input
-        errors={errors}
-        label="Location"
-        name={"location"}
-        errorMessage={"Location must be at least 5 characters"}
-        formHook={{
-          ...register("location", {
-            required: true,
-            minLength: 5,
-            maxLength: 100,
-          }),
-        }}
-      />
-      <Input
-        errors={errors}
-        label="Due Date"
-        name={"date"}
-        errorMessage={"Due Date is required"}
-        formHook={{ ...register("date", { required: true }) }}
-        type="date"
-      />
-      <Input
-        errors={errors}
-        label="Upfront Pay"
-        name={"upfrontPay"}
-        errorMessage={"Upfront Pay must be at least 0"}
-        formHook={{
-          ...register("upfrontPay", {
-            required: true,
-            min: 0,
-          }),
-        }}
-        type="number"
-      />
-      <Input
-        errors={errors}
-        label="Salary"
-        name={"salary"}
-        errorMessage={"Salary must be at least 0"}
-        formHook={{
-          ...register("salary", {
-            required: true,
-            min: 0,
-          }),
-        }}
-        type="number"
-      />
-      <Input
-        errors={errors}
-        label="Credits"
-        name={"credits"}
-        errorMessage={"Credits must be between 0 and 4"}
-        formHook={{
-          ...register("credits", {
-            required: true,
-            min: 0,
-            max: 4,
-          }),
-        }}
-        type="number"
-      />
+        <Input
+          errors={errors}
+          label="Location"
+          name={"location"}
+          errorMessage={"Location must be at least 5 characters"}
+          formHook={{
+            ...register("location", {
+              required: true,
+              minLength: 5,
+              maxLength: 100,
+            }),
+          }}
+        />
+
+        <Input
+          errors={errors}
+          label="Due Date"
+          name={"date"}
+          errorMessage={"Due Date is required"}
+          formHook={{ ...register("date", { required: true }) }}
+          type="date"
+        />
+      </div>
+
+      {/* Group 2: Horizontal layout for Upfront Pay, Salary, Credits */}
+      <div className="horizontal-form">
+        <Input
+          errors={errors}
+          label="Upfront Pay"
+          name={"upfrontPay"}
+          errorMessage={"Upfront Pay must be at least 0"}
+          formHook={{
+            ...register("upfrontPay", {
+              required: true,
+              min: 0,
+            }),
+          }}
+          type="number"
+        />
+
+        <Input
+          errors={errors}
+          label="Salary"
+          name={"salary"}
+          errorMessage={"Salary must be at least 0"}
+          formHook={{
+            ...register("salary", {
+              required: true,
+              min: 0,
+            }),
+          }}
+          type="number"
+        />
+
+        <Input
+          errors={errors}
+          label="Credits"
+          name={"credits"}
+          errorMessage={"Credits must be between 0 and 4"}
+          formHook={{
+            ...register("credits", {
+              required: true,
+              min: 0,
+              max: 4,
+            }),
+          }}
+          type="number"
+        />
+      </div>
+
+      {/* Description input field */}
       <Input
         errors={errors}
         label="Description"
@@ -196,6 +199,7 @@ const CreationForms = () => {
         type="textarea"
       />
 
+      {/* Checkboxes for Eligible Class Years */}
       <CheckBox
         label="Eligible Class Years"
         options={["Freshman", "Sophomore", "Junior", "Senior"]}
@@ -204,14 +208,12 @@ const CreationForms = () => {
         name={"years"}
         formHook={{ ...register("years", { required: true }) }}
       />
+
+      {/* Submit button */}
       <section className="pt-3 pb-5">
         <input type="submit" className="btn btn-primary bg-blue-700 w-full" />
       </section>
     </form>
-  );
-
-  return !loading ? (
-    forms
   ) : loading === "no response" ? (
     <h1>There was no response</h1>
   ) : (

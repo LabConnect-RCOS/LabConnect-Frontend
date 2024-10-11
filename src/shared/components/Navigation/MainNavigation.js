@@ -6,7 +6,6 @@ import { Link, NavLink, redirect } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import useGlobalContext from "../../../context/global/useGlobalContext";
-import useAuthActions from "../../../context/global/authActions";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -17,12 +16,6 @@ export default function MainNavigation() {
 
   const { loggedIn } = state;
   console.log(loggedIn);
-
-  const { login, logout } = useAuthActions();
-
-  useEffect(() => {
-    // login(state);
-  }, []);
 
   useEffect(() => {
     console.log(loggedIn);
@@ -47,12 +40,8 @@ export default function MainNavigation() {
         { name: "Profile", href: "/profile", current: false },
         {
           name: "Sign Out",
-          href: "/signOut",
+          href: "/signout",
           current: false,
-          action: () => {
-            logout();
-            redirect("/");
-          },
         },
       ]);
     } else {
@@ -63,10 +52,6 @@ export default function MainNavigation() {
           name: "Sign In",
           href: "/signin",
           current: false,
-          action: () => {
-            login();
-            redirect("/");
-          },
         },
       ]);
     }

@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./shared/pages/Home";
 import PageNotFound from "./shared/pages/404";
@@ -11,7 +11,6 @@ import Center from "./staff/pages/Center";
 import CreatePost from "./staff/pages/CreatePost";
 import IndividualPost from "./opportunities/pages/IndividualPost";
 import ProfilePage from "./shared/pages/Profile.js";
-import SignIn from "./shared/pages/SignIn";
 import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.js";
 
@@ -28,7 +27,42 @@ function App() {
     handleCallback();
   }, []);
 
-  const baseURL = `${process.env.REACT_APP_BACKEND_SERVER}`;
+  const LoginRedirection = () => {
+    window.location.href = `${process.env.REACT_APP_BACKEND_SERVER}/login`;
+    return null; // No need to render anything, as the redirection happens immediately
+  };
+
+  const LogoutRedirection = () => {
+    useEffect(() => {
+      const logout = async () => {
+        try {
+          const response = await fetch(
+            `${process.env.REACT_APP_BACKEND_SERVER}/logout`,
+            {
+              method: "GET",
+              credentials: "include", // to send cookies or session data
+            }
+          );
+          if (response.ok) {
+            // Clear local storage or tokens
+            localStorage.removeItem("jwt");
+            // Redirect to the homepage or login page
+            window.location.href = "/";
+          } else {
+            console.error("Failed to logout");
+          }
+        } catch (error) {
+          console.error("Error logging out:", error);
+        }
+      };
+
+      logout();
+      window.location.href = "/";
+    }, []); // Run only on component mount
+
+    // While logging out, you could return a loading message or just null
+    return null; // Since this component doesn't need to render anything
+  };
 
   return (
     <GlobalContextProvider>
@@ -48,16 +82,13 @@ function App() {
               element={<CreatePost edit={true} />}
             />
             <Route path="/post/:postID" element={<IndividualPost />} />
-            <Route path="/signInTemporary" element={<SignIn />} />
-            <Route path="/signOut" element={<Home signOut={true} />} />
-            <Route path="/signIn" element={<Home signIn={true} />} />
+
+            <Route path="/signin" element={<LoginRedirection />} />
+            <Route path="/login" element={<LoginRedirection />} />
+            <Route path="/signout" element={<LogoutRedirection />} />
+            <Route path="/logout" element={<LogoutRedirection />} />
 
             <Route path="/health" element={<p>App is Healthy</p>} />
-            <Route
-              path="/login"
-              element={<redirect to={`${baseURL}/login`} />}
-            />
-
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>

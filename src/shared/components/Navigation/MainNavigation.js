@@ -61,7 +61,7 @@ export default function MainNavigation() {
         { name: "Staff", href: "/staff", current: false },
         {
           name: "Sign In",
-          href: "/signIn",
+          href: "/signin",
           current: false,
           action: () => {
             login();

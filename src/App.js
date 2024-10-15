@@ -34,7 +34,7 @@ function App() {
     <GlobalContextProvider>
       <section>
         <MainNavigation />
-        <main className=" container-xl ">
+        <main className="container-xl p-8">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/jobs" element={<Jobs />} />

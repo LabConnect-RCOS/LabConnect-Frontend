@@ -22,6 +22,7 @@ const LargeTextCard = ({ to, title, due, pay, credits }) => {
     </Link>
   );
 };
+
 LargeTextCard.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

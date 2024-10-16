@@ -60,6 +60,7 @@ const ProfileOpportunities = ({ id }) => {
     </div>
   );
 };
+
 ProfileOpportunities.propTypes = {
   id: PropTypes.string.isRequired,
 };

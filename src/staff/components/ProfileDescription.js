@@ -14,6 +14,7 @@ const ProfileDescription = ({ name, department, description, website }) => {
     </div>
   );
 };
+
 ProfileDescription.propTypes = {
   name: PropTypes.string.isRequired,
   department: PropTypes.string,

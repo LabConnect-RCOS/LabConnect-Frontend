@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ProfileAvatar from "../../shared/components/UIElements/ProfileAvatar";
 import ProfileDescription from "../components/ProfileDescription";
 import ProfileOpportunities from "../components/ProfileOpportunities";
 import { useParams } from "react-router";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const Profile = () => {
   const { staffId } = useParams();

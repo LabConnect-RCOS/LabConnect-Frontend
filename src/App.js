@@ -5,9 +5,9 @@ import Home from "./shared/pages/Home";
 import PageNotFound from "./shared/pages/404";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Jobs from "./opportunities/pages/Jobs";
-import Browse from "./staff/pages/Browse";
+import Departments from "./staff/pages/Departments.js";
 import Profile from "./staff/pages/Profile";
-import Center from "./staff/pages/Center";
+import Department from "./staff/pages/Department.js";
 import CreatePost from "./staff/pages/CreatePost";
 import IndividualPost from "./opportunities/pages/IndividualPost";
 import ProfilePage from "./shared/pages/Profile.js";
@@ -72,9 +72,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/jobs" element={<Jobs />} />
-            <Route path="/staff" element={<Browse />} />
+
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/center/:centerName" element={<Center />} />
+            <Route
+              path="/staff/department/:department"
+              element={<Department />}
+            />
+            <Route path="/staff" element={<Departments />} />
             <Route path="/staff/:staffId" element={<Profile />} />
             <Route path="/createPost" element={<CreatePost />} />
             <Route

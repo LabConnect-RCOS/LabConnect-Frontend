@@ -22,7 +22,7 @@ const Home = ({signOut, signIn}) => {
       <section className="home-general">
         <br/><br/><br/>
         <div className="img-center">
-        <img src={logo} alt="Logo" height="289" fetchpriority="high"/>
+        <img src={logo} alt="LabConnect" height="289" fetchpriority="high"/>
 
         </div>
 
@@ -31,10 +31,11 @@ const Home = ({signOut, signIn}) => {
         <p className="text-xl">
           Welcome to LabConnect!
         </p>
+        <br/>
         <p className="text-base">
-          If you are a student, go to the <Link to="/jobs" className="no-underline"><b>Jobs</b></Link> tab to view currently available research opportunities.<br/>
-          If you are a professor or staff member, <Link className="no-underline"><b>Sign In</b></Link> and then go to <Link to="/createPost" className="no-underline"><b>Create</b></Link> to start posting <br/>
-          opportunities or <Link to="/profile" className="no-underline"><b>Profile</b></Link> to view and edit your current posts.
+          If you are a student, go to the <Link to="/jobs" className="hover-link hover:text-neutral-950"><b>Jobs</b></Link> tab to view currently available research opportunities.<br/>
+          If you are a professor or staff member, <Link className="hover-link hover:text-neutral-950"><b>Sign In</b></Link> and then go to <Link to="/createPost" className="hover-link hover:text-neutral-950"><b>Create</b></Link> to start posting <br/>
+          opportunities or <Link to="/profile" className="hover-link hover:text-neutral-950"><b>Profile</b></Link> to view and edit your current posts.
         </p>
         <br/><br/><br/>
       </section>

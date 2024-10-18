@@ -24,7 +24,7 @@ const SignIn = () => {
         <section className="signin-general">
           <br />
           <div className="img-center">
-            <img src={logo} alt="Logo" />
+            <img src={logo} alt="LabConnect" />
           </div>
           <br />
           <form
@@ -35,7 +35,7 @@ const SignIn = () => {
           >
       
           <Input
-              label="Username / RCS ID"
+              label="Username (RCSID)"
               name={"rcsid"}
               errors={errors}
               errorMessage={"RCSID must be between 2 and 9 characters"}
@@ -64,7 +64,7 @@ const SignIn = () => {
             
             <br/><br/>
       
-            <input type="submit" value="Log In" className="btn btn-primary w-full"/>
+            <input type="submit" alt="Log In" value="Log In" className="btn btn-primary w-full"/>
           </form>
         </section>
         <br/><br/><br/><br/><br/><br/><br/><br/><br/>

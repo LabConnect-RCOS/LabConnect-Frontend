@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
 const ProfileOpportunities = ({ id }) => {
-  var [opportunities, setOpportunities] = useState(false);
+  const [opportunities, setOpportunities] = useState<Array<{ id: string; title: string; due: string; pay: string; credits: string }> | null | "no response">(null);
 
   const fetchOpportunities = async () => {
     const response = await fetch(
@@ -34,7 +34,7 @@ const ProfileOpportunities = ({ id }) => {
     setData();
   }, []);
 
-  var opportunityList = (
+  const opportunityList = (
     <div className="flex gap-2 flex-wrap">
       {id &&
         opportunities &&
@@ -55,7 +55,7 @@ const ProfileOpportunities = ({ id }) => {
   return (
     <div>
       <h1>Posted Opportunties</h1>
-      {opportunities ? opportunityList : "Loading..."}
+      {opportunities !== null ? opportunityList : "Loading..."}
       {opportunities === "no response" && "No Opportunities Found"}
     </div>
   );

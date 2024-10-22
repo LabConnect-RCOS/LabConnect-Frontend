@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import ProfileAvatar from "../components/UIElements/ProfileAvatar";
-import ProfileDescription from "../../staff/components/ProfileDescription";
-import ProfileOpportunities from "../components/Profile/ProfileOpportunities";
+import ProfileAvatar from "../components/UIElements/ProfileAvatar.tsx";
+import ProfileDescription from "../../staff/components/ProfileDescription.tsx";
+import ProfileOpportunities from "../../staff/components/ProfileOpportunities.tsx";
 import EditProfile from "./EditProfile";
 import useGlobalContext from "../../context/global/useGlobalContext";
-import StickyFooter from "../components/Navigation/StickyFooter.js";
 
 const PROFILES = {
   d1: {
@@ -56,7 +55,7 @@ const ProfilePage = () => {
 
   const fetchProfile = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_SERVER}/getProfessorProfile/${id}`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/getProfessorProfile/${id}`
     );
 
     if (response) {

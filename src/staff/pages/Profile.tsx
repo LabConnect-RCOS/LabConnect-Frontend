@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ProfileAvatar from "../../shared/components/UIElements/ProfileAvatar";
-import ProfileDescription from "../components/ProfileDescription";
-import ProfileOpportunities from "../components/ProfileOpportunities";
+import ProfileAvatar from "../../shared/components/UIElements/ProfileAvatar.tsx";
+import ProfileDescription from "../components/ProfileDescription.tsx";
+import ProfileOpportunities from "../components/ProfileOpportunities.tsx";
 import { useParams } from "react-router";
 
 const Profile = () => {
   const { staffId } = useParams();
-  var [profile, setProfile] = useState(false);
+  const [profile, setProfile] = useState<{ name?: string; image?: string; department?: string; description?: string; website?: string } | "not found" | null>(null);
 
   const checkProfile = (data) => {
     return data.name && data.image && data.department && data.description;
@@ -34,19 +34,23 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  var profileComponents = (
+  const profileComponents = (
     <section className="mt-5">
       <div className="flex gap-5">
-        <ProfileAvatar name={profile.name} image={profile.image} />
-        <ProfileDescription
-          name={profile.name}
-          department={profile.department}
-          description={profile.description}
-          website={profile.website}
-          {...profile}
-        />
+        {typeof profile === "object" && profile !== null && (
+          <ProfileAvatar name={profile.name || "Unknown"} image={profile.image || ""} />
+        )}
+        {typeof profile === "object" && profile !== null && (
+          <ProfileDescription
+            name={profile.name || "Unknown"}
+            department={profile.department}
+            description={profile.description || ""}
+            website={profile.website}
+            {...profile}
+          />
+        )}
       </div>
-      <ProfileOpportunities id={staffId} />
+      {staffId && <ProfileOpportunities id={staffId} />}
     </section>
   );
 

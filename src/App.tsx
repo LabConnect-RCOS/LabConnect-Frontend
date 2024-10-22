@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./shared/pages/Home";
-import PageNotFound from "./shared/pages/404";
-import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Jobs from "./opportunities/pages/Jobs";
+import Home from "./shared/pages/Home.tsx";
+import PageNotFound from "./shared/pages/404.tsx";
+import MainNavigation from "./shared/components/Navigation/MainNavigation.js";
+import Jobs from "./opportunities/pages/Jobs.js";
 import Departments from "./staff/pages/Departments.tsx";
 import Profile from "./staff/pages/Profile.tsx";
 import Department from "./staff/pages/Department.tsx";
-import CreatePost from "./staff/pages/CreatePost";
-import IndividualPost from "./opportunities/pages/IndividualPost";
+import CreatePost from "./staff/pages/CreatePost.js";
+import IndividualPost from "./opportunities/pages/IndividualPost.js";
 import ProfilePage from "./shared/pages/Profile.js";
 import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.js";
@@ -80,7 +80,7 @@ function App() {
             />
             <Route path="/staff" element={<Departments />} />
             <Route path="/staff/:staffId" element={<Profile />} />
-            <Route path="/createPost" element={<CreatePost />} />
+            <Route path="/createPost" element={<CreatePost edit={false} />} />
             <Route
               path="/editPost/:postID"
               element={<CreatePost edit={true} />}

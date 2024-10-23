@@ -4,7 +4,7 @@ import ProfileDescription from "../components/ProfileDescription.tsx";
 import ProfileOpportunities from "../components/ProfileOpportunities.tsx";
 import { useParams } from "react-router";
 
-const Profile = () => {
+const StaffPage = () => {
   const { staffId } = useParams();
   const [profile, setProfile] = useState<{ name?: string; image?: string; department?: string; description?: string; website?: string } | "not found" | null>(null);
 
@@ -63,4 +63,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default StaffPage;

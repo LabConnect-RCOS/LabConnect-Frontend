@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./shared/pages/Home.tsx";
@@ -6,7 +6,7 @@ import PageNotFound from "./shared/pages/404.tsx";
 import MainNavigation from "./shared/components/Navigation/MainNavigation.tsx";
 import Jobs from "./opportunities/pages/Jobs.js";
 import Departments from "./staff/pages/Departments.tsx";
-import Profile from "./staff/pages/Profile.tsx";
+import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";
 import CreatePost from "./staff/pages/CreatePost.js";
 import IndividualPost from "./opportunities/pages/IndividualPost.js";
@@ -14,31 +14,22 @@ import ProfilePage from "./shared/pages/Profile.js";
 import LoginRedirection from "./auth/Login.tsx";
 import LogoutRedirection from "./auth/Logout.tsx";
 import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
-import StickyFooter from "./shared/components/Navigation/StickyFooter.js";
+import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
+import IsAuthenticated from "./auth/Auth.tsx";
+import Token from "./auth/Token.tsx";
 
 function App() {
 
-  const handleCallback = async () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
-    if (token) {
-      localStorage.setItem("jwt", token);
-      localStorage.setItem("jwt-time", new Date().getTime().toString());
-      window.location.href = "/";
-    }
-  };
-
-  useEffect(() => {
-    handleCallback();
-  }, []);
+  const authenticated = IsAuthenticated();
 
   return (
     <GlobalContextProvider>
       <section>
-        <MainNavigation />
+        <MainNavigation authenticated={authenticated} />
         <main className=" container-xl ">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/token" element={<Token />} />
             <Route path="/jobs" element={<Jobs />} />
 
             <Route path="/profile" element={<ProfilePage />} />
@@ -47,7 +38,7 @@ function App() {
               element={<Department />}
             />
             <Route path="/staff" element={<Departments />} />
-            <Route path="/staff/:staffId" element={<Profile />} />
+            <Route path="/staff/:staffId" element={<StaffPage />} />
             <Route path="/createPost" element={<CreatePost edit={false} />} />
             <Route
               path="/editPost/:postID"
@@ -64,7 +55,7 @@ function App() {
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>
-        <StickyFooter />
+        <StickyFooter authenticated={authenticated} />
       </section>
     </GlobalContextProvider>
   );

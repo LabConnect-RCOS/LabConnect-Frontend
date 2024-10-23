@@ -1,38 +1,25 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import React from "react";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { Link, NavLink, redirect } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import useGlobalContext from "../../../context/global/useGlobalContext";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import IsAuthenticated from "../../../auth/Auth.tsx";
 
 export default function MainNavigation() {
-  const state = useGlobalContext();
-
-  const { loggedIn } = state;
-  console.log(loggedIn);
-
-  useEffect(() => {
-    console.log(loggedIn);
-  }, [loggedIn]);
+  const authenticated = IsAuthenticated();
 
   const location = useLocation().pathname;
 
-  var [navigation, setNavigation] = useState([
+  const [navigation, setNavigation] = useState<Array<{ name: string; href: string; current: boolean; action?: () => void }>>([
     { name: "Jobs", href: "/jobs", current: true },
-    { name: "Create", href: "/createPost", current: false },
     { name: "Staff", href: "/staff", current: false },
-    { name: "Profile", href: "/profile", current: false },
-    { name: "Authenticate", href: "/auth", current: false },
+    { name: "Sign In", href: "/signin", current: false },
   ]);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (authenticated[1]) {
       setNavigation([
         { name: "Jobs", href: "/jobs", current: true },
         { name: "Create", href: "/createPost", current: false },
@@ -44,18 +31,8 @@ export default function MainNavigation() {
           current: false,
         },
       ]);
-    } else {
-      setNavigation([
-        { name: "Jobs", href: "/jobs", current: true },
-        { name: "Staff", href: "/staff", current: false },
-        {
-          name: "Sign In",
-          href: "/signin",
-          current: false,
-        },
-      ]);
     }
-  }, [loggedIn]);
+  },);
 
   return (
     <Disclosure as="nav" className="bg-slate-50">
@@ -88,11 +65,10 @@ export default function MainNavigation() {
                         <NavLink
                           key={item.name}
                           to={item.href}
-                          className={`${
-                            location === item.href
-                              ? "text-black"
-                              : "text-gray-600"
-                          } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
+                          className={`${location === item.href
+                            ? "text-black"
+                            : "text-gray-600"
+                            } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
                           aria-current={item.current}
                         >
                           {item.name}
@@ -101,11 +77,10 @@ export default function MainNavigation() {
                         <button
                           key={item.name}
                           onClick={item.action}
-                          className={`${
-                            location === item.href
-                              ? "text-black"
-                              : "text-gray-600"
-                          } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
+                          className={`${location === item.href
+                            ? "text-black"
+                            : "text-gray-600"
+                            } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
                           aria-current={item.current}
                         >
                           {item.name}

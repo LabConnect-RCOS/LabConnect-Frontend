@@ -1,38 +1,20 @@
 import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import IsAuthenticated from "../../../auth/Auth.tsx";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-export default function MainNavigation() {
-  const authenticated = IsAuthenticated();
+export default function MainNavigation(authenticated) {
 
   const location = useLocation().pathname;
-
-  const [navigation, setNavigation] = useState<Array<{ name: string; href: string; current: boolean; action?: () => void }>>([
-    { name: "Jobs", href: "/jobs", current: true },
-    { name: "Staff", href: "/staff", current: false },
-    { name: "Sign In", href: "/signin", current: false },
-  ]);
-
-  useEffect(() => {
-    if (authenticated[1]) {
-      setNavigation([
-        { name: "Jobs", href: "/jobs", current: true },
-        { name: "Create", href: "/createPost", current: false },
-        { name: "Staff", href: "/staff", current: false },
-        { name: "Profile", href: "/profile", current: false },
-        {
-          name: "Sign Out",
-          href: "/signout",
-          current: false,
-        },
-      ]);
-    }
-  },);
+  const routes = authenticated.authenticated[1]
+    ? [
+      { name: "Jobs", href: "/jobs", current: true },
+      { name: "Create", href: "/createPost", current: false },
+      { name: "Staff", href: "/staff", current: false },
+      { name: "Profile", href: "/profile", current: false },
+      { name: "Sign Out", href: "/signout", current: false },
+    ]
+    : [{ name: "Sign In", href: "/signin", current: false }];
 
   return (
     <Disclosure as="nav" className="bg-slate-50">
@@ -60,33 +42,19 @@ export default function MainNavigation() {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4 ">
-                    {navigation.map((item) =>
-                      !item.action ? (
-                        <NavLink
-                          key={item.name}
-                          to={item.href}
-                          className={`${location === item.href
-                            ? "text-black"
-                            : "text-gray-600"
-                            } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
-                          aria-current={item.current}
-                        >
-                          {item.name}
-                        </NavLink>
-                      ) : (
-                        <button
-                          key={item.name}
-                          onClick={item.action}
-                          className={`${location === item.href
-                            ? "text-black"
-                            : "text-gray-600"
-                            } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
-                          aria-current={item.current}
-                        >
-                          {item.name}
-                        </button>
-                      )
-                    )}
+                    {routes.map((item) => (
+                      <NavLink
+                        key={item.name}
+                        to={item.href}
+                        className={`${location === item.href
+                          ? "text-black"
+                          : "text-gray-600"
+                          } hover:text-gray-800  hover:bg-gray-200  mainnav-link`}
+                        aria-current={item.current}
+                      >
+                        {item.name}
+                      </NavLink>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -95,7 +63,7 @@ export default function MainNavigation() {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+              {routes.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"

@@ -29,8 +29,6 @@ const Department = () => {
     }
   };
 
-  console.log(departmentstate);
-
   useEffect(() => {
     fetchDepartment();
   }, []);

@@ -10,7 +10,7 @@ import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";
 import CreatePost from "./staff/pages/CreatePost.js";
 import IndividualPost from "./opportunities/pages/IndividualPost.js";
-import ProfilePage from "./shared/pages/Profile.js";
+import ProfilePage from "./shared/pages/Profile.tsx";
 import LoginRedirection from "./auth/Login.tsx";
 import LogoutRedirection from "./auth/Logout.tsx";
 import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";

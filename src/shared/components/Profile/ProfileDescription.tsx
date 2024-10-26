@@ -8,9 +8,11 @@ const ProfileDescription = ({ name, department, description, website }) => {
       <h2 className="font-extrabold text-5xl">{name}</h2>
       <h5 className="text-gray-700">{department}</h5>
       <p>{description}</p>
-      <Link to={website} target="_blank">
-        {website}
-      </Link>
+      {website && website.length && (
+        <Link to={website} target="_blank">
+          {website}
+        </Link>
+      )}
     </div>
   );
 };

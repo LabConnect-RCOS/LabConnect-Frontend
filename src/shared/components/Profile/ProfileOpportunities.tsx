@@ -1,5 +1,5 @@
 import React from "react";
-import LargeTextCard from "./LargeTextCard";
+import LargeTextCard from "../UIElements/LargeTextCard.tsx";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 

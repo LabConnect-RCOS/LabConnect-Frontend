@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import DepartmentItems from "../components/DepartmentItems.tsx";
 import ErrorComponent from "../../shared/components/UIElements/Error.tsx";
 
-const Departments = () => {
+const Departments = (authenticated) => {
+  if (!authenticated.authenticated[1]) {
+    window.location.href = "/login";
+  }
+
   const [departments, setDepartments] = useState<
     { id: string; department_id: string; title: string; image: string }[] | string | null
   >(null);
@@ -10,7 +14,11 @@ const Departments = () => {
   const fetchDepartments = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/departments`
+        `${process.env.REACT_APP_BACKEND_SERVER}/departments`, {
+        headers: {
+          Authorization: `Bearer ${authenticated.authenticated[0]}`,
+        },
+      }
       );
 
       if (!response.ok) {

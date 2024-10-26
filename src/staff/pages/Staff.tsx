@@ -4,7 +4,11 @@ import ProfileDescription from "../components/ProfileDescription.tsx";
 import ProfileOpportunities from "../components/ProfileOpportunities.tsx";
 import { useParams } from "react-router";
 
-const StaffPage = () => {
+const StaffPage = (authenticated) => {
+  if (!authenticated.authenticated[1]) {
+    window.location.href = "/login";
+  }
+
   const { staffId } = useParams();
   const [profile, setProfile] = useState<{ name?: string; image?: string; department?: string; description?: string; website?: string } | "not found" | null>(null);
 
@@ -14,7 +18,11 @@ const StaffPage = () => {
 
   const fetchProfile = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`
+      `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`, {
+      headers: {
+        Authorization: `Bearer ${authenticated.authenticated[0]}`,
+      },
+    }
     );
 
     if (!response.ok) {

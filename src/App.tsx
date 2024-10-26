@@ -29,16 +29,21 @@ function App() {
         <main className=" container-xl ">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/health" element={<p>App is Healthy</p>} />
             <Route path="/token" element={<Token />} />
-            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/signin" element={<LoginRedirection />} />
+            <Route path="/login" element={<LoginRedirection />} />
+            <Route path="/signout" element={<LogoutRedirection authenticated={authenticated} />} />
+            <Route path="/logout" element={<LogoutRedirection authenticated={authenticated} />} />
 
+            <Route path="/jobs" element={<Jobs />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route
               path="/staff/department/:department"
-              element={<Department />}
+              element={<Department authenticated={authenticated} />}
             />
-            <Route path="/staff" element={<Departments />} />
-            <Route path="/staff/:staffId" element={<StaffPage />} />
+            <Route path="/staff" element={<Departments authenticated={authenticated} />} />
+            <Route path="/staff/:staffId" element={<StaffPage authenticated={authenticated} />} />
             <Route path="/createPost" element={<CreatePost edit={false} />} />
             <Route
               path="/editPost/:postID"
@@ -46,12 +51,6 @@ function App() {
             />
             <Route path="/post/:postID" element={<IndividualPost />} />
 
-            <Route path="/signin" element={<LoginRedirection />} />
-            <Route path="/login" element={<LoginRedirection />} />
-            <Route path="/signout" element={<LogoutRedirection />} />
-            <Route path="/logout" element={<LogoutRedirection />} />
-
-            <Route path="/health" element={<p>App is Healthy</p>} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>

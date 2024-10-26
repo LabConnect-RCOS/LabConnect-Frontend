@@ -4,13 +4,21 @@ import Breadcrumb from "../../shared/components/UIElements/Breadcrumb.tsx";
 import DepartmentHeading from "../components/DepartmentHeading.tsx";
 import DepartmentStaff from "../components/DepartmentStaff.tsx";
 
-const Department = () => {
+const Department = (authenticated) => {
+  if (!authenticated.authenticated[1]) {
+    window.location.href = "/login";
+  }
+
   const { department } = useParams();
   const [departmentstate, setDepartmentstate] = useState<false | "not found" | { name: string; description: string; image: string; staff: { id: string; name: string; role: string; image: string; }[] }>(false);
 
   const fetchDepartment = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_SERVER}/departments/${department}`
+      `${process.env.REACT_APP_BACKEND_SERVER}/departments/${department}`, {
+      headers: {
+        Authorization: `Bearer ${authenticated.authenticated[0]}`,
+      },
+    }
     );
 
     if (!response.ok) {

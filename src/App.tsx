@@ -30,7 +30,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/health" element={<p>App is Healthy</p>} />
-            <Route path="/token" element={<Token />} />
+            <Route path="/callback" element={<Token />} />
             <Route path="/signin" element={<LoginRedirection />} />
             <Route path="/login" element={<LoginRedirection />} />
             <Route path="/signout" element={<LogoutRedirection authenticated={authenticated} />} />

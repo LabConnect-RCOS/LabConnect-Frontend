@@ -33,14 +33,14 @@ export default function StickyFooter(authenticated) {
             <p className="text-base">
               <Link
                 to="https://discord.gg/STtGsX86"
-                className="stickyfooter-link hover:text-neutral-950"
+                className="hover-link hover:text-neutral-950"
               >
                 Discord
               </Link>
               <br />
               <Link
                 to="https://github.com/LabConnect-RCOS"
-                className="stickyfooter-link hover:text-neutral-950"
+                className="hover-link hover:text-neutral-950"
               >
                 GitHub
               </Link>

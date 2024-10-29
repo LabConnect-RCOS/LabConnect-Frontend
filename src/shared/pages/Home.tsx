@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import logo from "../../images/LabConnect_Logo.png";
-console.log(logo);
+import logo from "../../images/LabConnect_Logo2.webp";
 
 const Home = () => {
   return (
@@ -12,7 +10,7 @@ const Home = () => {
         <br />
         <br />
         <div className="img-center">
-          <img src={logo} alt="Logo" />
+          <img src={logo} alt="Logo" height="289" />
         </div>
 
         <br />

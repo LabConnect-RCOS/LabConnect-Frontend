@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../images/LabConnect_Logo.png";
+import logo from "../../../images/LabConnect_Logo.webp";
 
 export default function StickyFooter(authenticated) {
 
@@ -18,13 +18,13 @@ export default function StickyFooter(authenticated) {
     <section className="stickyfooter-general">
       <p className="stickyfooter-header">
         Made by{" "}
-        <Link to="https://new.rcos.io" className="no-underline text-red-400">
+        <Link to="https://new.rcos.io" className="no-underline text-red-600 hover:text-red-800">
           RCOS
         </Link>
       </p>
       <div className="stickyfooter-info">
         <div className="pb-3">
-          <img src={logo} alt="Logo" className="h-32 w-36"></img>
+        <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
         </div>
 
         <div className="w-40">
@@ -56,7 +56,7 @@ export default function StickyFooter(authenticated) {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="stickyfooter-link hover:text-neutral-950"
+                  className="hover-link hover:text-neutral-950"
                   aria-current={item.current}
                 >
                   {item.name}

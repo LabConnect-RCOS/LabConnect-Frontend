@@ -17,7 +17,7 @@ export default function MainNavigation(authenticated) {
     : [{ name: "Sign In", href: "/signin", current: false }];
 
   return (
-    <Disclosure as="nav" className="bg-slate-50">
+    <Disclosure as="nav" className="bg-slate-100">
       {({ open }) => (
         <>
           <div className="mainnav sm:px-6 lg:px-8">
@@ -36,7 +36,7 @@ export default function MainNavigation(authenticated) {
               </div>
               <div className="mainnav-desc2 sm:items-stretch sm:justify-start">
                 <div className="mainnav-title-link">
-                  <Link to="/" className="no-underline">
+                  <Link to="/" className="no-underline text-blue-700">
                     Labconnect
                   </Link>
                 </div>

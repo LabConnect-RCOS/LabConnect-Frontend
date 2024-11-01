@@ -1,0 +1,125 @@
+Introduction to React Hooks
+
+Notes based on https://www.youtube.com/watch?v=LlvBzyy-558
+
+UseState
+    const [counter, setCounter] = useState(initial_val);
+
+    -counter is a variable that is immutable unless setCounter is used
+        -i.e. setCounter(counter + 1) tied to an onClick button increments counter when button is pressed
+    -this updates the webpage when counter is changed instead of only rendering the var whern first loaded
+
+
+UseReducer
+    const [state, dispatch] = useReducer(reducer, {var1: val, var2: val... etc.});
+    const reducer = (state, action) => {
+        switch(action.type) {
+            case X:
+                code;
+                return {var1: state.var1, var2: state.var2...}
+            case Y:
+                code;
+                return {var1: state.var1, var2: state.var2...}
+            default:
+                return state;
+        }
+    }
+
+    -useReducer is used as a multivariable useState, reducer is a function that changes the variables
+    -state.varX = current value of varX, returns in reducer return every variable even if unchanged
+    -can call case actions in reducer by using: dispath({type: "case"}) where case is the action name
+
+
+UseEffect
+    useEffect(( =>) {
+        function;
+    },[list of states to listen to]);
+
+    -useEffect is called whenever the page rerenders, including refreshes and state changes
+    -useful with useState for sending response out
+        -i.e. data, setData useState and data gets set to response in useEffect
+
+
+UseRef
+    const nameRef - useRef(null);
+
+    -adding ref={nameRef} as an attr of an input lets you access the current input
+    -useful for accessing attributes of the element
+        -can access current value of the input is accessed with: nameRef.current.value;
+        -can focus on an input field using: nameRef.current.focus();
+        -can empty input field using: inputRef.current.value = "";
+    -useful for input submissions, signIn page?
+
+
+UseLayoutEffect
+    useLayoutEffect(( =>) {
+            function;
+        },[list of states to listen to]);
+    
+    -called before page renders
+    -can be useful for changes layout of application before being presented to user
+    -otherwise similar to useEffect
+
+
+UseImperativeHandle
+    CHILD.js
+    import React, { forwardRef, useImperativeHandle } from "react";
+    const Child = forwardRef((ref) => {
+        useImperativeHandle(ref, () => ({
+            FUNC_NAME() {
+                function;
+            },
+        }));
+
+        code;
+    })
+
+    PARENT.js
+    function Parent() {
+        const childRef = useRef(null);
+        return (
+            <Child ref={childRef} />
+            <button onClick=() => {childRef.current.FUNC_NAME}
+        )
+    }
+
+    -lets a parent component alter the state in a child component
+        -i.e. child can have a state that is changed in FUNC_NAME, which can be called from the main component
+
+
+UseContext
+    PARENT.js
+    import React, { createContext } from "react";
+    export const Context = createContext(null);
+
+    function Parent() {
+        return (
+            <Context.Provider value={{states}}>
+                components in here will have access to Context states
+            </ Context.Provider>
+        )
+    }
+
+    CHILD.js
+    import {Context} from "./Parent";
+
+    const {states} = useContext(Context);
+
+    -uses Context API
+    -useful when trying to pass numerous states as props
+    -Context is essentially a collection of states
+
+
+UseMemo
+    not needed
+
+    essentially only performs computations once instead of a seperate function that would be 
+    run every time page is rerendered / state changes, would make it more efficient
+
+UseCallback
+    similar to useMemo
+    
+    when functions are passed into child components they will get
+    rerendered on refreshes and state changes in the file that the function originates,
+    useful for making the function more efficient in that specific case
+  

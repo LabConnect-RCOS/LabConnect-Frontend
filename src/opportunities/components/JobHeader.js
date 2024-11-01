@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "../../shared/components/UIElements/Avatar";
+import Avatar from "../../shared/components/UIElements/Avatar.tsx";
 
 const JobHeader = ({ title, img, author, department }) => {
   return (

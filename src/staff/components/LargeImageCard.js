@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const LargeImageCard = ({ to, image, title }) => {
   return (
@@ -14,6 +15,12 @@ const LargeImageCard = ({ to, image, title }) => {
       </div>
     </Link>
   );
+};
+
+LargeImageCard.propTypes = {
+  to: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default LargeImageCard;

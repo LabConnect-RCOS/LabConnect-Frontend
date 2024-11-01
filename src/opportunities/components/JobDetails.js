@@ -1,7 +1,10 @@
 import React from "react";
+import Avatar from "../../shared/components/UIElements/Avatar";
 import AboutSection from "./AboutSection";
 import JobHeader from "./JobHeader";
 import JobDescription from "./JobDescription";
+import SmallTextButton from "./SmallTextButton";
+import JobInteractionButton from "./JobInteractionButton";
 
 const JobDetails = ({
   name,

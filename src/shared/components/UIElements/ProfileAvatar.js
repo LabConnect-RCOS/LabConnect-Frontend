@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileAvatar: React.FC<{ image: string, name: string }> = ({ image, name }) => {
+const ProfileAvatar = ({image, name}) => {
   return (
     <div className="avatar">
       <div className="profileavatar lg:w-36">

@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/LabConnect_Logo2.webp";
+import SEO from "../components/SEO.tsx";
 
 const Home = () => {
   return (
     <section>
+      <SEO title="Labconnect" description="Labconnect home page" />
       <section className="home-general">
         <br />
         <br />

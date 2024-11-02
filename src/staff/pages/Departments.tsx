@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DepartmentItems from "../components/DepartmentItems.tsx";
 import ErrorComponent from "../../shared/components/UIElements/Error.tsx";
+import SEO from "../../shared/components/SEO.tsx";
 
 const Departments = (authenticated) => {
   if (!authenticated.authenticated[1]) {
@@ -44,6 +45,7 @@ const Departments = (authenticated) => {
 
   return (
     <>
+      <SEO title="Departments - Labconnect" description="Labconnect departments page" />
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
         Departments
       </h1>

@@ -3,6 +3,7 @@ import ProfileAvatar from "../../shared/components/UIElements/ProfileAvatar.tsx"
 import ProfileDescription from "../components/ProfileDescription.tsx";
 import ProfileOpportunities from "../components/ProfileOpportunities.tsx";
 import { useParams } from "react-router";
+import SEO from "../../shared/components/SEO.tsx";
 
 const StaffPage = (authenticated) => {
   if (!authenticated.authenticated[1]) {
@@ -64,6 +65,7 @@ const StaffPage = (authenticated) => {
 
   return (
     <>
+      <SEO title="Staff - Labconnect" description="Labconnect staff page" />
       {!profile && "Loading..."}
       {typeof profile === "object" && profileComponents}
       {profile === "not found" && "Profile not found"}

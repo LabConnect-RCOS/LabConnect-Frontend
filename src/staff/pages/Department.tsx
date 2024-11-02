@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import Breadcrumb from "../../shared/components/UIElements/Breadcrumb.tsx";
 import DepartmentHeading from "../components/DepartmentHeading.tsx";
 import DepartmentStaff from "../components/DepartmentStaff.tsx";
+import SEO from "../../shared/components/SEO.tsx";
 
 const Department = (authenticated) => {
   if (!authenticated.authenticated[1]) {
@@ -58,6 +59,7 @@ const Department = (authenticated) => {
 
   return (
     <section className="center container-xl">
+      <SEO title={`${department} - Labconnect`} description={`${department} page on labconnect`} />
       <Breadcrumb
         tree={[
           {

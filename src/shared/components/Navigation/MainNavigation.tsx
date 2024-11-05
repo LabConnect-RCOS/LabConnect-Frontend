@@ -9,7 +9,7 @@ export default function MainNavigation(authenticated) {
   const routes = authenticated.authenticated[1]
     ? [
       { name: "Jobs", href: "/jobs", current: true },
-      { name: "Create", href: "/createPost", current: false },
+      { name: "Create", href: "/create", current: false },
       { name: "Staff", href: "/staff", current: false },
       { name: "Profile", href: "/profile", current: false },
       { name: "Sign Out", href: "/signout", current: false },

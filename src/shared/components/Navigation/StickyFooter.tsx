@@ -7,7 +7,7 @@ export default function StickyFooter(authenticated) {
   const routes = authenticated.authenticated[1]
     ? [
       { name: "Jobs", href: "/jobs", current: true },
-      { name: "Create", href: "/createPost", current: false },
+      { name: "Create", href: "/create", current: false },
       { name: "Staff", href: "/staff", current: false },
       { name: "Profile", href: "/profile", current: false },
       { name: "Sign Out", href: "/signout", current: false },
@@ -24,7 +24,7 @@ export default function StickyFooter(authenticated) {
       </p>
       <div className="stickyfooter-info">
         <div className="pb-3">
-        <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
+          <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
         </div>
 
         <div className="w-40">

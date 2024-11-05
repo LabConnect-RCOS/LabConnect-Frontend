@@ -13,24 +13,24 @@ import IndividualPost from "./opportunities/pages/IndividualPost.js";
 import ProfilePage from "./shared/pages/Profile.js";
 import LoginRedirection from "./auth/Login.tsx";
 import LogoutRedirection from "./auth/Logout.tsx";
-import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
 import IsAuthenticated from "./auth/Auth.tsx";
 import Token from "./auth/Token.tsx";
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
 
   const authenticated = IsAuthenticated();
 
   return (
-    <GlobalContextProvider>
+    <HelmetProvider>
       <section>
         <MainNavigation authenticated={authenticated} />
         <main className="container-xl p-8">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/health" element={<p>App is Healthy</p>} />
-            <Route path="/token" element={<Token />} />
+            <Route path="/callback" element={<Token />} />
             <Route path="/signin" element={<LoginRedirection />} />
             <Route path="/login" element={<LoginRedirection />} />
             <Route path="/signout" element={<LogoutRedirection authenticated={authenticated} />} />
@@ -56,7 +56,7 @@ function App() {
         </main>
         <StickyFooter authenticated={authenticated} />
       </section>
-    </GlobalContextProvider>
+    </HelmetProvider>
   );
 }
 

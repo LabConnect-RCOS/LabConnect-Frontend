@@ -15,11 +15,10 @@ const logout = async (token: string) => {
         if (response.ok) {
             // Clear local storage or tokens
             localStorage.removeItem("jwt");
-            localStorage.removeItem("jwt-time");
 
             // Redirect to the homepage or login page
             const intervalId = setInterval(() => {
-                if (!localStorage.getItem("jwt") && !localStorage.getItem("jwt-time")) {
+                if (!localStorage.getItem("jwt")) {
                     clearInterval(intervalId);  // Clear the interval once condition is met
                     window.location.href = "/";
                 }

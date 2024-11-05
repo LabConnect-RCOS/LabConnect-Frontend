@@ -16,12 +16,13 @@ export default function StickyFooter(authenticated) {
 
   return (
     <section className="stickyfooter-general">
-      <p className="stickyfooter-header">
+      <h1 className="stickyfooter-header">
         Made by{" "}
-        <Link to="https://new.rcos.io" className="no-underline text-red-600 hover:text-red-800">
+        <Link to="https://new.rcos.io" className="no-underline text-red-600 hover:text-red-800 focus:text-red-800">
           RCOS
         </Link>
-      </p>
+      </h1>
+      <br />
       <div className="stickyfooter-info">
         <div className="pb-3">
         <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
@@ -32,15 +33,15 @@ export default function StickyFooter(authenticated) {
             <b>Contact Us</b>
             <p className="text-base">
               <Link
-                to="https://discord.gg/STtGsX86"
-                className="hover-link hover:text-neutral-950"
+                to="https://discord.gg/tsaxCKjYHT"
+                className="grey-link hover:text-neutral-950 focus:text-neutral-950"
               >
                 Discord
               </Link>
               <br />
               <Link
                 to="https://github.com/LabConnect-RCOS"
-                className="hover-link hover:text-neutral-950"
+                className="grey-link hover:text-neutral-950 focus:text-neutral-950"
               >
                 GitHub
               </Link>
@@ -56,7 +57,7 @@ export default function StickyFooter(authenticated) {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="hover-link hover:text-neutral-950"
+                  className="grey-link hover:text-neutral-950 focus:text-neutral-950"
                   aria-current={item.current}
                 >
                   {item.name}

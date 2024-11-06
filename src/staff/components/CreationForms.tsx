@@ -134,6 +134,40 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
 
   const submitHandler = (data) => {
     console.log({ ...data });
+    if (edit) {
+      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ...data }),
+      }).then((response) => {
+        if (response.ok) {
+          alert("Successfully updated");
+          window.location.href = `/opportunity/${postID}`;
+        } else {
+          alert("Failed to update");
+        }
+      });
+    } else {
+      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/createOpportunity`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ...data }),
+      }).then((response) => {
+        if (response.ok) {
+          alert("Successfully created");
+          const data_response = response.json()
+          window.location.href = `/opportunity/${data_response["id"]}`;
+        } else {
+          alert("Failed to create");
+        }
+      });
+    }
   };
 
   return loading === false && departments != null && years != null ? (

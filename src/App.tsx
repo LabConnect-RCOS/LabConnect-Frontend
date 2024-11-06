@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./style/App.css";
 import Home from "./shared/pages/Home.tsx";
 import PageNotFound from "./shared/pages/404.tsx";
 import MainNavigation from "./shared/components/Navigation/MainNavigation.tsx";
@@ -13,32 +13,37 @@ import IndividualPost from "./opportunities/pages/IndividualPost.js";
 import ProfilePage from "./shared/pages/Profile.tsx";
 import LoginRedirection from "./auth/Login.tsx";
 import LogoutRedirection from "./auth/Logout.tsx";
-import { GlobalContextProvider } from "./context/global/GlobalContextProvider.js";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
 import IsAuthenticated from "./auth/Auth.tsx";
 import Token from "./auth/Token.tsx";
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
 
   const authenticated = IsAuthenticated();
 
   return (
-    <GlobalContextProvider>
+    <HelmetProvider>
       <section>
         <MainNavigation authenticated={authenticated} />
-        <main className=" container-xl ">
+        <main className="container-xl p-8">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/token" element={<Token />} />
-            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/health" element={<p>App is Healthy</p>} />
+            <Route path="/callback" element={<Token />} />
+            <Route path="/signin" element={<LoginRedirection />} />
+            <Route path="/login" element={<LoginRedirection />} />
+            <Route path="/signout" element={<LogoutRedirection authenticated={authenticated} />} />
+            <Route path="/logout" element={<LogoutRedirection authenticated={authenticated} />} />
 
+            <Route path="/jobs" element={<Jobs />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route
               path="/staff/department/:department"
-              element={<Department />}
+              element={<Department authenticated={authenticated} />}
             />
-            <Route path="/staff" element={<Departments />} />
-            <Route path="/staff/:staffId" element={<StaffPage />} />
+            <Route path="/staff" element={<Departments authenticated={authenticated} />} />
+            <Route path="/staff/:staffId" element={<StaffPage authenticated={authenticated} />} />
             <Route path="/createPost" element={<CreatePost edit={false} />} />
             <Route
               path="/editPost/:postID"
@@ -46,18 +51,12 @@ function App() {
             />
             <Route path="/post/:postID" element={<IndividualPost />} />
 
-            <Route path="/signin" element={<LoginRedirection />} />
-            <Route path="/login" element={<LoginRedirection />} />
-            <Route path="/signout" element={<LogoutRedirection />} />
-            <Route path="/logout" element={<LogoutRedirection />} />
-
-            <Route path="/health" element={<p>App is Healthy</p>} />
             <Route path="/*" element={<PageNotFound />} />
           </Routes>
         </main>
         <StickyFooter authenticated={authenticated} />
       </section>
-    </GlobalContextProvider>
+    </HelmetProvider>
   );
 }
 

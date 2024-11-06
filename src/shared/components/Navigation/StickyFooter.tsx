@@ -47,26 +47,21 @@ export default function StickyFooter(authenticated) {
               <br />
             </p>
           </p>
+          {routes.map((item) => (
+            <React.Fragment key={item.name}>
+              <Link
+                to={item.href}
+                className="hover-link hover:text-neutral-950"
+                aria-current={item.current}
+              >
+                {item.name}
+              </Link>
+              <br />
+            </React.Fragment>
+          ))}
+          <br />
         </div>
-        <div className="w-40 text-base">
-          <b>Additional Pages</b>
-          <p>
-            {routes.map((item) => (
-              <>
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="hover-link hover:text-neutral-950"
-                  aria-current={item.current}
-                >
-                  {item.name}
-                </Link>
-                <br />
-              </>
-            ))}
-          </p>
-        </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }

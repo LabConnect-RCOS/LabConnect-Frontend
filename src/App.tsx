@@ -44,10 +44,10 @@ function App() {
             />
             <Route path="/staff" element={<Departments authenticated={authenticated} />} />
             <Route path="/staff/:staffId" element={<StaffPage authenticated={authenticated} />} />
-            <Route path="/create" element={<CreatePost edit={false} />} />
+            <Route path="/create" element={<CreatePost edit={false} authenticated={authenticated} />} />
             <Route
               path="/edit/:postID"
-              element={<CreatePost edit={true} />}
+              element={<CreatePost edit={true} authenticated={authenticated} />}
             />
             <Route path="/post/:postID" element={<IndividualPost />} />
 

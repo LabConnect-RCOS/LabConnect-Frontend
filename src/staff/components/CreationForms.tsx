@@ -4,43 +4,102 @@ import { useEffect } from "react";
 import CheckBox from "./Checkbox";
 import Input from "./Input";
 import { useParams } from "react-router";
-import useGlobalContext from "../../context/global/useGlobalContext";
 
-const DUMMY_DATA = {
-  "d1": {
-    id: "d1",
-    title: "Software Intern",
-    department: "Computer Science",
-    location: "Remote",
-    date: "2024-02-08",
-    type: "For Pay",  // New field for type
-    hourlyPay: 0,
-    credits: 0,
-    description: "This is a software internship",
-    years: ["Freshman", "Junior", "Senior"],
-  },
-};
+interface CreationFormsProps {
+  edit: boolean;
+  token: string;
+}
 
-const CreationForms = () => {
+const locations = [
+  "TBD",
+  "Amos Eaton",
+  "Carnegie",
+  "Center for Biotechnology and Interdisciplinary Studies",
+  "Center for Computational Innovations",
+  "Low Center for Industrial Innovation (CII)",
+  "Cogswell Laboratory",
+  "Darrin Communications Center",
+  "Experimental Media and Performing Arts Center",
+  "Greene Library",
+  "Jonsson Engineering Center",
+  "Jonsson-Rowland Science Center",
+  "Lally Hall",
+  "LINAC Facility (Gaerttner Laboratory)",
+  "Materials Research Center",
+  "Pittsburgh Building",
+  "Ricketts Building",
+  "Russell Sage Laboratory",
+  "Voorhees Computing Center",
+  "Walker Laboratory",
+  "West Hall",
+  "Winslow Building",
+  "Remote"
+]
+
+const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
   const { postID } = useParams();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
-  const state = useGlobalContext();
-  const { loggedIn } = state;
-  const { id: authorId } = state;
+  const [departments, setDepartments] = useState(null);
+  const [years, setYears] = useState(null);
 
-  async function fetchDetails(key) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(DUMMY_DATA[key]);
-      }, 5000);
-    });
+  async function fetchDetails() {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    );
+    if (!response.ok) {
+      return null;
+    }
+    return await response.json();
   }
 
-  async function fetchData(key) {
-    const response = await fetchDetails(key);
-    response && reset(response);
-    response ? setLoading(false) : setLoading("no response");
+  async function fetchEditData() {
+    const response = await fetchDetails();
+    if (response) {
+      const { id, title, date, type, hourlyPay, credits, description } = response;
+      reset({
+        id,
+        title,
+        date,
+        type,
+        hourlyPay,
+        credits,
+        description,
+      });
+      setLoading(false);
+    } else {
+      console.log("No response");
+      setLoading("no response");
+    }
+  }
+
+  async function fetchDepartments() {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/departments`)
+
+    if (response.ok) {
+      const data = await response.json();
+      const department_data = data.map(item => item.title);
+      setDepartments(department_data);
+    } else {
+      console.log("No response departments");
+      setLoading("no response");
+    }
+  }
+
+  async function fetchYears() {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`)
+
+    if (response.ok) {
+      const data = await response.json();
+      setYears(data);
+    } else {
+      console.log("No response for years");
+      setLoading("no response");
+    }
   }
 
   const {
@@ -52,29 +111,32 @@ const CreationForms = () => {
     defaultValues: {
       id: "",
       title: "",
-      department: "",
-      location: "",
       date: "",
       type: "For Pay", // Default to "For Pay"
       hourlyPay: 0,
       credits: [],
       description: "",
+      department: "",
+      location: "",
       years: [""],
     },
   });
 
   useEffect(() => {
-    postID && setLoading(true);
-    postID && fetchData(postID);
+    fetchDepartments();
+    fetchYears();
+    if (edit) {
+      fetchEditData();
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   const submitHandler = (data) => {
-    if (authorId) {
-      console.log({ ...data, authorId });
-    }
+    console.log({ ...data });
   };
 
-  return !loading ? (
+  return loading === false && departments != null && years != null ? (
     <form
       onSubmit={handleSubmit((data) => {
         submitHandler(data);
@@ -95,6 +157,9 @@ const CreationForms = () => {
               maxLength: 100,
             }),
           }}
+          type="text"
+          options={[]}
+          placeHolder="Enter title"
         />
 
         <Input
@@ -102,29 +167,29 @@ const CreationForms = () => {
           label="Department"
           name={"department"}
           type="select"
-          options={["Computer Science", "Biology", "Physics"]}
-          errorMessage={"Department must be at least 3 characters"}
+          options={departments}
+          errorMessage={"Department is required"}
           formHook={{
             ...register("department", {
               required: true,
-              minLength: 3,
-              maxLength: 40,
             }),
           }}
+          placeHolder="Select department"
         />
 
         <Input
           errors={errors}
           label="Location"
           name={"location"}
-          errorMessage={"Location must be at least 5 characters"}
+          type="select"
+          options={locations}
+          errorMessage={"Location is required"}
           formHook={{
             ...register("location", {
               required: true,
-              minLength: 5,
-              maxLength: 100,
             }),
           }}
+          placeHolder="Select department"
         />
 
         <Input
@@ -134,6 +199,8 @@ const CreationForms = () => {
           errorMessage={"Due Date is required"}
           formHook={{ ...register("date", { required: true }) }}
           type="date"
+          placeHolder={"Select Due Date"}
+          options={[]}
         />
       </div>
 
@@ -168,7 +235,7 @@ const CreationForms = () => {
             checked={compensationType === "Any"}
             onChange={() => setCompensationType("Any")}
           />
-          <label className="pl-2">Any</label>
+          <label className="pl-2">Both</label>
         </div>
       </div>
 
@@ -187,6 +254,8 @@ const CreationForms = () => {
               }),
             }}
             type="number"
+            options={[]}
+            placeHolder="Enter hourly pay"
           />
         ) : null}
 
@@ -197,6 +266,7 @@ const CreationForms = () => {
             errors={errors}
             errorMessage={"You must select at least one credit option"}
             name={"credits"}
+            type="checkbox"
             formHook={{
               ...register("credits", {
                 required: compensationType === "For Credit", // Credits required only if "For Credit"
@@ -210,11 +280,12 @@ const CreationForms = () => {
       <div className="horizontal-form">
         <CheckBox
           label="Eligible Class Years"
-          options={["Freshman", "Sophomore", "Junior", "Senior"]}
+          options={years}
           errors={errors}
           errorMessage={"At least one year must be selected"}
           name={"years"}
           formHook={{ ...register("years", { required: true }) }}
+          type="checkbox"
         />
 
         <Input
@@ -226,10 +297,11 @@ const CreationForms = () => {
             ...register("description", {
               required: true,
               minLength: 10,
-              message: "Description must be at least 10 characters",
             }),
           }}
           type="textarea"
+          options={[]}
+          placeHolder="Enter description"
         />
       </div>
 
@@ -241,7 +313,7 @@ const CreationForms = () => {
   ) : loading === "no response" ? (
     <h1>There was no response</h1>
   ) : (
-    <span className="lc-loading" />
+    <h1>Loading...</h1>
   );
 };
 

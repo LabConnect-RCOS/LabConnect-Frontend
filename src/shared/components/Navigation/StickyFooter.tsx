@@ -22,13 +22,13 @@ export default function StickyFooter(authenticated) {
           RCOS
         </Link>
       </p>
-      <div className="stickyfooter-info">
+      <div className="stickyfooter-info mt-5">
         <div className="pb-3">
           <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
         </div>
 
         <div className="w-40">
-          <p>
+          <div>
             <b>Contact Us</b>
             <p className="text-base">
               <Link
@@ -46,7 +46,11 @@ export default function StickyFooter(authenticated) {
               </Link>
               <br />
             </p>
-          </p>
+          </div>
+        </div>
+        <div>
+          <b>Resources</b>
+          <br />
           {routes.map((item) => (
             <React.Fragment key={item.name}>
               <Link
@@ -59,7 +63,6 @@ export default function StickyFooter(authenticated) {
               <br />
             </React.Fragment>
           ))}
-          <br />
         </div>
       </div >
     </section >

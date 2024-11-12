@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import CheckBox from "./Checkbox";
+import CheckBox from "./Checkbox.tsx";
 import Input from "./Input";
 import { useParams } from "react-router";
 
@@ -41,7 +41,7 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
   const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
   const [departments, setDepartments] = useState(null);
-  const [years, setYears] = useState(null);
+  const [years, setYears] = useState<string[]>([]);
 
   async function fetchDetails() {
     const response = await fetch(
@@ -59,16 +59,19 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
 
   async function fetchEditData() {
     const response = await fetchDetails();
-    if (response) {
-      const { id, title, date, type, hourlyPay, credits, description } = response;
+    if (response.ok) {
+      const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = response.json;
       reset({
         id,
         title,
-        date,
+        application_due,
         type,
         hourlyPay,
         credits,
         description,
+        recommended_experience,
+        location,
+        years,
       });
       setLoading(false);
     } else {
@@ -111,11 +114,12 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
     defaultValues: {
       id: "",
       title: "",
-      date: "",
+      application_due: "",
       type: "For Pay", // Default to "For Pay"
       hourlyPay: 0,
       credits: [],
       description: "",
+      recommended_experience: "",
       department: "",
       location: "",
       years: [""],
@@ -165,6 +169,7 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
           window.location.href = `/opportunity/${data_response["id"]}`;
         } else {
           alert("Failed to create");
+          console.log(response);
         }
       });
     }
@@ -229,9 +234,9 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
         <Input
           errors={errors}
           label="Due Date"
-          name={"date"}
+          name={"application_due"}
           errorMessage={"Due Date is required"}
-          formHook={{ ...register("date", { required: true }) }}
+          formHook={{ ...register("application_due", { required: true }) }}
           type="date"
           placeHolder={"Select Due Date"}
           options={[]}
@@ -296,7 +301,7 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
         {compensationType === "For Credit" || compensationType === "Any" ? (
           <CheckBox
             label="Credits"
-            options={[1, 2, 3, 4]} // Checkboxes for credit options
+            options={["1", "2", "3", "4"]} // Checkboxes for credit options
             errors={errors}
             errorMessage={"You must select at least one credit option"}
             name={"credits"}
@@ -314,7 +319,7 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
       <div className="horizontal-form">
         <CheckBox
           label="Eligible Class Years"
-          options={years}
+          options={years.map(String)}
           errors={errors}
           errorMessage={"At least one year must be selected"}
           name={"years"}
@@ -336,6 +341,20 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
           type="textarea"
           options={[]}
           placeHolder="Enter description"
+        />
+
+        <Input
+          errors={errors}
+          label="Recommended Experience"
+          name={"recommended_experience"}
+          errorMessage=""
+          formHook={{
+            ...register("recommended_experience", {
+            }),
+          }}
+          type="textarea"
+          options={[]}
+          placeHolder="Enter recommended experience"
         />
       </div>
 

@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import CreationForms from "../components/CreationForms.tsx";
 import SEO from "../../shared/components/SEO.tsx";
-import './CreatePost.css';
 
 const CreatePost = ({ edit, authenticated }) => {
   if (!authenticated[1]) {

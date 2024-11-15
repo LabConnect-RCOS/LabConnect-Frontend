@@ -5,7 +5,7 @@ import ProfileOpportunities from "../components/ProfileOpportunities.tsx";
 import { useParams } from "react-router";
 import SEO from "../../shared/components/SEO.tsx";
 
-const StaffPage = (authenticated) => {
+const StaffPage = (authenticated: { authenticated: [string, boolean]; }) => {
   if (!authenticated.authenticated[1]) {
     window.location.href = "/login";
   }

@@ -8,7 +8,7 @@ import Jobs from "./opportunities/pages/Jobs.js";
 import Departments from "./staff/pages/Departments.tsx";
 import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";
-import CreatePost from "./staff/pages/CreatePost.js";
+import CreatePost from "./staff/pages/CreatePost.tsx";
 import IndividualPost from "./opportunities/pages/IndividualPost.js";
 import ProfilePage from "./shared/pages/Profile.js";
 import LoginRedirection from "./auth/Login.tsx";
@@ -44,10 +44,10 @@ function App() {
             />
             <Route path="/staff" element={<Departments authenticated={authenticated} />} />
             <Route path="/staff/:staffId" element={<StaffPage authenticated={authenticated} />} />
-            <Route path="/createPost" element={<CreatePost edit={false} />} />
+            <Route path="/create" element={<CreatePost edit={false} authenticated={authenticated} />} />
             <Route
-              path="/editPost/:postID"
-              element={<CreatePost edit={true} />}
+              path="/edit/:postID"
+              element={<CreatePost edit={true} authenticated={authenticated} />}
             />
             <Route path="/post/:postID" element={<IndividualPost />} />
 

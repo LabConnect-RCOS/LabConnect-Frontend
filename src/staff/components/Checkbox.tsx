@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const CheckBox = ({
   formHook,
@@ -9,10 +10,6 @@ const CheckBox = ({
   options,
   type,
 }) => {
-  // if (!formHook) {
-  //   return <h1>FormHook Not Given</h1>;
-  // }
-
   return (
     <div>
       <div className="check-input">
@@ -45,6 +42,15 @@ const CheckBox = ({
       </div>
     </div>
   );
+};
+CheckBox.propTypes = {
+  formHook: PropTypes.object,
+  errors: PropTypes.object,
+  errorMessage: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.string),
+  type: PropTypes.string,
 };
 
 export default CheckBox;

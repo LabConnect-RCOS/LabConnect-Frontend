@@ -21,7 +21,7 @@ export default function StickyFooter(authenticated) {
         <Link to="https://new.rcos.io" className="no-underline text-red-600 hover:text-red-800 focus:text-red-800">
           RCOS
         </Link>
-      </p>
+      </h1>
       <div className="stickyfooter-info mt-5">
         <div className="pb-3">
           <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />

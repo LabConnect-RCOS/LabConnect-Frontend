@@ -40,10 +40,11 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
   const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
-  const [departments, setDepartments] = useState(null);
   const [years, setYears] = useState<string[]>([]);
 
-  async function fetchDetails() {
+  async function fetchEditData() {
+
+
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
       headers: {
@@ -51,16 +52,10 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
       },
     }
     );
-    if (!response.ok) {
-      return null;
-    }
-    return await response.json();
-  }
-
-  async function fetchEditData() {
-    const response = await fetchDetails();
     if (response.ok) {
-      const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = response.json;
+      console.log("Response ok");
+      const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = await response.json();
+      await Promise.all([fetchYears()]);
       reset({
         id,
         title,
@@ -73,22 +68,10 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
         location,
         years,
       });
+
       setLoading(false);
     } else {
       console.log("No response");
-      setLoading("no response");
-    }
-  }
-
-  async function fetchDepartments() {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/departments`)
-
-    if (response.ok) {
-      const data = await response.json();
-      const department_data = data.map(item => item.title);
-      setDepartments(department_data);
-    } else {
-      console.log("No response departments");
       setLoading("no response");
     }
   }
@@ -120,14 +103,12 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
       credits: [],
       description: "",
       recommended_experience: "",
-      department: "",
       location: "",
       years: [""],
     },
   });
 
   useEffect(() => {
-    fetchDepartments();
     fetchYears();
     if (edit) {
       fetchEditData();
@@ -175,14 +156,14 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
     }
   };
 
-  return loading === false && departments != null && years != null ? (
+  return loading === false && years != null ? (
     <form
       onSubmit={handleSubmit((data) => {
         submitHandler(data);
       })}
       className="form-container" // Form container for vertical layout
     >
-      {/* Group 1: Horizontal layout for Title, Department, Location, Due Date */}
+      {/* Group 1: Horizontal layout for Title, Location, Due Date */}
       <div className="horizontal-form">
         <Input
           label="Title"
@@ -203,21 +184,6 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
 
         <Input
           errors={errors}
-          label="Department"
-          name={"department"}
-          type="select"
-          options={departments}
-          errorMessage={"Department is required"}
-          formHook={{
-            ...register("department", {
-              required: true,
-            }),
-          }}
-          placeHolder="Select department"
-        />
-
-        <Input
-          errors={errors}
           label="Location"
           name={"location"}
           type="select"
@@ -228,7 +194,7 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
               required: true,
             }),
           }}
-          placeHolder="Select department"
+          placeHolder="Select Location"
         />
 
         <Input

@@ -2,38 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base CSS */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-
-.align-items-center {
-  align-items: center;
-}
-
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
-  z-index: 1000; /* Ensure it appears above other content */
-}
-
-
 /* General CSS */
+.align-items-center {@apply items-center;}
 .flex2 {@apply flex flex-col;}
 .flexjust {@apply flex justify-center;}
 .active-link {@apply text-black py-3 border-b-2 border-black text-lg;}
@@ -92,7 +62,8 @@ code {
 .stickyfooter-general {@apply rounded border-2 p-3;}
 .stickyfooter-header {@apply text-center text-lg justify-center;}
 .stickyfooter-info {@apply flex flex-row justify-between px-12 text-center;}
-.hover-link {@apply no-underline text-neutral-600;}
+.grey-link {@apply no-underline text-neutral-600;}
+.blue-link {@apply no-underline text-blue-500;}
 
 /* Staff CSS */
 .createpost {@apply flex justify-center mt-3;}
@@ -106,3 +77,8 @@ code {
 .staff-body {@apply px-2 grid grid-cols-4;}
 .center {@apply pb-10 flex flex-col gap-4;}
 .createpost {@apply flex justify-center mt-3;}
+
+/* CreatePost CSS*/
+.form-container {@apply flex flex-col gap-5; /* Space between rows */}
+.horizontal-form {@apply flex gap-5; /* Space between inputs */}
+.horizontal-form > * {@apply flex-1; /* Each input takes equal space */}

@@ -36,8 +36,8 @@ export default function MainNavigation(authenticated) {
               </div>
               <div className="mainnav-desc2 sm:items-stretch sm:justify-start">
                 <div className="mainnav-title-link">
-                  <Link to="/" className="no-underline text-blue-700">
-                    Labconnect
+                  <Link to="/" className="blue-link hover:text-blue-900 focus:text-blue-900">
+                    LabConnect
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">

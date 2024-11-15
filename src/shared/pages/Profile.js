@@ -104,20 +104,17 @@ const ProfilePage = () => {
 
   return (
     <section>
-      <section>
-        {!loggedIn ? (
-          "Please log in to view your profile"
-        ) : profileFound ? (
-          <>
-            {loggedIn && editButton}
-            {loggedIn && editMode && <EditProfile />}
-            {loggedIn && !editMode && profilePage}
-          </>
-        ) : (
-          "Profile not found"
-        )}
-      </section>
-      <br/><br/><br/><br/><br/><br/><br/>
+      {loggedIn ? (
+        "Please log in to view your profile"
+      ) : profileFound ? (
+        <>
+          {loggedIn && editButton}
+          {loggedIn && editMode && <EditProfile />}
+          {loggedIn && !editMode && profilePage}
+        </>
+      ) : (
+        "Profile not found"
+      )}
     </section>
   );
 };

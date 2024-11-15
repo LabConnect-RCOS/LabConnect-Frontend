@@ -26,7 +26,7 @@ function App() {
     <HelmetProvider>
       <section>
         <MainNavigation authenticated={authenticated} />
-        <main className="container-xl p-8">
+        <main className="flex flex-col min-h-screen p-8">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/health" element={<p>App is Healthy</p>} />

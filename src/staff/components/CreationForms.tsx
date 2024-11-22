@@ -4,56 +4,30 @@ import { useEffect } from "react";
 import CheckBox from "./Checkbox.tsx";
 import Input from "./Input";
 import { useParams } from "react-router";
+import { useAuth } from "../../context/AuthContext.tsx";
+import { Locations } from "../../shared/data/locations";
+
 
 interface CreationFormsProps {
   edit: boolean;
-  token: string;
 }
 
-const locations = [
-  "TBD",
-  "Amos Eaton",
-  "Carnegie",
-  "Center for Biotechnology and Interdisciplinary Studies",
-  "Center for Computational Innovations",
-  "Low Center for Industrial Innovation (CII)",
-  "Cogswell Laboratory",
-  "Darrin Communications Center",
-  "Experimental Media and Performing Arts Center",
-  "Greene Library",
-  "Jonsson Engineering Center",
-  "Jonsson-Rowland Science Center",
-  "Lally Hall",
-  "LINAC Facility (Gaerttner Laboratory)",
-  "Materials Research Center",
-  "Pittsburgh Building",
-  "Ricketts Building",
-  "Russell Sage Laboratory",
-  "Voorhees Computing Center",
-  "Walker Laboratory",
-  "West Hall",
-  "Winslow Building",
-  "Remote"
-]
-
-const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
+export default function CreationForms({ edit }: CreationFormsProps) {
+  const { auth } = useAuth();
   const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
   const [years, setYears] = useState<string[]>([]);
 
   async function fetchEditData() {
-
-
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }
     );
     if (response.ok) {
-      console.log("Response ok");
       const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = await response.json();
       await Promise.all([fetchYears()]);
       reset({
@@ -68,7 +42,6 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
         location,
         years,
       });
-
       setLoading(false);
     } else {
       console.log("No response");
@@ -77,7 +50,7 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
   }
 
   async function fetchYears() {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`)
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);
 
     if (response.ok) {
       const data = await response.json();
@@ -108,23 +81,27 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
     },
   });
 
-  useEffect(() => {
-    fetchYears();
-    if (edit) {
-      fetchEditData();
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  interface FormData {
+    id: string;
+    title: string;
+    application_due: string;
+    type: string;
+    hourlyPay: number;
+    credits: string[];
+    description: string;
+    recommended_experience: string;
+    location: string;
+    years: string[];
+  }
 
-  const submitHandler = (data) => {
+  function submitHandler(data: FormData) {
     console.log({ ...data });
     if (edit) {
       fetch(`${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
         body: JSON.stringify({ ...data }),
       }).then((response) => {
@@ -140,14 +117,15 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
         body: JSON.stringify({ ...data }),
       }).then((response) => {
         if (response.ok) {
           alert("Successfully created");
-          const data_response = response.json()
-          window.location.href = `/opportunity/${data_response["id"]}`;
+          response.json().then((data_response) => {
+            window.location.href = `/opportunity/${data_response["id"]}`;
+          });
         } else {
           alert("Failed to create");
           console.log(response);
@@ -155,6 +133,15 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
       });
     }
   };
+
+  useEffect(() => {
+    fetchYears();
+    if (edit) {
+      fetchEditData();
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   return loading === false && years != null ? (
     <form
@@ -187,7 +174,7 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
           label="Location"
           name={"location"}
           type="select"
-          options={locations}
+          options={Locations}
           errorMessage={"Location is required"}
           formHook={{
             ...register("location", {
@@ -335,5 +322,3 @@ const CreationForms: React.FC<CreationFormsProps> = ({ edit, token }) => {
     <h1>Loading...</h1>
   );
 };
-
-export default CreationForms;

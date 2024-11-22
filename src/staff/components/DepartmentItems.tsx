@@ -8,7 +8,7 @@ const DepartmentItems = ({ items }) => {
       {items.map((item) => {
         return (
           <LargeImageCard
-            key={item.id}
+            key={item.department_id}
             to={`/staff/department/${item.department_id}`}
             title={item.title}
             image={item.image}
@@ -22,7 +22,7 @@ const DepartmentItems = ({ items }) => {
 DepartmentItems.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      school_id: PropTypes.string.isRequired,
       department_id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,

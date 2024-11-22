@@ -8,9 +8,8 @@ const LargeTextCard = ({ to, title, due, pay, credits }) => {
       <div className="lg-txt-card hover:shadow-md card">
         <div className="card-body">
           <h2
-            className={`${
-              title.length > 100 ? "text-sm" : "text-lg font-bold"
-            }  p-0 m-0`}
+            className={`${title.length > 100 ? "text-sm" : "text-lg font-bold"
+              }  p-0 m-0`}
           >
             {title}
           </h2>

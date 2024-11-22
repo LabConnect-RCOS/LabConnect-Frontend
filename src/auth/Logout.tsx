@@ -32,7 +32,7 @@ export default function LogoutRedirection() {
             }
         }
         logoutUser();
-    }, [auth, logout]);
+    }, [logout, auth.token]);
 
     return null; // Since this component doesn't need to render anything
 };

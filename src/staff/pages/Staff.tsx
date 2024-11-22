@@ -1,55 +1,54 @@
 import React, { useState, useEffect } from "react";
 import ProfileComponents from "../../shared/components/Profile/ProfileComponents.tsx";
 import { useParams } from "react-router";
-import SEO from "../../shared/components/SEO.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
 
 export default function StaffPage() {
   const { auth } = useAuth();
 
-  if (!auth.isAuthenticated) {
-    window.location.href = "/login";
-  }
-
   const { staffId } = useParams();
   const [profile, setProfile] = useState<null | boolean>(null);
 
-  const checkProfile = (data) => {
-    return data.name && data.image && data.department && data.description;
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+      );
 
-  const fetchProfile = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`, {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    }
-    );
+      if (!response.ok) {
+        setProfile(false);
+      } else {
+        const data = await response.json();
+        if (checkProfile(data)) {
+          setProfile(data);
+        } else {
+          setProfile(false);
+          console.log(data);
+        }
+      }
+    };
 
-    if (!response.ok) {
+    if (!auth.isAuthenticated) {
+      window.location.href = "/login";
+    } else if (!staffId) {
       setProfile(false);
     } else {
-      const data = await response.json();
-      if (checkProfile(data)) {
-        setProfile(data);
-      } else {
-        setProfile(false);
-        console.log(data);
-      }
+      fetchProfile();
     }
-  };
-
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+    const checkProfile = (data: { name: string; image: string; department: string; description: string }) => {
+      return data.name && data.image && data.department && data.description;
+    };
+  }, [auth.token, staffId, auth.isAuthenticated]);
 
   return (
     <>
-      <SEO title="Staff - Labconnect" description="Labconnect staff page" />
       {profile === null && "Loading..."}
-      {profile && typeof profile === "object" && <ProfileComponents profile={profile} staffId={staffId} />}
-      {profile === false && "Profile not found"}
+      {profile && typeof profile === "object" && staffId && <ProfileComponents profile={profile} id={staffId} staff={true} />}
+      {profile === false && <h1>Profile not found</h1>}
     </>
   );
 };

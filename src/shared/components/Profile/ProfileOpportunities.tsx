@@ -1,44 +1,37 @@
 import React from "react";
 import LargeTextCard from "../UIElements/LargeTextCard.tsx";
-import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import { useAuth } from "../../../context/AuthContext.tsx";
 
-const ProfileOpportunities = ({ id }) => {
+export default function ProfileOpportunities({ id, staff }: { id: string, staff: boolean }) {
+  const { auth } = useAuth();
   const [opportunities, setOpportunities] = useState<Array<{ id: string; title: string; due: string; pay: string; credits: string }> | null | "no response">(null);
 
-  const fetchOpportunities = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_SERVER}/staff/opportunities/${id}`
-    );
-
-    if (!response.ok) {
-      throw new Error(
-        `Network response was not ok - Status: ${response.status}`
-      );
-    }
-
-    const data = await response.json();
-    return data["data"];
-  };
-
-  async function setData() {
-    const response = await fetchOpportunities();
-    if (response) {
-      setOpportunities(response);
-    } else {
-      setOpportunities("no response");
-    }
-  }
-
   useEffect(() => {
+    async function setData() {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_SERVER}/${staff ? "staff" : "profile"}/opportunities/${id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setOpportunities(data);
+      } else {
+        setOpportunities("no response");
+      }
+    }
+
     setData();
-  }, []);
+  }, [auth.token, id, staff]);
 
   const opportunityList = (
     <div className="flex gap-2 flex-wrap">
       {id &&
-        opportunities &&
-        typeof opportunities === "object" &&
+        Array.isArray(opportunities) &&
         opportunities.map((opportunity) => (
           <LargeTextCard
             to={`/post/${opportunity.id}`}
@@ -60,9 +53,3 @@ const ProfileOpportunities = ({ id }) => {
     </div>
   );
 };
-
-ProfileOpportunities.propTypes = {
-  id: PropTypes.string.isRequired,
-};
-
-export default ProfileOpportunities;

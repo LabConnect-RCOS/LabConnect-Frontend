@@ -7,7 +7,7 @@ export default function StickyFooter(authenticated) {
   const routes = authenticated.authenticated[1]
     ? [
       { name: "Jobs", href: "/jobs", current: true },
-      { name: "Create", href: "/createPost", current: false },
+      { name: "Create", href: "/create", current: false },
       { name: "Staff", href: "/staff", current: false },
       { name: "Profile", href: "/profile", current: false },
       { name: "Sign Out", href: "/signout", current: false },
@@ -22,14 +22,13 @@ export default function StickyFooter(authenticated) {
           RCOS
         </Link>
       </h1>
-      <br />
-      <div className="stickyfooter-info">
+      <div className="stickyfooter-info mt-5">
         <div className="pb-3">
-        <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
+          <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
         </div>
 
         <div className="w-40">
-          <p>
+          <div>
             <b>Contact Us</b>
             <p className="text-base">
               <Link
@@ -47,27 +46,25 @@ export default function StickyFooter(authenticated) {
               </Link>
               <br />
             </p>
-          </p>
+          </div>
         </div>
-        <div className="w-40 text-base">
-          <b>Additional Pages</b>
-          <p>
-            {routes.map((item) => (
-              <>
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="grey-link hover:text-neutral-950 focus:text-neutral-950"
-                  aria-current={item.current}
-                >
-                  {item.name}
-                </Link>
-                <br />
-              </>
-            ))}
-          </p>
+        <div>
+          <b>Resources</b>
+          <br />
+          {routes.map((item) => (
+            <React.Fragment key={item.name}>
+              <Link
+                to={item.href}
+                className="grey-link hover:text-neutral-950 focus:text-neutral-950"
+                aria-current={item.current}
+              >
+                {item.name}
+              </Link>
+              <br />
+            </React.Fragment>
+          ))}
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }

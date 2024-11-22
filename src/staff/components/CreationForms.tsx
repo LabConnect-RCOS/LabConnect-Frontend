@@ -1,46 +1,34 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import CheckBox from "./Checkbox";
+import CheckBox from "./Checkbox.tsx";
 import Input from "./Input";
 import { useParams } from "react-router";
-import useGlobalContext from "../../context/global/useGlobalContext";
+import { useAuth } from "../../context/AuthContext.tsx";
+import { Locations } from "../../shared/data/locations.ts";
 
-const DUMMY_DATA = {
-  "d1": {
-    id: "d1",
-    title: "Software Intern",
-    department: "Computer Science",
-    location: "Remote",
-    date: "2024-02-08",
-    type: "For Pay",  // New field for type
-    hourlyPay: 0,
-    credits: 0,
-    description: "This is a software internship",
-    years: ["Freshman", "Junior", "Senior"],
-  },
-};
 
-const CreationForms = () => {
+interface CreationFormsProps {
+  edit: boolean;
+}
+
+export default function CreationForms({ edit }: CreationFormsProps) {
+  const { auth } = useAuth();
   const { postID } = useParams();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
-  const state = useGlobalContext();
-  const { loggedIn } = state;
-  const { id: authorId } = state;
+  const [years, setYears] = useState<string[]>([]);
 
-  async function fetchDetails(key) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(DUMMY_DATA[key]);
-      }, 5000);
-    });
-  }
+  async function fetchYears() {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);
 
-  async function fetchData(key) {
-    const response = await fetchDetails(key);
-    response && reset(response);
-    response ? setLoading(false) : setLoading("no response");
+    if (response.ok) {
+      const data = await response.json();
+      setYears(data);
+    } else {
+      console.log("No response for years");
+      setLoading("no response");
+    }
   }
 
   const {
@@ -52,36 +40,117 @@ const CreationForms = () => {
     defaultValues: {
       id: "",
       title: "",
-      department: "",
-      location: "",
-      date: "",
+      application_due: "",
       type: "For Pay", // Default to "For Pay"
       hourlyPay: 0,
       credits: [],
       description: "",
+      recommended_experience: "",
+      location: "",
       years: [""],
     },
   });
 
-  useEffect(() => {
-    postID && setLoading(true);
-    postID && fetchData(postID);
-  }, []);
+  interface FormData {
+    id: string;
+    title: string;
+    application_due: string;
+    type: string;
+    hourlyPay: number;
+    credits: string[];
+    description: string;
+    recommended_experience: string;
+    location: string;
+    years: string[];
+  }
 
-  const submitHandler = (data) => {
-    if (authorId) {
-      console.log({ ...data, authorId });
+  function submitHandler(data: FormData) {
+    console.log({ ...data });
+    if (edit) {
+      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.token}`,
+        },
+        body: JSON.stringify({ ...data }),
+      }).then((response) => {
+        if (response.ok) {
+          alert("Successfully updated");
+          window.location.href = `/opportunity/${postID}`;
+        } else {
+          alert("Failed to update");
+        }
+      });
+    } else {
+      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/createOpportunity`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.token}`,
+        },
+        body: JSON.stringify({ ...data }),
+      }).then((response) => {
+        if (response.ok) {
+          alert("Successfully created");
+          response.json().then((data_response) => {
+            window.location.href = `/opportunity/${data_response["id"]}`;
+          });
+        } else {
+          alert("Failed to create");
+          console.log(response);
+        }
+      });
     }
   };
 
-  return !loading ? (
+  useEffect(() => {
+    async function fetchEditData() {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+      );
+      if (response.ok) {
+        const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = await response.json();
+        await Promise.all([fetchYears()]);
+        reset({
+          id,
+          title,
+          application_due,
+          type,
+          hourlyPay,
+          credits,
+          description,
+          recommended_experience,
+          location,
+          years,
+        });
+        setLoading(false);
+      } else {
+        console.log("No response");
+        setLoading("no response");
+      }
+    }
+
+    fetchYears();
+    if (edit) {
+      fetchEditData();
+    } else {
+      setLoading(false);
+    }
+  }, [edit, auth.token, postID, reset]);
+
+  return loading === false && years != null ? (
     <form
       onSubmit={handleSubmit((data) => {
         submitHandler(data);
       })}
       className="form-container" // Form container for vertical layout
     >
-      {/* Group 1: Horizontal layout for Title, Department, Location, Due Date */}
+      {/* Group 1: Horizontal layout for Title, Location, Due Date */}
       <div className="horizontal-form">
         <Input
           label="Title"
@@ -95,45 +164,35 @@ const CreationForms = () => {
               maxLength: 100,
             }),
           }}
-        />
-
-        <Input
-          errors={errors}
-          label="Department"
-          name={"department"}
-          type="select"
-          options={["Computer Science", "Biology", "Physics"]}
-          errorMessage={"Department must be at least 3 characters"}
-          formHook={{
-            ...register("department", {
-              required: true,
-              minLength: 3,
-              maxLength: 40,
-            }),
-          }}
+          type="text"
+          options={[]}
+          placeHolder="Enter title"
         />
 
         <Input
           errors={errors}
           label="Location"
           name={"location"}
-          errorMessage={"Location must be at least 5 characters"}
+          type="select"
+          options={Locations}
+          errorMessage={"Location is required"}
           formHook={{
             ...register("location", {
               required: true,
-              minLength: 5,
-              maxLength: 100,
             }),
           }}
+          placeHolder="Select Location"
         />
 
         <Input
           errors={errors}
           label="Due Date"
-          name={"date"}
+          name={"application_due"}
           errorMessage={"Due Date is required"}
-          formHook={{ ...register("date", { required: true }) }}
+          formHook={{ ...register("application_due", { required: true }) }}
           type="date"
+          placeHolder={"Select Due Date"}
+          options={[]}
         />
       </div>
 
@@ -168,7 +227,7 @@ const CreationForms = () => {
             checked={compensationType === "Any"}
             onChange={() => setCompensationType("Any")}
           />
-          <label className="pl-2">Any</label>
+          <label className="pl-2">Both</label>
         </div>
       </div>
 
@@ -187,16 +246,19 @@ const CreationForms = () => {
               }),
             }}
             type="number"
+            options={[]}
+            placeHolder="Enter hourly pay"
           />
         ) : null}
 
         {compensationType === "For Credit" || compensationType === "Any" ? (
           <CheckBox
             label="Credits"
-            options={[1, 2, 3, 4]} // Checkboxes for credit options
+            options={["1", "2", "3", "4"]} // Checkboxes for credit options
             errors={errors}
             errorMessage={"You must select at least one credit option"}
             name={"credits"}
+            type="checkbox"
             formHook={{
               ...register("credits", {
                 required: compensationType === "For Credit", // Credits required only if "For Credit"
@@ -210,11 +272,12 @@ const CreationForms = () => {
       <div className="horizontal-form">
         <CheckBox
           label="Eligible Class Years"
-          options={["Freshman", "Sophomore", "Junior", "Senior"]}
+          options={years.map(String)}
           errors={errors}
           errorMessage={"At least one year must be selected"}
           name={"years"}
           formHook={{ ...register("years", { required: true }) }}
+          type="checkbox"
         />
 
         <Input
@@ -226,10 +289,25 @@ const CreationForms = () => {
             ...register("description", {
               required: true,
               minLength: 10,
-              message: "Description must be at least 10 characters",
             }),
           }}
           type="textarea"
+          options={[]}
+          placeHolder="Enter description"
+        />
+
+        <Input
+          errors={errors}
+          label="Recommended Experience"
+          name={"recommended_experience"}
+          errorMessage=""
+          formHook={{
+            ...register("recommended_experience", {
+            }),
+          }}
+          type="textarea"
+          options={[]}
+          placeHolder="Enter recommended experience"
         />
       </div>
 
@@ -241,8 +319,6 @@ const CreationForms = () => {
   ) : loading === "no response" ? (
     <h1>There was no response</h1>
   ) : (
-    <span className="lc-loading" />
+    <h1>Loading...</h1>
   );
 };
-
-export default CreationForms;

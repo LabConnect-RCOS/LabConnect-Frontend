@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import ProfileComponents from "../../shared/components/Profile/ProfileComponents.tsx";
 import { useParams } from "react-router";
 import SEO from "../../shared/components/SEO.tsx";
+import { useAuth } from "../../context/AuthContext.tsx";
 
-const StaffPage = (authenticated) => {
-  if (!authenticated.authenticated[1]) {
+export default function StaffPage() {
+  const { auth } = useAuth();
+
+  if (!auth.isAuthenticated) {
     window.location.href = "/login";
   }
 
@@ -19,7 +22,7 @@ const StaffPage = (authenticated) => {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`, {
       headers: {
-        Authorization: `Bearer ${authenticated.authenticated[0]}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }
     );
@@ -50,5 +53,3 @@ const StaffPage = (authenticated) => {
     </>
   );
 };
-
-export default StaffPage;

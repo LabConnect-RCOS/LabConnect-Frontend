@@ -1,6 +1,10 @@
-const LoginRedirection = () => {
-    window.location.href = `${process.env.REACT_APP_BACKEND_SERVER}/login`;
-    return null; // No need to render anything, as the redirection happens immediately
-};
+import { useAuth } from "../context/AuthContext";
 
-export default LoginRedirection;
+export default function LoginRedirection() {
+    const { auth } = useAuth();
+    if (auth.isAuthenticated) {
+        window.location.href = "/";
+    }
+    window.location.href = `${process.env.REACT_APP_BACKEND_SERVER}/login`;
+    return null;
+};

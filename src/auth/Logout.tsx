@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext.tsx";
 
 export default function LogoutRedirection() {
     const { auth, logout } = useAuth();
@@ -32,7 +32,7 @@ export default function LogoutRedirection() {
             }
         }
         logoutUser();
-    }, []);
+    }, [auth, logout]);
 
     return null; // Since this component doesn't need to render anything
 };

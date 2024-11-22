@@ -5,7 +5,7 @@ import CheckBox from "./Checkbox.tsx";
 import Input from "./Input";
 import { useParams } from "react-router";
 import { useAuth } from "../../context/AuthContext.tsx";
-import { Locations } from "../../shared/data/locations";
+import { Locations } from "../../shared/data/locations.ts";
 
 
 interface CreationFormsProps {
@@ -18,36 +18,6 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
   const [years, setYears] = useState<string[]>([]);
-
-  async function fetchEditData() {
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    }
-    );
-    if (response.ok) {
-      const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = await response.json();
-      await Promise.all([fetchYears()]);
-      reset({
-        id,
-        title,
-        application_due,
-        type,
-        hourlyPay,
-        credits,
-        description,
-        recommended_experience,
-        location,
-        years,
-      });
-      setLoading(false);
-    } else {
-      console.log("No response");
-      setLoading("no response");
-    }
-  }
 
   async function fetchYears() {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);
@@ -135,13 +105,43 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   };
 
   useEffect(() => {
+    async function fetchEditData() {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+      );
+      if (response.ok) {
+        const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = await response.json();
+        await Promise.all([fetchYears()]);
+        reset({
+          id,
+          title,
+          application_due,
+          type,
+          hourlyPay,
+          credits,
+          description,
+          recommended_experience,
+          location,
+          years,
+        });
+        setLoading(false);
+      } else {
+        console.log("No response");
+        setLoading("no response");
+      }
+    }
+
     fetchYears();
     if (edit) {
       fetchEditData();
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [edit, auth.token, postID, reset]);
 
   return loading === false && years != null ? (
     <form

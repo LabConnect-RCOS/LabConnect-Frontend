@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import DepartmentItems from "../components/DepartmentItems.tsx";
 import ErrorComponent from "../../shared/components/UIElements/Error.tsx";
 import SEO from "../../shared/components/SEO.tsx";
+import { useAuth } from "../../context/AuthContext.tsx";
 
-const Departments = (authenticated) => {
-  if (!authenticated.authenticated[1]) {
+export default function Departments() {
+  const { auth } = useAuth();
+  if (!auth.isAuthenticated) {
     window.location.href = "/login";
   }
 
@@ -12,30 +14,29 @@ const Departments = (authenticated) => {
     { id: string; department_id: string; title: string; image: string }[] | string | null
   >(null);
 
-  const fetchDepartments = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/departments`, {
-        headers: {
-          Authorization: `Bearer ${authenticated.authenticated[0]}`,
-        },
-      }
-      );
-
-      if (!response.ok) {
-        throw new Error("Departments not found");
-      }
-
-      const data = await response.json();
-      setDepartments(data);
-    } catch {
-      setDepartments("Error fetching departments");
-    }
-  };
-
   useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_SERVER}/departments`, {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+        );
+
+        if (!response.ok) {
+          throw new Error("Departments not found");
+        }
+
+        const data = await response.json();
+        setDepartments(data);
+      } catch {
+        setDepartments("Error fetching departments");
+      }
+    };
     fetchDepartments();
-  }, []);
+  }, [auth.token]);
 
   const departmentComponents = (
     <section className="flex2 gap-3">
@@ -57,5 +58,3 @@ const Departments = (authenticated) => {
     </>
   );
 };
-
-export default Departments;

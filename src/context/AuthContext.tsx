@@ -1,4 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { ReactNode } from 'react';
+
 
 const AuthContext = createContext<{
     auth: { isAuthenticated: boolean; token: string | null };
@@ -11,9 +13,6 @@ const AuthContext = createContext<{
     logout: () => { },
     loadToken: () => { }
 });
-
-import { ReactNode } from 'react';
-
 interface AuthProviderProps {
     children: ReactNode;
 }
@@ -42,6 +41,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             setAuth({ isAuthenticated: true, token: savedToken });
         }
     };
+
+    useEffect(() => {
+        loadToken();
+    }, []);
 
     return (
         <AuthContext.Provider value={{ auth, login, logout, loadToken }}>

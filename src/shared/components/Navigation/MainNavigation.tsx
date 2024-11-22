@@ -2,11 +2,14 @@ import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext.tsx";
 
-export default function MainNavigation(authenticated) {
+export default function MainNavigation() {
+
+  const { auth } = useAuth();
 
   const location = useLocation().pathname;
-  const routes = authenticated.authenticated[1]
+  const routes = auth.isAuthenticated
     ? [
       { name: "Jobs", href: "/jobs", current: true },
       { name: "Create", href: "/create", current: false },

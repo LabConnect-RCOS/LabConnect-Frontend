@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import ProfileAvatar from "../components/UIElements/ProfileAvatar";
-import ProfileDescription from "../../staff/components/ProfileDescription";
-import ProfileOpportunities from "../components/Profile/ProfileOpportunities";
+import ProfileAvatar from "../components/UIElements/ProfileAvatar.tsx";
+import ProfileDescription from "../../staff/components/ProfileDescription.tsx";
+import ProfileOpportunities from "../../staff/components/ProfileOpportunities.tsx";
 import EditProfile from "./EditProfile";
 import useGlobalContext from "../../context/global/useGlobalContext";
-import StickyFooter from "../components/Navigation/StickyFooter.js";
 
 const PROFILES = {
   d1: {
@@ -20,7 +19,7 @@ const PROFILES = {
           pharetra sit amet aliquam id diam maecenas ultricies mi. Montes
           nascetur ridiculus mus mauris vitae ultricies leo. Porttitor massa
           id neque aliquam. Malesuada bibendum arcu vitae elementum. Nulla
-          aliquet porrsus mattis molestie aiaculis at erat pellentesque.
+          aliquet porrsus mattis molestie aiaculis at erat pellentesque. 
           At risus viverra adipiscing at.
           Tincidunt tortor aliquam nulla facilisi cras fermentum odio eu
           feugiat. Eget fUt eu sem integer vitae justo
@@ -56,7 +55,7 @@ const ProfilePage = () => {
 
   const fetchProfile = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_SERVER}/getProfessorProfile/${id}`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/getProfessorProfile/${id}`
     );
 
     if (response) {
@@ -70,7 +69,12 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (id) {
-      fetchProfile();
+      const tempProfile = PROFILES[id];
+
+      if (tempProfile) {
+        setProfile(tempProfile);
+        setProfileFound(true);
+      }
     }
   }, []);
 
@@ -113,13 +117,7 @@ const ProfilePage = () => {
           "Profile not found"
         )}
       </section>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+      <br/><br/><br/><br/><br/><br/><br/>
     </section>
   );
 };

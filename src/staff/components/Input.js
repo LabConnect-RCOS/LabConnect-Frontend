@@ -29,7 +29,7 @@ const Input = ({
       {...formHook}
       placeholder={placeHolder || "Type Here"}
       cols="50"
-      rows="10"
+      rows="7"
       className="border-2 rounded p-2 m-0"
     ></textarea>
   );

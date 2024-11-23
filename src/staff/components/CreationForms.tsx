@@ -16,7 +16,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   const { auth } = useAuth();
   const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
-  const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
+  const [compensationType, setCompensationType] = useState("Any"); // Manage the state for "For Pay" or "For Credit"
   const [years, setYears] = useState<string[]>([]);
 
   async function fetchYears() {
@@ -41,7 +41,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       id: "",
       title: "",
       application_due: "",
-      type: "For Pay", // Default to "For Pay"
+      type: "Any", // Default to "For Pay"
       hourlyPay: 0,
       credits: [],
       description: "",
@@ -150,10 +150,10 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       })}
       className="form-container" // Form container for vertical layout
     >
-      {/* Group 1: Horizontal layout for Title, Location, Due Date */}
+      {/* Group 1: Horizontal layout for Title, Location, Deadine */}
       <div className="horizontal-form">
         <Input
-          label="Title"
+          label="Title (min. 5 characters)"
           name={"title"}
           errors={errors}
           errorMessage={"Title must be at least 5 characters"}
@@ -171,7 +171,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
 
         <Input
           errors={errors}
-          label="Location"
+          label="Location (min. 5 characters)"
           name={"location"}
           type="select"
           options={Locations}
@@ -186,85 +186,91 @@ export default function CreationForms({ edit }: CreationFormsProps) {
 
         <Input
           errors={errors}
-          label="Due Date"
+          label="Deadline"
           name={"application_due"}
-          errorMessage={"Due Date is required"}
+          errorMessage={"Deadline is required"}
           formHook={{ ...register("application_due", { required: true }) }}
           type="date"
-          placeHolder={"Select Due Date"}
+          placeHolder={"Select Deadline"}
           options={[]}
         />
       </div>
 
       {/* Compensation Type Section with Rectangular Box */}
-      <div className="compensation-box">
-        <label>Compensation Type</label>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            value="For Pay"
-            {...register("type", { required: true })}
-            checked={compensationType === "For Pay"}
-            onChange={() => setCompensationType("For Pay")}
-          />
-          <label className="pl-2">For Pay</label>
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            value="For Credit"
-            {...register("type", { required: true })}
-            checked={compensationType === "For Credit"}
-            onChange={() => setCompensationType("For Credit")}
-          />
-          <label className="pl-2">For Credit</label>
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            value="Any"
-            {...register("type", { required: true })}
-            checked={compensationType === "Any"}
-            onChange={() => setCompensationType("Any")}
-          />
-          <label className="pl-2">Both</label>
+      <div className="flex flex-row">
+        <div className="w-1/3">
+          <label className="label-text font-medium">Compensation Type</label>
+          <div className="flex items-center pt-5 pb-1">
+            <input
+              type="radio"
+              value="For Pay"
+              {...register("type", { required: true })}
+              checked={compensationType === "For Pay"}
+              onChange={() => setCompensationType("For Pay")}
+            />
+            <label className="pl-2 label-text">For Pay</label>
+          </div>
+          <div className="flex items-center pb-1">
+            <input
+              type="radio"
+              value="For Credit"
+              {...register("type", { required: true })}
+              checked={compensationType === "For Credit"}
+              onChange={() => setCompensationType("For Credit")}
+            />
+            <label className="pl-2 label-text">For Credit</label>
+          </div>
+          <div className="flex items-center">
+            <input
+              type="radio"
+              value="Any"
+              {...register("type", { required: true })}
+              checked={compensationType === "Any"}
+              onChange={() => setCompensationType("Any")}
+            />
+            <label className="pl-2 label-text">Any</label>
+          </div>
         </div>
       </div>
 
       {/* Conditionally Render Pay Input or Credit Checkboxes */}
       <div className="horizontal-form">
         {compensationType === "For Pay" || compensationType === "Any" ? (
-          <Input
-            errors={errors}
-            label="Hourly Pay"
-            name={"hourlyPay"}
-            errorMessage={"Hourly pay must be at least 0"}
-            formHook={{
-              ...register("hourlyPay", {
-                required: compensationType === "For Pay", // Hourly pay required only if "For Pay"
-                min: 0,
-              }),
-            }}
-            type="number"
-            options={[]}
-            placeHolder="Enter hourly pay"
-          />
+          <div className="w-1/3 pr-16">
+            <Input
+              errors={errors}
+              label="Hourly Pay (min. 0)"
+              name={"hourlyPay"}
+              errorMessage={"Hourly pay must be at least 0"}
+              formHook={{
+                ...register("hourlyPay", {
+                  required: compensationType === "For Pay", // Hourly pay required only if "For Pay"
+                  min: 0,
+                }),
+              }}
+              type="number"
+              options={[]}
+              placeHolder="Enter hourly pay"
+            />
+          </div>
         ) : null}
 
         {compensationType === "For Credit" || compensationType === "Any" ? (
-          <CheckBox
-            label="Credits"
-            options={["1", "2", "3", "4"]} // Checkboxes for credit options
-            errors={errors}
-            errorMessage={"You must select at least one credit option"}
-            name={"credits"}
-            type="checkbox"
-            formHook={{
-              ...register("credits", {
-                required: compensationType === "For Credit", // Credits required only if "For Credit"
-              }),
-            }}
-          />
+          <div className="w-1/3">
+            <CheckBox
+              label="Credits"
+              options={["1", "2", "3", "4"]} // Checkboxes for credit options
+              errors={errors}
+              errorMessage={"You must select at least one credit option"}
+              name={"credits"}
+              type="checkbox"
+              formHook={{
+                ...register("credits", {
+                  required: compensationType === "For Credit", // Credits required only if "For Credit"
+                }),
+              }}
+            />
+          </div>
         ) : null}
       </div>
 
@@ -282,7 +288,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
 
         <Input
           errors={errors}
-          label="Description"
+          label="Description (min. 10 characters)"
           name={"description"}
           errorMessage="Description must be at least 10 characters"
           formHook={{

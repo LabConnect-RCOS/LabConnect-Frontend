@@ -4,7 +4,9 @@ import ProfileAvatar from "../components/UIElements/ProfileAvatar.tsx";
 import ProfileDescription from "../../staff/components/ProfileDescription.tsx";
 import ProfileOpportunities from "../../staff/components/ProfileOpportunities.tsx";
 import EditProfile from "./EditProfile";
-import useGlobalContext from "../../context/global/useGlobalContext";
+import errorImage from "../../images/error.png";
+import { useAuth } from "../../context/AuthContext.tsx";
+import LoginRedirect from "./LoginRedirect.tsx"
 
 const PROFILES = {
   d1: {
@@ -44,14 +46,14 @@ const ProfilePage = () => {
   const [profileFound, setProfileFound] = useState(false);
   const [profile, setProfile] = useState(null);
 
-  const state = useGlobalContext();
-  const { loggedIn } = state;
+  const { auth } = useAuth();
+  const { isAuthenticated, token } = auth;
 
   const changeEditMode = () => {
     setEditMode(!editMode);
   };
 
-  const { id } = state;
+  const { id } = auth;
 
   const fetchProfile = async () => {
     const response = await fetch(
@@ -105,19 +107,21 @@ const ProfilePage = () => {
   return (
     <section>
       <section>
-        {!loggedIn ? (
-          "Please log in to view your profile"
+        {!isAuthenticated ? (
+          <LoginRedirect/>
         ) : profileFound ? (
           <>
-            {loggedIn && editButton}
-            {loggedIn && editMode && <EditProfile />}
-            {loggedIn && !editMode && profilePage}
+            {isAuthenticated && editButton}
+            {isAuthenticated && editMode && <EditProfile />}
+            {isAuthenticated && !editMode && profilePage}
           </>
         ) : (
-          "Profile not found"
+          <section>
+            <div className="img-center"><img src={errorImage} alt="Error"/></div>
+            <p className="text-xl text-center">Profile not found</p>
+          </section>
         )}
       </section>
-      <br/><br/><br/><br/><br/><br/><br/>
     </section>
   );
 };

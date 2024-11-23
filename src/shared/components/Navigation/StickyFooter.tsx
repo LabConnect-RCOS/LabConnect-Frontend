@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../images/LabConnect_Logo.webp";
+import { useAuth } from "../../../context/AuthContext.tsx";
 
-export default function StickyFooter(authenticated) {
+export default function StickyFooter() {
+  const { auth } = useAuth();
+  const { isAuthenticated, token } = auth;
 
-  const routes = authenticated.authenticated[1]
+  const routes = isAuthenticated
     ? [
       { name: "Jobs", href: "/jobs", current: true },
       { name: "Create", href: "/create", current: false },
@@ -48,7 +51,7 @@ export default function StickyFooter(authenticated) {
             </p>
           </div>
         </div>
-        <div>
+        <div className="w-40">
           <b>Resources</b>
           <br />
           {routes.map((item) => (

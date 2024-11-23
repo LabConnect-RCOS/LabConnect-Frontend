@@ -44,9 +44,6 @@ const Home = () => {
           </Link>{" "}
           to view and edit your current posts.
         </p>
-        <br />
-        <br />
-        <br />
       </section>
     </section>
   );

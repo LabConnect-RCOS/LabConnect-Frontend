@@ -92,25 +92,6 @@ const Home = ({ signOut, signIn }) => {
           </div>
         </div>
   
-        {/* Footer Section */}
-        <footer className="bg-gray-900 text-gray-100 py-8">
-          <div className="container mx-auto text-center">
-            <p className="text-sm">
-              © 2024 LabConnect. All Rights Reserved. | <Link to="/privacy" className="text-blue-400 hover:underline">Privacy Policy</Link>
-            </p>
-            <div className="flex justify-center mt-4 space-x-4">
-              <Link to="https://facebook.com" className="text-gray-400 hover:text-gray-200 transition-all">
-                <FontAwesomeIcon icon={["fab", "facebook"]} size="2x" />
-              </Link>
-              <Link to="https://twitter.com" className="text-gray-400 hover:text-gray-200 transition-all">
-                <FontAwesomeIcon icon={["fab", "twitter"]} size="2x" />
-              </Link>
-              <Link to="https://linkedin.com" className="text-gray-400 hover:text-gray-200 transition-all">
-                <FontAwesomeIcon icon={["fab", "linkedin"]} size="2x" />
-              </Link>
-            </div>
-          </div>
-        </footer>
   
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-200 to-blue-300 opacity-30 z-0"></div>

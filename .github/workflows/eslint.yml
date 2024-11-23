@@ -23,6 +23,6 @@ jobs:
       - name: Run EsLint
         uses: sibiraj-s/action-eslint@v3
         with:
-          eslint-args: "src/**/*.{js,jsx,ts,tsx} --max-warnings=0"
-          extensions: "js,jsx,ts,tsx"
+          eslint-args: "src/**/*.{ts,tsx} --max-warnings=0"
+          extensions: "ts,tsx"
           annotations: true

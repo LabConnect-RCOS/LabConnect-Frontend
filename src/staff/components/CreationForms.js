@@ -1,36 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import CheckBox from "./Checkbox";
 import Input from "./Input";
 import { useParams } from "react-router";
 import useGlobalContext from "../../context/global/useGlobalContext";
 
-const DUMMY_DATA = {
-  "d1": {
-    id: "d1",
-    title: "Software Intern",
-    department: "Computer Science",
-    location: "Remote",
-    date: "2024-02-08",
-    type: "For Pay",  // New field for type
-    hourlyPay: 0,
-    credits: 0,
-    description: "This is a software internship",
-    years: ["Freshman", "Junior", "Senior"],
-  },
-};
+function trapFocus(element) {
+  const focusableEls = element.querySelectorAll(
+    "a, button, input, textarea, select, [tabindex]:not([tabindex='-1'])"
+  );
+  const firstFocusableEl = focusableEls[0];
+  const lastFocusableEl = focusableEls[focusableEls.length - 1];
+  element.addEventListener("keydown", (e) => {
+    if (e.key === "Tab") {
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusableEl) {
+          e.preventDefault();
+          lastFocusableEl.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusableEl) {
+          e.preventDefault();
+          firstFocusableEl.focus();
+        }
+      }
+    }
+  });
+}
+
+function setFocusIndicator(element) {
+  element.addEventListener("focus", (e) => {
+    e.target.style.outline = "2px solid #000";
+  });
+  element.addEventListener("blur", (e) => {
+    e.target.style.outline = "none";
+  });
+}
 
 const CreationForms = () => {
   const { postID } = useParams();
   const [loading, setLoading] = useState(false);
-  const [compensationType, setCompensationType] = useState("For Pay"); // Manage the state for "For Pay" or "For Credit"
+  const [compensationType, setCompensationType] = useState("For Pay");
+  const [isPaused, setIsPaused] = useState(false);
+  const formRef = useRef(null);
   const state = useGlobalContext();
   const { loggedIn } = state;
   const { id: authorId } = state;
 
+  const DUMMY_DATA = {
+    d1: {
+      id: "d1",
+      title: "Software Intern",
+      department: "Computer Science",
+      location: "Remote",
+      date: "2024-02-08",
+      type: "For Pay",
+      hourlyPay: 0,
+      credits: 0,
+      description: "This is a software internship",
+      years: ["Freshman", "Junior", "Senior"],
+    },
+  };
+
   async function fetchDetails(key) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve(DUMMY_DATA[key]);
       }, 5000);
@@ -55,7 +88,7 @@ const CreationForms = () => {
       department: "",
       location: "",
       date: "",
-      type: "For Pay", // Default to "For Pay"
+      type: "For Pay",
       hourlyPay: 0,
       credits: [],
       description: "",
@@ -64,8 +97,17 @@ const CreationForms = () => {
   });
 
   useEffect(() => {
-    postID && setLoading(true);
-    postID && fetchData(postID);
+    if (postID) {
+      setLoading(true);
+      fetchData(postID);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (formRef.current) {
+      trapFocus(formRef.current);
+      setFocusIndicator(formRef.current);
+    }
   }, []);
 
   const submitHandler = (data) => {
@@ -74,174 +116,154 @@ const CreationForms = () => {
     }
   };
 
-  return !loading ? (
-    <form
-      onSubmit={handleSubmit((data) => {
-        submitHandler(data);
-      })}
-      className="form-container" // Form container for vertical layout
-    >
-      {/* Group 1: Horizontal layout for Title, Department, Location, Due Date */}
-      <div className="horizontal-form">
-        <Input
-          label="Title"
-          name={"title"}
-          errors={errors}
-          errorMessage={"Title must be at least 5 characters"}
-          formHook={{
-            ...register("title", {
-              required: true,
-              minLength: 5,
-              maxLength: 100,
-            }),
-          }}
-        />
-
-        <Input
-          errors={errors}
-          label="Department"
-          name={"department"}
-          type="select"
-          options={["Computer Science", "Biology", "Physics"]}
-          errorMessage={"Department must be at least 3 characters"}
-          formHook={{
-            ...register("department", {
-              required: true,
-              minLength: 3,
-              maxLength: 40,
-            }),
-          }}
-        />
-
-        <Input
-          errors={errors}
-          label="Location"
-          name={"location"}
-          errorMessage={"Location must be at least 5 characters"}
-          formHook={{
-            ...register("location", {
-              required: true,
-              minLength: 5,
-              maxLength: 100,
-            }),
-          }}
-        />
-
-        <Input
-          errors={errors}
-          label="Due Date"
-          name={"date"}
-          errorMessage={"Due Date is required"}
-          formHook={{ ...register("date", { required: true }) }}
-          type="date"
-        />
-      </div>
-
-      {/* Compensation Type Section with Rectangular Box */}
-      <div className="compensation-box">
-        <label>Compensation Type</label>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            value="For Pay"
-            {...register("type", { required: true })}
-            checked={compensationType === "For Pay"}
-            onChange={() => setCompensationType("For Pay")}
+  return (
+    <div>
+      <a href="#main-form" className="skip-to-content">Skip to main content</a>
+      <button
+        type="button"
+        onClick={() => setIsPaused(!isPaused)}
+        aria-label={isPaused ? "Resume Auto-Updates" : "Pause Auto-Updates"}
+        aria-pressed={isPaused}
+      >
+        {isPaused ? "Resume" : "Pause"}
+      </button>
+      {!loading ? (
+        <form
+          ref={formRef}
+          id="main-form"
+          role="form"
+          aria-labelledby="form-title"
+          onSubmit={handleSubmit((data) => submitHandler(data))}
+          className="form-container"
+        >
+          <h1 id="form-title">Create a New Opportunity</h1>
+          <div className="horizontal-form">
+            <Input
+              label="Title"
+              name="title"
+              errors={errors}
+              errorMessage="Title must be at least 5 characters"
+              formHook={{
+                ...register("title", {
+                  required: true,
+                  minLength: 5,
+                  maxLength: 100,
+                }),
+              }}
+            />
+            <Input
+              errors={errors}
+              label="Department"
+              name="department"
+              type="select"
+              options={["Computer Science", "Biology", "Physics"]}
+              errorMessage="Department must be at least 3 characters"
+              formHook={{
+                ...register("department", {
+                  required: true,
+                  minLength: 3,
+                  maxLength: 40,
+                }),
+              }}
+            />
+            <Input
+              errors={errors}
+              label="Location"
+              name="location"
+              errorMessage="Location must be at least 5 characters"
+              formHook={{
+                ...register("location", {
+                  required: true,
+                  minLength: 5,
+                  maxLength: 100,
+                }),
+              }}
+            />
+          </div>
+          <div className="compensation-section">
+            <label htmlFor="compensation-type">Compensation Type</label>
+            <div>
+              <input
+                type="radio"
+                value="For Pay"
+                {...register("type")}
+                onChange={() => setCompensationType("For Pay")}
+              />
+              <label>For Pay</label>
+              <input
+                type="radio"
+                value="For Credit"
+                {...register("type")}
+                onChange={() => setCompensationType("For Credit")}
+              />
+              <label>For Credit</label>
+              <input
+                type="radio"
+                value="Any"
+                {...register("type")}
+                onChange={() => setCompensationType("Any")}
+              />
+              <label>Any</label>
+            </div>
+          </div>
+          <div className="horizontal-form">
+            {compensationType === "For Pay" && (
+              <Input
+                errors={errors}
+                label="Hourly Pay"
+                name="hourlyPay"
+                errorMessage="Hourly pay must be at least 0"
+                formHook={{
+                  ...register("hourlyPay", {
+                    required: true,
+                    min: 0,
+                  }),
+                }}
+                type="number"
+              />
+            )}
+            {compensationType === "For Credit" && (
+              <CheckBox
+                label="Credits"
+                options={[1, 2, 3, 4]}
+                errors={errors}
+                errorMessage="Select at least one credit option"
+                name="credits"
+                formHook={{
+                  ...register("credits", {
+                    required: true,
+                  }),
+                }}
+              />
+            )}
+          </div>
+          <CheckBox
+            label="Eligible Class Years"
+            options={["Freshman", "Sophomore", "Junior", "Senior"]}
+            errors={errors}
+            errorMessage="Select at least one class year"
+            name="years"
+            formHook={{ ...register("years", { required: true }) }}
           />
-          <label className="pl-2">For Pay</label>
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            value="For Credit"
-            {...register("type", { required: true })}
-            checked={compensationType === "For Credit"}
-            onChange={() => setCompensationType("For Credit")}
-          />
-          <label className="pl-2">For Credit</label>
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            value="Any"
-            {...register("type", { required: true })}
-            checked={compensationType === "Any"}
-            onChange={() => setCompensationType("Any")}
-          />
-          <label className="pl-2">Any</label>
-        </div>
-      </div>
-
-      {/* Conditionally Render Pay Input or Credit Checkboxes */}
-      <div className="horizontal-form">
-        {compensationType === "For Pay" || compensationType === "Any" ? (
           <Input
             errors={errors}
-            label="Hourly Pay"
-            name={"hourlyPay"}
-            errorMessage={"Hourly pay must be at least 0"}
+            label="Description"
+            name="description"
+            errorMessage="Description must be at least 10 characters"
             formHook={{
-              ...register("hourlyPay", {
-                required: compensationType === "For Pay", // Hourly pay required only if "For Pay"
-                min: 0,
+              ...register("description", {
+                required: true,
+                minLength: 10,
               }),
             }}
-            type="number"
+            type="textarea"
           />
-        ) : null}
-
-        {compensationType === "For Credit" || compensationType === "Any" ? (
-          <CheckBox
-            label="Credits"
-            options={[1, 2, 3, 4]} // Checkboxes for credit options
-            errors={errors}
-            errorMessage={"You must select at least one credit option"}
-            name={"credits"}
-            formHook={{
-              ...register("credits", {
-                required: compensationType === "For Credit", // Credits required only if "For Credit"
-              }),
-            }}
-          />
-        ) : null}
-      </div>
-
-      {/* Class Year and Description aligned horizontally */}
-      <div className="horizontal-form">
-        <CheckBox
-          label="Eligible Class Years"
-          options={["Freshman", "Sophomore", "Junior", "Senior"]}
-          errors={errors}
-          errorMessage={"At least one year must be selected"}
-          name={"years"}
-          formHook={{ ...register("years", { required: true }) }}
-        />
-
-        <Input
-          errors={errors}
-          label="Description"
-          name={"description"}
-          errorMessage="Description must be at least 10 characters"
-          formHook={{
-            ...register("description", {
-              required: true,
-              minLength: 10,
-              message: "Description must be at least 10 characters",
-            }),
-          }}
-          type="textarea"
-        />
-      </div>
-
-      {/* Submit button */}
-      <section className="pt-3 pb-5">
-        <input type="submit" className="btn btn-primary bg-blue-700 w-full" />
-      </section>
-    </form>
-  ) : loading === "no response" ? (
-    <h1>There was no response</h1>
-  ) : (
-    <span className="lc-loading" />
+          <button type="submit" className="submit-btn">Submit</button>
+        </form>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
   );
 };
 

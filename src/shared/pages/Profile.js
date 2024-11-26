@@ -105,24 +105,22 @@ const ProfilePage = () => {
   );
 
   return (
-    <section>
-      <section>
-        {!isAuthenticated ? (
-          <LoginRedirect/>
-        ) : profileFound ? (
-          <>
-            {isAuthenticated && editButton}
-            {isAuthenticated && editMode && <EditProfile />}
-            {isAuthenticated && !editMode && profilePage}
-          </>
-        ) : (
-          <section>
-            <div className="img-center"><img src={errorImage} alt="Error"/></div>
-            <p className="text-xl text-center">Profile not found</p>
-          </section>
-        )}
-      </section>
-    </section>
+    <>
+      {!isAuthenticated ? (
+        <LoginRedirect/>
+      ) : profileFound ? (
+        <>
+          {isAuthenticated && editButton}
+          {isAuthenticated && editMode && <EditProfile />}
+          {isAuthenticated && !editMode && profilePage}
+        </>
+      ) : (
+        <section>
+          <div className="img-center"><img src={errorImage} alt="Error"/></div>
+          <p className="text-xl text-center">Profile not found</p>
+        </section>
+      )}
+    </>
   );
 };
 

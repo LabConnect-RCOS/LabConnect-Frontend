@@ -30,11 +30,11 @@ const Home = () => {
           tab to view currently available research opportunities.
           <br />
           If you are a professor or staff member,{" "}
-          <Link to="/signin" className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900">
+          <Link to="/login" className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900">
             <b>Sign In</b>
           </Link>{" "}
           and then go to{" "}
-          <Link to="/createPost" className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900">
+          <Link to="/create" className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900">
             <b>Create</b>
           </Link>{" "}
           to start posting <br />

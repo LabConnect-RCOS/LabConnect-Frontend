@@ -46,7 +46,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       credits: [],
       description: "",
       recommended_experience: "",
-      location: "",
+      location: "Select a Department",
       years: [""],
     },
   });
@@ -151,54 +151,60 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       className="form-container" // Form container for vertical layout
     >
       {/* Group 1: Horizontal layout for Title, Location, Deadine */}
-      <div className="horizontal-form">
-        <Input
-          label="Title (min. 5 characters)"
-          name={"title"}
-          errors={errors}
-          errorMessage={"Title must be at least 5 characters"}
-          formHook={{
-            ...register("title", {
-              required: true,
-              minLength: 5,
-              maxLength: 100,
-            }),
-          }}
-          type="text"
-          options={[]}
-          placeHolder="Enter title"
-        />
+      <section className="flex flex-row justify-center">
+        <div className="w-1/3 pl-3">
+          <Input
+            label="Title (min. 5 characters)"
+            name={"title"}
+            errors={errors}
+            errorMessage={"Title must be at least 5 characters"}
+            formHook={{
+              ...register("title", {
+                required: true,
+                minLength: 5,
+                maxLength: 100,
+              }),
+            }}
+            type="text"
+            options={[]}
+            placeHolder="Enter title"
+          />
+        </div>
 
-        <Input
-          errors={errors}
-          label="Location (min. 5 characters)"
-          name={"location"}
-          type="select"
-          options={Locations}
-          errorMessage={"Location is required"}
-          formHook={{
-            ...register("location", {
-              required: true,
-            }),
-          }}
-          placeHolder="Select Location"
-        />
+        <div className="w-1/3 pr-3 pl-3">
+          <Input
+            errors={errors}
+            label="Location"
+            name={"location"}
+            type="select"
+            options={Locations}
+            errorMessage={"Location is required"}
+            formHook={{
+              ...register("location", {
+                required: true,
+              }),
+            }}
+            placeHolder="Select Location"
+          />
+        </div>
 
-        <Input
-          errors={errors}
-          label="Deadline"
-          name={"application_due"}
-          errorMessage={"Deadline is required"}
-          formHook={{ ...register("application_due", { required: true }) }}
-          type="date"
-          placeHolder={"Select Deadline"}
-          options={[]}
-        />
-      </div>
+        <div className="w-1/3 pr-3">
+          <Input
+            errors={errors}
+            label="Deadline"
+            name={"application_due"}
+            errorMessage={"Deadline is required"}
+            formHook={{ ...register("application_due", { required: true }) }}
+            type="date"
+            placeHolder={"Select Deadline"}
+            options={[]}
+          />
+        </div>
+      </section>
 
       {/* Compensation Type Section with Rectangular Box */}
-      <div className="flex flex-row">
-        <div className="w-1/3">
+      <section className="flex flex-row">
+        <div className="w-1/3 pr-3">
           <label className="label-text font-medium">Compensation Type</label>
           <div className="flex items-center pt-5 pb-1">
             <input
@@ -231,12 +237,9 @@ export default function CreationForms({ edit }: CreationFormsProps) {
             <label className="pl-2 label-text">Any</label>
           </div>
         </div>
-      </div>
 
-      {/* Conditionally Render Pay Input or Credit Checkboxes */}
-      <div className="horizontal-form">
         {compensationType === "For Pay" || compensationType === "Any" ? (
-          <div className="w-1/3 pr-16">
+          <div className="w-1/3 pl-3 pr-12">
             <Input
               errors={errors}
               label="Hourly Pay (min. 0)"
@@ -256,7 +259,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
         ) : null}
 
         {compensationType === "For Credit" || compensationType === "Any" ? (
-          <div className="w-1/3">
+          <div className="w-1/3 pl-3">
             <CheckBox
               label="Credits"
               options={["1", "2", "3", "4"]} // Checkboxes for credit options
@@ -272,7 +275,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
             />
           </div>
         ) : null}
-      </div>
+      </section>
 
       {/* Class Year and Description aligned horizontally */}
       <div className="horizontal-form">

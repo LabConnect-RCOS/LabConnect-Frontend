@@ -7,6 +7,7 @@ import EditProfile from "./EditProfile";
 import errorImage from "../../images/error.png";
 import { useAuth } from "../../context/AuthContext.tsx";
 import LoginRedirect from "./LoginRedirect.tsx"
+import PageNotFound from "./404.tsx"
 
 const PROFILES = {
   d1: {
@@ -47,7 +48,6 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
 
   const { auth } = useAuth();
-  const { isAuthenticated, token } = auth;
 
   const changeEditMode = () => {
     setEditMode(!editMode);
@@ -106,19 +106,16 @@ const ProfilePage = () => {
 
   return (
     <>
-      {!isAuthenticated ? (
+      {auth.isAuthenticated ? (
         <LoginRedirect/>
       ) : profileFound ? (
         <>
-          {isAuthenticated && editButton}
-          {isAuthenticated && editMode && <EditProfile />}
-          {isAuthenticated && !editMode && profilePage}
+          {auth.isAuthenticated && editButton}
+          {auth.isAuthenticated && editMode && <EditProfile />}
+          {auth.isAuthenticated && !editMode && profilePage}
         </>
       ) : (
-        <section>
-          <div className="img-center"><img src={errorImage} alt="Error"/></div>
-          <p className="text-xl text-center">Profile not found</p>
-        </section>
+        <PageNotFound />
       )}
     </>
   );

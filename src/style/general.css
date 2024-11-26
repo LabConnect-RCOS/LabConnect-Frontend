@@ -67,7 +67,6 @@
 
 /* Staff CSS */
 .createpost {@apply flex justify-center mt-3;}
-.check-input {@apply w-full max-w-xs;}
 .lc-loading {@apply loading loading-spinner loading-lg;}
 .featimage {@apply min-w-32 w-96 h-72 bg-base-100 shadow-xl rounded-md overflow-clip;}
 .lg-img-card {@apply card-compact w-96 bg-base-100 transition;}

@@ -15,9 +15,9 @@ export default function MainNavigation() {
       { name: "Create", href: "/create", current: false },
       { name: "Staff", href: "/staff", current: false },
       { name: "Profile", href: "/profile", current: false },
-      { name: "Sign Out", href: "/signout", current: false },
+      { name: "Log Out", href: "/signout", current: false },
     ]
-    : [{ name: "Sign In", href: "/signin", current: false }];
+    : [{ name: "Log In", href: "/signin", current: false }];
 
   return (
     <Disclosure as="nav" className="bg-slate-100">

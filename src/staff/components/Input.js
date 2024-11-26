@@ -1,5 +1,7 @@
 import React from "react";
 
+
+
 const Input = ({
   type,
   errorMessage,
@@ -38,9 +40,9 @@ const Input = ({
     <select
       {...formHook}
       defaultValue="Select a department"
-      className="select select-bordered check-input"
+      className="select select-bordered w-full"
     >
-      <option value="Select a department">Select a department</option>
+      <option value="" selected disabled hidden>Select a department</option>
       {options ? (
         options.map((option) => {
           return (

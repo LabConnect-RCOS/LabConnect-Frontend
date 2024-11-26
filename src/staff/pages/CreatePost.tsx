@@ -13,7 +13,7 @@ export default function CreatePost({ edit }: CreatePostProps) {
 
   return (
     <>
-      {!auth.isAuthenticated ? (
+      {auth.isAuthenticated ? (
         <LoginRedirect/>
       ) : (
       <div className="w-9/12 mx-auto">

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-transform-private-methods": "^7.25.4",
-    "@eslint/config-array": "^0.18.0",
+    "@eslint/config-array": "^0.19.0",
     "@eslint/object-schema": "^2.1.4",
     "@headlessui/react": "^2.1.8",
     "@heroicons/react": "^2.1.5",

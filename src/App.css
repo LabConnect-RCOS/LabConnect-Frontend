@@ -1,10 +1,20 @@
+/* General Styling */
 .App {
   text-align: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
 }
 
+/* Logo Animation */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+  transition: transform 0.2s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.App-logo:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -13,6 +23,16 @@
   }
 }
 
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Header Styling */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,17 +42,112 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px;
+  border-bottom: 5px solid #61dafb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+/* Link Styling */
 .App-link {
   color: #61dafb;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App-link:hover {
+  color: #21a1f1;
+  text-shadow: 0px 0px 8px rgba(97, 218, 251, 0.7);
+}
+
+/* Buttons */
+.App-button {
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.App-button:hover {
+  background-color: #21a1f1;
+  transform: translateY(-3px);
+}
+
+.App-button:active {
+  background-color: #1e90ff;
+  transform: translateY(2px);
+}
+
+/* Footer Styling */
+.App-footer {
+  background-color: #20232a;
+  color: #61dafb;
+  padding: 20px 0;
+  font-size: 14px;
+  border-top: 2px solid #61dafb;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.App-logo:hover {
+  animation: bounce 1s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App-header {
+    font-size: calc(8px + 2vmin);
+    padding: 10px;
+  }
+
+  .App-logo {
+    height: 30vmin;
+  }
+
+  .App-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    font-size: calc(6px + 2vmin);
+  }
+
+  .App-logo {
+    height: 25vmin;
+  }
+}
+
+/* Decorative Elements */
+.decorative-bar {
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #61dafb, #21a1f1, #1e90ff);
+  animation: moveBar 5s linear infinite;
+}
+
+@keyframes moveBar {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
   }
 }

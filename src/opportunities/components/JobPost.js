@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const JobPost = ({
   title,
@@ -7,73 +7,133 @@ const JobPost = ({
   location,
   season,
   year,
+  department,
+  deadline,
+  experience,
+  salary,
+  isRemote,
+  isOpen,
   onClick,
   active,
-  tags = [],
-  description = "",
-  isRemote = false,
-  applicationDeadline = null,
+  additionalInfo,
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
+  const renderStatus = () => {
+    if (isOpen) {
+      return <span className="status-open">Open</span>;
+    }
+    return <span className="status-closed">Closed</span>;
+  };
 
-  const toggleDetails = () => {
-    setShowDetails((prev) => !prev);
+  const renderAdditionalInfo = () => {
+    if (additionalInfo && additionalInfo.length > 0) {
+      return (
+        <ul className="additional-info-list">
+          {additionalInfo.map((info, index) => (
+            <li key={index} className="additional-info-item">
+              {info}
+            </li>
+          ))}
+        </ul>
+      );
+    }
+    return null;
+  };
+
+  const applyNowHandler = () => {
+    alert(`Applied to ${title} successfully!`);
+  };
+
+  const shareJobHandler = () => {
+    alert(`Shared the job: ${title}`);
+  };
+
+  const saveJobHandler = () => {
+    alert(`Saved the job: ${title}`);
   };
 
   return (
     <div
-      className={`job-post-container ${
-        active ? "border-l-4 border-l-purple-600" : "border-l-2 border-l-gray-300"
-      }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`job-post-container ${active ? "active-job" : ""}`}
+      onClick={() => onClick(id)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && onClick(id)}
+      aria-pressed={active}
     >
-      <div
-        onClick={() => onClick(id)}
-        className={`job-post-btn hover:bg-gray-100 p-3 rounded-md hover:cursor-pointer ${
-          isHovered ? "shadow-md" : ""
-        }`}
-      >
-        <h4 className="job-post-title font-bold">{title}</h4>
-        <div className="job-post-info">
-          <h5 className="job-post-description text-sm text-gray-600">{professor}</h5>
-          <h5 className="job-post-description text-sm text-gray-500">
-            {location} · {season} {year}
-            {isRemote && <span className="text-green-500"> (Remote)</span>}
-          </h5>
-          {applicationDeadline && (
-            <h5 className="job-post-description text-sm text-red-500">
-              Apply by: {new Date(applicationDeadline).toLocaleDateString()}
-            </h5>
-          )}
-        </div>
+      <div className="job-post-header">
+        <h2 className="job-post-title">{title}</h2>
+        <div className="job-status">{renderStatus()}</div>
       </div>
 
-      <div className="job-post-tags flex gap-2 mt-2">
-        {tags.length > 0 &&
-          tags.map((tag, index) => (
-            <span
-              key={index}
-              className="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs"
-            >
-              {tag}
-            </span>
-          ))}
+      <div className="job-post-body">
+        <p className="job-post-professor">
+          <strong>Professor:</strong> {professor}
+        </p>
+        <p className="job-post-meta">
+          <strong>Location:</strong> {location} · {season} {year}
+        </p>
+        <p className="job-post-department">
+          <strong>Department:</strong> {department}
+        </p>
+        <p className="job-post-deadline">
+          <strong>Application Deadline:</strong> {deadline}
+        </p>
+        <p className="job-post-experience">
+          <strong>Required Experience:</strong> {experience || "Not specified"}
+        </p>
+        {salary && (
+          <p className="job-post-salary">
+            <strong>Salary:</strong> ${salary}/hour
+          </p>
+        )}
+        {isRemote !== undefined && (
+          <p className="job-post-remote">
+            <strong>Remote:</strong> {isRemote ? "Yes" : "No"}
+          </p>
+        )}
+        {renderAdditionalInfo()}
       </div>
 
-      <button
-        onClick={toggleDetails}
-        className="mt-2 text-sm text-purple-600 underline hover:text-purple-800"
-      >
-        {showDetails ? "Hide Details" : "View Details"}
-      </button>
+      <div className="job-post-actions">
+        <button
+          className="apply-button bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          onClick={applyNowHandler}
+        >
+          Apply Now
+        </button>
+        <button
+          className="details-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={() => alert(`More details for ${title}`)}
+        >
+          More Details
+        </button>
+        <button
+          className="share-button bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+          onClick={shareJobHandler}
+        >
+          Share Job
+        </button>
+        <button
+          className="save-button bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          onClick={saveJobHandler}
+        >
+          Save Job
+        </button>
+      </div>
 
-      {showDetails && (
-        <div className="job-post-details mt-2 p-3 border rounded-md bg-gray-50">
-          <p className="text-gray-700 text-sm">{description || "No additional details available."}</p>
-        </div>
-      )}
+      <div className="job-post-footer">
+        <p>
+          <strong>Note:</strong> For more information, visit our{" "}
+          <a
+            href="https://careers.example.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="job-post-link"
+          >
+            Careers Page
+          </a>
+        </p>
+      </div>
     </div>
   );
 };

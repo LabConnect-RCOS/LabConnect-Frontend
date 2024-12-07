@@ -1,33 +1,191 @@
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .form-container .button-group {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-container .button-group button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.form-container .button-group .submit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-container .button-group .submit-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+.form-container .button-group .reset-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.form-container .button-group .reset-btn:hover {
+  background-color: #a71d2a;
+  transform: translateY(-3px);
 }
 
 .form-container .error-message {
   color: red;
   font-size: 12px;
+  margin-top: 5px;
 }
 
 .form-container .success-message {
   color: green;
   font-size: 14px;
   margin-top: 10px;
+  font-weight: bold;
 }
 
-.form-container input:focus {
-  outline: 2px solid blue;
+.form-container input,
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: 2px solid #007bff;
+  border-color: #007bff;
   background-color: #f0f8ff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .form-container .loading {
   animation: spin 2s linear infinite;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
 }
 
 @keyframes spin {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.form-container .progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.form-container .progress-bar .progress {
+  height: 100%;
+  width: 0;
+  background-color: #007bff;
+  animation: fillProgress 3s ease-in-out forwards;
+}
+
+@keyframes fillProgress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.form-container .checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.form-container .checkbox-group input[type="checkbox"],
+.form-container .checkbox-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.form-container .checkbox-group label {
+  font-size: 14px;
+  color: #333;
+}
+
+.form-container a:focus {
+  outline: 2px dashed #007bff;
+  outline-offset: 2px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-container .success-message,
+.form-container .error-message {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 15px;
+  }
+
+  .form-container h1 {
+    font-size: 20px;
+  }
+
+  .form-container input,
+  .form-container select,
+  .form-container textarea {
+    font-size: 12px;
+  }
+
+  .form-container .button-group button {
+    font-size: 14px;
+    padding: 8px 16px;
   }
 }

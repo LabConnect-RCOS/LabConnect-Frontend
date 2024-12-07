@@ -1,58 +1,83 @@
-import React, { useEffect, useState } from "react";
-import DepartmentItems from "../components/DepartmentItems.tsx";
-import ErrorComponent from "../../shared/components/UIElements/Error.tsx";
+import React, { useState, useEffect } from "react";
 
-const Departments = (authenticated) => {
-  if (!authenticated.authenticated[1]) {
-    window.location.href = "/login";
-  }
-
-  const [departments, setDepartments] = useState<
-    { id: string; department_id: string; title: string; image: string }[] | string | null
-  >(null);
+const Departments = () => {
+  const [departments, setDepartments] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({ search: "", activeOnly: false });
+  const departmentCache = new Map();
 
   const fetchDepartments = async () => {
+    setLoading(true);
+    setError("");
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/departments`, {
-        headers: {
-          Authorization: `Bearer ${authenticated.authenticated[0]}`,
-        },
-      }
-      );
-
-      if (!response.ok) {
-        throw new Error("Departments not found");
+      if (departmentCache.has("departments")) {
+        setDepartments(departmentCache.get("departments"));
+        setLoading(false);
+        return;
       }
 
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/departments`);
+      if (!response.ok) throw new Error("Failed to fetch departments.");
       const data = await response.json();
-      setDepartments(data);
-    } catch {
-      setDepartments("Error fetching departments");
+      setDepartments(data.departments);
+      departmentCache.set("departments", data.departments);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: name === "activeOnly" ? e.target.checked : value }));
+  };
+
+  const resetFilters = () => {
+    setFilters({ search: "", activeOnly: false });
+  };
+
+  const filteredDepartments = departments.filter((dept) => {
+    if (filters.activeOnly && !dept.active) return false;
+    if (filters.search && !dept.name.toLowerCase().includes(filters.search.toLowerCase())) {
+      return false;
+    }
+    return true;
+  });
 
   useEffect(() => {
     fetchDepartments();
   }, []);
 
-  const departmentComponents = (
-    <section className="flex2 gap-3">
-      <DepartmentItems items={Array.isArray(departments) ? departments : []} />
-    </section>
-  );
-
   return (
-    <>
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-        Departments
-      </h1>
-      {!departments && "Loading..."}
-      {typeof departments === "object" && departmentComponents}
-      {departments === "Error fetching departments" && (
-        <ErrorComponent message="Error fetching departments" />
-      )}
-    </>
+    <div>
+      <h2>Departments</h2>
+      <input
+        type="text"
+        name="search"
+        placeholder="Search departments"
+        value={filters.search}
+        onChange={handleFilterChange}
+      />
+      <label>
+        <input
+          type="checkbox"
+          name="activeOnly"
+          checked={filters.activeOnly}
+          onChange={handleFilterChange}
+        />
+        Active Only
+      </label>
+      <button onClick={resetFilters}>Reset Filters</button>
+      {loading && <p>Loading departments...</p>}
+      {error && <p>Error: {error}</p>}
+      <ul>
+        {filteredDepartments.map((dept) => (
+          <li key={dept.id}>{dept.name}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

@@ -37,6 +37,21 @@ function setFocusIndicator(element) {
   });
 }
 
+const DUMMY_DATA = {
+  d1: {
+    id: "d1",
+    title: "Software Intern",
+    department: "Computer Science",
+    location: "Remote",
+    date: "2024-02-08",
+    type: "For Pay",
+    hourlyPay: 0,
+    credits: 0,
+    description: "This is a software internship",
+    years: ["Freshman", "Junior", "Senior"],
+  },
+};
+
 const CreationForms = () => {
   const { postID } = useParams();
   const [loading, setLoading] = useState(false);
@@ -46,35 +61,6 @@ const CreationForms = () => {
   const state = useGlobalContext();
   const { loggedIn } = state;
   const { id: authorId } = state;
-
-  const DUMMY_DATA = {
-    d1: {
-      id: "d1",
-      title: "Software Intern",
-      department: "Computer Science",
-      location: "Remote",
-      date: "2024-02-08",
-      type: "For Pay",
-      hourlyPay: 0,
-      credits: 0,
-      description: "This is a software internship",
-      years: ["Freshman", "Junior", "Senior"],
-    },
-  };
-
-  async function fetchDetails(key) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(DUMMY_DATA[key]);
-      }, 5000);
-    });
-  }
-
-  async function fetchData(key) {
-    const response = await fetchDetails(key);
-    response && reset(response);
-    response ? setLoading(false) : setLoading("no response");
-  }
 
   const {
     register,
@@ -96,6 +82,20 @@ const CreationForms = () => {
     },
   });
 
+  async function fetchDetails(key) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(DUMMY_DATA[key]);
+      }, 3000);
+    });
+  }
+
+  async function fetchData(key) {
+    const response = await fetchDetails(key);
+    response && reset(response);
+    response ? setLoading(false) : setLoading("no response");
+  }
+
   useEffect(() => {
     if (postID) {
       setLoading(true);
@@ -116,9 +116,25 @@ const CreationForms = () => {
     }
   };
 
+  const handleCompensationChange = (type) => {
+    setCompensationType(type);
+  };
+
+  const validateCompensationType = () => {
+    if (compensationType === "For Pay" && errors.hourlyPay) {
+      return "Hourly pay is required for paid positions.";
+    }
+    if (compensationType === "For Credit" && errors.credits) {
+      return "At least one credit option must be selected.";
+    }
+    return null;
+  };
+
   return (
     <div>
-      <a href="#main-form" className="skip-to-content">Skip to main content</a>
+      <a href="#main-form" className="skip-to-content">
+        Skip to main content
+      </a>
       <button
         type="button"
         onClick={() => setIsPaused(!isPaused)}
@@ -187,24 +203,25 @@ const CreationForms = () => {
                 type="radio"
                 value="For Pay"
                 {...register("type")}
-                onChange={() => setCompensationType("For Pay")}
+                onChange={() => handleCompensationChange("For Pay")}
               />
               <label>For Pay</label>
               <input
                 type="radio"
                 value="For Credit"
                 {...register("type")}
-                onChange={() => setCompensationType("For Credit")}
+                onChange={() => handleCompensationChange("For Credit")}
               />
               <label>For Credit</label>
               <input
                 type="radio"
                 value="Any"
                 {...register("type")}
-                onChange={() => setCompensationType("Any")}
+                onChange={() => handleCompensationChange("Any")}
               />
               <label>Any</label>
             </div>
+            <p className="text-red-500">{validateCompensationType()}</p>
           </div>
           <div className="horizontal-form">
             {compensationType === "For Pay" && (
@@ -258,13 +275,86 @@ const CreationForms = () => {
             }}
             type="textarea"
           />
-          <button type="submit" className="submit-btn">Submit</button>
+          <button type="submit" className="submit-btn">
+            Submit
+          </button>
         </form>
       ) : (
         <p>Loading...</p>
       )}
     </div>
   );
+
+
+const [previewData, setPreviewData] = useState(null);
+
+const handlePreview = () => {
+  const currentData = {
+    title: formRef.current["title"].value,
+    department: formRef.current["department"].value,
+    location: formRef.current["location"].value,
+    compensationType,
+    hourlyPay:
+      compensationType === "For Pay"
+        ? formRef.current["hourlyPay"]?.value || 0
+        : "N/A",
+    credits:
+      compensationType === "For Credit"
+        ? Array.from(formRef.current["credits"])
+            .filter((input) => input.checked)
+            .map((input) => input.value)
+        : "N/A",
+    description: formRef.current["description"].value,
+    years: Array.from(formRef.current["years"])
+      .filter((input) => input.checked)
+      .map((input) => input.value),
+  };
+  setPreviewData(currentData);
 };
+
+const handleReset = () => {
+  reset();
+  setPreviewData(null);
+  setCompensationType("For Pay");
+};
+
+return (
+  <div>
+    {/* Existing Form Code */}
+    <div className="actions mt-4 flex gap-4">
+      <button
+        type="button"
+        onClick={handlePreview}
+        className="preview-btn bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Preview Data
+      </button>
+      <button
+        type="button"
+        onClick={handleReset}
+        className="reset-btn bg-gray-500 text-white px-4 py-2 rounded"
+      >
+        Reset Form
+      </button>
+    </div>
+
+    {/* Preview Section */}
+    {previewData && (
+      <div className="preview-section mt-6 p-4 border rounded bg-gray-50">
+        <h2 className="text-lg font-bold mb-3">Preview Data</h2>
+        <ul className="text-sm">
+          {Object.entries(previewData).map(([key, value]) => (
+            <li key={key}>
+              <strong>{key}:</strong> {Array.isArray(value) ? value.join(", ") : value}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+);
+
+};
+
 
 export default CreationForms;

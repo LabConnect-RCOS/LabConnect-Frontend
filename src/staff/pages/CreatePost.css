@@ -1,16 +1,33 @@
-/* CreatePost.css */
-.form-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Space between rows */
+.form-container .button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-container .error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.form-container .success-message {
+  color: green;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.form-container input:focus {
+  outline: 2px solid blue;
+  background-color: #f0f8ff;
+}
+
+.form-container .loading {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
   }
-  
-  .horizontal-form {
-    display: flex;
-    gap: 20px; /* Space between inputs */
+  100% {
+      transform: rotate(360deg);
   }
-  
-  .horizontal-form > * {
-    flex: 1; /* Each input takes equal space */
-  }
-  
+}

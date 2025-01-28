@@ -27,25 +27,38 @@ const sampleOpportunities: Opportunity[] = [
 const OpportunitiesList = () => {
   return (
     <div className="p-4">
-      <h1 className="text-2xl mb-4">Research Opportunities</h1>
       
-      <div className="space-y-4">
-        {sampleOpportunities.map((opportunity, index) => (
-          <div key={index} className="border p-4 rounded">
-            <h2 className="font-bold">{opportunity.name}</h2>
-            <p className="mt-2">{opportunity.description}</p>
-            
-            <div className="mt-2">
-              <p>Location: {opportunity.location}</p>
-              <p>Pay: ${opportunity.pay}/hr</p>
-              <p>Term: {opportunity.semester} {opportunity.year}</p>
-            </div>
-
-            <button className="mt-2 bg-blue-500 text-white px-4 py-1 rounded">
-              Apply
-            </button>
-          </div>
-        ))}
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            {/* <tr className="bg-gray-100">
+              <th className="p-3 text-left border">Position</th>
+              <th className="p-3 text-left border">Description</th>
+              <th className="p-3 text-left border">Location</th>
+              <th className="p-3 text-left border">Pay</th>
+              <th className="p-3 text-left border">Term</th>
+              <th className="p-3 text-left border">Action</th>
+            </tr> */}
+          </thead>
+          <tbody>
+            {sampleOpportunities.map((opportunity, index) => (
+              <tr key={index} className="hover:bg-gray-50">
+                <td className="p-3 border font-medium">{opportunity.name}</td>
+                <td className="p-3 border">{opportunity.description}</td>
+                <td className="p-3 border">{opportunity.location}</td>
+                <td className="p-3 border">${opportunity.pay}/hr</td>
+                <td className="p-3 border">
+                  {opportunity.semester} {opportunity.year}
+                </td>
+                <td className="p-3 border">
+                  <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                    Apply
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

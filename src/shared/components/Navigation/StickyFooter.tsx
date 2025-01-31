@@ -51,7 +51,7 @@ export default function StickyFooter() {
             </p>
           </div>
         </div>
-        <div>
+        <div className="w-40">
           <b>Resources</b>
           <br />
           {routes.map((item) => (

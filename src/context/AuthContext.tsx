@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     });
 
     const login = (token: string) => {
-        setAuth({ isAuthenticated: false, token });
+        setAuth({ isAuthenticated: true, token });
         // Save token to localStorage for persistence
         localStorage.setItem('jwt', token);
     };

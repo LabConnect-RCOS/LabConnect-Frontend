@@ -76,8 +76,17 @@ const sampleOpportunities: Opportunity[] = [
   }
 ];
 
-const Jobs = () => {
-  var [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");
+interface PageNavigationType {
+  activePage: string;
+  pages: string[];
+}
+
+const Jobs: React.FC = () => {
+  
+  const [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search") as [
+    PageNavigationType,
+    (page: string) => void
+  ];
 
   return (
     <section className="flex flex-col h-screen justify-between gap-3">

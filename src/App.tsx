@@ -7,7 +7,7 @@ import Opportunities from "./opportunities/pages/opportunities.tsx";
 import Home from "./shared/pages/Home.tsx";
 import PageNotFound from "./shared/pages/404.tsx";
 import MainNavigation from "./shared/components/Navigation/MainNavigation.tsx";
-import Jobs from "./opportunities/pages/Jobs.js";
+import Jobs from "./opportunities/pages/Jobs.tsx";
 import Departments from "./staff/pages/Departments.tsx";
 import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";

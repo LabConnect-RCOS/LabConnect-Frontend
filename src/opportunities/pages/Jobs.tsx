@@ -6,6 +6,7 @@ import PageNavigation from "../../shared/components/Navigation/PageNavigation";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook";
 
 import {Opportunity} from "../components/opportunitiesDetails";
+import OpportunitiesList from "../components/opportunitiesDetails.tsx";
 
 const sampleOpportunities: Opportunity[] = [
   {
@@ -95,9 +96,13 @@ const Jobs: React.FC = () => {
           <PageNavigation title="Jobs" pages={pages} switchPage={switchPage} />
 
           {pages.activePage === "Search" && <Posts />}
+          
         </section>
       </section>
+      <OpportunitiesList></OpportunitiesList>
     </section>
+    
+    
   );
 };
 

@@ -1,10 +1,16 @@
 import React from "react";
-import SmallTextButton from "./SmallTextButton";
-import SearchBar from "./SearchBar";
+import SmallTextButton from "./SmallTextButton.tsx";
+import SearchBar from "./SearchBar.tsx";
 import GroupedComponents from "../../shared/components/UIElements/GroupedComponents";
-import HorizontalIconButton from "./HorizontalIconButton";
+import HorizontalIconButton from "./HorizontalIconButton.tsx";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
+
+const FilterPopup = () => {
+  return (
+    
+  )
+}
 
 const FiltersField = ({ deleteFilter, filters }) => {
   return (
@@ -21,6 +27,7 @@ const FiltersField = ({ deleteFilter, filters }) => {
                   onClick={deleteFilter}
                   icon={<MdCancel />}
                   key={filter}
+                  special={false}
                 >
                   {filter}
                 </HorizontalIconButton>
@@ -29,7 +36,7 @@ const FiltersField = ({ deleteFilter, filters }) => {
           </GroupedComponents>
         </div>
 
-        <SmallTextButton className="all-filters-btn" special={true}>
+        <SmallTextButton className="all-filters-btn" onClick={FilterPopup} special={true}>
           <PiSlidersHorizontal />
           All Filters
         </SmallTextButton>

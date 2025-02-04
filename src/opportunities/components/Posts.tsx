@@ -1,6 +1,6 @@
 import React from "react";
-import FiltersField from "../components/FiltersField";
-import PostsField from "./PostsField";
+import FiltersField from "./FiltersField.tsx";
+import PostsField from "./PostsField.tsx";
 import { useReducer } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";

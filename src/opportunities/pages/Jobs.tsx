@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import JobsNavigation from "../components/JobsNavigation";
-import Posts from "../components/Posts";
+import Posts from "../components/Posts.tsx";
 import SavedJobs from "../components/SavedJobs";
 import PageNavigation from "../../shared/components/Navigation/PageNavigation";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook";

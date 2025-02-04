@@ -1,6 +1,6 @@
 import React, { Children } from "react";
 
-const SmallTextButton = ({ children, onClick, icon, special, className }) => {
+const SmallTextButton = ({ children, onClick, special, className }) => {
   return (
     <div className={`${className}`}>
       <button

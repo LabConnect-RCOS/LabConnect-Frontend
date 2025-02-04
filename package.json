@@ -15,7 +15,7 @@
     "@testing-library/user-event": "^14.5.2",
     "amqplib": "^0.10.5",
     "bootstrap": "^5.3.3",
-    "cookie": "^0.7.1",
+    "cookie": "^1.0.2",
     "glob": "^11.0.0",
     "lru-cache": "^11.0.1",
     "postcss-resolve-url": "^0.0.1",

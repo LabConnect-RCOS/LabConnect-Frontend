@@ -19,7 +19,7 @@
     "glob": "^11.0.0",
     "lru-cache": "^11.0.1",
     "postcss-resolve-url": "^0.0.1",
-    "react": "^18.0.0",
+    "react": "^18.3.1",
     "react-cookie": "^7.2.2",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.2",

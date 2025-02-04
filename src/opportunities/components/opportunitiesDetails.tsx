@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Opportunity {
+export interface Opportunity {
   name: string;
   description: string;
   recommended_experience: string;

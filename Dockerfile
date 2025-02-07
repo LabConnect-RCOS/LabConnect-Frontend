@@ -1,5 +1,6 @@
 FROM node:23-alpine3.21 AS base
 
+# Install dependencies
 FROM base AS deps
 
 WORKDIR /app
@@ -11,6 +12,7 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
+# Build the app with the node modules installed
 FROM base AS builder
 
 WORKDIR /app
@@ -20,6 +22,7 @@ COPY . .
 
 RUN npm run build
 
+# Create a new image with the build files
 FROM base AS runner
 
 WORKDIR /app

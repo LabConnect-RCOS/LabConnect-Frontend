@@ -1,0 +1,9 @@
+docs/
+.github/
+.gitignore
+.dockerignore
+Dockerfile
+Makefile
+LICENSE
+README.md
+eslint.config.mjs

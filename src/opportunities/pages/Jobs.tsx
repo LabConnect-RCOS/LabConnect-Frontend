@@ -8,6 +8,7 @@ import usePageNavigation from "../../shared/hooks/page-navigation-hook";
 const Jobs = () => {
   var [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");
 
+
   return (
     <section className="flex flex-col h-screen justify-between gap-3 p-1">
       <section className="flex2 gap-3">

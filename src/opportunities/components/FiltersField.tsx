@@ -6,13 +6,8 @@ import HorizontalIconButton from "./HorizontalIconButton.tsx";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 
-const FilterPopup = () => {
-  return (
-    
-  )
-}
-
-const FiltersField = ({ deleteFilter, filters }) => {
+const FiltersField = ({ deleteFilter, filters, setFunction}) => {
+  
   return (
     <div>
       <hr />
@@ -36,7 +31,7 @@ const FiltersField = ({ deleteFilter, filters }) => {
           </GroupedComponents>
         </div>
 
-        <SmallTextButton className="all-filters-btn" onClick={FilterPopup} special={true}>
+        <SmallTextButton className="all-filters-btn" onClick={setFunction} special={true}>
           <PiSlidersHorizontal />
           All Filters
         </SmallTextButton>

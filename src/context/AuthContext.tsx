@@ -19,7 +19,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [auth, setAuth] = useState<{ isAuthenticated: boolean; token: string | null }>({
-        isAuthenticated: false,
+        isAuthenticated: true, //SET TO FALSE BEFORE PULL REQUEST
         token: null,
     });
 

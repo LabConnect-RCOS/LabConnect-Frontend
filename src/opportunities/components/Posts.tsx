@@ -6,11 +6,13 @@ import { useCallback } from "react";
 import { useEffect } from "react";
 import CheckBox from "../../staff/components/Checkbox.tsx";
 import PropTypes from "prop-types";
+import Input from "../../staff/components/Input";
 
 const PopUpMenu = ( {setFunction, years} ) => {
-  const filters = [["Semester",["Summer","Fall","Spring"],"At least one semester must be selected","semesters"],
-                ["Eligible Years", years, "At least one year must be selected", "years"]
-                ["Credits"]]
+  const checkboxes = [["Semester",["Summer","Fall","Spring"],"semesters"],
+                ["Eligible Years",years,"years"],
+                ["Credits", [0,1,2,3,4],"credits"]]
+                
 
   return (
     <section className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -20,35 +22,34 @@ const PopUpMenu = ( {setFunction, years} ) => {
           <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-4">
               <div className="text-2xl font-semibold text-center">Filters</div>
-              <section className="flex justify-center">
-                <div className="w-1/3">
-                  <CheckBox
-                    label="Semester"
-                    options={['Summer','Fall','Spring']}
-                    errorMessage={"At least one semester must be selected"}
-                    name={"semesters"}
-                    type="checkbox"
-                  />
-                </div>
-                <div className="w-1/3">
-                  <CheckBox
-                    label="Eligible Years"
-                    options={years}
-                    errorMessage={"At least one year must be selected"}
-                    name={"years"}
-                    type="checkbox"
-                  />
-                </div>
-                <div className="w-1/3">
-                  <CheckBox
-                    label="Semester"
-                    options={['Summer','Fall','Spring']}
-                    errorMessage={"At least one year must be selected"}
-                    name={"years"}
-                    type="checkbox"
-                  />
-                </div>
-              </section>
+                <section className="flex flex-col">
+                  <section className="flex justify-center">
+                    { checkboxes.map((filter) => (
+                        <div className="w-1/3">
+                          <CheckBox
+                            label={filter[0]}
+                            options={filter[1]}
+                            name={filter[2]}
+                            type="checkbox"
+                          />
+                        </div>
+                      )) }
+                  </section>
+                  <section className="flex justify-center">
+                    <div>
+                      <Input
+                      errors={[]}
+                      label="Minimum Hourly Pay"
+                      name={"hourlyPay"}
+                      errorMessage={"Hourly pay must be at least 0"}
+                      formHook={[]}
+                      type="number"
+                      options={[]}
+                      placeHolder="Enter minimum hourly pay"
+                    />
+                  </div>
+                </section>
+                </section>
 
               <button type="button" onClick={setFunction} className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
             </div>

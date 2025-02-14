@@ -11,7 +11,7 @@ const Jobs = () => {
   const { auth } = useAuth();
   const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
-  const [years, setYears] = useState<string[]>(["2025","2026","2027","2028"]);
+  const [years, setYears] = useState<string[]>([]);
 
   async function fetchYears() {
     const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);

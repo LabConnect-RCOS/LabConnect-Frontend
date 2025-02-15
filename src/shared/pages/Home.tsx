@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/LabConnect_Logo2.webp";
 import SEO from "../components/SEO.tsx";
 
 const Home = () => {
+  const aboutSectionRef = useRef<HTMLDivElement>(null);
+
+  const handleScrollToAbout = () => {
+    aboutSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section>
+    <section className="w-full">
       <SEO title="LabConnect" description="LabConnect home page" />
 
       {/* Welcome Section */}
-      <section className="home-general text-center">
+      <section className="home-general text-center w-full">
         <div className="img-center pt-28">
           <img src={logo} alt="LabConnect" height="289" />
         </div>
@@ -38,10 +44,23 @@ const Home = () => {
           </Link>{" "}
           to view and edit your current posts.
         </p>
+
+        {/* Learn More Button */}
+        <div className="mt-10">
+          <button 
+            onClick={handleScrollToAbout} 
+            className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Learn More
+          </button>
+        </div>
       </section>
 
+      {/* Spacer to push About Us further down */}
+      <div className="h-40"></div>
+
       {/* About Us Section */}
-      <section id="about" className="py-20 bg-gray-50 text-center">
+      <section id="about" ref={aboutSectionRef} className="py-20 bg-gray-50 text-center w-full">
         <h2 className="text-2xl font-semibold">About Us</h2>
         <p className="mt-4 max-w-3xl mx-auto text-lg px-6">
           LabConnect is a platform dedicated to bridging the gap between students and research opportunities.
@@ -52,7 +71,7 @@ const Home = () => {
       </section>
 
       {/* Meet Our Team Section */}
-      <section id="team" className="py-20 bg-white text-center">
+      <section id="team" className="py-20 text-center w-full">
         <h2 className="text-2xl font-semibold">Meet Our Team</h2>
         <p className="mt-4 max-w-3xl mx-auto text-lg px-6">
           Thanks for checking us out! We are a team of dedicated open-source developers working hard to make this product into a reality.
@@ -60,13 +79,20 @@ const Home = () => {
 
         <div className="flex flex-wrap justify-center gap-8 mt-10">
           {/* Team Member Cards */}
-          {["Rafael", "Will", "Sagar", "Sarah"].map((name, index) => (
+          {[
+            { name: "Rafael Cenzano", major: "Computer Science", gradYear: "2025", role: "Backend Developer", skill: "Flask" },
+            { name: "Will Broadwell", major: "Computer Science", gradYear: "2026", role: "Frontend Developer", skill: "TailwindCSS" },
+            { name: "Sagar Sahu", major: "Computer Science", gradYear: "2026", role: "Frontend Developer", skill: "React" },
+            { name: "Sarah Wohlford", major: "Computer Science", gradYear: "2027", role: "Backend Developer", skill: "PostgreSQL" }
+          ].map((member, index) => (
             <div 
               key={index} 
-              className="bg-gray-100 shadow-md rounded-2xl p-6 w-64 flex flex-col items-center text-center hover:shadow-lg transition-shadow duration-300"
+              className="bg-white shadow-md rounded-2xl p-6 w-64 flex flex-col items-center text-center"
             >
-              <h3 className="text-lg font-semibold">{name}</h3>
-              <p className="text-sm text-blue-600 mt-2 font-medium">RCOS Developer</p>
+              <h3 className="text-lg font-semibold">{member.name}</h3>
+              <p className="text-sm text-gray-600 mt-2">{member.major}, Class of {member.gradYear}</p>
+              <p className="text-sm text-blue-600 mt-2 font-medium">{member.role}</p>
+              <p className="text-sm text-gray-500 mt-1">Skill: {member.skill}</p>
             </div>
           ))}
         </div>

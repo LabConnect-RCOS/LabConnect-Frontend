@@ -4,15 +4,57 @@ import PostsField from "./PostsField.tsx";
 import { useReducer } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import CheckBox from "../../staff/components/Checkbox.tsx";
 import PropTypes from "prop-types";
 import Input from "../../staff/components/Input";
 
-const PopUpMenu = ( {setFunction, years} ) => {
+const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
   const checkboxes = [["Semester",["Summer","Fall","Spring"],"semesters"],
-                ["Eligible Years",years,"years"],
-                ["Credits", [0,1,2,3,4],"credits"]]
-                
+                ["Eligible Years",validYears,"years"],
+                ["Credits", [1,2,3,4],"credits"]]
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      semesters: [""],
+      years: [""],
+      credits: [""],
+      hourlyPay: 0,
+    },
+  });
+
+  interface FormData {
+    semesters: string[],
+    years: string[],
+    credits: string[],
+    hourlyPay: number
+  }
+
+  function submitHandler(data: FormData) {
+    console.log({ ...data });
+    const { semesters, years, credits, hourlyPay } = data;
+    clear();
+    semesters.map((semester) => (
+      add(semester)
+    ));
+    years.map((year) => (
+      add(year)
+    ));
+    credits.map((credit) => (
+      add(credit)
+    ));
+    add(hourlyPay);
+    setFunction();
+
+    
+  };
+
+    
 
   return (
     <section className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -21,43 +63,56 @@ const PopUpMenu = ( {setFunction, years} ) => {
         <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-4">
-              <div className="text-2xl font-semibold text-center">Filters</div>
+              <div className="text-2xl font-semibold text-center pb-3">Filters</div>
                 <section className="flex flex-col">
-                  <section className="flex justify-center">
-                    { checkboxes.map((filter) => (
-                        <div className="w-1/3">
-                          <CheckBox
-                            label={filter[0]}
-                            options={filter[1]}
-                            name={filter[2]}
-                            type="checkbox"
-                          />
-                        </div>
-                      )) }
-                  </section>
-                  <section className="flex justify-center">
-                    <div>
+                  <form
+                    onSubmit={handleSubmit((data) => {
+                      submitHandler(data);
+                    })}
+                    className="form-container" // Form container for vertical layout
+                  >
+                    <section className="flex justify-center">
+                      { checkboxes.map((filter) => (
+                          <div className="w-1/3">
+                            <CheckBox
+                              errors={errors}
+                              label={filter[0]}
+                              options={filter[1]}
+                              formHook={{ ...register(filter[2], {}) }}
+                              name={filter[2]}
+                              type="checkbox"
+                            />
+                          </div>
+                        )) }
+                    </section>
+                    <section className="flex justify-center">
                       <Input
-                      errors={[]}
+                      errors={errors}
                       label="Minimum Hourly Pay"
                       name={"hourlyPay"}
                       errorMessage={"Hourly pay must be at least 0"}
-                      formHook={[]}
+                      formHook={{ ...register("hourlyPay", {}) }}
                       type="number"
                       options={[]}
                       placeHolder="Enter minimum hourly pay"
-                    />
-                  </div>
+                      />
+                    </section>
+                    
+                    <section className="flex flex-row justify-center">
+                      <div className="w-1/2 flex justify-center">
+                        <button type="button" onClick={setFunction} className="btn btn-primary border-black text-gray-700 bg-white w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-black focus:text-gray-900 focus:bg-gray-100 focus:border-black">Cancel</button>
+                      </div>
+                      <div className="w-1/2 flex justify-center">
+                        <input type="submit" value="Search" className="btn btn-primary bg-blue-700 text-gray-100 w-1/2 hover:bg-blue-800 focus:bg-blue-800" />
+                      </div>
+                    </section>
+                  </form>
                 </section>
-                </section>
-
-              <button type="button" onClick={setFunction} className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
             </div>
           </div>
         </div>
       </div>
     </section>
-
   );
 }
 PopUpMenu.propTypes = {
@@ -67,8 +122,13 @@ PopUpMenu.propTypes = {
 const Posts = ( {years} ) => {
   const [popUpMenu, setPopUpMenu] = React.useState(false);
 
+
+
   const reducer = (state, action) => {
     switch (action.type) {
+      case "CLEAR_FILTERS":
+        state.filters = [];
+        return { ...state };
       case "REMOVE_FILTER":
         if (action.filter) {
           state.filters = state.filters.filter((item) => item !== action.filter);
@@ -97,10 +157,14 @@ const Posts = ( {years} ) => {
   };
 
   var [jobState, dispatch] = useReducer(reducer, {
-    filters: ["Fall", "Credit", "Remote"],
+    filters: [],
     activeId: "",
     jobs: [],
   });
+
+  const clearFilters = useCallback(() => {
+    dispatch({ type: "CLEAR_FILTERS"});
+  }, []);
 
   const removeFilter = useCallback((name) => {
     dispatch({ type: "REMOVE_FILTER", filter: name });
@@ -138,7 +202,7 @@ const Posts = ( {years} ) => {
   return (
     <section>
       <FiltersField deleteFilter={removeFilter} filters={jobState.filters} setFunction={()=>setPopUpMenu(!popUpMenu)}/>
-      {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} years={years} />}
+      {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} validYears={years} clear={clearFilters} add={addFilter}/>}
       <PostsField
         activeId={jobState.activeId}
         setActive={setActiveId}

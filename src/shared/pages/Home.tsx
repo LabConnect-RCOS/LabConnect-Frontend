@@ -19,6 +19,17 @@ const Home = () => {
     aboutSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleContactChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setContactForm({ ...contactForm, [e.target.name]: e.target.value });
+  };
+
+  const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setContactSubmitted(true);
+  };
+
   return (
     <section className="w-full">
       <SEO title="LabConnect" description="LabConnect home page" />
@@ -149,6 +160,85 @@ const Home = () => {
               <p className="text-sm text-gray-500 mt-1">Skill: {member.skill}</p>
             </div>
           ))}
+        </div>
+      </section>
+      {/* Contact Us Section */}
+      <section id="contact" className="py-20 bg-gray-100 text-center w-full">
+        <div className="max-w-md mx-auto p-4">
+          <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
+          {contactSubmitted ? (
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
+              <p>
+                Your message has been successfully sent. We appreciate your feedback!
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleContactSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="contact-name" className="block font-medium">
+                  Name (First, Last)
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  value={contactForm.name}
+                  onChange={handleContactChange}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="block font-medium">
+                  RPI Email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  value={contactForm.email}
+                  onChange={handleContactChange}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-subject" className="block font-medium">
+                  Subject
+                </label>
+                <input
+                  id="contact-subject"
+                  type="text"
+                  name="subject"
+                  value={contactForm.subject}
+                  onChange={handleContactChange}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="contact-message" className="block font-medium">
+                  Message
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  value={contactForm.message}
+                  onChange={handleContactChange}
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  rows={5}
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
+              >
+                Send Message
+              </button>
+            </form>
+          )}
         </div>
       </section>
     </section>

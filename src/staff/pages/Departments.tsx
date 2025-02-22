@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext.tsx";
 
 export default function Departments() {
   const { auth } = useAuth();
+
   if (!auth.isAuthenticated) {
     window.location.href = "/login";
   }
@@ -19,9 +20,7 @@ export default function Departments() {
       try {
         const response = await fetch(
           `${process.env.REACT_APP_BACKEND_SERVER}/departments`, {
-          headers: {
-            Authorization: `Bearer ${auth.token}`,
-          },
+          credentials: "include",
         }
         );
 
@@ -36,7 +35,7 @@ export default function Departments() {
       }
     };
     fetchDepartments();
-  }, [auth.token]);
+  }, []);
 
   const departmentComponents = (
     <section className="flex2 gap-3">

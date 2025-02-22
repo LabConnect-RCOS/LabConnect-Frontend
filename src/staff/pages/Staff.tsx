@@ -6,6 +6,10 @@ import { useAuth } from "../../context/AuthContext.tsx";
 export default function StaffPage() {
   const { auth } = useAuth();
 
+  if (!auth.isAuthenticated) {
+    window.location.href = "/login";
+  }
+
   const { staffId } = useParams();
   const [profile, setProfile] = useState<null | boolean>(null);
 
@@ -13,9 +17,7 @@ export default function StaffPage() {
     const fetchProfile = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
+        credentials: "include",
       }
       );
 
@@ -32,9 +34,7 @@ export default function StaffPage() {
       }
     };
 
-    if (!auth.isAuthenticated) {
-      window.location.href = "/login";
-    } else if (!staffId) {
+    if (!staffId) {
       setProfile(false);
     } else {
       fetchProfile();
@@ -42,7 +42,7 @@ export default function StaffPage() {
     const checkProfile = (data: { name: string; image: string; department: string; description: string }) => {
       return data.name && data.image && data.department && data.description;
     };
-  }, [auth.token, staffId, auth.isAuthenticated]);
+  }, [staffId]);
 
   return (
     <>

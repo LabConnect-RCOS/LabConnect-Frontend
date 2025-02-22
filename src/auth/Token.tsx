@@ -3,7 +3,11 @@ import { useEffect } from "react";
 
 export default function Token() {
 
-    const { login } = useAuth();
+    const { auth, login } = useAuth();
+
+    if (auth.isAuthenticated) {
+        window.location.href = "/";
+    }
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
@@ -19,12 +23,14 @@ export default function Token() {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    const token = data.token;
-                    if (token) {
-                        login(token);
-                        window.location.href = "/";
-                        return null;
-                    }
+                    const registered = data.registered;
+                    login();
+                    console.log("Registered:", registered);
+                    // if (registered) {
+                    window.location.href = "/";
+                    return null;
+                    // }
+                    // TODO: Redirect to registration page
                 })
                 .catch((error) => console.error("Error fetching token:", error));
         }

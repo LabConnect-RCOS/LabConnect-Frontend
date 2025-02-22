@@ -31,9 +31,7 @@ export default function ProfilePage() {
     const fetchProfile = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}/profile`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
+        credentials: "include",
       }
       );
 
@@ -48,7 +46,7 @@ export default function ProfilePage() {
       }
     };
     fetchProfile();
-  }, [auth.token]);
+  }, []);
 
   // const editButton = (
   //   <button className="btn btn-primary my-3" onClick={changeEditMode}>

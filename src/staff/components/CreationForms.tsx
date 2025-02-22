@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import CheckBox from "./Checkbox.tsx";
 import Input from "./Input";
 import { useParams } from "react-router";
-import { useAuth } from "../../context/AuthContext.tsx";
 import { Locations } from "../../shared/data/locations.ts";
 
 
@@ -13,7 +12,6 @@ interface CreationFormsProps {
 }
 
 export default function CreationForms({ edit }: CreationFormsProps) {
-  const { auth } = useAuth();
   const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("Any"); // Manage the state for "For Pay" or "For Credit"
@@ -69,10 +67,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
     if (edit) {
       fetch(`${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.token}`,
-        },
+        credentials: "include",
         body: JSON.stringify({ ...data }),
       }).then((response) => {
         if (response.ok) {
@@ -85,10 +80,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
     } else {
       fetch(`${process.env.REACT_APP_BACKEND_SERVER}/createOpportunity`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.token}`,
-        },
+        credentials: "include",
         body: JSON.stringify({ ...data }),
       }).then((response) => {
         if (response.ok) {
@@ -108,9 +100,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
     async function fetchEditData() {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
+        credentials: "include",
       }
       );
       if (response.ok) {
@@ -141,7 +131,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
     } else {
       setLoading(false);
     }
-  }, [edit, auth.token, postID, reset]);
+  }, [edit, postID, reset]);
 
   return loading === false && years != null ? (
     <form
@@ -240,27 +230,27 @@ export default function CreationForms({ edit }: CreationFormsProps) {
         </div>
 
         {/* Conditionally Render Pay Input or Credit Checkboxes */}
-          {compensationType === "For Pay" || compensationType === "Any" ? (
-            <div className="w-1/3 pr-3 pl-3">
-              <div className="w-4/5">
-                <Input
-                  errors={errors}
-                  label="Hourly Pay (min. 0)"
-                  name={"hourlyPay"}
-                  errorMessage={"Hourly pay must be at least 0"}
-                  formHook={{
-                    ...register("hourlyPay", {
-                      required: compensationType === "For Pay", // Hourly pay required only if "For Pay"
-                      min: 0,
-                    }),
-                  }}
-                  type="number"
-                  options={[]}
-                  placeHolder="Enter hourly pay"
-                />
-              </div>
+        {compensationType === "For Pay" || compensationType === "Any" ? (
+          <div className="w-1/3 pr-3 pl-3">
+            <div className="w-4/5">
+              <Input
+                errors={errors}
+                label="Hourly Pay (min. 0)"
+                name={"hourlyPay"}
+                errorMessage={"Hourly pay must be at least 0"}
+                formHook={{
+                  ...register("hourlyPay", {
+                    required: compensationType === "For Pay", // Hourly pay required only if "For Pay"
+                    min: 0,
+                  }),
+                }}
+                type="number"
+                options={[]}
+                placeHolder="Enter hourly pay"
+              />
             </div>
-          ) : null}
+          </div>
+        ) : null}
 
         {compensationType === "For Credit" || compensationType === "Any" ? (
           <div className="w-1/3 pl-3">

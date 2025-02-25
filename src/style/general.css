@@ -16,9 +16,6 @@
 .about-head {@apply flex flex-col gap-1;}
 .about-title {@apply text-gray-500 text-base;}
 .about-description {@apply font-extrabold;}
-.filters-template { @apply px-3 overflow-x-scroll max-h-20 flex gap-3;} 
-.filters-search {@apply flex gap-2 w-full;}
-.all-filters-btn {@apply justify-end w-full;}
 .horizontal-btn {@apply flex gap-1 align-items-center p-2 px-2.5 rounded-3xl border;}
 .job-desc-header {@apply flex flex-col gap-2;}
 .job-desc-title {@apply font-extrabold text-xl;}

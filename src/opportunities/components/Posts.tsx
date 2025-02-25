@@ -36,25 +36,14 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
   }
 
   function submitHandler(data: FormData) {
-    console.log({ ...data });
     const { semesters, years, credits, hourlyPay } = data;
     clear();
-    semesters.map((semester) => (
-      add(semester)
-    ));
-    years.map((year) => (
-      add(year)
-    ));
-    credits.map((credit) => (
-      add(credit)
-    ));
-    add(hourlyPay);
+    add(semesters)
+    add(years)
+    add(credits)
+    add([hourlyPay]);
     setFunction();
-
-    
   };
-
-    
 
   return (
     <section className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -122,8 +111,6 @@ PopUpMenu.propTypes = {
 const Posts = ( {years} ) => {
   const [popUpMenu, setPopUpMenu] = React.useState(false);
 
-
-
   const reducer = (state, action) => {
     switch (action.type) {
       case "CLEAR_FILTERS":
@@ -175,7 +162,6 @@ const Posts = ( {years} ) => {
   }, []);
 
   const setActiveId = useCallback((val) => {
-    console.log(val);
     dispatch({ type: "SET_ACTIVE_ID", id: val });
   }, []);
 
@@ -189,7 +175,6 @@ const Posts = ( {years} ) => {
     } else {
       let data = await response.json();
       data = data.data;
-      // console.log(data);
       dispatch({ type: "SET_JOBS", jobs: data });
       console.log(jobState.jobs);
     }
@@ -201,7 +186,7 @@ const Posts = ( {years} ) => {
 
   return (
     <section>
-      <FiltersField deleteFilter={removeFilter} filters={jobState.filters} setFunction={()=>setPopUpMenu(!popUpMenu)}/>
+      <FiltersField clearFilters={clearFilters} deleteFilter={removeFilter} filters={jobState.filters} setPopUpMenu={()=>setPopUpMenu(!popUpMenu)} />
       {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} validYears={years} clear={clearFilters} add={addFilter}/>}
       <PostsField
         activeId={jobState.activeId}

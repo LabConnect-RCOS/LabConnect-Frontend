@@ -28,7 +28,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             if (response.ok) {
                 setAuth({ isAuthenticated: true });
             } else {
-                setAuth({ isAuthenticated: false });
+                const refreshResponse = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/token/refresh`, {
+                    credentials: "include",
+                });
+                if (refreshResponse.ok) {
+                    setAuth({ isAuthenticated: true });
+                } else {
+                    setAuth({ isAuthenticated: false });
+                }
             }
         } catch (error) {
             console.error("Auth check failed:", error);

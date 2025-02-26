@@ -20,12 +20,12 @@ export default function Token() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ code }),
+                credentials: "include",
             })
                 .then((response) => response.json())
                 .then((data) => {
                     const registered = data.registered;
                     login();
-                    console.log("Registered:", registered);
                     // if (registered) {
                     window.location.href = "/";
                     return null;

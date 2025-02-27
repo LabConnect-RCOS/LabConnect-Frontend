@@ -93,17 +93,25 @@ const Home = () => {
       <section
         id="about"
         ref={aboutSectionRef}
-        className="py-20 bg-gray-50 text-center w-full"
+        className="w-full flex justify-center py-10"
       >
-        <h2 className="text-2xl font-semibold">About Us</h2>
-        <p className="mt-4 max-w-3xl mx-auto text-lg px-6">
-          LabConnect is a platform dedicated to bridging the gap between students
-          and research opportunities. We aim to make it easier for students to find
-          meaningful lab/research work while helping professors connect with passionate
-          individuals through a convenient, all-in-one application. Our team is hard
-          at work, and we will provide updates on our progress so keep an eye out for
-          announcements!
-        </p>
+        <div
+          style={{
+            backgroundColor: "#4682e3",
+            filter: "saturate(1.2)"
+          }}
+          className="rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6"
+        >
+          <h2 className="text-2xl font-semibold">About Us</h2>
+          <p className="mt-4 text-lg">
+            LabConnect is a platform dedicated to bridging the gap between students
+            and research opportunities. We aim to make it easier for students to find
+            meaningful lab/research work while helping professors connect with passionate
+            individuals through a convenient, all-in-one application. Our team is hard
+            at work, and we will provide updates on our progress so keep an eye out for
+            announcements!
+          </p>
+        </div>
       </section>
 
       {/* Meet Our Team Section */}

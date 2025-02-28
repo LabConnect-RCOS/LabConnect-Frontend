@@ -25,6 +25,7 @@ export default function Token() {
                 .then((response) => response.json())
                 .then((data) => {
                     const registered = data.registered;
+                    console.log("registered", registered);
                     login();
                     // if (registered) {
                     window.location.href = "/";

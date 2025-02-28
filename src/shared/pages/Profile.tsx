@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import ProfileComponents from "../components/Profile/ProfileComponents.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
+import { Profile } from "../../types/profile.ts";
 // import EditProfile from "./EditProfile";
 
 export default function ProfilePage() {
@@ -12,14 +13,6 @@ export default function ProfilePage() {
   }
 
   // const [editMode, setEditMode] = useState(false);
-  interface Profile {
-    id: string;
-    name: string;
-    image: string;
-    department: string;
-    description: string;
-    website?: string;
-  }
 
   const [profile, setProfile] = useState<null | Profile | boolean>(null);
 

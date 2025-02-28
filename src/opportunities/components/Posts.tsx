@@ -32,7 +32,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
     semesters: string[],
     years: string[],
     credits: string[],
-    hourlyPay: number
+    hourlyPay: string
   }
 
   function submitHandler(data: FormData) {
@@ -118,7 +118,14 @@ const Posts = ( {years} ) => {
         return { ...state };
       case "REMOVE_FILTER":
         if (action.filter) {
-          state.filters = state.filters.filter((item) => item !== action.filter);
+          state.filters = state.filters.map((list, index) => {
+            if (index < state.filters.length-1) {
+              return state.filters[index].filter((item) => item !== action.filter);
+            }
+            else {
+              return state.filters[index].filter((item) => item !== parseInt(action.filter));
+            }
+          })
         }
         return { ...state };
       case "ADD_FILTER":

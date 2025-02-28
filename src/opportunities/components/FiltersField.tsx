@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import SmallTextButton from "./SmallTextButton.tsx";
 import SearchBar from "./SearchBar.tsx";
 import GroupedComponents from "../../shared/components/UIElements/GroupedComponents";
@@ -7,8 +7,15 @@ import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 
 const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu}) => {
-  const lists = ['S', 'Y', 'C', 'P']
+  const [linkedFilters, setLinkedFilters] = useState([]);
 
+  // Use useEffect to update linkedFilters whenever filters change
+  useEffect(() => {
+    // Logic to update linkedFilters based on the filters array
+    const updatedLinkedFilters = filters.flat().filter(element => element !== ""); // Flatten the nested arrays
+    setLinkedFilters(updatedLinkedFilters); // Update the linkedFilters state
+  }, [filters]); // This effect runs whenever filters change
+  
   return (
     <div>
       <hr />
@@ -24,22 +31,17 @@ const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu}) => {
 
           {/* Fix rendering with new filters = [ [],[],[] ]*/}
           <GroupedComponents gap={2}>
-            {filters.map((filterList) => {
-              <div>
-                {filterList.map((filterItem) => {
-                    return(
-                  <HorizontalIconButton
-                    onClick={deleteFilter}
-                    icon={<MdCancel />}
-                    key={filterItem}
-                    special={false}
-                  >
-                    {filterItem} 
-                  </HorizontalIconButton>
-                    )
-                })}
-              </div>
-               
+            {linkedFilters.map((filter) => {
+              return(
+                <HorizontalIconButton
+                  onClick={deleteFilter}
+                  icon={<MdCancel />}
+                  key={filter}
+                  special={false}
+                >
+                  {filter}
+                </HorizontalIconButton>
+              )
             })}
           </GroupedComponents>
         </div>

@@ -22,7 +22,6 @@ const DepartmentItems = ({ items }) => {
 DepartmentItems.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      school_id: PropTypes.string.isRequired,
       department_id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,

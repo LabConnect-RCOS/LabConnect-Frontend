@@ -14,11 +14,7 @@ export default function LogoutRedirection() {
                 const response = await fetch(
                     `${process.env.REACT_APP_BACKEND_SERVER}/logout`,
                     {
-                        method: "GET",
-                        credentials: "include", // to send cookies or session data
-                        headers: {
-                            Authorization: `Bearer ${auth.token}`,
-                        },
+                        credentials: "include",
                     }
                 );
                 if (response.ok) {
@@ -32,7 +28,7 @@ export default function LogoutRedirection() {
             }
         }
         logoutUser();
-    }, [logout, auth.token]);
+    }, [logout]);
 
     return null; // Since this component doesn't need to render anything
 };

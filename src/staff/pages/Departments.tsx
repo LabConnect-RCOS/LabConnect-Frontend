@@ -12,7 +12,7 @@ export default function Departments() {
   }
 
   const [departments, setDepartments] = useState<
-    { school_id: string; department_id: string; title: string; image: string }[] | string | null
+    { department_id: string; title: string; image: string }[] | string | null
   >(null);
 
   useEffect(() => {

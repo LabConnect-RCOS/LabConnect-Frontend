@@ -16,8 +16,9 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [auth, setAuth] = useState<{ isAuthenticated: boolean }>({
+    const [auth, setAuth] = useState<{ isAuthenticated: boolean; token: string | null }>({
         isAuthenticated: false,
+        token: null,
     });
 
     const checkAuth = async () => {

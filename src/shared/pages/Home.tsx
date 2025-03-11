@@ -1,35 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/LabConnect_Logo2.webp";
 import SEO from "../components/SEO.tsx";
 
 const Home = () => {
   const aboutSectionRef = useRef<HTMLDivElement>(null);
-  
-  // State for the Contact Us form
-  const [contactForm, setContactForm] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: ""
-  });
-  const [contactSubmitted, setContactSubmitted] = useState(false);
 
   const handleScrollToAbout = () => {
     aboutSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  const handleContactChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setContactForm({ ...contactForm, [e.target.name]: e.target.value });
-  };
-
-  const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setContactSubmitted(true);
-  };
-
   return (
     <section className="w-full">
       <SEO title="LabConnect" description="LabConnect home page" />
@@ -129,30 +108,50 @@ const Home = () => {
               name: "Rafael Cenzano",
               major: "Computer Science",
               gradYear: "2025",
-              role: "Backend Developer",
-              skill: "Flask"
+              role: "Lead Developer",
             },
             {
               name: "Will Broadwell",
               major: "Computer Science",
               gradYear: "2026",
               role: "Frontend Developer",
-              skill: "TailwindCSS"
-            },
-            {
-              name: "Sagar Sahu",
-              major: "Computer Science",
-              gradYear: "2026",
-              role: "Frontend Developer",
-              skill: "React"
             },
             {
               name: "Sarah Wohlford",
               major: "Computer Science",
               gradYear: "2027",
               role: "Backend Developer",
-              skill: "PostgreSQL"
-            }
+            },
+            {
+              name: "Sidharth Eage",
+              major: "Computer Science",
+              gradYear: "2026",
+              role: "Frontend Developer",
+            },
+            {
+              name: "Sagar Sahu",
+              major: "Computer Science",
+              gradYear: "2026",
+              role: "Frontend Developer",
+            },
+            {
+              name: "Devan Patel",
+              major: "Computer Science",
+              gradYear: "2027",
+              role: "Frontend Developer",
+            },
+            {
+              name: "Gowrisankar Palanickal",
+              major: "Computer Science",
+              gradYear: "2027",
+              role: "Frontend Developer",
+            },
+            {
+              name: "Mohammed Patel",
+              major: "Computer Science",
+              gradYear: "2027",
+              role: "Backend Developer",
+            },
           ].map((member, index) => (
             <div
               key={index}
@@ -165,88 +164,8 @@ const Home = () => {
               <p className="text-sm text-blue-600 mt-2 font-medium">
                 {member.role}
               </p>
-              <p className="text-sm text-gray-500 mt-1">Skill: {member.skill}</p>
             </div>
           ))}
-        </div>
-      </section>
-      {/* Contact Us Section */}
-      <section id="contact" className="py-20 bg-gray-100 text-center w-full">
-        <div className="max-w-md mx-auto p-4">
-          <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
-          {contactSubmitted ? (
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
-              <p>
-                Your message has been successfully sent. We appreciate your feedback!
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleContactSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="contact-name" className="block font-medium">
-                  Name (First, Last)
-                </label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  name="name"
-                  value={contactForm.name}
-                  onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="contact-email" className="block font-medium">
-                  RPI Email
-                </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  name="email"
-                  value={contactForm.email}
-                  onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="contact-subject" className="block font-medium">
-                  Subject
-                </label>
-                <input
-                  id="contact-subject"
-                  type="text"
-                  name="subject"
-                  value={contactForm.subject}
-                  onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="contact-message" className="block font-medium">
-                  Message
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  value={contactForm.message}
-                  onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
-                  rows={5}
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
-              >
-                Send Message
-              </button>
-            </form>
-          )}
         </div>
       </section>
     </section>

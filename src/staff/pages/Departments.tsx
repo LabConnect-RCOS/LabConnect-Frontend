@@ -46,7 +46,7 @@ export default function Departments() {
   return (
     <>
       <SEO title="Departments - Labconnect" description="Labconnect departments page" />
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+      <h1 className="text-center my-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
         Departments
       </h1>
       {!departments && "Loading..."}

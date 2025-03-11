@@ -10,7 +10,8 @@ import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";
 import CreatePost from "./staff/pages/CreatePost.tsx";
 import IndividualPost from "./opportunities/pages/IndividualPost.js";
-import ProfilePage from "./shared/pages/Profile.tsx";
+import ProfilePage from "./individuals/pages/Profile.tsx";
+import SavedPage from "./individuals/pages/Saved.tsx";
 import LoginRedirection from "./auth/Login.tsx";
 import LogoutRedirection from "./auth/Logout.tsx";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
@@ -37,6 +38,7 @@ function App() {
 
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/saved" element={<SavedPage />} />
               <Route
                 path="/staff/department/:department"
                 element={<Department />}

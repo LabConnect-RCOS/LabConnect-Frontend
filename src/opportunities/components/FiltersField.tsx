@@ -7,14 +7,6 @@ import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 
 const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu}) => {
-  const [linkedFilters, setLinkedFilters] = useState([]);
-
-  // Use useEffect to update linkedFilters whenever filters change
-  useEffect(() => {
-    // Logic to update linkedFilters based on the filters array
-    const updatedLinkedFilters = filters.flat().filter(element => element !== ""); // Flatten the nested arrays
-    setLinkedFilters(updatedLinkedFilters); // Update the linkedFilters state
-  }, [filters]); // This effect runs whenever filters change
   
   return (
     <div>
@@ -31,7 +23,7 @@ const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu}) => {
 
           {/* Fix rendering with new filters = [ [],[],[] ]*/}
           <GroupedComponents gap={2}>
-            {linkedFilters.map((filter) => {
+            {filters[1].map((filter) => {
               return(
                 <HorizontalIconButton
                   onClick={deleteFilter}

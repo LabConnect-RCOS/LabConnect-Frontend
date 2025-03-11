@@ -21,9 +21,9 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
     reset,
   } = useForm({
     defaultValues: {
-      semesters: [""],
-      years: [""],
-      credits: [""],
+      semesters: [],
+      years: [],
+      credits: [],
       hourlyPay: 0,
     },
   });
@@ -111,26 +111,26 @@ PopUpMenu.propTypes = {
 const Posts = ( {years} ) => {
   const [popUpMenu, setPopUpMenu] = React.useState(false);
 
+  
+
   const reducer = (state, action) => {
     switch (action.type) {
       case "CLEAR_FILTERS":
-        state.filters = [];
+        state.filters = [[],[]];
         return { ...state };
       case "REMOVE_FILTER":
         if (action.filter) {
-          state.filters = state.filters.map((list, index) => {
-            if (index < state.filters.length-1) {
-              return state.filters[index].filter((item) => item !== action.filter);
-            }
-            else {
-              return state.filters[index].filter((item) => item !== parseInt(action.filter));
-            }
+          state.filters[1] = state.filters[1].filter((item) => item !== action.filter);
+          state.filters[0].map((list, index) => {
+            state.filters[0][index] = list.filter((item) => item !== action.filter);
           })
         }
         return { ...state };
       case "ADD_FILTER":
         if (action.filter) {
-          state.filters.push(action.filter);
+          state.filters[0] = [...state.filters[0], action.filter];
+          state.filters[1] = [...state.filters[1], ...action.filter];
+          console.log(state.filters)
         }
         return { ...state };
       case "SET_ACTIVE_ID":
@@ -151,7 +151,7 @@ const Posts = ( {years} ) => {
   };
 
   var [jobState, dispatch] = useReducer(reducer, {
-    filters: [],
+    filters: [[],[]],
     activeId: "",
     jobs: [],
   });
@@ -190,6 +190,7 @@ const Posts = ( {years} ) => {
   useEffect(() => {
     fetchOpportunities();
   }, []);
+
 
   return (
     <section>

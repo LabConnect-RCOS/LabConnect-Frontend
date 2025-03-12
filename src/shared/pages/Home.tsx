@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/LabConnect_Logo2.webp";
 import SEO from "../components/SEO.tsx";
@@ -15,8 +15,30 @@ const Home = () => {
   });
   const [contactSubmitted, setContactSubmitted] = useState(false);
 
+  // State to control visibility of the "Return to Top" button
+  const [showReturnToTop, setShowReturnToTop] = useState(false);
+
+  // Listen for scroll events to toggle "Return to Top" button visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowReturnToTop(true);
+      } else {
+        setShowReturnToTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleScrollToAbout = () => {
     aboutSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Function to scroll to the top of the page
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleContactChange = (
@@ -31,7 +53,7 @@ const Home = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full relative">
       <SEO title="LabConnect" description="LabConnect home page" />
 
       {/* Welcome Section */}
@@ -170,6 +192,7 @@ const Home = () => {
           ))}
         </div>
       </section>
+
       {/* Contact Us Section */}
       <section id="contact" className="py-20 bg-gray-100 text-center w-full">
         <div className="max-w-md mx-auto p-4">
@@ -249,6 +272,16 @@ const Home = () => {
           )}
         </div>
       </section>
+      
+      {/* Return to Top Button */}
+      {showReturnToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-5 right-5 bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Return to Top
+        </button>
+      )}
     </section>
   );
 };

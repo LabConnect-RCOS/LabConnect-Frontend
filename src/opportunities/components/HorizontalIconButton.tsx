@@ -1,4 +1,5 @@
-import React, { Children } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
 const HorizontalIconButton = ({ children, onClick, icon, special }) => {
   return (
@@ -19,5 +20,12 @@ const HorizontalIconButton = ({ children, onClick, icon, special }) => {
     </div>
   );
 };
+
+HorizontalIconButton.propTypes = {
+  children: PropTypes.node,
+  onClick: PropTypes.func.isRequired,
+  icon: PropTypes.node,
+  special: PropTypes.bool,
+}
 
 export default HorizontalIconButton;

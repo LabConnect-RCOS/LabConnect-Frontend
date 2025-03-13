@@ -41,8 +41,13 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
     add(semesters)
     add(years)
     add(credits)
-    add([hourlyPay]);
-    setFunction();
+    if (hourlyPay == "0") {
+      add([])
+    } else {
+      add([hourlyPay])
+    }
+
+    setFunction()
   };
 
   return (

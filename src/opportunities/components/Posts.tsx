@@ -18,7 +18,6 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     defaultValues: {
       semesters: [],
@@ -70,11 +69,11 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
                           <div className="w-1/3">
                             <CheckBox
                               errors={errors}
+                              errorMessage={filter[2] + " checkbox failed"}
                               label={filter[0]}
                               options={filter[1]}
                               formHook={{ ...register(filter[2], {}) }}
                               name={filter[2]}
-                              key={filter[2]}
                               type="checkbox"
                             />
                           </div>

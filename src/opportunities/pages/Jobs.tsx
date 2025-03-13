@@ -19,6 +19,7 @@ const Jobs = () => {
     }
   }
   fetchYears()
+  
   const [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");
 
   return loading === false && years != null ? (

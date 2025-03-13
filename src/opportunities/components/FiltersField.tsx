@@ -7,7 +7,7 @@ import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import PropTypes from "prop-types";
 
-const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu }) => {
+const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => {
   
   return (
     <div>
@@ -17,9 +17,9 @@ const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu }) => 
           <SearchBar />
 
           <SmallTextButton className="" onClick={setPopUpMenu} special={true}>
-            <PiSlidersHorizontal />
-            All Filters
-            <PiSlidersHorizontal />
+            <PiSlidersHorizontal className="pr-1"/>
+            Change Filters
+            <PiSlidersHorizontal className="pl-1"/>
           </SmallTextButton>
 
           {/* Fix rendering with new filters = [ [],[],[] ]*/}
@@ -39,8 +39,8 @@ const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu }) => 
           </GroupedComponents>
         </div>
 
-        <SmallTextButton className="flex flex-right" onClick={clearFilters} special={true}>
-          Clear
+        <SmallTextButton className="flex flex-right" onClick={resetFilters} special={true}>
+          Reset
         </SmallTextButton>
       </div>
       <hr />
@@ -49,7 +49,7 @@ const FiltersField = ({ clearFilters, deleteFilter, filters, setPopUpMenu }) => 
 };
 
 FiltersField.propTypes = {
-  clearFilters: PropTypes.func.isRequired,
+  resetFilters: PropTypes.func.isRequired,
   deleteFilter: PropTypes.func.isRequired,
   filters: PropTypes.arrayOf(PropTypes.array),
   setPopUpMenu: PropTypes.func.isRequired,

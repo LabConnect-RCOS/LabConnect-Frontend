@@ -74,6 +74,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
                               options={filter[1]}
                               formHook={{ ...register(filter[2], {}) }}
                               name={filter[2]}
+                              key={filter[2]}
                               type="checkbox"
                             />
                           </div>
@@ -109,14 +110,16 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
     </section>
   );
 }
+
 PopUpMenu.propTypes = {
-  years: PropTypes.arrayOf(PropTypes.string)
+  setFunction: PropTypes.func.isRequired,
+  validYears: PropTypes.arrayOf(PropTypes.string),
+  clear: PropTypes.func.isRequired,
+  add: PropTypes.func.isRequired,
 };
 
 const Posts = ( {years} ) => {
   const [popUpMenu, setPopUpMenu] = React.useState(false);
-
-  
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -155,7 +158,7 @@ const Posts = ( {years} ) => {
     }
   };
 
-  var [jobState, dispatch] = useReducer(reducer, {
+  const [jobState, dispatch] = useReducer(reducer, {
     filters: [[],[]],
     activeId: "",
     jobs: [],
@@ -208,6 +211,10 @@ const Posts = ( {years} ) => {
       />
     </section>
   );
+};
+
+Posts.propTypes = {
+  years: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Posts;

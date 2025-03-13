@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import JobsNavigation from "../components/JobsNavigation";
 import Posts from "../components/Posts.tsx";
-import SavedJobs from "../components/SavedJobs";
 import PageNavigation from "../../shared/components/Navigation/PageNavigation";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook";
-import { useParams } from "react-router";
-import { useAuth } from "../../context/AuthContext.tsx";
 
 const Jobs = () => {
-  const { auth } = useAuth();
-  const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
   const [years, setYears] = useState<string[]>([]);
 
@@ -25,7 +19,7 @@ const Jobs = () => {
     }
   }
   fetchYears()
-  var [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");
+  const [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");
 
   return loading === false && years != null ? (
     <section className="flex flex-col h-screen justify-between gap-3 p-1">

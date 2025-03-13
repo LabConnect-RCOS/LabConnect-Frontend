@@ -1,4 +1,5 @@
-import React, { Children } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
 const SmallTextButton = ({ children, onClick, special, className }) => {
   return (
@@ -14,5 +15,12 @@ const SmallTextButton = ({ children, onClick, special, className }) => {
     </div>
   );
 };
+
+SmallTextButton.propTypes = {
+  children: PropTypes.node,
+  onClick: PropTypes.func.isRequired,
+  special: PropTypes.bool,
+  className: PropTypes.string,
+}
 
 export default SmallTextButton;

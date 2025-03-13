@@ -66,7 +66,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add} ) => {
                   >
                     <section className="flex justify-center">
                       { checkboxes.map((filter) => (
-                          <div className="w-1/3">
+                          <div className="w-1/3" key={filter[2]}>
                             <CheckBox
                               errors={errors}
                               errorMessage={filter[2] + " checkbox failed"}

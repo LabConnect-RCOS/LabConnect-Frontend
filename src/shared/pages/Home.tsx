@@ -62,7 +62,10 @@ const Home = () => {
           <img src={logo} alt="LabConnect" height="289" />
         </div>
 
+        {/* Intro text section */}
         <h1 className="text-xl pt-32">Welcome to LabConnect!</h1>
+
+        <p className="text-lg pt-8">Discover endless opportunities in research and innovation, all in one simple and intuitive platform.</p>
         <br />
         <p className="text-base px-6">
           If you are a student, go to the{" "}
@@ -118,14 +121,11 @@ const Home = () => {
         className="w-full flex justify-center py-10"
       >
         <div
-          style={{
-            backgroundColor: "#4682e3",
-            filter: "saturate(1.2)"
-          }}
-          className="rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6"
+          className="group rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6 bg-[#4682e3] hover:bg-[rgba(70,130,227,0.9)] filter saturate-[1.2]
+          shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
         >
-          <h2 className="text-2xl font-semibold">About Us</h2>
-          <p className="mt-4 text-lg">
+          <h2 className="text-2xl font-semibold text-center group-hover:text-white">About Us</h2>
+          <p className="mt-4 text-lg group-hover:text-white text-center">
             LabConnect is a platform dedicated to bridging the gap between students
             and research opportunities. We aim to make it easier for students to find
             meaningful lab/research work while helping professors connect with passionate
@@ -166,7 +166,7 @@ const Home = () => {
               major: "Computer Science",
               gradYear: "2026",
               role: "Frontend Developer",
-              skill: "React"
+              skill: "React.js"
             },
             {
               name: "Sarah Wohlford",
@@ -178,7 +178,7 @@ const Home = () => {
           ].map((member, index) => (
             <div
               key={index}
-              className="bg-white shadow-md rounded-2xl p-6 w-64 flex flex-col items-center text-center transform transition duration-300 hover:shadow-xl hover:-translate-y-2"
+              className="bg-white shadow-md rounded-2xl p-6 w-64 flex flex-col items-center text-center transform transition duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-blue-600"
             >
               <h3 className="text-lg font-semibold">{member.name}</h3>
               <p className="text-sm text-gray-600 mt-2">
@@ -194,9 +194,15 @@ const Home = () => {
       </section>
 
       {/* Contact Us Section */}
-      <section id="contact" className="py-20 bg-gray-100 text-center w-full">
-        <div className="max-w-md mx-auto p-4">
+      <section id="contact" className="py-20 text-center">
+        <div className="bg-gray-100 max-w-xl mx-auto p-4">
           <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
+
+          <p className="text-base text-gray-600 mb-4 max-w-md mx-auto">
+            Please feel free to reach out with any questions, concerns, or reviews. We value your feedback as we continue to develop
+            LabConnect into the best product it can be!
+          </p>
+
           {contactSubmitted ? (
             <div>
               <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
@@ -208,7 +214,7 @@ const Home = () => {
             <form onSubmit={handleContactSubmit} className="space-y-4">
               <div>
                 <label htmlFor="contact-name" className="block font-medium">
-                  Name (First, Last)
+                  First and Last Name
                 </label>
                 <input
                   id="contact-name"
@@ -222,7 +228,7 @@ const Home = () => {
               </div>
               <div>
                 <label htmlFor="contact-email" className="block font-medium">
-                  RPI Email
+                  RPI Email (@rpi.edu)
                 </label>
                 <input
                   id="contact-email"
@@ -264,14 +270,16 @@ const Home = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
+                className="w-3/5 mx-auto bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
               >
                 Send Message
               </button>
+
             </form>
           )}
         </div>
       </section>
+
       
       {/* Return to Top Button */}
       {showReturnToTop && (

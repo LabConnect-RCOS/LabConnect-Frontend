@@ -1,6 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./style/App.css";
+
+import Opportunities from "./opportunities/pages/opportunities.tsx";
+
 import Home from "./shared/pages/Home.tsx";
 import PageNotFound from "./shared/pages/404.tsx";
 import MainNavigation from "./shared/components/Navigation/MainNavigation.tsx";
@@ -34,6 +37,8 @@ function App() {
               <Route path="/login" element={<LoginRedirection />} />
               <Route path="/signout" element={<LogoutRedirection />} />
               <Route path="/logout" element={<LogoutRedirection />} />
+              
+              <Route path="/opportunities" element={<Opportunities />} />
 
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/profile" element={<ProfilePage />} />

@@ -6,6 +6,8 @@ import { useAuth } from "../../context/AuthContext.tsx";
 
 export default function Opportunities() {
 
+
+  // returning opportunities component on (currently not in use) opportunities page
   return (
     <div className="w-9/12 mx-auto">
         <OpportunitiesList></OpportunitiesList>

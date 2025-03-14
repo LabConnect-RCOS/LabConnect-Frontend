@@ -16,11 +16,13 @@ interface PageNavigationType {
 
 const Jobs: React.FC = () => {
   
+  // navigation bar
   const [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search") as [
     PageNavigationType,
     (page: string) => void
   ];
 
+  // displaying opportunities list component
   return (
     <section className="flex flex-col h-screen justify-between gap-3">
       <section className="flex2 gap-3">

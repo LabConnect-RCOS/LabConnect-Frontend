@@ -1,5 +1,8 @@
 import React from "react";
 
+
+//Created a new interface to make displaying an opportunity easier, contains 9 fields
+
 export interface Opportunity {
   name: string;
   description: string;
@@ -9,8 +12,12 @@ export interface Opportunity {
   year: number;
   application_due: Date;
   location: string;
-  professor: string; // Added the professor field
+  professor: string
+  // Add any other relevant information about an opportunity
 }
+
+
+// List of sample opportunities of type Opportunity
 
 const sampleOpportunities: Opportunity[] = [
   {
@@ -81,12 +88,16 @@ const sampleOpportunities: Opportunity[] = [
   }
 ];
 
+
+// This component returns a 'list' of all the opportunities 
+
 const OpportunitiesList = () => {
   return (
     <div className="p-4">
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
+            {/* Column Headers */}
             <tr className="bg-gray-100">
               <th className="p-3 text-left border">Position</th>
               <th className="p-3 text-left border">Description</th>
@@ -98,6 +109,7 @@ const OpportunitiesList = () => {
             </tr>
           </thead>
           <tbody>
+            {/* Info about the opportunities */}
             {sampleOpportunities.map((opportunity, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="p-3 border font-medium">{opportunity.name}</td>

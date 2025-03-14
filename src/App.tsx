@@ -12,7 +12,7 @@ import Departments from "./staff/pages/Departments.tsx";
 import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";
 import CreatePost from "./staff/pages/CreatePost.tsx";
-import IndividualPost from "./opportunities/pages/IndividualPost.js";
+import IndividualPost from "./opportunities/pages/IndividualPost.tsx";
 import ProfilePage from "./shared/pages/Profile.tsx";
 import LoginRedirection from "./auth/Login.tsx";
 import LogoutRedirection from "./auth/Logout.tsx";
@@ -28,7 +28,7 @@ function App() {
       <HelmetProvider>
         <section>
           <MainNavigation />
-          <main className="container-xl p-8">
+          <main className="flex flex-col min-h-screen p-8">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/health" element={<p>App is Healthy</p>} />

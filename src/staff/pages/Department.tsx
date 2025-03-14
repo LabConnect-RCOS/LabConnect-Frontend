@@ -14,15 +14,13 @@ export default function Department() {
   }
 
   const { department } = useParams();
-  const [departmentstate, setDepartmentstate] = useState<false | "not found" | { name: string; description: string; image: string; staff: { id: string; name: string; role: string; image: string; }[] }>(false);
+  const [departmentstate, setDepartmentstate] = useState<false | "not found" | { name: string; description: string; image: string; website?: string; staff: { id: string; name: string; role: string; image: string }[] }>(false);
 
   useEffect(() => {
     const fetchDepartment = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}/departments/${department}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
+        credentials: "include",
       }
       );
 
@@ -33,7 +31,7 @@ export default function Department() {
         // Ensure each staff member has an image property
         const updatedData = {
           ...data,
-          staff: data.staff.map((member: { id: string; name: string; role: string; image?: string }) => ({
+          staff: data.staff.map((member: { id: string; name: string; role: string; image?: string; website?: string }) => ({
             ...member,
             image: member.image || "default-image-url" // Provide a default image URL if none exists
           }))
@@ -42,7 +40,7 @@ export default function Department() {
       }
     };
     fetchDepartment();
-  }, [auth.token, department]);
+  }, [department]);
 
   const departmentComponents = (
     <>
@@ -52,6 +50,7 @@ export default function Department() {
             name={departmentstate.name}
             description={departmentstate.description}
             image={departmentstate.image}
+            website={departmentstate.website}
           />
           <DepartmentStaff staff={departmentstate.staff} />
         </>

@@ -16,9 +16,6 @@
 .about-head {@apply flex flex-col gap-1;}
 .about-title {@apply text-gray-500 text-base;}
 .about-description {@apply font-extrabold;}
-.filters-template { @apply px-3 overflow-x-scroll max-h-20 flex gap-3;} 
-.filters-search {@apply flex gap-2 w-full;}
-.all-filters-btn {@apply justify-end w-full;}
 .horizontal-btn {@apply flex gap-1 align-items-center p-2 px-2.5 rounded-3xl border;}
 .job-desc-header {@apply flex flex-col gap-2;}
 .job-desc-title {@apply font-extrabold text-xl;}
@@ -59,7 +56,7 @@
 .signin-general {@apply flex2 justify-center text-center;}
 .img-center {@apply flex justify-center items-center;}
 .home-general {@apply text-center font-sans;}
-.stickyfooter-general {@apply rounded border-2 p-3;}
+.stickyfooter-general {@apply rounded border-2 pr-16 pl-16 pt-3 pb-3;}
 .stickyfooter-header {@apply text-center text-lg justify-center;}
 .stickyfooter-info {@apply flex flex-row justify-between px-12 text-center;}
 .grey-link {@apply no-underline text-neutral-600;}
@@ -67,7 +64,6 @@
 
 /* Staff CSS */
 .createpost {@apply flex justify-center mt-3;}
-.check-input {@apply w-full max-w-xs;}
 .lc-loading {@apply loading loading-spinner loading-lg;}
 .featimage {@apply min-w-32 w-96 h-72 bg-base-100 shadow-xl rounded-md overflow-clip;}
 .lg-img-card {@apply card-compact w-96 bg-base-100 transition;}
@@ -79,6 +75,6 @@
 .createpost {@apply flex justify-center mt-3;}
 
 /* CreatePost CSS*/
-.form-container {@apply flex flex-col gap-5; /* Space between rows */}
-.horizontal-form {@apply flex gap-5; /* Space between inputs */}
-.horizontal-form > * {@apply flex-1; /* Each input takes equal space */}
+.form-container {@apply flex flex-col gap-5;}
+.horizontal-form {@apply flex gap-5;}
+.horizontal-form > * {@apply flex-1;}

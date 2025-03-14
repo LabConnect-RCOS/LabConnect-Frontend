@@ -4,14 +4,7 @@ import ProfileDescription from "./ProfileDescription.tsx";
 import ProfileOpportunities from "./ProfileOpportunities.tsx";
 import SEO from "..//SEO.tsx";
 import Breadcrumb from "../UIElements/Breadcrumb.tsx";
-
-interface Profile {
-    name: string;
-    image: string;
-    department: string;
-    description: string;
-    website?: string;
-}
+import { Profile } from "../../../types/profile.ts";
 
 const ProfileComponents = ({ profile, id, staff }: { profile: Profile, id: string, staff: boolean }) => {
     return (
@@ -36,7 +29,6 @@ const ProfileComponents = ({ profile, id, staff }: { profile: Profile, id: strin
                 <div className="flex gap-5">
                     <ProfileAvatar name={profile.name} image={profile.image} />
                     <ProfileDescription
-                        website={profile.website}
                         {...profile}
                     />
                 </div>

@@ -33,7 +33,7 @@ const EditInformation = ({className, id, name, department, researchCenter, descr
       className="flex2 gap-2"
     >
       <Input
-        label="Description"
+        label="Description (min. 5 characters)"
         type="textarea"
         name={"description"}
         errors={errors}

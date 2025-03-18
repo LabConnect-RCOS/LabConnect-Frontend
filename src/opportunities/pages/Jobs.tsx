@@ -1,40 +1,41 @@
-import React, { useState } from "react";
-import Posts from "../components/Posts.tsx";
+import React from "react";
+
+import Posts from "../components/Posts";
+
 import PageNavigation from "../../shared/components/Navigation/PageNavigation";
+
 import usePageNavigation from "../../shared/hooks/page-navigation-hook";
 
-const Jobs = () => {
-  const [loading, setLoading] = useState<string | boolean>(false);
-  const [years, setYears] = useState<string[]>([]);
+import OpportunitiesList from "../components/opportunitiesDetails.tsx";
 
-  async function fetchYears() {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);
+interface PageNavigationType {
+  activePage: string;
+  pages: string[];
+}
 
-    if (response.ok) {
-      const data = await response.json();
-      setYears(data);
-    } else {
-      console.log("No response for years");
-      setLoading("no response");
-    }
-  }
-  fetchYears()
+const Jobs: React.FC = () => {
   
-  const [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");
+  // navigation bar
+  const [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search") as [
+    PageNavigationType,
+    (page: string) => void
+  ];
 
-  return loading === false && years != null ? (
-    <section className="flex flex-col h-screen justify-between gap-3 p-1">
+  // displaying opportunities list component
+  return (
+    <section className="flex flex-col h-screen justify-between gap-3">
       <section className="flex2 gap-3">
         <section>
           <PageNavigation title="Jobs" pages={pages} switchPage={switchPage} />
-          {pages.activePage === "Search" && <Posts years={years}/>}
+
+          {pages.activePage === "Search" && <Posts />}
+          
         </section>
       </section>
+      <OpportunitiesList></OpportunitiesList>
     </section>
-  ) : loading === "no response" ? (
-    <h1>There was no response</h1>
-  ) : (
-    <h1>Loading...</h1>
+    
+    
   );
 };
 

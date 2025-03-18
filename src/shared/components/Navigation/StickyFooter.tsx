@@ -8,12 +8,12 @@ export default function StickyFooter() {
 
   const routes = auth.isAuthenticated
     ? [
-        { name: "Jobs", href: "/jobs", current: true },
-        { name: "Create", href: "/create", current: false },
-        { name: "Staff", href: "/staff", current: false },
-        { name: "Profile", href: "/profile", current: false },
-        { name: "Sign Out", href: "/signout", current: false },
-      ]
+      { name: "Opportunities", href: "/opportunities", current: true },
+      { name: "Create", href: "/create", current: false },
+      { name: "Staff", href: "/staff", current: false },
+      { name: "Profile", href: "/profile", current: false },
+      { name: "Sign Out", href: "/signout", current: false },
+    ]
     : [{ name: "Sign In", href: "/signin", current: false }];
 
   return (

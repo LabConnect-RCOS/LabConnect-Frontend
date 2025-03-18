@@ -1,7 +1,6 @@
 import React from "react";
 import Posts from "../components/Posts";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook.ts";
-import OpportunitiesList from "../components/opportunitiesDetails.tsx";
 
 interface PageNavigationType {
   activePage: string;
@@ -48,10 +47,7 @@ const Opportunities: React.FC = () => {
 
         </section>
       </section>
-      <OpportunitiesList></OpportunitiesList>
     </section>
-
-
   );
 };
 

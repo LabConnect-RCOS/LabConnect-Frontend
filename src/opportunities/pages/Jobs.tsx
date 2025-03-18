@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import JobsNavigation from "../components/JobsNavigation";
+import React from "react";
+
 import Posts from "../components/Posts";
-import SavedJobs from "../components/SavedJobs";
+
 import PageNavigation from "../../shared/components/Navigation/PageNavigation";
+
 import usePageNavigation from "../../shared/hooks/page-navigation-hook";
 
-import {Opportunity} from "../components/opportunitiesDetails";
 import OpportunitiesList from "../components/opportunitiesDetails.tsx";
-
 
 interface PageNavigationType {
   activePage: string;

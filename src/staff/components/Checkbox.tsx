@@ -20,7 +20,7 @@ const CheckBox = ({
           <p className="text-red-500">{errorMessage}</p>
         )}
 
-        <div className="flex2 gap-2">
+        <div className="flex2">
           {options &&
             options.map((item) => {
               return (

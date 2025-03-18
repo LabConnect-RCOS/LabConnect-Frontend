@@ -1,7 +1,5 @@
 import React from "react";
 import OpportunitiesList from "../components/opportunitiesDetails.tsx";
-import SEO from "../../shared/components/SEO.tsx";
-import { useAuth } from "../../context/AuthContext.tsx";
 
 
 export default function Opportunities() {

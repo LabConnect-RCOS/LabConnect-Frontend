@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import ProfileComponents from "../components/Profile/ProfileComponents.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
+import { Profile } from "../../types/profile.ts";
 // import EditProfile from "./EditProfile";
 
 export default function ProfilePage() {
@@ -12,14 +13,6 @@ export default function ProfilePage() {
   }
 
   // const [editMode, setEditMode] = useState(false);
-  interface Profile {
-    id: string;
-    name: string;
-    image: string;
-    department: string;
-    description: string;
-    website?: string;
-  }
 
   const [profile, setProfile] = useState<null | Profile | boolean>(null);
 
@@ -31,9 +24,7 @@ export default function ProfilePage() {
     const fetchProfile = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_BACKEND_SERVER}/profile`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
+        credentials: "include",
       }
       );
 
@@ -48,7 +39,7 @@ export default function ProfilePage() {
       }
     };
     fetchProfile();
-  }, [auth.token]);
+  }, []);
 
   // const editButton = (
   //   <button className="btn btn-primary my-3" onClick={changeEditMode}>

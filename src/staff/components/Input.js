@@ -29,7 +29,7 @@ const Input = ({
       {...formHook}
       placeholder={placeHolder || "Type Here"}
       cols="50"
-      rows="10"
+      rows="7"
       className="border-2 rounded p-2 m-0"
     ></textarea>
   );
@@ -38,9 +38,9 @@ const Input = ({
     <select
       {...formHook}
       defaultValue="Select a department"
-      className="select select-bordered check-input"
+      className="select select-bordered w-full"
     >
-      <option value="Select a department">Select a department</option>
+      <option value="" selected disabled hidden>Select a department</option>
       {options ? (
         options.map((option) => {
           return (

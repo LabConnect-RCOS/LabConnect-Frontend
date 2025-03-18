@@ -5,7 +5,7 @@ import SEO from "../components/SEO.tsx";
 
 const Home = () => {
   const aboutSectionRef = useRef<HTMLDivElement>(null);
-  
+
   // State for the Contact Us form
   const [contactForm, setContactForm] = useState({
     name: "",
@@ -45,10 +45,10 @@ const Home = () => {
         <p className="text-base px-6">
           If you are a student, go to the{" "}
           <Link
-            to="/jobs"
+            to="/opportunities"
             className="blue-link hover:text-blue-900 focus:text-blue-900"
           >
-            <b>Jobs</b>
+            <b>Opportunities</b>
           </Link>{" "}
           tab to view currently available research opportunities.
           <br />

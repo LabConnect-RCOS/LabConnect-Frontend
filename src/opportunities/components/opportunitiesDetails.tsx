@@ -110,23 +110,31 @@ const OpportunitiesList = () => {
           </thead>
           <tbody>
             {/* Info about the opportunities */}
-            {sampleOpportunities.map((opportunity, index) => (
-              <tr key={index} className="hover:bg-gray-50">
-                <td className="p-3 border font-medium">{opportunity.name}</td>
-                <td className="p-3 border">{opportunity.description}</td>
-                <td className="p-3 border">{opportunity.location}</td>
-                <td className="p-3 border">${opportunity.pay}/hr</td>
-                <td className="p-3 border">{opportunity.professor}</td>
-                <td className="p-3 border">
-                  {opportunity.semester} {opportunity.year}
-                </td>
-                <td className="p-3 border">
-                  <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
-                    Apply
-                  </button>
+            {sampleOpportunities.length > 0 ? (
+              sampleOpportunities.map((opportunity, index) => (
+                <tr key={index} className="hover:bg-gray-50">
+                  <td className="p-3 border font-medium">{opportunity.name}</td>
+                  <td className="p-3 border">{opportunity.description}</td>
+                  <td className="p-3 border">{opportunity.location}</td>
+                  <td className="p-3 border">${opportunity.pay}/hr</td>
+                  <td className="p-3 border">{opportunity.professor}</td>
+                  <td className="p-3 border">
+                    {opportunity.semester} {opportunity.year}
+                  </td>
+                  <td className="p-3 border">
+                    <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                      Apply
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={7} className="p-3 border text-center">
+                  No results found.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

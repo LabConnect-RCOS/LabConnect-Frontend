@@ -7,7 +7,14 @@ import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import PropTypes from "prop-types";
 
-const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => {
+interface FiltersFieldProps {
+  resetFilters: () => void;
+  deleteFilter: (filter: string) => void; // Ensure the parameter matches the filter type
+  filters: string[][]; // Assuming it's an array of arrays of strings
+  setPopUpMenu: () => void;
+}
+
+const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }: FiltersFieldProps) => {
   
   return (
     <div>
@@ -46,13 +53,6 @@ const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => 
       <hr />
     </div>
   );
-};
-
-FiltersField.propTypes = {
-  resetFilters: PropTypes.func.isRequired,
-  deleteFilter: PropTypes.func.isRequired,
-  filters: PropTypes.arrayOf(PropTypes.array),
-  setPopUpMenu: PropTypes.func.isRequired,
 };
 
 export default FiltersField;

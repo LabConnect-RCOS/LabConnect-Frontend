@@ -6,12 +6,7 @@ import Input from "./Input";
 import { useParams } from "react-router";
 import { Locations } from "../../shared/data/locations.ts";
 
-
-interface CreationFormsProps {
-  edit: boolean;
-}
-
-export default function CreationForms({ edit }: CreationFormsProps) {
+export default function CreationForms({ edit }: { edit: boolean }) {
   const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("Any"); // Manage the state for "For Pay" or "For Credit"

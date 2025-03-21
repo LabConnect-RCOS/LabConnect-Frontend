@@ -9,7 +9,15 @@ import CheckBox from "../../staff/components/Checkbox.tsx";
 import PropTypes from "prop-types";
 import Input from "../../staff/components/Input";
 
-const PopUpMenu = ( {setFunction, validYears, clear, add, reset} ) => {
+interface PopUpMenuProps {
+  setFunction: () => void;
+  validYears: string[],
+  clear: () => void,
+  add: (filter: string[]) => void,
+  reset: () => void
+};
+
+const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps ) => {
   const checkboxes = [["Semester",["Summer","Fall","Spring"],"semesters"],
                 ["Eligible Years",validYears,"years"],
                 ["Credits", ["1","2","3","4"],"credits"]]
@@ -146,7 +154,7 @@ PopUpMenu.propTypes = {
   reset: PropTypes.func.isRequired
 };
 
-const Posts = ( {years} ) => {
+const Posts = ( { years }: { years: string[] }  ) => {
   const [popUpMenu, setPopUpMenu] = React.useState(false);
 
   const date = new Date();
@@ -208,11 +216,11 @@ const Posts = ( {years} ) => {
     dispatch({ type: "RESET_FILTERS"});
   }, []);
 
-  const removeFilter = useCallback((name) => {
+  const removeFilter = useCallback((name:string) => {
     dispatch({ type: "REMOVE_FILTER", filter: name });
   }, []);
 
-  const addFilter = useCallback((name) => {
+  const addFilter = useCallback((name:string) => {
     dispatch({ type: "ADD_FILTER", filter: name });
   }, []);
 
@@ -251,10 +259,6 @@ const Posts = ( {years} ) => {
       />
     </section>
   );
-};
-
-Posts.propTypes = {
-  years: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Posts;

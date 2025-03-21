@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router";
 
-const JobsNavigation = ({ jobPage, switchPage }) => {
+const JobsNavigation = ({ jobPage, switchPage }: { jobPage: boolean, switchPage: () => void }) => {
   const path = useLocation().pathname;
 
   const activeLink = "active-link";

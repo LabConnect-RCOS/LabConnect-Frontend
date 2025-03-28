@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../images/LabConnect_Logo.webp";
+import logo from "../../../images/LabConnect_Logo-removebg-preview.png";
 import { useAuth } from "../../../context/AuthContext.tsx";
 
 export default function StickyFooter() {
@@ -21,7 +21,14 @@ export default function StickyFooter() {
       <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
         {/* Branding Section */}
         <div className="flex items-center justify-center md:justify-start">
-          <img src={logo} alt="LabConnect Logo" className="h-10 w-auto mr-2" />
+        <Link to="/">
+            <img
+              src={logo}
+              alt="LabConnect Logo"
+              className="my-logo h-16 w-auto mr-2"
+            />
+        </Link>
+
           <span className="font-bold text-xl">LabConnect</span>
         </div>
         {/* Navigation Section */}

@@ -6,70 +6,68 @@ import { useAuth } from "../../../context/AuthContext.tsx";
 export default function StickyFooter() {
   const { auth } = useAuth();
 
-  const routes = auth.isAuthenticated
+  const navLinks = auth.isAuthenticated
     ? [
-        { name: "Jobs", href: "/jobs", current: true },
-        { name: "Create", href: "/create", current: false },
-        { name: "Staff", href: "/staff", current: false },
-        { name: "Profile", href: "/profile", current: false },
-        { name: "Sign Out", href: "/signout", current: false },
+        { label: "Jobs", to: "/jobs" },
+        { label: "Create", to: "/create" },
+        { label: "Staff", to: "/staff" },
+        { label: "Profile", to: "/profile" },
+        { label: "Sign Out", to: "/signout" },
       ]
-    : [{ name: "Sign In", href: "/signin", current: false }];
+    : [{ label: "Sign In", to: "/signin" }];
 
   return (
-    <section className="stickyfooter-general">
-      <h1 className="stickyfooter-header text-center text-2xl font-bold">
-        Made by{" "}
-        <Link
-          to="https://new.rcos.io"
-          className="no-underline text-red-600 hover:text-red-800 focus:text-red-800"
-        >
-          RCOS
-        </Link>
-      </h1>
-      <div className="stickyfooter-info mt-5 flex flex-col items-center">
-        <div className="pb-3">
-          <img src={logo} alt="LabConnect" width="160" height="160 / (319/289)" />
+    <footer className="bg-indigo-800 text-white shadow-inner">
+      <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+        {/* Branding Section */}
+        <div className="flex items-center justify-center md:justify-start">
+          <img src={logo} alt="LabConnect Logo" className="h-10 w-auto mr-2" />
+          <span className="font-bold text-xl">LabConnect</span>
         </div>
-
-        <div className="w-40 text-center">
-          <div>
-            <b className="text-xl">Contact Us</b>
-            <p className="text-lg">
-              <Link
-                to="https://discord.gg/tsaxCKjYHT"
-                className="grey-link hover:text-neutral-950 focus:text-neutral-950"
-              >
-                Discord
+        {/* Navigation Section */}
+        <div className="flex items-center justify-center">
+          <nav className="space-x-4">
+            {navLinks.map((link, index) => (
+              <Link key={index} to={link.to} className="hover:underline">
+                {link.label}
               </Link>
-              <br />
-              <Link
-                to="https://github.com/LabConnect-RCOS"
-                className="grey-link hover:text-neutral-950 focus:text-neutral-950"
-              >
-                GitHub
-              </Link>
-              <br />
-            </p>
+            ))}
+          </nav>
+        </div>
+        {/* Social & Credit Section */}
+        <div className="flex flex-col items-center justify-center md:justify-end">
+          <div className="text-center mb-2">
+            <Link
+              to="https://discord.gg/tsaxCKjYHT"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              Discord
+            </Link>
+            {" | "}
+            <Link
+              to="https://github.com/LabConnect-RCOS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              GitHub
+            </Link>
+          </div>
+          <div className="text-xs">
+            Made by{" "}
+            <Link
+              to="https://new.rcos.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline text-red-400"
+            >
+              RCOS
+            </Link>
           </div>
         </div>
-        <div className="w-40 text-left -ml-4">
-          <b className="text-xl">Resources</b>
-          <br />
-          {routes.map((item) => (
-            <React.Fragment key={item.name}>
-              <Link
-                to={item.href}
-                className="grey-link hover:text-neutral-950 focus:text-neutral-950 text-lg"
-                aria-current={item.current}
-              >
-                {item.name}
-              </Link>
-              <br />
-            </React.Fragment>
-          ))}
-        </div>
       </div>
-    </section>
+    </footer>
   );
 }

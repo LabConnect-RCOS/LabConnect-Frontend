@@ -9,12 +9,12 @@ import { MdCancel } from "react-icons/md";
 interface FiltersFieldProps {
   resetFilters: () => void;
   deleteFilter: (filter: string) => void;
-  filters: string[][];
+  filters: string[];
   setPopUpMenu: () => void;
 }
 
-const FiltersField: React.FC<FiltersFieldProps> = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => {
-
+export default function FiltersField({ resetFilters, deleteFilter, filters, setPopUpMenu }: FiltersFieldProps) {
+  console.log("FiltersField", filters);
   return (
     <div>
       <hr />
@@ -30,7 +30,7 @@ const FiltersField: React.FC<FiltersFieldProps> = ({ resetFilters, deleteFilter,
 
           {/* Fix rendering with new filters = [ [],[],[] ]*/}
           <GroupedComponents gap={2}>
-            {filters[1].map((filter) => {
+            {filters.map((filter) => {
               return (
                 <HorizontalIconButton
                   onClick={deleteFilter}
@@ -53,5 +53,3 @@ const FiltersField: React.FC<FiltersFieldProps> = ({ resetFilters, deleteFilter,
     </div>
   );
 };
-
-export default FiltersField;

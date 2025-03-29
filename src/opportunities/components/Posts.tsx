@@ -5,7 +5,7 @@ import PopUpMenu from "./PopUpMenu.tsx";
 
 
 const Posts = () => {
-  const [popUpMenu, setPopUpMenu] = React.useState(false);
+  const [popUpMenu, setPopUpMenu] = useState(false);
 
   const date = new Date();
   const month = date.getMonth();
@@ -14,50 +14,108 @@ const Posts = () => {
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case "CLEAR_FILTERS":
-        state.filters = [[], []];
-        return { ...state };
-      case "RESET_FILTERS":
-        state.filters = [[[currSem], [currYr], [], [], []], [currSem, currYr]];
-        return { ...state };
-      case "REMOVE_FILTER":
-        if (action.filter) {
-          state.filters[1] = state.filters[1].filter((item) => item !== action.filter);
-          state.filters[0].map((list, index) => {
-            state.filters[0][index] = list.filter((item) => item !== action.filter);
-          })
-        }
-        return { ...state };
-      case "ADD_FILTER":
-        if (action.filter) {
-          state.filters[0] = [...state.filters[0], action.filter];
-          state.filters[1] = [...state.filters[1], ...action.filter];
-          console.log(state.filters)
-        }
-        return { ...state };
-      case "SET_ACTIVE_ID":
-        if (action.id) {
-          if (state.jobs.find((job) => job.id === action.id)) {
-            state.activeId = action.id;
+      // case "CLEAR_FILTERS":
+      //   return {
+      //     ...state,
+      //     filters: {
+      //       activeFilters: [],
+      //       filterMap: {
+      //         semesters: currSem,
+      //         years: currYr,
+      //         credits: [],
+      //         hourlyPay: "0",
+      //         majors: [],
+      //       },
+      //     },
+      //   };
+
+      case "RESET_FILTERS": {
+        const newFilterMap = {
+          semesters: [currSem],
+          years: [currYr],
+          credits: [],
+          hourlyPay: "0",
+          majors: [],
+        };
+
+        return {
+          ...state,
+          filters: {
+            activeFilters: [currSem, currYr],
+            filterMap: newFilterMap,
+          },
+        };
+      }
+
+      case "REMOVE_FILTER": {
+        const newFilterMap = { ...state.filters.filterMap };
+        let newActiveFilters = state.filters.activeFilters.filter((item) => item !== action.filter);
+
+        Object.keys(newFilterMap).forEach((key) => {
+          newFilterMap[key] = newFilterMap[key].filter((item) => item !== action.filter);
+          if (newFilterMap[key].length === 0) {
+            delete newFilterMap[key]; // Remove empty categories
           }
+        });
+
+        return {
+          ...state,
+          filters: {
+            activeFilters: newActiveFilters,
+            filterMap: newFilterMap,
+          },
+        };
+      }
+
+      case "ADD_FILTER": {
+        if (!action.filter || !action.category) return state;
+
+        const newFilterMap = { ...state.filters.filterMap };
+        if (!newFilterMap[action.category]) {
+          newFilterMap[action.category] = [];
         }
-        return { ...state };
+        if (!newFilterMap[action.category].includes(action.filter)) {
+          newFilterMap[action.category] = [...newFilterMap[action.category], action.filter];
+        }
+
+        return {
+          ...state,
+          filters: {
+            activeFilters: Array.from(new Set([...state.filters.activeFilters, action.filter])),
+            filterMap: newFilterMap,
+          },
+        };
+      }
+
+      case "SET_ACTIVE_ID":
+        return state.jobs.some((job) => job.id === action.id)
+          ? { ...state, activeId: action.id }
+          : state;
+
       case "SET_JOBS":
-        if (action.jobs) {
-          state.jobs = action.jobs;
-        }
-        return { ...state };
+        return action.jobs ? { ...state, jobs: action.jobs } : state;
+
       default:
         return state;
     }
   };
 
   const [jobState, dispatch] = useReducer(reducer, {
-    filters: [[[currSem], [currYr], [], [], []], [currSem, currYr]],
+    filters: {
+      activeFilters: [currSem, currYr],
+      filterMap: {
+        semesters: [currSem],
+        years: [currYr],
+        credits: [],
+        hourlyPay: "0",
+        majors: [],
+      },
+    },
     activeId: "",
     jobs: [],
   });
 
+  // Action dispatchers
   const clearFilters = useCallback(() => {
     dispatch({ type: "CLEAR_FILTERS" });
   }, []);
@@ -70,13 +128,14 @@ const Posts = () => {
     dispatch({ type: "REMOVE_FILTER", filter: name });
   }, []);
 
-  const addFilter = useCallback((name) => {
-    dispatch({ type: "ADD_FILTER", filter: name });
+  const addFilter = useCallback((name, category) => {
+    dispatch({ type: "ADD_FILTER", filter: name, category });
   }, []);
 
-  // const setActiveId = useCallback((val) => {
-  //   dispatch({ type: "SET_ACTIVE_ID", id: val });
-  // }, []);
+  const setActiveId = useCallback((val) => {
+    dispatch({ type: "SET_ACTIVE_ID", id: val });
+  }, []);
+
 
   const fetchOpportunities = async () => {
     const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunityCards`;
@@ -99,8 +158,8 @@ const Posts = () => {
 
   return (
     <section>
-      <FiltersField resetFilters={resetFilters} deleteFilter={removeFilter} filters={jobState.filters} setPopUpMenu={() => setPopUpMenu(!popUpMenu)} />
-      {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} clear={clearFilters} add={addFilter} reset={resetFilters} />}
+      <FiltersField resetFilters={resetFilters} deleteFilter={removeFilter} filters={jobState.filters.activeFilters} setPopUpMenu={() => setPopUpMenu(!popUpMenu)} />
+      {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} filters={jobState.filters.filterMap} clear={clearFilters} add={addFilter} reset={resetFilters} />}
       <OpportunitiesList />
     </section>
   );

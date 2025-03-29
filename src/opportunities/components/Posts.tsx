@@ -6,7 +6,6 @@ import { useCallback } from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CheckBox from "../../staff/components/Checkbox.tsx";
-import PropTypes from "prop-types";
 import Input from "../../staff/components/Input";
 
 interface PopUpMenuProps {
@@ -43,7 +42,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
     semesters: string[],
     years: string[],
     credits: string[],
-    hourlyPay: string,
+    hourlyPay: number,
     majors: string[]
   }
 
@@ -53,10 +52,10 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
     add(semesters)
     add(years)
     add(credits)
-    if (hourlyPay == "0") {
+    if (hourlyPay == 0) {
       add([])
     } else {
-      add([hourlyPay])
+      add([String(hourlyPay)])
     }
     add(majors)
     setFunction()
@@ -79,7 +78,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
                   > <section className="flex flex-col max-h-96 overflow-y-auto"> {/* Added max-height and overflow-y-auto */}
                       <section className="flex justify-center">
                         { checkboxes.map((filter) => (
-                            <div className="w-1/3" key={filter[2]}>
+                            <div className="w-1/3" key={String(filter[2])}>
                               <CheckBox
                                 errors={errors}
                                 errorMessage={filter[2] + " checkbox failed"}
@@ -116,6 +115,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
                                   options={list}
                                   formHook={{ ...register("majors", {}) }}
                                   name={"majors" + index}
+                                  label = {""}
                                   type="checkbox"
                                 />
                               </div>
@@ -145,14 +145,6 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
     </section>
   );
 }
-
-PopUpMenu.propTypes = {
-  setFunction: PropTypes.func.isRequired,
-  validYears: PropTypes.arrayOf(PropTypes.string),
-  clear: PropTypes.func.isRequired,
-  add: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired
-};
 
 const Posts = ( { years }: { years: string[] }  ) => {
   const [popUpMenu, setPopUpMenu] = React.useState(false);

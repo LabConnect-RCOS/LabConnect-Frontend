@@ -2,10 +2,9 @@ import React from "react";
 import SmallTextButton from "./SmallTextButton.tsx";
 import SearchBar from "./SearchBar.tsx";
 import GroupedComponents from "../../shared/components/UIElements/GroupedComponents";
-import HorizontalIconButton from "./HorizontalIconButton.tsx";
+import HorizontalIconButton from "./HorizontalIconButton";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
-import PropTypes from "prop-types";
 
 interface FiltersFieldProps {
   resetFilters: () => void;

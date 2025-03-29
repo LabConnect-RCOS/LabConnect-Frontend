@@ -2,13 +2,18 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import JobPost from "./JobPost";
 import JobDetails from "./JobDetails";
-import PropTypes from "prop-types";
+
+interface PostsFieldProps {
+  activeId: string;
+  setActive: () => void;
+  opportunities: object[];
+}
 
 
-const PostsField = ({ activeId, setActive, opportunities }) => {
+const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => {
   const [activeOpportunity, setActiveOpportunity] = useState(null);
 
-  const fetchOpportunity = async (id) => {
+  const fetchOpportunity = async (id: number) => {
     const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunity/${id}`;
     const response = await fetch(url);
     if (!response.ok) {
@@ -47,11 +52,5 @@ const PostsField = ({ activeId, setActive, opportunities }) => {
     </div>
   );
 };
-
-PostsField.propTypes = {
-  activeId: PropTypes.string,
-  setActive: PropTypes.func.isRequired,
-  opportunities: PropTypes.array,
-}
 
 export default PostsField;

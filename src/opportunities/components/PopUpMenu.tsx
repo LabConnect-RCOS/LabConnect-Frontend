@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import CheckBox from "../../staff/components/Checkbox.tsx";
+import CheckBox from "../../shared/components/Checkbox.tsx";
 import Input from "../../staff/components/Input";
 
 interface PopUpMenuProps {
@@ -8,6 +8,13 @@ interface PopUpMenuProps {
     clear: () => void;
     add: (filter: string[] | string) => void;
     reset: () => void;
+    filters: {
+        semesters: string[];
+        years: string[];
+        credits: string[];
+        hourlyPay: string;
+        majors: string[];
+    };
 }
 
 interface Major {
@@ -15,7 +22,7 @@ interface Major {
     name: string;
 }
 
-export default function PopUpMenu({ setFunction, clear, add, reset }: PopUpMenuProps) {
+export default function PopUpMenu({ setFunction, clear, add, reset, filters }: PopUpMenuProps) {
     const [majors, setMajors] = useState<Major[]>();
     const [validYears, setValidYears] = useState<string[]>([]);
 
@@ -34,9 +41,12 @@ export default function PopUpMenu({ setFunction, clear, add, reset }: PopUpMenuP
             } else {
                 const data = await response.json();
                 setMajors(data);
-                console.log(data);
             }
         }
+        fetchMajors();
+    }, []);
+
+    useEffect(() => {
         const fetchYears = async () => {
             const url = `${process.env.REACT_APP_BACKEND_SERVER}/years`;
             const response = await fetch(url);
@@ -45,10 +55,8 @@ export default function PopUpMenu({ setFunction, clear, add, reset }: PopUpMenuP
             } else {
                 const data = await response.json();
                 setValidYears(data);
-                console.log(data);
             }
         }
-        fetchMajors();
         fetchYears();
     }, []);
 
@@ -115,6 +123,7 @@ export default function PopUpMenu({ setFunction, clear, add, reset }: PopUpMenuP
                                                         formHook={{ ...register(filter[2], {}) }}
                                                         name={filter[2]}
                                                         type="checkbox"
+                                                        filters={filters}
                                                     />
                                                 </div>
                                             ))}

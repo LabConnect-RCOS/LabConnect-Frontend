@@ -14,7 +14,6 @@ interface FiltersFieldProps {
 }
 
 export default function FiltersField({ resetFilters, deleteFilter, filters, setPopUpMenu }: FiltersFieldProps) {
-  console.log("FiltersField", filters);
   return (
     <div>
       <hr />

@@ -12,11 +12,13 @@ interface PopUpMenuProps {
   setFunction: () => void;
   validYears: string[],
   clear: () => void,
-  add: (filter: string[]) => void,
+  add: (name: string[]) => void,
   reset: () => void
 };
 
 const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps ) => {
+  type FilterType = "semesters" | "years" | "credits" | "hourlyPay" | "majors";
+
   const checkboxes = [["Semester",["Summer","Fall","Spring"],"semesters"],
                 ["Eligible Years",validYears,"years"],
                 ["Credits", ["1","2","3","4"],"credits"]]
@@ -84,8 +86,8 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
                                 errorMessage={filter[2] + " checkbox failed"}
                                 label={filter[0]}
                                 options={filter[1]}
-                                formHook={{ ...register(filter[2], {}) }}
-                                name={filter[2]}
+                                formHook={{ ...register(filter[2] as FilterType, {}) }}
+                                name={filter[2] as FilterType}
                                 type="checkbox"
                               />
                             </div>
@@ -152,9 +154,30 @@ const Posts = ( { years }: { years: string[] }  ) => {
   const date = new Date();
   const month = date.getMonth();
   const currSem = (0 <= month && month <= 5) ? "Spring" : (5 < month && month <= 8) ? "Summer" : "Fall";
-  const currYr = date.getFullYear();
+  const currYr = String(date.getFullYear());
+  
+  interface stateType {
+    filters: [
+      string[][],
+      string[]    
+    ];
+    activeId: string;
+    jobs: jobType[];
+  }
 
-  const reducer = (state, action) => {
+  interface jobType {
+    id: string;
+  }
+
+  interface actionType {
+    type: string;
+    filter?: string;
+    filters?: string[];
+    id?: string;
+    jobs?: jobType[];
+  }
+
+  const reducer = (state: stateType, action: actionType) => {
     switch (action.type) {
       case "CLEAR_FILTERS":
         state.filters = [[],[]];
@@ -164,16 +187,16 @@ const Posts = ( { years }: { years: string[] }  ) => {
         return { ...state };
       case "REMOVE_FILTER":
         if (action.filter) {
-          state.filters[1] = state.filters[1].filter((item) => item !== action.filter);
-          state.filters[0].map((list, index) => {
+          state.filters[1] = state.filters[1].filter((item:string) => item !== action.filter);
+          state.filters[0].map((list:string[], index:number) => {
             state.filters[0][index] = list.filter((item) => item !== action.filter);
           })
         }
         return { ...state };
       case "ADD_FILTER":
-        if (action.filter) {
-          state.filters[0] = [...state.filters[0], action.filter];
-          state.filters[1] = [...state.filters[1], ...action.filter];
+        if (action.filters) {
+          state.filters[0] = [...state.filters[0], action.filters];
+          state.filters[1] = [...state.filters[1], ...action.filters];
           console.log(state.filters)
         }
         return { ...state };
@@ -208,15 +231,15 @@ const Posts = ( { years }: { years: string[] }  ) => {
     dispatch({ type: "RESET_FILTERS"});
   }, []);
 
-  const removeFilter = useCallback((name:string) => {
+  const removeFilter = useCallback((name: string) => {
     dispatch({ type: "REMOVE_FILTER", filter: name });
   }, []);
 
-  const addFilter = useCallback((name:string) => {
-    dispatch({ type: "ADD_FILTER", filter: name });
+  const addFilter = useCallback((names: string[]) => {
+    dispatch({ type: "ADD_FILTER", filters: names });
   }, []);
 
-  const setActiveId = useCallback((val) => {
+  const setActiveId = useCallback((val: string) => {
     dispatch({ type: "SET_ACTIVE_ID", id: val });
   }, []);
 

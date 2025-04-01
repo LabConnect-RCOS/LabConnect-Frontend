@@ -5,10 +5,9 @@ import JobDetails from "./JobDetails";
 
 interface PostsFieldProps {
   activeId: string;
-  setActive: () => void;
+  setActive: (val: string) => void;
   opportunities: object[];
 }
-
 
 const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => {
   const [activeOpportunity, setActiveOpportunity] = useState(null);
@@ -27,14 +26,18 @@ const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => 
   };
 
   useEffect(() => {
-    fetchOpportunity(activeId);
+    fetchOpportunity(Number(activeId));
   }, [activeId]);
+
+  interface jobType {
+    id?: string;
+  }
 
   return (
     <div className="postsfield-header">
       <div className="col-span-2">
         {opportunities &&
-          opportunities.map((job) => {
+          opportunities.map((job: jobType) => {
             return (
               <JobPost
                 active={job.id == activeId}

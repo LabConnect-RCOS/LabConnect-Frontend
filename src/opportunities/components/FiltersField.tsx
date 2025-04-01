@@ -9,7 +9,7 @@ import { MdCancel } from "react-icons/md";
 interface FiltersFieldProps {
   resetFilters: () => void;
   deleteFilter: (filter: string) => void; // Ensure the parameter matches the filter type
-  filters: string[][]; // Assuming it's an array of arrays of strings
+  filters: [string[][], string[]]; // Assuming it's an array of arrays of strings
   setPopUpMenu: () => void;
 }
 

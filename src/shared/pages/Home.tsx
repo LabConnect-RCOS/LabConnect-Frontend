@@ -17,14 +17,32 @@ const Home = () => {
 
   // State to control visibility of the "Return to Top" button
   const [showReturnToTop, setShowReturnToTop] = useState(false);
+  
+  // State for dynamic bottom offset for the Return to Top button
+  const [buttonBottom, setButtonBottom] = useState(5);
 
-  // Listen for scroll events to toggle "Return to Top" button visibility
+  // Listen for scroll events to toggle "Return to Top" visibility and adjust its bottom position
   useEffect(() => {
     const handleScroll = () => {
+      // Toggle visibility based on scrollY
       if (window.scrollY > 100) {
         setShowReturnToTop(true);
       } else {
         setShowReturnToTop(false);
+      }
+
+      // Adjust button position so it doesn't overlap the footer
+      const footer = document.querySelector("footer");
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const buttonHeight = 50; // approximate button height in pixels
+        // If the top of the footer is within the viewable area near the button...
+        if (footerRect.top < window.innerHeight - buttonHeight) {
+          // Calculate an offset to place the button just above the footer (with a 10px margin)
+          setButtonBottom(window.innerHeight - footerRect.top + 10);
+        } else {
+          setButtonBottom(5);
+        }
       }
     };
 
@@ -65,38 +83,28 @@ const Home = () => {
         {/* Intro text section */}
         <h1 className="text-xl pt-32">Welcome to LabConnect!</h1>
 
-        <p className="text-lg pt-8">Discover endless opportunities in research and innovation, all in one simple and intuitive platform.</p>
+        <p className="text-lg pt-8">
+          Discover endless opportunities in research and innovation, all in one simple and intuitive platform.
+        </p>
         <br />
         <p className="text-base px-6">
           If you are a student, go to the{" "}
-          <Link
-            to="/jobs"
-            className="blue-link hover:text-blue-900 focus:text-blue-900"
-          >
+          <Link to="/jobs" className="blue-link hover:text-blue-900 focus:text-blue-900">
             <b>Jobs</b>
           </Link>{" "}
           tab to view currently available research opportunities.
           <br />
           If you are a professor or staff member,{" "}
-          <Link
-            to="/signin"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
-          >
+          <Link to="/signin" className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900">
             <b>Sign In</b>
           </Link>{" "}
           and then go to{" "}
-          <Link
-            to="/create"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
-          >
+          <Link to="/create" className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900">
             <b>Create</b>
           </Link>{" "}
           to start posting <br />
           opportunities or{" "}
-          <Link
-            to="/profile"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
-          >
+          <Link to="/profile" className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900">
             <b>Profile</b>
           </Link>{" "}
           to view and edit your current posts.
@@ -115,23 +123,11 @@ const Home = () => {
       <div className="h-40"></div>
 
       {/* About Us Section */}
-      <section
-        id="about"
-        ref={aboutSectionRef}
-        className="w-full flex justify-center py-10"
-      >
-        <div
-          className="group rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6 bg-[#4682e3] hover:bg-[rgba(70,130,227,0.9)] filter saturate-[1.2]
-          shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
-        >
+      <section id="about" ref={aboutSectionRef} className="w-full flex justify-center py-10">
+        <div className="group rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6 bg-[#4682e3] hover:bg-[rgba(70,130,227,0.9)] filter saturate-[1.2] shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
           <h2 className="text-2xl font-semibold text-center group-hover:text-white">About Us</h2>
           <p className="mt-4 text-lg group-hover:text-white text-center">
-            LabConnect is a platform dedicated to bridging the gap between students
-            and research opportunities. We aim to make it easier for students to find
-            meaningful lab/research work while helping professors connect with passionate
-            individuals through a convenient, all-in-one application. Our team is hard
-            at work, and we will provide updates on our progress so keep an eye out for
-            announcements!
+            LabConnect is a platform dedicated to bridging the gap between students and research opportunities. We aim to make it easier for students to find meaningful lab/research work while helping professors connect with passionate individuals through a convenient, all-in-one application. Our team is hard at work, and we will provide updates on our progress so keep an eye out for announcements!
           </p>
         </div>
       </section>
@@ -140,8 +136,7 @@ const Home = () => {
       <section id="team" className="py-20 text-center w-full">
         <h2 className="text-2xl font-semibold">Meet Our Team</h2>
         <p className="mt-4 max-w-3xl mx-auto text-lg px-6">
-          Thanks for checking us out! We are a team of dedicated open-source developers
-          working hard to make this product into a reality.
+          Thanks for checking us out! We are a team of dedicated open-source developers working hard to make this product into a reality.
         </p>
 
         <div className="flex flex-wrap justify-center gap-8 mt-10">
@@ -199,16 +194,13 @@ const Home = () => {
           <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
 
           <p className="text-base text-gray-600 mb-4 max-w-md mx-auto">
-            Please feel free to reach out with any questions, concerns, or reviews. We value your feedback as we continue to develop
-            LabConnect into the best product it can be!
+            Please feel free to reach out with any questions, concerns, or reviews. We value your feedback as we continue to develop LabConnect into the best product it can be!
           </p>
 
           {contactSubmitted ? (
             <div>
               <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
-              <p>
-                Your message has been successfully sent. We appreciate your feedback!
-              </p>
+              <p>Your message has been successfully sent. We appreciate your feedback!</p>
             </div>
           ) : (
             <form onSubmit={handleContactSubmit} className="space-y-4">
@@ -274,18 +266,17 @@ const Home = () => {
               >
                 Send Message
               </button>
-
             </form>
           )}
         </div>
       </section>
 
-      
       {/* Return to Top Button */}
       {showReturnToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          style={{ bottom: `${buttonBottom}px` }}
+          className="fixed right-5 bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-black"
         >
           Return to Top
         </button>

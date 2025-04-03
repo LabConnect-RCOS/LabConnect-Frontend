@@ -17,25 +17,28 @@ export default function StickyFooter() {
     : [{ label: "Sign In", to: "/signin" }];
 
   return (
-    <footer className="bg-indigo-800 text-white shadow-inner">
+    <footer className="bg-blue-600 text-white shadow-inner">
       <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
         {/* Branding Section */}
         <div className="flex items-center justify-center md:justify-start">
-        <Link to="/">
+          <Link to="/">
             <img
               src={logo}
               alt="LabConnect Logo"
               className="my-logo h-16 w-auto mr-2"
             />
-        </Link>
-
+          </Link>
           <span className="font-bold text-xl">LabConnect</span>
         </div>
         {/* Navigation Section */}
         <div className="flex items-center justify-center">
           <nav className="space-x-4">
             {navLinks.map((link, index) => (
-              <Link key={index} to={link.to} className="hover:underline">
+              <Link
+                key={index}
+                to={link.to}
+                className="hover:underline text-lg font-bold"
+              >
                 {link.label}
               </Link>
             ))}
@@ -43,12 +46,12 @@ export default function StickyFooter() {
         </div>
         {/* Social & Credit Section */}
         <div className="flex flex-col items-center justify-center md:justify-end">
-          <div className="text-center mb-2">
+          <div className="text-center mb-2 text-lg font-bold">
             <Link
               to="https://discord.gg/tsaxCKjYHT"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline text-lg font-bold"
             >
               Discord
             </Link>
@@ -57,18 +60,18 @@ export default function StickyFooter() {
               to="https://github.com/LabConnect-RCOS"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="hover:underline text-lg font-bold"
             >
               GitHub
             </Link>
           </div>
-          <div className="text-xs">
+          <div className="text-lg font-bold">
             Made by{" "}
             <Link
               to="https://new.rcos.io"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline text-red-400"
+              className="hover:underline text-red-400 text-lg font-bold"
             >
               RCOS
             </Link>

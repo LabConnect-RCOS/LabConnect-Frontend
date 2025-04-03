@@ -54,7 +54,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
     add(semesters)
     add(years)
     add(credits)
-    if (hourlyPay == 0) {
+    if (hourlyPay === 0) {
       add([])
     } else {
       add([String(hourlyPay)])
@@ -80,12 +80,12 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset}: PopUpMenuProps
                   > <section className="flex flex-col max-h-96 overflow-y-auto"> {/* Added max-height and overflow-y-auto */}
                       <section className="flex justify-center">
                         { checkboxes.map((filter) => (
-                            <div className="w-1/3" key={String(filter[2])}>
+                            <div className="w-1/3" key={filter[2] as FilterType}>
                               <CheckBox
                                 errors={errors}
                                 errorMessage={filter[2] + " checkbox failed"}
-                                label={filter[0]}
-                                options={filter[1]}
+                                label={filter[0] as string}
+                                options={filter[1] as string[]}
                                 formHook={{ ...register(filter[2] as FilterType, {}) }}
                                 name={filter[2] as FilterType}
                                 type="checkbox"
@@ -162,11 +162,7 @@ const Posts = ( { years }: { years: string[] }  ) => {
       string[]    
     ];
     activeId: string;
-    jobs: jobType[];
-  }
-
-  interface jobType {
-    id: string;
+    jobs: Job[];
   }
 
   interface actionType {
@@ -174,44 +170,45 @@ const Posts = ( { years }: { years: string[] }  ) => {
     filter?: string;
     filters?: string[];
     id?: string;
-    jobs?: jobType[];
+    jobs?: Job[];
   }
 
   const reducer = (state: stateType, action: actionType) => {
     switch (action.type) {
       case "CLEAR_FILTERS":
         state.filters = [[],[]];
-        return { ...state };
+        return state;
       case "RESET_FILTERS":
         state.filters = [[[currSem],[currYr],[],[],[]],[currSem, currYr]];
-        return { ...state };
+        return state;
       case "REMOVE_FILTER":
         if (action.filter) {
-          state.filters[1] = state.filters[1].filter((item:string) => item !== action.filter);
-          state.filters[0].map((list:string[], index:number) => {
-            state.filters[0][index] = list.filter((item) => item !== action.filter);
-          })
+          const newFilters1 = state.filters[1].filter((item: string) => item !== action.filter);
+          const newFilters0 = state.filters[0].map((list: string[]) =>
+            list.filter((item) => item !== action.filter)
+          );
+          return {...state, filters: [newFilters0, newFilters1] as stateType["filters"]};
         }
-        return { ...state };
+        return state;
       case "ADD_FILTER":
         if (action.filters) {
           state.filters[0] = [...state.filters[0], action.filters];
           state.filters[1] = [...state.filters[1], ...action.filters];
           console.log(state.filters)
         }
-        return { ...state };
+        return state;
       case "SET_ACTIVE_ID":
         if (action.id) {
           if (state.jobs.find((job) => job.id === action.id)) {
             state.activeId = action.id;
           }
         }
-        return { ...state };
+        return state;
       case "SET_JOBS":
         if (action.jobs) {
           state.jobs = action.jobs;
         }
-        return { ...state };
+        return state;
       default:
         return state;
     }
@@ -260,7 +257,7 @@ const Posts = ( { years }: { years: string[] }  ) => {
 
   useEffect(() => {
     fetchOpportunities();
-  }, []);
+  });
 
   console.log()
   return (

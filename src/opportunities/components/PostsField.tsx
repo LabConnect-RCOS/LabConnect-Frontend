@@ -29,18 +29,15 @@ const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => 
     fetchOpportunity(Number(activeId));
   }, [activeId]);
 
-  interface jobType {
-    id?: string;
-  }
 
   return (
     <div className="postsfield-header">
       <div className="col-span-2">
         {opportunities &&
-          opportunities.map((job: jobType) => {
+          opportunities.map((job: Job) => {
             return (
               <JobPost
-                active={job.id == activeId}
+                active={job.id === activeId}
                 onClick={setActive}
                 key={job.id}
                 {...job}
@@ -48,7 +45,7 @@ const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => 
             );
           })}
       </div>
-      {activeId != "" && activeOpportunity && (
+      {activeId !== "" && activeOpportunity && (
         <JobDetails {...activeOpportunity} />
       )}
       {(activeId === "" || !activeOpportunity) && "Opportunity not found."}

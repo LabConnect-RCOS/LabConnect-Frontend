@@ -1,6 +1,13 @@
 import React from "react";
 
-const HorizontalIconButton = ({ children, onClick, icon, special }) => {
+interface HorizontalIconButtonProps {
+  children?: React.ReactNode;
+  onClick: (arg?: any) => void;
+  icon: React.ReactNode;
+  special: boolean;
+}
+
+const HorizontalIconButton = ({ children, onClick, icon, special }: HorizontalIconButtonProps) => {
   return (
     <div
       className={`${special && "font-medium"} ${

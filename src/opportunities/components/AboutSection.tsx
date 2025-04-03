@@ -1,7 +1,16 @@
 import React from "react";
 import AboutSectionElement from "./AboutSectionElement";
 
-const AboutSection = ({ aboutSection }) => {
+interface AboutSectionProps {
+  aboutSection: Item[];
+}
+
+interface Item {
+  title: string;
+  description: string;
+}
+
+const AboutSection = ({ aboutSection }: AboutSectionProps) => {
   let i = 0;
 
   return (
@@ -9,7 +18,7 @@ const AboutSection = ({ aboutSection }) => {
       <h3 className="about-role">About the role</h3>
 
       <div className="about-map" style={{ rowGap: "1rem" }}>
-        {aboutSection.map((item) => {
+        {aboutSection.map((item: Item) => {
           return (
             <AboutSectionElement
               key={++i}

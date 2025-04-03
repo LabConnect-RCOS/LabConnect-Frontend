@@ -22,7 +22,7 @@ const Jobs = () => {
   
   const [pages, switchPage] = usePageNavigation(["Search", "Saved"], "Search");
 
-  return loading === false && years != null ? (
+  return loading === false && years !== null ? (
     <section className="flex flex-col h-screen justify-between gap-3 p-1">
       <section className="flex2 gap-3">
         <section>

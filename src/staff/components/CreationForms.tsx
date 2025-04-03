@@ -128,7 +128,7 @@ export default function CreationForms({ edit }: { edit: boolean }) {
     }
   }, [edit, postID, reset]);
 
-  return loading === false && years != null ? (
+  return loading === false && years !== null ? (
     <form
       onSubmit={handleSubmit((data) => {
         submitHandler(data);

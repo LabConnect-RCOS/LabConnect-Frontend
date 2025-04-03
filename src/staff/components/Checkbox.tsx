@@ -1,5 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
+
+interface CheckBoxProps {
+  formHook?: object;
+  errors?: any;
+  errorMessage?: string;
+  name: string;
+  label?: string;
+  options?: string[];
+  type?: string;
+}
 
 const CheckBox = ({
   formHook,
@@ -9,7 +18,7 @@ const CheckBox = ({
   label,
   options,
   type,
-}) => {
+}: CheckBoxProps) => {
   return (
     <div>
       <div className="check-input">
@@ -42,15 +51,6 @@ const CheckBox = ({
       </div>
     </div>
   );
-};
-CheckBox.propTypes = {
-  formHook: PropTypes.object,
-  errors: PropTypes.object,
-  errorMessage: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string),
-  type: PropTypes.string,
 };
 
 export default CheckBox;

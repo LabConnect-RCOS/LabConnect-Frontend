@@ -12,7 +12,13 @@ usePageNavigation([Saved, Search, Bookmarks], active)
 
 */
 
-const PageNavigation = ({ title, pages, switchPage }) => {
+interface PageNavigationProps {
+  title: string;
+  pages: PagesState;
+  switchPage: (view: string) => void;
+}
+
+const PageNavigation = ({ title, pages, switchPage }: PageNavigationProps) => {
   const activeLink = "active-link";
   const normalLink = "normal-link hover:border-b-2 hover:text-black";
 

@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const IndividualPost = () => {
   const { postID } = useParams();
 
-  const [details, setDetails] = useState("Searching");
+  var [details, setDetails] = useState("Searching");
 
   const fetchOpportunities = async () => {
     // Consider moving the base URL to a configuration

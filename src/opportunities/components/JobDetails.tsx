@@ -3,22 +3,29 @@ import AboutSection from "./AboutSection";
 import JobHeader from "./JobHeader";
 import JobDescription from "./JobDescription";
 
+interface JobDetailsProps {
+  name: string;
+  author: string;
+  description: string;
+  authorProfile: string;
+  aboutSection: string;
+  recommended_experience: string;
+}
+
 const JobDetails = ({
   name,
   author,
-  department,
   description,
   authorProfile,
   aboutSection,
   recommended_experience,
-}) => {
+}: JobDetailsProps) => {
   return (
     <article className="job-details-header">
       <JobHeader
         title={name}
         author={author}
         img={authorProfile}
-        department={department}
       />
       <AboutSection aboutSection={aboutSection} />
       <JobDescription

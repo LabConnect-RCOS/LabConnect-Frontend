@@ -1,26 +1,9 @@
 import React from "react";
+import { OpportunityList } from "../../types/opportunities.ts";
 
-
-//Created a new interface to make displaying an opportunity easier, contains 9 fields
-
-export interface Opportunity {
-  name: string;
-  description: string;
-  recommended_experience: string;
-  pay: number;
-  semester: string;
-  year: number;
-  application_due: Date;
-  location: string;
-  professor: string
-  // Add any other relevant information about an opportunity
-}
-
-
-// List of sample opportunities of type Opportunity
-
-const sampleOpportunities: Opportunity[] = [
+const sampleOpportunities: OpportunityList[] = [
   {
+    id: 1,
     name: "Research Assistant - Machine Learning Lab",
     description: "Work on cutting-edge ML projects",
     recommended_experience: "Python, Machine Learning basics",
@@ -32,6 +15,7 @@ const sampleOpportunities: Opportunity[] = [
     professor: "Dr. Emily Chen"
   },
   {
+    id: 2,
     name: "Data Visualization Intern - Data Science Center",
     description: "Create compelling visualizations for real-world datasets.",
     recommended_experience: "D3.js, Tableau, or Matplotlib",
@@ -43,6 +27,7 @@ const sampleOpportunities: Opportunity[] = [
     professor: "Dr. Alan Green"
   },
   {
+    id: 3,
     name: "Undergraduate Researcher - Renewable Energy Lab",
     description: "Analyze energy efficiency of solar panel setups.",
     recommended_experience: "R, Excel, or energy systems knowledge",
@@ -54,6 +39,7 @@ const sampleOpportunities: Opportunity[] = [
     professor: "Dr. Maria Santos"
   },
   {
+    id: 4,
     name: "AI in Healthcare Research Assistant",
     description: "Develop and test AI models for diagnostic tools.",
     recommended_experience: "Python, TensorFlow, basic healthcare knowledge",
@@ -65,6 +51,7 @@ const sampleOpportunities: Opportunity[] = [
     professor: "Dr. Raj Patel"
   },
   {
+    id: 5,
     name: "Human-Computer Interaction (HCI) Researcher",
     description: "Study user interfaces to improve accessibility.",
     recommended_experience: "HTML, CSS, JavaScript, Usability Testing",
@@ -76,6 +63,7 @@ const sampleOpportunities: Opportunity[] = [
     professor: "Dr. Susan Miller"
   },
   {
+    id: 6,
     name: "Climate Modeling Research Intern",
     description: "Simulate climate patterns using advanced modeling techniques.",
     recommended_experience: "Python, MATLAB, or climate science coursework",
@@ -111,8 +99,8 @@ const OpportunitiesList = () => {
           <tbody>
             {/* Info about the opportunities */}
             {sampleOpportunities.length > 0 ? (
-              sampleOpportunities.map((opportunity, index) => (
-                <tr key={index} className="hover:bg-gray-50">
+              sampleOpportunities.map((opportunity) => (
+                <tr key={opportunity.id} className="hover:bg-gray-50">
                   <td className="p-3 border font-medium">{opportunity.name}</td>
                   <td className="p-3 border">{opportunity.description}</td>
                   <td className="p-3 border">{opportunity.location}</td>

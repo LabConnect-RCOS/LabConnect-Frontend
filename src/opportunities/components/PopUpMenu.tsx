@@ -2,19 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CheckBox from "../../shared/components/Checkbox.tsx";
 import Input from "../../staff/components/Input";
+import { Filters } from "../../types/opportunities.ts";
 
 interface PopUpMenuProps {
     setFunction: () => void;
-    clear: () => void;
-    add: (filter: string[] | string) => void;
     reset: () => void;
-    filters: {
-        semesters: string[];
-        years: string[];
-        credits: string[];
-        hourlyPay: string;
-        majors: string[];
-    };
+    filters: Filters;
+    setFilters: (activeFilters: string[], filterMap: Filters) => void;
 }
 
 interface Major {
@@ -22,13 +16,12 @@ interface Major {
     name: string;
 }
 
-export default function PopUpMenu({ setFunction, clear, add, reset, filters }: PopUpMenuProps) {
+export default function PopUpMenu({ setFunction, reset, filters, setFilters }: PopUpMenuProps) {
     const [majors, setMajors] = useState<Major[]>();
     const [validYears, setValidYears] = useState<string[]>([]);
 
-    const checkboxes: [string, string[], "semesters" | "years" | "credits"][] = [
-        ["Semester", ["Summer", "Fall", "Spring"], "semesters"],
-        ["Eligible Years", validYears, "years"],
+    const checkboxes: [string, string[], "years" | "credits"][] = [
+        ["Class Year", validYears, "years"],
         ["Credits", ["1", "2", "3", "4"], "credits"]
     ];
 
@@ -66,43 +59,63 @@ export default function PopUpMenu({ setFunction, clear, add, reset, filters }: P
         formState: { errors },
     } = useForm({
         defaultValues: {
-            semesters: [],
             years: [],
             credits: [],
-            hourlyPay: "0",
+            hourlyPay: filters.hourlyPay ?? 0,
             majors: []
         },
     });
 
     interface FormData {
-        semesters: string[],
         years: string[],
         credits: string[],
-        hourlyPay: string,
+        hourlyPay: number,
         majors: string[]
     }
 
-    function submitHandler(data: FormData) {
-        const { semesters, years, credits, hourlyPay, majors } = data;
-        clear();
-        add(semesters)
-        add(years)
-        add(credits)
-        if (hourlyPay === "0") {
-            add([])
+    function formatCredits(credits: string[]): string | null {
+        if (credits.length === 4) {
+            return "1-4 Credits";
+        } else if (credits.length === 1) {
+            return `${credits[0]} ${credits[0] === "1" ? "Credit" : "Credits"}`;
+        } else if (JSON.stringify(credits) === JSON.stringify(["1", "2", "3"])) {
+            return "1-3 Credits";
+        } else if (JSON.stringify(credits) === JSON.stringify(["2", "3", "4"])) {
+            return "2-4 Credits";
+        } else if (credits.length === 0) {
+            return null;
         } else {
-            add([hourlyPay])
+            return `${credits.join(", ")} Credits`;
         }
-        add(majors)
+    }
+
+    function submitHandler(data: FormData) {
+        const { years, credits, hourlyPay, majors } = data;
+        const newFilterMap: Filters = {
+            years: years.map(Number),
+            credits: credits,
+            hourlyPay: Number(hourlyPay),
+            majors: majors
+        }
+
+        const activeFilters: string[] = [
+            ...years,
+            ...(formatCredits(credits) ? [formatCredits(credits)!] : []),
+            ...(Number(hourlyPay) > 0 ? [`$${Number(hourlyPay).toFixed(2)}/hr+`] : []),
+            ...majors
+        ];
+        setFilters(activeFilters, newFilterMap);
         setFunction()
     };
+
+    console.log("Filters: ", filters);
 
     return (
         <section className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+                    <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl">
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-4">
                             <div className="text-2xl font-semibold text-center pb-3">Filters</div>
                             <section className="flex flex-col">
@@ -111,7 +124,7 @@ export default function PopUpMenu({ setFunction, clear, add, reset, filters }: P
                                         submitHandler(data);
                                     })}
                                     className="form-container"
-                                > <section className="flex flex-col max-h-96 overflow-y-auto"> {/* Added max-height and overflow-y-auto */}
+                                > <section className="flex flex-col max-h[100] overflow-y-auto"> {/* Added max-height and overflow-y-auto */}
                                         <section className="flex justify-center">
                                             {checkboxes.map((filter) => (
                                                 <div className="w-1/3" key={filter[2]}>
@@ -134,7 +147,16 @@ export default function PopUpMenu({ setFunction, clear, add, reset, filters }: P
                                                 label="Minimum Hourly Pay"
                                                 name={"hourlyPay"}
                                                 errorMessage={"Hourly pay must be at least 0"}
-                                                formHook={{ ...register("hourlyPay", {}) }}
+                                                formHook={{
+                                                    ...register("hourlyPay", {
+                                                        required: "Hourly pay is required",
+                                                        validate: value => value >= 0 || "Hourly pay must be greater or equal to 0",
+                                                        pattern: {
+                                                            value: /^[0-9]\d*$/,
+                                                            message: "Hourly pay must be a positive integer"
+                                                        }
+                                                    })
+                                                }}
                                                 type="number"
                                                 options={[]}
                                                 placeHolder="Enter minimum hourly pay"
@@ -152,7 +174,12 @@ export default function PopUpMenu({ setFunction, clear, add, reset, filters }: P
                                                 >
                                                     {majors &&
                                                         majors.map((major, index) => (
-                                                            <option key={index} value={major.code} className="py-2 px-3 hover:bg-blue-100">
+                                                            <option
+                                                                key={index}
+                                                                value={major.code}
+                                                                className="py-2 px-3 hover:bg-blue-100"
+                                                                selected={filters.majors.includes(major.code)}
+                                                            >
                                                                 {major.name}
                                                             </option>
                                                         ))}

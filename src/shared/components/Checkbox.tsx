@@ -1,5 +1,6 @@
 import React from "react";
 import { FieldErrors, UseFormRegisterReturn } from "react-hook-form";
+import { Filters } from "../../types/opportunities.ts";
 
 interface CheckBoxProps {
   formHook: UseFormRegisterReturn;
@@ -15,14 +16,9 @@ interface CheckBoxProps {
   label: string;
   options: string[];
   type?: "checkbox" | "radio";
-  filters?: {
-    semesters: string[];
-    years: string[];
-    credits: string[];
-    hourlyPay: string;
-    majors: string[];
-  };
-}
+  filters?: Filters
+};
+
 
 export default function CheckBox({
   formHook,

@@ -118,29 +118,42 @@ const Posts = () => {
 
 
   const fetchOpportunities = async () => {
-    const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunityCards`;
+    const nonEmptyFilters = Object.fromEntries(
+      Object.entries(opportunityState.filters.filterMap).filter(([_, value]) => {
+        if (Array.isArray(value)) {
+          return value.length > 0;
+        }
+        return value !== 0 && value !== null && value !== undefined;
+      })
+    );
 
-    // const response = await fetch(url);
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/opportunity/filter`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(nonEmptyFilters),
+    });
 
-    // if (!response.ok) {
-    //   console.log("Error fetching opportunities");
-    // } else {
-    //   let data = await response.json();
-    //   data = data.data;
-    //   dispatch({ type: "SET_JOBS", jobs: data });
-    //   console.log(opportunityState.jobs);
-    // }
+    if (!response.ok) {
+      console.log("Error fetching opportunities");
+    } else {
+      const data = await response.json();
+      dispatch({ type: "SET_OPPORTUNITIES", opportunities: data });
+      console.log(data);
+    }
   };
 
   useEffect(() => {
     fetchOpportunities();
-  }, []);
+  }, [opportunityState.filters]);
 
   return (
     <section>
       <FiltersField resetFilters={resetFilters} deleteFilter={removeFilter} filters={opportunityState.filters.activeFilters} setPopUpMenu={() => setPopUpMenu(!popUpMenu)} />
       {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} filters={opportunityState.filters.filterMap} reset={resetFilters} setFilters={setFilters} />}
-      <OpportunitiesList />
+      <OpportunitiesList opportunities={opportunityState.opportunities} />
     </section>
   );
 };

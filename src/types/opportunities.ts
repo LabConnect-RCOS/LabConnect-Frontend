@@ -16,4 +16,5 @@ export type OpportunityList = {
   application_due: Date;
   location: string;
   professor: string
+  saved: boolean;
 }

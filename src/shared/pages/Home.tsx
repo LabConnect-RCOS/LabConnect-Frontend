@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/LabConnect_Logo2.webp";
+import darkLogo from "../../images/LabConnect_Logo2-removebg-preview.png"; // New dark mode logo
 import SEO from "../components/SEO.tsx";
 
 const Home = () => {
@@ -76,7 +77,7 @@ const Home = () => {
   };
 
   return (
-    <section className="w-full relative bg-white dark:bg-gray-800">
+    <section className="w-full relative bg-white dark:bg-gray-900">
       <SEO title="LabConnect" description="LabConnect home page" />
 
       {/* Welcome Section */}
@@ -102,7 +103,12 @@ const Home = () => {
         </label>
 
         <div className="img-center pt-4">
-          <img src={logo} alt="LabConnect" height="289" />
+          {/* Use the new darkLogo when dark mode is enabled, otherwise use the default logo */}
+          <img 
+            src={isDarkMode ? darkLogo : logo} 
+            alt="LabConnect" 
+            height="289" 
+          />
         </div>
 
         <h1 className="text-xl pt-32 text-gray-800 dark:text-gray-100">
@@ -166,40 +172,69 @@ const Home = () => {
         <p className="mt-4 max-w-3xl mx-auto text-lg px-6 text-gray-700 dark:text-gray-200">
           Thanks for checking us out! We are a team of dedicated open-source developers working hard to make this product into a reality.
         </p>
-        <div className="flex flex-wrap justify-center gap-8 mt-10">
+        {/* Use a grid container for a 2x4 layout on medium and larger screens */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-10">
           {[
             {
-              name: "Rafael Cenzano",
+              name: "Rafael C",
               major: "Computer Science",
               gradYear: "2025",
               role: "Backend Developer",
               skill: "Flask"
             },
             {
-              name: "Will Broadwell",
+              name: "Will B",
               major: "Computer Science",
               gradYear: "2026",
               role: "Frontend Developer",
               skill: "TailwindCSS"
             },
             {
-              name: "Sagar Sahu",
+              name: "Sagar S",
               major: "Computer Science",
               gradYear: "2026",
               role: "Frontend Developer",
               skill: "React.js"
             },
             {
-              name: "Sarah Wohlford",
+              name: "Sarah W",
               major: "Computer Science",
               gradYear: "2027",
               role: "Backend Developer",
               skill: "PostgreSQL"
+            },
+            {
+              name: "Sidharth E",
+              major: "Computer Science",
+              gradYear: "2026",
+              role: "Team Member",
+              skill: "GitHub"
+            },
+            {
+              name: "Mohammed P",
+              major: "Computer Science",
+              gradYear: "2027",
+              role: "Team Member",
+              skill: "Backend"
+            },
+            {
+              name: "Gowrisankar P",
+              major: "Computer Science",
+              gradYear: "2027",
+              role: "Team Member",
+              skill: "TypeScript"
+            },
+            {
+              name: "Devan P",
+              major: "Computer Science",
+              gradYear: "2027",
+              role: "Team Member",
+              skill: "Frontend"
             }
           ].map((member, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-700 shadow-md rounded-2xl p-6 w-64 flex flex-col items-center text-center transition-transform duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-blue-600"
+              className="bg-white dark:bg-gray-700 shadow-md rounded-2xl p-6 w-full flex flex-col items-center text-center transition-transform duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-blue-600"
             >
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                 {member.name}
@@ -217,6 +252,8 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+
 
       {/* Contact Us Section */}
       <section id="contact" className="py-20 text-center">

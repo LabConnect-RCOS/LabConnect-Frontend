@@ -87,7 +87,7 @@ const Home = () => {
           {/* The image source now switches instantaneously.
               Inline style disables any default transition. */}
           <img
-            src={isDarkMode ? darkLogo : logo}
+            src={isDarkMode ? darkLogo : darkLogo}
             alt="LabConnect"
             height="289"
             style={{ transition: "none" }}
@@ -154,10 +154,10 @@ const Home = () => {
         className="w-full flex justify-center py-10"
       >
         <div className="group rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6 bg-[#4682e3] dark:bg-blue-900 hover:bg-[rgba(70,130,227,0.9)] dark:hover:bg-blue-800 filter saturate-[1.2] shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-          <h2 className="text-2xl font-semibold text-center group-hover:text-white">
+          <h2 className="text-2xl font-semibold text-center text-dark-800 dark:text-white">
             About Us
           </h2>
-          <p className="mt-4 text-lg text-center group-hover:text-white">
+          <p className="mt-4 text-lg text-center text-dark-800 dark:text-white">
             LabConnect is a platform dedicated to bridging the gap between
             students and research opportunities. We aim to make it easier for
             students to find meaningful lab/research work while helping
@@ -165,15 +165,27 @@ const Home = () => {
             all-in-one application. Our team is hard at work, and we will provide
             updates on our progress so keep an eye out for announcements!
           </p>
+          <p className="mt-4 text-lg text-center text-dark-800 dark:text-white">
+          If you're interested in learning more about the team at RCOS or are thinking
+            about joining LabConnect or any branch of RCOS, please check out the new website
+            here to learn more about existing projects and areas of interest: <Link
+                to="https://new.rcos.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline text-red-700 dark:text-red-600 text-1xl font-bold"
+              >
+                RCOS
+              </Link>
+          </p>
         </div>
       </section>
 
       {/* Meet Our Team Section */}
       <section id="team" className="py-20 text-center w-full">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
           Meet Our Team
         </h2>
-        <p className="mt-4 max-w-3xl mx-auto text-lg px-6 text-gray-700 dark:text-gray-200">
+        <p className="mt-4 max-w-3xl mx-auto text-lg px-6 text-gray-700 dark:text-white">
           Thanks for checking us out! We are a team of dedicated open-source
           developers working hard to make this product into a reality.
         </p>
@@ -238,18 +250,18 @@ const Home = () => {
           ].map((member, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-gray-700 shadow-md rounded-2xl p-6 w-full flex flex-col items-center text-center transition-transform duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-blue-600"
+              className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-6 w-full flex flex-col items-center text-center transition-transform duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-blue-600"
             >
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-blue-600">
                 {member.name}
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+              <p className="text-sm text-gray-600 dark:text-white mt-2">
                 {member.major}, Class of {member.gradYear}
               </p>
-              <p className="text-sm text-blue-600 mt-2 font-medium">
+              <p className="text-sm text-blue-600 dark:text-white mt-2 font-medium">
                 {member.role}
               </p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-500 dark:text-white mt-1">
                 Skill: {member.skill}
               </p>
             </div>
@@ -259,7 +271,7 @@ const Home = () => {
 
       {/* Contact Us Section */}
       <section id="contact" className="py-20 text-center">
-        <div className="bg-gray-100 dark:bg-gray-600 max-w-xl mx-auto p-4">
+        <div className="bg-gray-100 dark:bg-gray-500 dark:bg-opacity-5 max-w-xl mx-auto p-4 rounded-lg">
           <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
             Contact Us
           </h1>

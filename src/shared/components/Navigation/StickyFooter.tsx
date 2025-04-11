@@ -74,7 +74,7 @@ export default function StickyFooter() {
                 to="https://new.rcos.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline text-red-400 text-2xl font-bold"
+                className="hover:underline text-red-500 text-2xl font-bold"
               >
                 RCOS
               </Link>

@@ -5,24 +5,13 @@ import CheckBox from "./Checkbox.tsx";
 import Input from "./Input";
 import { useParams } from "react-router";
 import { Locations } from "../../shared/data/locations.ts";
+import fetchYears from "../../fetches/fetchYears.tsx";
 
 export default function CreationForms({ edit }: { edit: boolean }) {
   const { postID } = useParams();
   const [loading, setLoading] = useState<string | boolean>(false);
   const [compensationType, setCompensationType] = useState("Any"); // Manage the state for "For Pay" or "For Credit"
   const [years, setYears] = useState<string[]>([]);
-
-  async function fetchYears() {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);
-
-    if (response.ok) {
-      const data = await response.json();
-      setYears(data);
-    } else {
-      console.log("No response for years");
-      setLoading("no response");
-    }
-  }
 
   const {
     register,
@@ -100,7 +89,7 @@ export default function CreationForms({ edit }: { edit: boolean }) {
       );
       if (response.ok) {
         const { id, title, application_due, type, hourlyPay, credits, description, recommended_experience, location, years } = await response.json();
-        await Promise.all([fetchYears()]);
+        await Promise.all([fetchYears({setYears, setLoading})]);
         reset({
           id,
           title,
@@ -120,7 +109,7 @@ export default function CreationForms({ edit }: { edit: boolean }) {
       }
     }
 
-    fetchYears();
+    fetchYears({setYears, setLoading});
     if (edit) {
       fetchEditData();
     } else {

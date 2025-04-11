@@ -14,3 +14,8 @@ declare type PagesState = {
 declare type Job = {
     id?: string;
 }
+
+interface AboutItem {
+    title: string;
+    description: string;
+  }

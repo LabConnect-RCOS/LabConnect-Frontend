@@ -5,16 +5,16 @@ import JobDescription from "./JobDescription";
 
 interface JobDetailsProps {
   name: string;
-  author: string;
+  authors: string;
   description: string;
-  authorProfile: string;
-  aboutSection: string;
+  authorProfile?: string;
+  aboutSection: AboutItem[];
   recommended_experience: string;
 }
 
 const JobDetails = ({
   name,
-  author,
+  authors,
   description,
   authorProfile,
   aboutSection,
@@ -24,7 +24,7 @@ const JobDetails = ({
     <article className="job-details-header">
       <JobHeader
         title={name}
-        author={author}
+        author={authors}
         img={authorProfile}
       />
       <AboutSection aboutSection={aboutSection} />

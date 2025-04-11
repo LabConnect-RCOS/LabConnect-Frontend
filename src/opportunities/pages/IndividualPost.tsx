@@ -3,12 +3,26 @@ import JobDetails from "../components/JobDetails";
 import { useParams } from "react-router";
 import { useEffect } from "react";
 
+interface getOpportunityData {
+  "id": string;
+  "name": string;
+  "description": string;
+  "recommended_experience": string;
+  "authors": string;
+  "department": string;
+  "pay": string;
+  "credits"?: string;
+  "semester": string
+  "application_due": string;
+  "recommended_class_years": string;
+}
+
 const IndividualPost = () => {
   const { postID } = useParams();
 
-  var [details, setDetails] = useState("Searching");
+  var [details, setDetails] = useState<string | getOpportunityData>("Searching");
 
-  const fetchOpportunities = async () => {
+  const fetchOpportunity = async () => {
     // Consider moving the base URL to a configuration
     const baseURL = `${process.env.REACT_APP_BACKEND_SERVER}`;
     const url = `${baseURL}/getOpportunity/${postID}`;
@@ -25,14 +39,14 @@ const IndividualPost = () => {
   };
 
   async function findDetails() {
-    const data = await fetchOpportunities();
+    const data = await fetchOpportunity();
     details = data || "Nothing found";
     setDetails(details);
   }
 
   useEffect(() => {
     findDetails();
-  }, []);
+  });
 
   return (
     <div>
@@ -41,7 +55,7 @@ const IndividualPost = () => {
       ) : details === "Nothing found" ? (
         <p>No post found</p>
       ) : (
-        <JobDetails {...details} />
+        <JobDetails {...details as getOpportunityData } />
       )}
     </div>
   );

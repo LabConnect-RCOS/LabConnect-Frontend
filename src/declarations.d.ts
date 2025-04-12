@@ -18,4 +18,18 @@ declare type Job = {
 interface AboutItem {
     title: string;
     description: string;
-  }
+}
+
+interface getOpportunityData {
+    "id": string;
+    "name": string;
+    "description": string;
+    "recommended_experience": string;
+    "authors": string;
+    "department": string;
+    "pay": string;
+    "credits"?: string;
+    "semester": string
+    "application_due": string;
+    "recommended_class_years": string;
+}

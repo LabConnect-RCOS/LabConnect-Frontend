@@ -10,23 +10,23 @@ interface PostsFieldProps {
 }
 
 const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => {
-  const [activeOpportunity, setActiveOpportunity] = useState(null);
+  const [opportunity, setOpportunity] = useState<string | getOpportunityData>("Searching");
 
-  const fetchOpportunity = async (id: number) => {
+  const fetchOpportunity = async (id: string) => {
     const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunity/${id}`;
     const response = await fetch(url);
     if (!response.ok) {
       console.log("Error fetching opportunity");
-      setActiveOpportunity(null);
+      setOpportunity(null);
     } else {
       let data = await response.json();
       data = data.data;
-      setActiveOpportunity(data);
+      setOpportunity(data);
     }
   };
 
   useEffect(() => {
-    fetchOpportunity(Number(activeId));
+    fetchOpportunity(activeId);
   }, [activeId]);
 
 
@@ -45,10 +45,10 @@ const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => 
             );
           })}
       </div>
-      {activeId !== "" && activeOpportunity && (
-        <JobDetails {...activeOpportunity} />
+      {activeId !== "" && opportunity  && (
+        <JobDetails {...opportunity} />
       )}
-      {(activeId === "" || !activeOpportunity) && "Opportunity not found."}
+      {(activeId === "" || !opportunity) && "Opportunity not found."}
     </div>
   );
 };

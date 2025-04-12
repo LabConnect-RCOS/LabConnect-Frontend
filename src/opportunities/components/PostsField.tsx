@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import JobPost from "./JobPost";
 import JobDetails from "./JobDetails";
+import fetchOpportunity from "../../fetches/fetchOpportunity.tsx";
 
 interface PostsFieldProps {
   activeId: string;
@@ -10,23 +11,10 @@ interface PostsFieldProps {
 }
 
 const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => {
-  const [opportunity, setOpportunity] = useState<string | getOpportunityData>("Searching");
-
-  const fetchOpportunity = async (id: string) => {
-    const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunity/${id}`;
-    const response = await fetch(url);
-    if (!response.ok) {
-      console.log("Error fetching opportunity");
-      setOpportunity(null);
-    } else {
-      let data = await response.json();
-      data = data.data;
-      setOpportunity(data);
-    }
-  };
+  const [opportunity, setOpportunity] = useState<string | opportunityData>("Searching");
 
   useEffect(() => {
-    fetchOpportunity(activeId);
+    fetchOpportunity({setOpportunity, id: activeId});
   }, [activeId]);
 
 
@@ -45,10 +33,13 @@ const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => 
             );
           })}
       </div>
-      {activeId !== "" && opportunity  && (
-        <JobDetails {...opportunity} />
+      {opportunity === "Searching" ? (
+        <span className="loading loading-spinner loading-lg" />
+      ) : (opportunity === "Nothing found" || activeId == "") ? (
+        <p>No post found</p>
+      ) : (
+        <JobDetails {...opportunity as opportunityData } />
       )}
-      {(activeId === "" || !opportunity) && "Opportunity not found."}
     </div>
   );
 };

@@ -20,7 +20,7 @@ interface AboutItem {
     description: string;
 }
 
-interface getOpportunityData {
+interface opportunityData {
     "id": string;
     "name": string;
     "description": string;

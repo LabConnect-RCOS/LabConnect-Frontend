@@ -194,7 +194,6 @@ const Posts = ( { years }: { years: string[] }  ) => {
         if (action.filters) {
           state.filters[0] = [...state.filters[0], action.filters];
           state.filters[1] = [...state.filters[1], ...action.filters];
-          console.log(state.filters)
         }
         return state;
       case "SET_ACTIVE_ID":
@@ -240,6 +239,7 @@ const Posts = ( { years }: { years: string[] }  ) => {
     dispatch({ type: "SET_ACTIVE_ID", id: val });
   }, []);
 
+  // Jobs getting set
   const fetchOpportunities = async () => {
     const url = `${process.env.REACT_APP_BACKEND_SERVER}/getOpportunityCards`;
 

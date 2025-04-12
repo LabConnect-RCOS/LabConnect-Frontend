@@ -7,20 +7,20 @@ import fetchOpportunity from "../../fetches/fetchOpportunity.tsx";
 const IndividualPost = () => {
   const { id } = useParams();
 
-  var [details, setDetails] = useState<string | getOpportunityData>("Searching");
+  var [opportunity, setOpportunity] = useState<string | opportunityData>("Searching");
 
   useEffect(() => {
-    fetchOpportunity({setDetails, id});
-  });
+    fetchOpportunity({setOpportunity, id});
+  }, [id]);
 
   return (
     <div>
-      {details === "Searching" ? (
+      {opportunity === "Searching" ? (
         <span className="loading loading-spinner loading-lg" />
-      ) : details === "Nothing found" ? (
+      ) : opportunity === "Nothing found" ? (
         <p>No post found</p>
       ) : (
-        <JobDetails {...details as getOpportunityData } />
+        <JobDetails {...opportunity as opportunityData } />
       )}
     </div>
   );

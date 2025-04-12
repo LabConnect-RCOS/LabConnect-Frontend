@@ -2,7 +2,12 @@ import React from "react";
 import LargeTextCard from "../UIElements/LargeTextCard.tsx";
 import { useState, useEffect } from "react";
 
-export default function ProfileOpportunities({ id, staff }: { id: string, staff: boolean }) {
+interface ProfileOpportunitiesProps {
+  id: string;
+  staff: boolean;
+}
+
+export default function ProfileOpportunities({ id, staff }: ProfileOpportunitiesProps) {
   const [opportunities, setOpportunities] = useState<Array<{ id: string; title: string; due: string; pay: string; credits: string }> | null | "no response">(null);
 
   useEffect(() => {

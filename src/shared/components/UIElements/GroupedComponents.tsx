@@ -2,7 +2,7 @@ import React from "react";
 
 interface GroupedComponentsProps {
   children?: React.ReactNode[];
-  gap: string;
+  gap: number;
 }
 
 const GroupedComponents = ({ children, gap }: GroupedComponentsProps) => {

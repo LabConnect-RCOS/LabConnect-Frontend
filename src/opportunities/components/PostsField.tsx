@@ -7,7 +7,7 @@ import fetchOpportunity from "../../fetches/fetchOpportunity.tsx";
 interface PostsFieldProps {
   activeId: string;
   setActive: (val: string) => void;
-  opportunities: object[];
+  opportunities: opportunityCardData[];
 }
 
 const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => {
@@ -17,12 +17,11 @@ const PostsField = ({ activeId, setActive, opportunities }: PostsFieldProps) => 
     fetchOpportunity({setOpportunity, id: activeId});
   }, [activeId]);
 
-
   return (
     <div className="postsfield-header">
       <div className="col-span-2">
         {opportunities &&
-          opportunities.map((job: Job) => {
+          opportunities.map((job) => {
             return (
               <JobPost
                 active={job.id === activeId}

@@ -162,7 +162,7 @@ const Posts = ( { years }: { years: string[] }  ) => {
       string[]    
     ];
     activeId: string;
-    jobs: Job[];
+    jobs: opportunityCardData[];
   }
 
   interface actionType {
@@ -170,7 +170,7 @@ const Posts = ( { years }: { years: string[] }  ) => {
     filter?: string;
     filters?: string[];
     id?: string;
-    jobs?: Job[];
+    jobs?: opportunityCardData[];
   }
 
   const reducer = (state: stateType, action: actionType) => {

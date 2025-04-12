@@ -11,21 +11,39 @@ declare type PagesState = {
 }
 
 // Returned from backend route, need more info about what is returned
-declare type Job = {
-    id?: string;
+declare interface opportunityCardData {
+    "id": string,
+    "title": string,
+    "professor": string,
+    "season": stringr,
+    "location": string,
+    "year": string,
 }
 
-interface AboutItem {
+// FOr about section idk what this is tbh
+declare interface AboutItem {
     title: string;
     description: string;
 }
 
-interface opportunityData {
+// This the result returned from 'packageOpportunityCard' in opportunity_routes.py in backend
+declare interface opportunityCardData {
+    "id": string,
+    "title": string,
+    "professor": string,
+    "season": stringr,
+    "location": string,
+    "year": string,
+}
+
+// This the result returned from 'packageIndividualOpportunity' in opportunity_routes.py in backend
+declare interface opportunityData {
     "id": string;
     "name": string;
     "description": string;
     "recommended_experience": string;
     "authors": string;
+    "authorProfile": string;
     "department": string;
     "pay": string;
     "credits"?: string;

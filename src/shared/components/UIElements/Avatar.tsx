@@ -1,6 +1,12 @@
 import React from "react";
 
-const Avatar: React.FC<{ img: string, name: string, className?: string }> = ({ img, name, className = "" }) => {
+interface AvatarProps {
+  img: string;
+  name: string;
+  className?: string;
+}
+
+const Avatar = ({ img, name, className = "" }: AvatarProps) => {
   return (
     <div className={`${className} avatar1`}>
       <img className="avatar-img" src={img} alt={name} />

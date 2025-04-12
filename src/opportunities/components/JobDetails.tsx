@@ -7,7 +7,7 @@ interface JobDetailsProps {
   name: string;
   authors: string;
   description: string;
-  authorProfile?: string;
+  authorProfile: string;
   aboutSection: AboutItem[];
   recommended_experience: string;
 }
@@ -20,6 +20,8 @@ const JobDetails = ({
   aboutSection,
   recommended_experience,
 }: JobDetailsProps) => {
+  {authorProfile = (authorProfile === "") ? "https://cdn-icons-png.flaticon.com/512/1077/1077114.png" : authorProfile;}
+
   return (
     <article className="job-details-header">
       <JobHeader

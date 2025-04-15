@@ -17,7 +17,8 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
               <th className="p-3 text-left border">Description</th>
               <th className="p-3 text-left border">Location</th>
               <th className="p-3 text-left border">Pay</th>
-              <th className="p-3 text-left border">Professor</th>
+              <th className="p-3 text-left border">Credits</th>
+              <th className="p-3 text-left border">Lab Managers</th>
               <th className="p-3 text-left border">Term</th>
               <th className="p-3 text-left border">View</th>
               <th className="p-3 text-left border">Save</th>
@@ -32,7 +33,8 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
                   <td className="p-3 border">{opportunity.description}</td>
                   <td className="p-3 border">{opportunity.location}</td>
                   <td className="p-3 border">{opportunity.pay ? `$${opportunity.pay}/hr` : ""}</td>
-                  <td className="p-3 border">{opportunity.professor}</td>
+                  <td className="p-3 border">{opportunity.credits}</td>
+                  <td className="p-3 border">{opportunity.lab_managers}</td>
                   <td className="p-3 border">
                     {opportunity.semester} {opportunity.year}
                   </td>
@@ -50,7 +52,7 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
               ))
             ) : (
               <tr>
-                <td colSpan={8} className="p-3 border text-center">
+                <td colSpan={9} className="p-3 border text-center">
                   No results found.
                 </td>
               </tr>

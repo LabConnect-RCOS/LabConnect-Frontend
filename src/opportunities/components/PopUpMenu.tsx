@@ -152,12 +152,12 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                                         required: "Hourly pay is required",
                                                         validate: value => value >= 0 || "Hourly pay must be greater or equal to 0",
                                                         pattern: {
-                                                            value: /^[0-9]\d*$/,
-                                                            message: "Hourly pay must be a positive integer"
+                                                            value: /^\d+(\.\d{1,2})?$/,
+                                                            message: "Hourly pay must be a positive number with up to two decimal places"
                                                         }
                                                     })
                                                 }}
-                                                type="number"
+                                                type="float"
                                                 options={[]}
                                                 placeHolder="Enter minimum hourly pay"
                                             />

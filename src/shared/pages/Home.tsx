@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../images/LabConnect_Logo2.webp";
 import darkLogo from "../../images/LabConnect_Logo2-removebg-preview.png";
 import SEO from "../components/SEO.tsx";
 
@@ -12,7 +11,7 @@ const Home = () => {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
   });
   const [contactSubmitted, setContactSubmitted] = useState(false);
 
@@ -162,20 +161,23 @@ const Home = () => {
             students and research opportunities. We aim to make it easier for
             students to find meaningful lab/research work while helping
             professors connect with passionate individuals through a convenient,
-            all-in-one application. Our team is hard at work, and we will provide
-            updates on our progress so keep an eye out for announcements!
+            all-in-one application. Our team is hard at work, and we will
+            provide updates on our progress so keep an eye out for
+            announcements!
           </p>
           <p className="mt-4 text-lg text-center text-dark-800 dark:text-white">
-          If you're interested in learning more about the team at RCOS or are thinking
-            about joining LabConnect or any branch of RCOS, please check out the new website
-            here to learn more about existing projects and areas of interest: <Link
-                to="https://new.rcos.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline text-red-700 dark:text-red-600 text-1xl font-bold"
-              >
-                RCOS
-              </Link>
+            If you&apos;re interested in learning more about the team at RCOS or
+            are thinking about joining LabConnect or any branch of RCOS, please
+            check out the new website here to learn more about existing projects
+            and areas of interest:{" "}
+            <Link
+              to="https://new.rcos.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline text-red-700 dark:text-red-600 text-1xl font-bold"
+            >
+              RCOS
+            </Link>
           </p>
         </div>
       </section>
@@ -196,57 +198,57 @@ const Home = () => {
               major: "Computer Science",
               gradYear: "2025",
               role: "Backend Developer",
-              skill: "Flask"
+              skill: "Flask",
             },
             {
               name: "Will Broadwell",
               major: "Computer Science",
               gradYear: "2026",
               role: "Frontend Developer",
-              skill: "TailwindCSS"
+              skill: "TailwindCSS",
             },
             {
               name: "Sagar Sahu",
               major: "Computer Science",
               gradYear: "2026",
               role: "Frontend Developer",
-              skill: "React.js"
+              skill: "React.js",
             },
             {
               name: "Sarah Wohlford",
               major: "Computer Science",
               gradYear: "2027",
               role: "Backend Developer",
-              skill: "PostgreSQL"
+              skill: "PostgreSQL",
             },
             {
               name: "Sidharth E",
               major: "Computer Science",
               gradYear: "2026",
               role: "Team Member",
-              skill: "TBD"
+              skill: "TBD",
             },
             {
               name: "Mohammed P",
               major: "Computer Science",
               gradYear: "2027",
               role: "Team Member",
-              skill: "TBD"
+              skill: "TBD",
             },
             {
               name: "Gowrisankar P",
               major: "Computer Science",
               gradYear: "2027",
               role: "Team Member",
-              skill: "TBD"
+              skill: "TBD",
             },
             {
               name: "Devan P",
               major: "Computer Science",
               gradYear: "2027",
               role: "Team Member",
-              skill: "TBD"
-            }
+              skill: "TBD",
+            },
           ].map((member, index) => (
             <div
               key={index}
@@ -276,9 +278,9 @@ const Home = () => {
             Contact Us
           </h1>
           <p className="text-base text-gray-600 dark:text-gray-200 mb-4 max-w-md mx-auto">
-            Please feel free to reach out with any questions, concerns, or reviews.
-            We value your feedback as we continue to develop LabConnect into the best
-            product it can be!
+            Please feel free to reach out with any questions, concerns, or
+            reviews. We value your feedback as we continue to develop LabConnect
+            into the best product it can be!
           </p>
           {contactSubmitted ? (
             <div>
@@ -286,13 +288,17 @@ const Home = () => {
                 Thank You!
               </h2>
               <p className="text-gray-700 dark:text-gray-200">
-                Your message has been successfully sent. We appreciate your feedback!
+                Your message has been successfully sent. We appreciate your
+                feedback!
               </p>
             </div>
           ) : (
             <form onSubmit={handleContactSubmit} className="space-y-4">
               <div>
-                <label htmlFor="contact-name" className="block font-medium text-gray-700 dark:text-gray-200">
+                <label
+                  htmlFor="contact-name"
+                  className="block font-medium text-gray-700 dark:text-gray-200"
+                >
                   First and Last Name
                 </label>
                 <input
@@ -306,7 +312,10 @@ const Home = () => {
                 />
               </div>
               <div>
-                <label htmlFor="contact-email" className="block font-medium text-gray-700 dark:text-gray-200">
+                <label
+                  htmlFor="contact-email"
+                  className="block font-medium text-gray-700 dark:text-gray-200"
+                >
                   RPI Email (@rpi.edu)
                 </label>
                 <input
@@ -320,7 +329,10 @@ const Home = () => {
                 />
               </div>
               <div>
-                <label htmlFor="contact-subject" className="block font-medium text-gray-700 dark:text-gray-200">
+                <label
+                  htmlFor="contact-subject"
+                  className="block font-medium text-gray-700 dark:text-gray-200"
+                >
                   Subject
                 </label>
                 <input
@@ -334,7 +346,10 @@ const Home = () => {
                 />
               </div>
               <div>
-                <label htmlFor="contact-message" className="block font-medium text-gray-700 dark:text-gray-200">
+                <label
+                  htmlFor="contact-message"
+                  className="block font-medium text-gray-700 dark:text-gray-200"
+                >
                   Message
                 </label>
                 <textarea

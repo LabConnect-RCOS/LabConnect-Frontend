@@ -1,7 +1,26 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { FieldErrors, UseFormRegisterReturn } from "react-hook-form";
+import { Filters } from "../../types/opportunities.ts";
 
-const CheckBox = ({
+interface CheckBoxProps {
+  formHook: UseFormRegisterReturn;
+  errors: FieldErrors<{
+    semesters: never[];
+    years: never[];
+    credits: never[];
+    hourlyPay: string;
+    majors: never[];
+  }>;
+  errorMessage: string;
+  name: string;
+  label: string;
+  options: string[];
+  type?: "checkbox" | "radio";
+  filters?: Filters
+};
+
+
+export default function CheckBox({
   formHook,
   errors,
   errorMessage,
@@ -9,14 +28,15 @@ const CheckBox = ({
   label,
   options,
   type,
-}) => {
+  filters,
+}: CheckBoxProps) {
   return (
     <div>
       <div className="check-input">
         <div className="label">
           <span className="label-text font-medium">{label}</span>
         </div>
-        {errors && errors[name] && (
+        {errors && errors[name as keyof typeof errors] && (
           <p className="text-red-500">{errorMessage}</p>
         )}
 
@@ -33,6 +53,7 @@ const CheckBox = ({
                       {...formHook}
                       id={item}
                       className={type === "radio" ? "radio" : "checkbox"}
+                      defaultChecked={name === "semesters" && filters?.semesters?.includes(item) || name === "years" && filters?.years?.includes(item) || name === "credits" && filters?.credits?.includes(item) ? true : false}
                     />
                   </label>
                 </div>
@@ -43,14 +64,3 @@ const CheckBox = ({
     </div>
   );
 };
-CheckBox.propTypes = {
-  formHook: PropTypes.object,
-  errors: PropTypes.object,
-  errorMessage: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string),
-  type: PropTypes.string,
-};
-
-export default CheckBox;

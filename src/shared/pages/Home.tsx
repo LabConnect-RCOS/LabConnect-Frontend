@@ -106,10 +106,10 @@ const Home = () => {
         <p className="text-base px-6 text-gray-700 dark:text-gray-200">
           If you are a student, go to the{" "}
           <Link
-            to="/jobs"
+            to="/opportunities"
             className="blue-link hover:text-blue-900 focus:text-blue-900"
           >
-            <b>Jobs</b>
+            <b>Opportunities</b>
           </Link>{" "}
           tab to view currently available research opportunities.
           <br />

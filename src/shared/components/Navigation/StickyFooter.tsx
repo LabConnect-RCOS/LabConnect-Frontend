@@ -9,7 +9,7 @@ export default function StickyFooter() {
   // Define navigation links based on authentication.
   const navLinks = auth.isAuthenticated
     ? [
-        { label: "Jobs", to: "/jobs" },
+        { label: "Opportunities", to: "/opportunities" },
         { label: "Create", to: "/create" },
         { label: "Staff", to: "/staff" },
         { label: "Profile", to: "/profile" },

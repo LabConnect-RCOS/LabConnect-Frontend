@@ -5,10 +5,15 @@ import GroupedComponents from "../../shared/components/UIElements/GroupedCompone
 import HorizontalIconButton from "./HorizontalIconButton.tsx";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
-import PropTypes from "prop-types";
 
-const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => {
-  
+interface FiltersFieldProps {
+  resetFilters: () => void;
+  deleteFilter: (filter: string) => void;
+  filters: string[];
+  setPopUpMenu: () => void;
+}
+
+export default function FiltersField({ resetFilters, deleteFilter, filters, setPopUpMenu }: FiltersFieldProps) {
   return (
     <div>
       <hr />
@@ -17,15 +22,15 @@ const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => 
           <SearchBar />
 
           <SmallTextButton className="" onClick={setPopUpMenu} special={true}>
-            <PiSlidersHorizontal className="pr-1"/>
+            <PiSlidersHorizontal className="pr-1" />
             Change Filters
-            <PiSlidersHorizontal className="pl-1"/>
+            <PiSlidersHorizontal className="pl-1" />
           </SmallTextButton>
 
           {/* Fix rendering with new filters = [ [],[],[] ]*/}
           <GroupedComponents gap={2}>
-            {filters[1].map((filter) => {
-              return(
+            {filters.map((filter) => {
+              return (
                 <HorizontalIconButton
                   onClick={deleteFilter}
                   icon={<MdCancel />}
@@ -47,12 +52,3 @@ const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => 
     </div>
   );
 };
-
-FiltersField.propTypes = {
-  resetFilters: PropTypes.func.isRequired,
-  deleteFilter: PropTypes.func.isRequired,
-  filters: PropTypes.arrayOf(PropTypes.array),
-  setPopUpMenu: PropTypes.func.isRequired,
-};
-
-export default FiltersField;

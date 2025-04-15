@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import CheckBox from "./Checkbox.tsx";
+import CheckBox from "../../shared/components/Checkbox.tsx";
 import Input from "./Input";
 import { useParams } from "react-router";
 import { Locations } from "../../shared/data/locations.ts";

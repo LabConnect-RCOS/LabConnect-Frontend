@@ -11,7 +11,7 @@ export default function MainNavigation() {
   const location = useLocation().pathname;
   const routes = auth.isAuthenticated
     ? [
-      { name: "Jobs", href: "/jobs", current: true },
+      { name: "Opportunities", href: "/opportunities", current: true },
       { name: "Create", href: "/create", current: false },
       { name: "Staff", href: "/staff", current: false },
       { name: "Profile", href: "/profile", current: false },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import Breadcrumb from "../../shared/components/UIElements/Breadcrumb.tsx";
 import DepartmentHeading from "../components/DepartmentHeading.tsx";
 import DepartmentStaff from "../components/DepartmentStaff.tsx";

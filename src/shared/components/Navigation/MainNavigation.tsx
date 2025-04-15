@@ -21,7 +21,7 @@ export default function MainNavigation() {
   // Define navigation routes based on authentication.
   const routes = auth.isAuthenticated
     ? [
-        { name: "Jobs", href: "/jobs" },
+        { name: "Opportunities", href: "/opportunities" },
         { name: "Create", href: "/create" },
         { name: "Staff", href: "/staff" },
         { name: "Profile", href: "/profile" },

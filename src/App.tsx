@@ -2,20 +2,20 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./style/App.css";
 
-import Opportunities from "./opportunities/pages/Opportunities.tsx";
 import Home from "./shared/pages/Home.tsx";
 import PageNotFound from "./shared/pages/404.tsx";
 import MainNavigation from "./shared/components/Navigation/MainNavigation.tsx";
+import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
+import ProfilePage from "./shared/pages/Profile.tsx";
 import Departments from "./staff/pages/Departments.tsx";
 import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";
 import CreatePost from "./staff/pages/CreatePost.tsx";
-import IndividualPost from "./opportunities/pages/IndividualPost.tsx";
-import ProfilePage from "./shared/pages/Profile.tsx";
 import LoginRedirection from "./auth/Login.tsx";
 import LogoutRedirection from "./auth/Logout.tsx";
-import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
 import Token from "./auth/Token.tsx";
+import Opportunities from "./opportunities/pages/Opportunities.tsx";
+import IndividualPost from "./opportunities/pages/IndividualPost.tsx";
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext.tsx';
 

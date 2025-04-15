@@ -64,7 +64,7 @@ const Posts = () => {
           years: state.filters.filterMap.years.filter((year) => year !== parseInt(action.filter)),
           credits: action.filter.includes("Credit") ? [] : state.filters.filterMap.credits,
           majors: state.filters.filterMap.majors.filter((major) => major !== action.filter),
-          hourlyPay: action.filter.includes("Hourly") ? 0 : state.filters.filterMap.hourlyPay,
+          hourlyPay: action.filter.includes("$") ? 0 : state.filters.filterMap.hourlyPay,
         };
 
         return {
@@ -118,36 +118,45 @@ const Posts = () => {
 
 
   const fetchOpportunities = async () => {
-    const nonEmptyFilters = Object.fromEntries(
-      Object.entries(opportunityState.filters.filterMap).filter(([_, value]) => {
-        if (Array.isArray(value)) {
-          return value.length > 0;
-        }
-        return value !== 0 && value !== null && value !== undefined;
-      })
+    const queryParams = new URLSearchParams(
+      Object.entries(opportunityState.filters.filterMap)
+        .filter(([, value]) => {
+          if (Array.isArray(value)) return value.length > 0;
+          return value !== 0 && value !== null && value !== undefined;
+        })
+        .reduce((acc, [key, value]) => {
+          if (Array.isArray(value)) {
+            acc[key] = value.join(",");
+          } else {
+            acc[key] = value.toString();
+          }
+          return acc;
+        }, {} as Record<string, string>)
     );
 
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/opportunity/filter`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(nonEmptyFilters),
-    });
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/opportunity/filter?${queryParams.toString()}`, {
+        method: "GET",
+        credentials: "include",
+      });
 
-    if (!response.ok) {
-      console.log("Error fetching opportunities");
-    } else {
-      const data = await response.json();
-      dispatch({ type: "SET_OPPORTUNITIES", opportunities: data });
-      console.log(data);
+      if (!response.ok) {
+        console.log("Error fetching opportunities", response.status);
+        dispatch({ type: "SET_OPPORTUNITIES", opportunities: [] });
+      } else {
+        const data = await response.json();
+        dispatch({ type: "SET_OPPORTUNITIES", opportunities: data });
+        console.log(data);
+      }
+    } catch (error) {
+      console.error("Error fetching opportunities:", error);
+      dispatch({ type: "SET_OPPORTUNITIES", opportunities: [] });
     }
   };
 
   useEffect(() => {
     fetchOpportunities();
-  }, [opportunityState.filters]);
+  }, [opportunityState.filters.filterMap]);
 
   return (
     <section>

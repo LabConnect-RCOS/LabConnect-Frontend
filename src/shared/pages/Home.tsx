@@ -42,7 +42,7 @@ const Home = () => {
     preloadImg.src = darkLogo;
   }, []);
 
-  // Poll for dark-mode changes
+  // Poll for dark‑mode changes
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIsDarkMode(document.documentElement.classList.contains("dark"));
@@ -50,7 +50,7 @@ const Home = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // Scroll event to update "Return to Top" button visibility and position.
+  // Scroll event for Return to Top button
   useEffect(() => {
     const handleScroll = () => {
       setShowReturnToTop(window.scrollY > 100);
@@ -109,17 +109,23 @@ const Home = () => {
 
       {/* Welcome Section */}
       <section className="home-general text-center w-full relative">
-        {/* Inbox button & popup wrapper */}
-        <div ref={inboxRef} className="absolute top-4 right-4">
+        {/* Inbox label + button locked top‑right */}
+        <div
+          ref={inboxRef}
+          className="absolute top-4 right-4 flex items-center space-x-2 z-50"
+        >
+          <span className={`text-gray-800 dark:text-gray-200 font-medium ${showInbox ? "underline" : ""}`}>
+            View Inbox
+          </span>
           <button
             onClick={() => setShowInbox((v) => !v)}
-            className="p-2 bg-white dark:bg-gray-800 rounded-full shadow hover:shadow-lg focus:outline-none"
+            className="p-2 bg-white dark:bg-gray-800 rounded-full shadow hover:shadow-lg focus:outline-none border-2 border-black dark:border-white"
           >
             <FaEnvelope className="text-xl text-gray-700 dark:text-gray-200" />
           </button>
 
           {showInbox && (
-            <div className="mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden z-50">
+            <div className="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
               <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
                 <strong className="text-gray-800 dark:text-gray-100">Inbox</strong>
               </div>

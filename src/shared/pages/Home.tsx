@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaEnvelope } from "react-icons/fa";
 import darkLogo from "../../images/LabConnect_Logo2-removebg-preview.png";
 import SEO from "../components/SEO.tsx";
 
@@ -24,13 +25,24 @@ const Home = () => {
     document.documentElement.classList.contains("dark")
   );
 
+  // Inbox popup state & ref
+  const [showInbox, setShowInbox] = useState(false);
+  const inboxRef = useRef<HTMLDivElement>(null);
+
+  // Mock notifications
+  const notifications = [
+    { id: 1, text: "Biology Department posted new research positions.", time: "2h ago" },
+    { id: 2, text: "Your application to Quantum Lab was accepted!", time: "1d ago" },
+    { id: 3, text: "Reminder: Update your profile by April 30th.", time: "3d ago" },
+  ];
+
   // Preload the dark logo to ensure it's cached.
   useEffect(() => {
     const preloadImg = new Image();
     preloadImg.src = darkLogo;
   }, []);
 
-  // Use a faster polling interval (50ms) to check if the "dark" class is present
+  // Poll for dark-mode changes
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIsDarkMode(document.documentElement.classList.contains("dark"));
@@ -57,6 +69,21 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Click‑outside handler for Inbox popup
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        showInbox &&
+        inboxRef.current &&
+        !inboxRef.current.contains(e.target as Node)
+      ) {
+        setShowInbox(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showInbox]);
+
   const handleContactChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -82,9 +109,38 @@ const Home = () => {
 
       {/* Welcome Section */}
       <section className="home-general text-center w-full relative">
+        {/* Inbox button & popup wrapper */}
+        <div ref={inboxRef} className="absolute top-4 right-4">
+          <button
+            onClick={() => setShowInbox((v) => !v)}
+            className="p-2 bg-white dark:bg-gray-800 rounded-full shadow hover:shadow-lg focus:outline-none"
+          >
+            <FaEnvelope className="text-xl text-gray-700 dark:text-gray-200" />
+          </button>
+
+          {showInbox && (
+            <div className="mt-2 w-64 bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden z-50">
+              <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                <strong className="text-gray-800 dark:text-gray-100">Inbox</strong>
+              </div>
+              {notifications.map((n) => (
+                <div
+                  key={n.id}
+                  className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer flex justify-between items-center"
+                >
+                  <span className="text-sm text-gray-800 dark:text-gray-200">
+                    {n.text}
+                  </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">
+                    {n.time}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         <div className="img-center pt-4">
-          {/* The image source now switches instantaneously.
-              Inline style disables any default transition. */}
           <img
             src={isDarkMode ? darkLogo : darkLogo}
             alt="LabConnect"

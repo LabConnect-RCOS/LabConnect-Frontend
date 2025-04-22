@@ -193,6 +193,10 @@ const OpportunitiesList = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [selectedOpportunity, setSelectedOpportunity] = useState<null | string>(null);
 
+  const tooltipStyle = "relative group";
+  const tooltipContent = "absolute hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap z-10";
+
+
   const sortedOpportunities = [...sampleOpportunities].sort((a, b) =>
     sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
   );
@@ -216,6 +220,9 @@ const OpportunitiesList = () => {
             <tr className="bg-gray-100">
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Position</th>
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Description</th>
+
+              <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Recommended Experience </th>
+              
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Location</th>
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Pay</th>
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Professor</th>
@@ -231,8 +238,20 @@ const OpportunitiesList = () => {
               >
                 <td className="p-3 border font-medium">{opportunity.name}</td>
                 <td className="p-3 border">{opportunity.description}</td>
+                <td className="p-3 border">{opportunity.recommended_experience}</td>
                 <td className="p-3 border">{opportunity.location}</td>
-                <td className="p-3 border">${opportunity.pay}/hr</td>
+                <td className="p-3 border">
+                  <span className={tooltipStyle}>
+                    ${opportunity.pay}/hr
+                    {opportunity.pay >= 15 && (
+                      <span className="ml-2 inline-block bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full group-hover:bg-green-200">
+                        High Paying
+                        <span className={tooltipContent}>This position pays above average</span>
+                      </span>
+                    )}
+                  </span>
+                </td>
+
                 <td className="p-3 border">{opportunity.professor}</td>
                 <td className="p-3 border">
                   {opportunity.semester} {opportunity.year}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 //Created a new interface to make displaying an opportunity easier, contains 9 fields
@@ -190,12 +190,28 @@ const sampleOpportunities: Opportunity[] = [
 // This component returns a 'list' of all the opportunities 
 
 const OpportunitiesList = () => {
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+
+  const sortedOpportunities = [...sampleOpportunities].sort((a, b) =>
+    sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
+  );
+
   return (
     <div className="p-4">
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Sort by Pay:</label>
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+          className="border px-2 py-1 rounded"
+        >
+          <option value="asc">Lowest to Highest</option>
+          <option value="desc">Highest to Lowest</option>
+        </select>
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
-            {/* Column Headers */}
             <tr className="bg-gray-100">
               <th className="p-3 text-left border">Position</th>
               <th className="p-3 text-left border">Description</th>
@@ -207,8 +223,7 @@ const OpportunitiesList = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Info about the opportunities */}
-            {sampleOpportunities.map((opportunity, index) => (
+            {sortedOpportunities.map((opportunity, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="p-3 border font-medium">{opportunity.name}</td>
                 <td className="p-3 border">{opportunity.description}</td>

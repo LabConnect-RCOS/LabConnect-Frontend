@@ -85,9 +85,107 @@ const sampleOpportunities: Opportunity[] = [
     application_due: new Date("2025-03-15"),
     location: "Troy Building",
     professor: "Dr. John Reynolds"
+  },
+  {
+    name: "Cognitive Neuroscience Lab Assistant",
+    description: "Support experiments on perception and memory.",
+    recommended_experience: "Psychology, Statistics, or MATLAB",
+    pay: 12.00,
+    semester: "Fall",
+    year: 2024,
+    application_due: new Date("2024-09-01"),
+    location: "Walker Lab",
+    professor: "Dr. Lisa Ho"
+  },
+  {
+    name: "Blockchain Applications Researcher",
+    description: "Develop decentralized applications and smart contracts.",
+    recommended_experience: "Solidity, JavaScript, or cryptography",
+    pay: 15.00,
+    semester: "Spring",
+    year: 2025,
+    application_due: new Date("2025-01-05"),
+    location: "Lally School of Management",
+    professor: "Dr. Mark Liu"
+  },
+  {
+    name: "Sustainable Materials Engineering Intern",
+    description: "Research new biodegradable polymers.",
+    recommended_experience: "Chemistry, Material Science lab experience",
+    pay: 14.25,
+    semester: "Summer",
+    year: 2025,
+    application_due: new Date("2025-04-20"),
+    location: "Materials Research Center",
+    professor: "Dr. Angela Wright"
+  },
+  {
+    name: "Quantum Computing Research Assistant",
+    description: "Work on qubit error correction and simulation tools.",
+    recommended_experience: "Quantum mechanics, Python, Qiskit",
+    pay: 16.50,
+    semester: "Fall",
+    year: 2024,
+    application_due: new Date("2024-08-15"),
+    location: "JROWL",
+    professor: "Dr. Nathan Kim"
+  },
+  {
+    name: "Sociotechnical Systems Lab Intern",
+    description: "Examine technology’s impact on social behavior.",
+    recommended_experience: "Sociology, Data Analysis, or STS coursework",
+    pay: 12.75,
+    semester: "Spring",
+    year: 2025,
+    application_due: new Date("2025-01-25"),
+    location: "Sage Labs",
+    professor: "Dr. Chloe Rivera"
+  },
+  {
+    name: "Game Design Research Assistant",
+    description: "Prototype game mechanics for cognitive training.",
+    recommended_experience: "Unity, C#, UX Design",
+    pay: 13.50,
+    semester: "Summer",
+    year: 2025,
+    application_due: new Date("2025-05-01"),
+    location: "EMPAC Studio B",
+    professor: "Dr. Raymond Scott"
+  },
+  {
+    name: "Cybersecurity and Privacy Researcher",
+    description: "Study attack vectors and encryption protocols.",
+    recommended_experience: "Networking, C, or cybersecurity basics",
+    pay: 15.25,
+    semester: "Fall",
+    year: 2024,
+    application_due: new Date("2024-08-05"),
+    location: "Ricketts Building",
+    professor: "Dr. Heather Park"
+  },
+  {
+    name: "Bioinformatics Lab Assistant",
+    description: "Analyze genomic data using modern pipelines.",
+    recommended_experience: "Python, R, or biology background",
+    pay: 14.75,
+    semester: "Spring",
+    year: 2025,
+    application_due: new Date("2025-02-01"),
+    location: "CBIS",
+    professor: "Dr. Felix Nguyen"
+  },
+  {
+    name: "Smart Cities Initiative Intern",
+    description: "Build interactive dashboards for city sensor data.",
+    recommended_experience: "JavaScript, React, APIs",
+    pay: 13.75,
+    semester: "Summer",
+    year: 2025,
+    application_due: new Date("2025-04-10"),
+    location: "Greene Building",
+    professor: "Dr. Emily Zhao"
   }
 ];
-
 
 // This component returns a 'list' of all the opportunities 
 

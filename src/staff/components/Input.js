@@ -9,11 +9,9 @@ const Input = ({
   label,
   options,
   placeHolder,
+  min,
+  step,
 }) => {
-  // if (!formHook) {
-  //   return <h1>FormHook Not Given</h1>;
-  // }
-
   const inputElement = (
     <input
       {...formHook}
@@ -21,6 +19,8 @@ const Input = ({
       list={options && name}
       placeholder={placeHolder || "Type Here"}
       className="input input-bordered w-full"
+      min={type === "number" ? min : undefined}
+      step={type === "number" ? step : undefined}
     />
   );
 
@@ -40,15 +40,15 @@ const Input = ({
       defaultValue="Select a department"
       className="select select-bordered w-full"
     >
-      <option value="" selected disabled hidden>Select a department</option>
+      <option value="" selected disabled hidden>
+        Select a department
+      </option>
       {options ? (
-        options.map((option) => {
-          return (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          );
-        })
+        options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))
       ) : (
         <option value="default">Any</option>
       )}

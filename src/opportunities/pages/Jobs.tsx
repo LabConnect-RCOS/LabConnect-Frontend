@@ -15,12 +15,11 @@ const Jobs: React.FC = () => {
     (page: string) => void
   ];
 
-  // Get current year and generate a list of valid years
   const currentYear = new Date().getFullYear();
   const validYears = Array.from({ length: 4 }, (_, i) => (currentYear + i).toString());
 
   return (
-    <section className="flex flex-col h-screen justify-between gap-3">
+    <section className="flex flex-col gap-3">
       <section className="flex2 gap-3">
         <section>
           <PageNavigation title="Jobs" pages={pages} switchPage={switchPage} />

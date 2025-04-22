@@ -27,7 +27,7 @@ const sampleOpportunities: Opportunity[] = [
     pay: 20.00,
     semester: "Spring",
     year: 2025,
-    application_due: new Date("2025-12-01"),
+    application_due: new Date("2025-01-01"),
     location: "Sage Labs",
     professor: "Dr. Lara Singh"
   },
@@ -39,7 +39,7 @@ const sampleOpportunities: Opportunity[] = [
     pay: 18.75,
     semester: "Summer",
     year: 2027,
-    application_due: new Date("2027-09-01"),
+    application_due: new Date("2027-07-01"),
     location: "Voorhees Computing Center",
     professor: "Dr. Kevin Marshall"
   },
@@ -50,7 +50,7 @@ const sampleOpportunities: Opportunity[] = [
     pay: 22.00,
     semester: "Summer",
     year: 2026,
-    application_due: new Date("2026-02-20"),
+    application_due: new Date("2026-06-20"),
     location: "Physics Building",
     professor: "Dr. Isabelle Zhou"
   },
@@ -72,7 +72,7 @@ const sampleOpportunities: Opportunity[] = [
     pay: 25.00,
     semester: "Spring",
     year: 2026,
-    application_due: new Date("2026-01-25"),
+    application_due: new Date("2026-02-25"),
     location: "Incubator – Biotech Hub",
     professor: "Dr. Hannah Cho"
   },
@@ -84,7 +84,7 @@ const sampleOpportunities: Opportunity[] = [
     pay: 17.50,
     semester: "Spring",
     year: 2027,
-    application_due: new Date("2027-08-15"),
+    application_due: new Date("2027-03-15"),
     location: "Remote",
     professor: "Dr. Alex Ramirez"
   },
@@ -95,7 +95,7 @@ const sampleOpportunities: Opportunity[] = [
     pay: 21.00,
     semester: "Fall",
     year: 2028,
-    application_due: new Date("2028-02-10"),
+    application_due: new Date("2028-10-10"),
     location: "EMPAC",
     professor: "Dr. Fiona Greene"
   },
@@ -105,8 +105,8 @@ const sampleOpportunities: Opportunity[] = [
     recommended_experience: "Python, NLTK/spaCy, multilingual data",
     pay: 19.00,
     semester: "Fall",
-    year: 2029,
-    application_due: new Date("2029-08-22"),
+    year: 2028,
+    application_due: new Date("2028-08-29"),
     location: "Darrin Communications Center",
     professor: "Dr. Javier Montes"
   },
@@ -117,7 +117,7 @@ const sampleOpportunities: Opportunity[] = [
     pay: 23.00,
     semester: "Summer",
     year: 2028,
-    application_due: new Date("2028-04-18"),
+    application_due: new Date("2028-07-18"),
     location: "Tech Park",
     professor: "Dr. Priya Raman"
   },

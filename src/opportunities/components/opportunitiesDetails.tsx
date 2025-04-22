@@ -191,6 +191,7 @@ const sampleOpportunities: Opportunity[] = [
 
 const OpportunitiesList = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [selectedOpportunity, setSelectedOpportunity] = useState<null | string>(null);
 
   const sortedOpportunities = [...sampleOpportunities].sort((a, b) =>
     sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
@@ -238,9 +239,13 @@ const OpportunitiesList = () => {
                   </span>
                 </td>
                 <td className="p-3 border">
-                  <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                  <button
+                    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                    onClick={() => setSelectedOpportunity(opportunity.name)}
+                  >
                     Apply
                   </button>
+
                 </td>
               </tr>
             ))}
@@ -248,8 +253,31 @@ const OpportunitiesList = () => {
 
         </table>
       </div>
+
+
+    {selectedOpportunity && (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="bg-white p-6 rounded shadow-lg">
+          <h2 className="text-xl font-semibold mb-4">Apply to {selectedOpportunity}</h2>
+          <p className="mb-4">Application functionality coming soon.</p>
+          <button
+            className="bg-gray-600 text-white px-4 py-2 rounded"
+            onClick={() => setSelectedOpportunity(null)}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    )}
+
     </div>
+
   );
+
+  
+
+  
 };
+
 
 export default OpportunitiesList;

@@ -192,6 +192,8 @@ const sampleOpportunities: Opportunity[] = [
 const OpportunitiesList = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [selectedOpportunity, setSelectedOpportunity] = useState<null | string>(null);
+  const [savedOpportunities, setSavedOpportunities] = useState<Set<string>>(new Set());
+
 
   const tooltipStyle = "relative group";
   const tooltipContent = "absolute hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap z-10";
@@ -200,6 +202,19 @@ const OpportunitiesList = () => {
   const sortedOpportunities = [...sampleOpportunities].sort((a, b) =>
     sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
   );
+
+  const toggleSave = (name: string) => {
+    setSavedOpportunities(prev => {
+      const updated = new Set(prev);
+      if (updated.has(name)) {
+        updated.delete(name);
+      } else {
+        updated.add(name);
+      }
+      return updated;
+    });
+  };
+  
 
   return (
     <div className="p-4">
@@ -222,7 +237,7 @@ const OpportunitiesList = () => {
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Description</th>
 
               <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Recommended Experience </th>
-              
+
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Location</th>
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Pay</th>
             <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Professor</th>
@@ -260,13 +275,25 @@ const OpportunitiesList = () => {
                     Due: {opportunity.application_due.toLocaleDateString()}
                   </span>
                 </td>
-                <td className="p-3 border">
-                  <button
-                    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-                    onClick={() => setSelectedOpportunity(opportunity.name)}
-                  >
-                    Apply
-                  </button>
+                <td className="p-3 border"> 
+                  <div className="flex flex-col gap-2">
+                    <button
+                      className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                      onClick={() => setSelectedOpportunity(opportunity.name)}
+                    >
+                      Apply
+                    </button>
+                    <button
+                      className={`px-4 py-1 rounded ${savedOpportunities.has(opportunity.name)
+                          ? "bg-yellow-400 text-black hover:bg-yellow-500"
+                          : "bg-gray-300 text-gray-800 hover:bg-gray-400"
+                        }`}
+                      onClick={() => toggleSave(opportunity.name)}
+                    >
+                      {savedOpportunities.has(opportunity.name) ? "Unsave" : "Save"}
+                    </button>
+                  </div>
+
 
                 </td>
               </tr>

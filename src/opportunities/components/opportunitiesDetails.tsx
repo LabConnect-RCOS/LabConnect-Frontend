@@ -21,72 +21,119 @@ export interface Opportunity {
 
 const sampleOpportunities: Opportunity[] = [
   {
-    name: "Research Assistant - Machine Learning Lab",
-    description: "Work on cutting-edge ML projects",
-    recommended_experience: "Python, Machine Learning basics",
-    pay: 15.00,
-    semester: "Fall",
-    year: 2024,
-    application_due: new Date("2024-08-01"),
-    location: "DCC",
-    professor: "Dr. Emily Chen"
-  },
-  {
-    name: "Data Visualization Intern - Data Science Center",
-    description: "Create compelling visualizations for real-world datasets.",
-    recommended_experience: "D3.js, Tableau, or Matplotlib",
-    pay: 12.50,
+    name: "AI Ethics Fellowship – Interdisciplinary Lab",
+    description: "Explore ethical implications of AI across different cultures.",
+    recommended_experience: "None required – interest in AI ethics preferred.",
+    pay: 20.00,
     semester: "Spring",
     year: 2025,
-    application_due: new Date("2025-01-15"),
+    application_due: new Date("2025-12-01"),
+    location: "Sage Labs",
+    professor: "Dr. Lara Singh"
+  },
+
+  {
+    name: "Cybersecurity Analyst - Red Team",
+    description: "Simulate attacks and help test system vulnerabilities.",
+    recommended_experience: "Linux, Kali, Metasploit",
+    pay: 18.75,
+    semester: "Summer",
+    year: 2027,
+    application_due: new Date("2027-09-01"),
+    location: "Voorhees Computing Center",
+    professor: "Dr. Kevin Marshall"
+  },
+  {
+    name: "Quantum Computing Research Assistant",
+    description: "Contribute to experiments in qubit entanglement and algorithms.",
+    recommended_experience: "Linear Algebra, Qiskit or quantum mechanics knowledge",
+    pay: 22.00,
+    semester: "Summer",
+    year: 2026,
+    application_due: new Date("2026-02-20"),
+    location: "Physics Building",
+    professor: "Dr. Isabelle Zhou"
+  },
+  {
+    name: "Social Impact Intern – Sustainability Initiative",
+    description: "Partner with nonprofits to design eco-friendly tech solutions.",
+    recommended_experience: "",
+    pay: 10.00,
+    semester: "Summer",
+    year: 2026,
+    application_due: new Date("2026-05-05"),
+    location: "Downtown Troy",
+    professor: "Dr. Omar Farah"
+  },
+  {
+    name: "🧪 Biotech Innovation Intern",
+    description: "Work with startups developing cutting-edge biotech products.",
+    recommended_experience: "Biology, Chemistry, or Biomed Engineering",
+    pay: 25.00,
+    semester: "Spring",
+    year: 2026,
+    application_due: new Date("2026-01-25"),
+    location: "Incubator – Biotech Hub",
+    professor: "Dr. Hannah Cho"
+  },
+
+  {
+    name: "Remote UX Research Assistant",
+    description: "Conduct user interviews and evaluate interface usability from home.",
+    recommended_experience: "Surveys, Figma, Zoom",
+    pay: 17.50,
+    semester: "Spring",
+    year: 2027,
+    application_due: new Date("2027-08-15"),
+    location: "Remote",
+    professor: "Dr. Alex Ramirez"
+  },
+  {
+    name: "Augmented Reality Developer - Interactive Arts",
+    description: "Build immersive AR experiences for museum exhibits.",
+    recommended_experience: "Unity, ARKit/ARCore",
+    pay: 21.00,
+    semester: "Fall",
+    year: 2028,
+    application_due: new Date("2028-02-10"),
     location: "EMPAC",
-    professor: "Dr. Alan Green"
+    professor: "Dr. Fiona Greene"
   },
   {
-    name: "Undergraduate Researcher - Renewable Energy Lab",
-    description: "Analyze energy efficiency of solar panel setups.",
-    recommended_experience: "R, Excel, or energy systems knowledge",
-    pay: 14.00,
+    name: "Language Processing Research - NLP Group",
+    description: "Analyze sentiment and trends in multilingual social media data.",
+    recommended_experience: "Python, NLTK/spaCy, multilingual data",
+    pay: 19.00,
+    semester: "Fall",
+    year: 2029,
+    application_due: new Date("2029-08-22"),
+    location: "Darrin Communications Center",
+    professor: "Dr. Javier Montes"
+  },
+  {
+    name: "Autonomous Vehicles Intern",
+    description: "Test and improve autonomous navigation algorithms.",
+    recommended_experience: "ROS, C++, Lidar integration",
+    pay: 23.00,
     semester: "Summer",
-    year: 2025,
-    application_due: new Date("2025-04-30"),
-    location: "Jonsson Engineering Center",
-    professor: "Dr. Maria Santos"
+    year: 2028,
+    application_due: new Date("2028-04-18"),
+    location: "Tech Park",
+    professor: "Dr. Priya Raman"
   },
   {
-    name: "AI in Healthcare Research Assistant",
-    description: "Develop and test AI models for diagnostic tools.",
-    recommended_experience: "Python, TensorFlow, basic healthcare knowledge",
-    pay: 16.00,
+    name: "Music & Machine Learning Collaboration",
+    description: "Compose AI-generated music and evaluate human interaction.",
+    recommended_experience: "Music theory, Python, or Max/MSP",
+    pay: 15.75,
     semester: "Fall",
     year: 2024,
-    application_due: new Date("2024-07-20"),
-    location: "Biotech Center",
-    professor: "Dr. Raj Patel"
-  },
-  {
-    name: "Human-Computer Interaction (HCI) Researcher",
-    description: "Study user interfaces to improve accessibility.",
-    recommended_experience: "HTML, CSS, JavaScript, Usability Testing",
-    pay: 13.00,
-    semester: "Spring",
-    year: 2025,
-    application_due: new Date("2025-01-10"),
-    location: "Carnegie Building",
-    professor: "Dr. Susan Miller"
-  },
-  {
-    name: "Climate Modeling Research Intern",
-    description: "Simulate climate patterns using advanced modeling techniques.",
-    recommended_experience: "Python, MATLAB, or climate science coursework",
-    pay: 14.50,
-    semester: "Summer",
-    year: 2025,
-    application_due: new Date("2025-03-15"),
-    location: "Troy Building",
-    professor: "Dr. John Reynolds"
+    application_due: new Date("2024-11-10"),
+    location: "West Hall",
+    professor: "Dr. Neil Tran"
   }
 ];
+
 
 
 // This component returns a 'list' of all the opportunities 

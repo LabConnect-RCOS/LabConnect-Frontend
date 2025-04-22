@@ -210,22 +210,25 @@ const OpportunitiesList = () => {
           <option value="desc">Highest to Lowest</option>
         </select>
       </div>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto border border-gray-300 bg-white shadow-sm rounded p-4">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left border">Position</th>
-              <th className="p-3 text-left border">Description</th>
-              <th className="p-3 text-left border">Location</th>
-              <th className="p-3 text-left border">Pay</th>
-              <th className="p-3 text-left border">Professor</th>
-              <th className="p-3 text-left border">Term</th>
-              <th className="p-3 text-left border">Action</th>
+            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Position</th>
+            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Description</th>
+            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Location</th>
+            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Pay</th>
+            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Professor</th>
+            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Term</th>
+            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Action</th>
             </tr>
           </thead>
           <tbody>
             {sortedOpportunities.map((opportunity, index) => (
-              <tr key={index} className="hover:bg-gray-50">
+              <tr
+                key={index}
+                className="hover:bg-gray-100 bg-gray-50 border-b border-gray-200 transition-all"
+              >
                 <td className="p-3 border font-medium">{opportunity.name}</td>
                 <td className="p-3 border">{opportunity.description}</td>
                 <td className="p-3 border">{opportunity.location}</td>

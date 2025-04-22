@@ -84,21 +84,33 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset} ) => {
                             </div>
                           )) }
                       </section>
-                      <section className="flex justify-center">
-                        <Input
-                        errors={errors}
-                        label="Minimum Hourly Pay"
-                        name={"hourlyPay"}
-                        errorMessage={"Hourly pay must be at least 0"}
-                        formHook={{ ...register("hourlyPay", {}) }}
-                        type="number"
-                        options={[]}
-                        placeHolder="Enter minimum hourly pay"
-                        />
+
+                      <br></br>
+
+                      <section className="pt-7 flex flex-col justify-center">
+                      <h1 className="font-semibold text-lg text-center">Minimum Hourly Pay</h1>
+                        <section className="flex justify-center">
+
+                            <Input
+                            errors={errors}
+                            label=""
+                            name={"hourlyPay"}
+                            errorMessage={"Hourly pay must be at least 0"}
+                            formHook={{ ...register("hourlyPay", {}) }}
+                            type="number"
+                            min={0}
+                            options={[]}
+                            placeHolder="Enter minimum hourly pay"
+                            />
+
+                        </section>
                       </section>
-                      
+
+                      <br></br>
+
                       <section className="pt-7 flex flex-col justify-center">
                         <h1 className="font-semibold text-lg text-center">Majors</h1>
+                        <br></br>
                         <section className="flex justify-center">
                           { majors.map((list, index) => (
                               <div className="w-1/4 pl-7 pr-7" key={"majors" + index}>
@@ -108,6 +120,7 @@ const PopUpMenu = ( {setFunction, validYears, clear, add, reset} ) => {
                                   options={list}
                                   formHook={{ ...register("majors", {}) }}
                                   name={"majors" + index}
+                                  label={""}
                                   type="checkbox"
                                 />
                               </div>

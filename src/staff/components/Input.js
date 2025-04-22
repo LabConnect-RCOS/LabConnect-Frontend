@@ -1,6 +1,7 @@
 import React from "react";
 
 const Input = ({
+
   type,
   errorMessage,
   errors,
@@ -10,9 +11,11 @@ const Input = ({
   options,
   placeHolder,
   min,
-  step,
+
 }) => {
+
   const inputElement = (
+    
     <input
       {...formHook}
       type={type || "text"}
@@ -20,8 +23,8 @@ const Input = ({
       placeholder={placeHolder || "Type Here"}
       className="input input-bordered w-full"
       min={type === "number" ? min : undefined}
-      step={type === "number" ? step : undefined}
     />
+
   );
 
   const textAreaElement = (

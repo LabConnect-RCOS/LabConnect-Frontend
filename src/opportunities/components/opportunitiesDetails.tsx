@@ -232,6 +232,10 @@ const OpportunitiesList = () => {
                 <td className="p-3 border">{opportunity.professor}</td>
                 <td className="p-3 border">
                   {opportunity.semester} {opportunity.year}
+                  <br />
+                  <span className="text-sm text-gray-500">
+                    Due: {opportunity.application_due.toLocaleDateString()}
+                  </span>
                 </td>
                 <td className="p-3 border">
                   <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
@@ -241,6 +245,7 @@ const OpportunitiesList = () => {
               </tr>
             ))}
           </tbody>
+
         </table>
       </div>
     </div>

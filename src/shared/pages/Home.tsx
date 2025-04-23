@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/LabConnect_Logo2.webp";
 import SEO from "../components/SEO.tsx";
+import DarkModeToggle from "../../opportunities/components/DarkModeToggle"; // Adjust path if needed
+
 
 const Home = () => {
   const aboutSectionRef = useRef<HTMLDivElement>(null);
@@ -41,41 +43,48 @@ const Home = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full bg-white text-black dark:bg-gray-900 dark:text-white transition-colors duration-300">
       <SEO title="LabConnect" description="LabConnect home page" />
+
+
+    {/* Dark Mode Toggle */}
+
+    <div className="flex justify-end p-4">
+      <DarkModeToggle />
+    </div>
 
 
     {/* Welcome Section */}
 
-    <section className="text-center w-full py-28 bg-white">
+    <section className="text-center w-full py-28 bg-white dark:bg-gray-900">
       <div className="max-w-5xl mx-auto flex flex-col items-center px-6">
         <img src={logo} alt="LabConnect" className="w-60 h-auto mb-10 drop-shadow-lg" />
 
-        <div className="bg-gray-50 shadow-2xl rounded-3xl px-10 py-12 w-full max-w-4xl transition-all duration-300 hover:shadow-3xl">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+        <div className="bg-gray-50 dark:bg-gray-800 shadow-2xl rounded-3xl px-10 py-12 w-full max-w-4xl transition-all duration-300 hover:shadow-3xl">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6">
             Welcome to LabConnect!
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
             If you are a student, go to the{" "}
-            <Link to="/jobs" className="text-blue-600 font-semibold hover:underline">
+            <Link to="/jobs" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
               Jobs
             </Link>{" "}
             tab to view currently available research opportunities.
             <br className="hidden md:block" />
 
             <br></br>
-            
+
             If you are a professor or staff member,{" "}
-            <Link to="/signin" className="text-blue-600 font-semibold hover:underline">
+            <Link to="/signin" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
               Sign In
             </Link>{" "}
             and then go to{" "}
-            <Link to="/create" className="text-blue-600 font-semibold hover:underline">
+            <Link to="/create" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
               Create
             </Link>{" "}
             to start posting opportunities, or{" "}
-            <Link to="/profile" className="text-blue-600 font-semibold hover:underline">
+            <Link to="/profile" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
               Profile
             </Link>{" "}
             to view and edit your current posts.
@@ -100,8 +109,8 @@ const Home = () => {
         <section
           id="about"
           ref={aboutSectionRef}
-          className="w-full flex justify-center py-16 px-6 bg-gradient-to-b from-gray-50 to-white"
-        >
+          className="w-full flex justify-center py-16 px-6 bg-gradient-to-b from-gray-50 dark:from-gray-800 to-white dark:to-gray-900"
+          >
           <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl p-10 w-full max-w-5xl transform transition-all duration-500 hover:scale-[1.01]">
             <div className="flex items-start gap-4">
               <div className="bg-blue-100 text-blue-700 rounded-full p-3">
@@ -129,10 +138,10 @@ const Home = () => {
 
       {/* Meet Our Team Section */}
 
-      <section id="team" className="py-24 px-6 bg-gray-50 text-center w-full">
+      <section id="team" className="py-24 px-6 bg-gray-50 dark:bg-gray-900 text-center w-full">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Meet Our Team</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+          <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">Meet Our Team</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
             We're a passionate team of open-source developers dedicated to connecting students and researchers.
           </p>
 
@@ -169,20 +178,20 @@ const Home = () => {
             ].map((member, index) => (
               <div
                 key={index}
-                className="bg-white shadow-lg rounded-2xl p-6 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1"
+                className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1"
               >
                 <div className="mb-4">
                   <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xl font-bold">
                     {member.name.split(" ")[0][0]}{member.name.split(" ")[1][0]}
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                <p className="text-sm text-gray-500 mt-1">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
                   {member.major}, Class of {member.gradYear}
                 </p>
-                <p className="mt-2 text-blue-600 font-medium">{member.role}</p>
-                <p className="text-sm text-gray-500 mt-1">Skill: {member.skill}</p>
-              </div>
+                <p className="mt-2 text-blue-600 dark:text-blue-400 font-medium">{member.role}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">Skill: {member.skill}</p>
+                </div>
             ))}
           </div>
         </div>
@@ -192,7 +201,7 @@ const Home = () => {
 
       {/* Contact Us Section */}
 
-      <section id="contact" className="py-20 bg-gray-100 text-center w-full">
+      <section id="contact" className="py-20 bg-gray-100 dark:bg-gray-800 text-center w-full">
         <div className="max-w-md mx-auto p-4">
           <h1 className="text-2xl font-bold mb-4">Contact Us</h1>
           {contactSubmitted ? (
@@ -214,7 +223,7 @@ const Home = () => {
                   name="name"
                   value={contactForm.name}
                   onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-black dark:text-white rounded mt-1"
                   required
                 />
               </div>
@@ -228,7 +237,7 @@ const Home = () => {
                     name="email"
                     value={contactForm.email}
                     onChange={handleContactChange}
-                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                    className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-black dark:text-white rounded mt-1"
                     required
                   />
                   {emailError && (
@@ -245,7 +254,7 @@ const Home = () => {
                   name="subject"
                   value={contactForm.subject}
                   onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-black dark:text-white rounded mt-1"
                   required
                 />
               </div>
@@ -258,7 +267,7 @@ const Home = () => {
                   name="message"
                   value={contactForm.message}
                   onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  className="w-full p-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-black dark:text-white rounded mt-1"
                   rows={5}
                   required
                 />

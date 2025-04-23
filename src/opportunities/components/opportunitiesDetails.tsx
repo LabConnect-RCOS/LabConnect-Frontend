@@ -214,10 +214,9 @@ const OpportunitiesList = () => {
   const [professorFilter, setProfessorFilter] = useState<string>("All");
 
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
-
   const [semesterFilter, setSemesterFilter] = useState<string>("All");
-
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
+  const [pinnedOpportunities, setPinnedOpportunities] = useState<Set<string>>(new Set());
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -288,6 +287,24 @@ const OpportunitiesList = () => {
     sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
   );
 
+  const filteredOpportunities = sortedOpportunities
+  .filter(op =>
+    (!viewSavedOnly || savedOpportunities.has(op.name)) &&
+    (professorFilter === "All" || op.professor === professorFilter) &&
+    (semesterFilter === "All" || op.semester === semesterFilter) &&
+    (
+      op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      op.professor.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+
+const pinned = filteredOpportunities.filter(op => pinnedOpportunities.has(op.name));
+const unpinned = filteredOpportunities.filter(op => !pinnedOpportunities.has(op.name));
+const displayList = [...pinned, ...unpinned];
+
+
 
   /**
  * Toggles save/unsave for an opportunity and syncs to localStorage
@@ -308,7 +325,19 @@ const OpportunitiesList = () => {
     });
   };
 
+  const togglePin = (name: string) => {
+    setPinnedOpportunities(prev => {
+      const updated = new Set(prev);
+      if (updated.has(name)) {
+        updated.delete(name);
+      } else {
+        updated.add(name);
+      }
+      return updated;
+    });
+  };
   
+
   const resetFilters = () => {
     setSortOrder("asc");
     setSearchQuery("");
@@ -443,7 +472,7 @@ const OpportunitiesList = () => {
   )}
 
   <div className="mb-2 text-sm text-gray-600">
-    Showing {sortedOpportunities.filter(op =>
+    Showing {displayList.filter(op =>
       (!viewSavedOnly || savedOpportunities.has(op.name)) &&
       (professorFilter === "All" || op.professor === professorFilter) &&
       (semesterFilter === "All" || op.semester === semesterFilter) &&
@@ -453,7 +482,7 @@ const OpportunitiesList = () => {
         op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         op.professor.toLowerCase().includes(searchQuery.toLowerCase())
       )
-    ).length} result{sortedOpportunities.length !== 1 && "s"}
+    ).length} result{displayList.length !== 1 && "s"}
   </div>
 
   {viewMode === "table" ? (
@@ -471,7 +500,7 @@ const OpportunitiesList = () => {
         </tr>
       </thead>
       <tbody>
-        {sortedOpportunities
+        {displayList
           .filter(op =>
             (!viewSavedOnly || savedOpportunities.has(op.name)) &&
             (professorFilter === "All" || op.professor === professorFilter) &&
@@ -563,6 +592,13 @@ const OpportunitiesList = () => {
                   >
                     Copy
                   </button>
+                  <button
+                    className="bg-purple-200 text-purple-900 px-4 py-1 rounded hover:bg-purple-300"
+                    onClick={() => togglePin(opportunity.name)}
+                  >
+                    {pinnedOpportunities.has(opportunity.name) ? "Unpin" : "Pin"}
+                  </button>
+
                 </div>
               </td>
             </tr>
@@ -571,7 +607,7 @@ const OpportunitiesList = () => {
     </table>
   ) : (
     <div className="grid md:grid-cols-2 gap-4">
-      {sortedOpportunities
+      {displayList
         .filter(op =>
           (!viewSavedOnly || savedOpportunities.has(op.name)) &&
           (professorFilter === "All" || op.professor === professorFilter) &&
@@ -633,6 +669,13 @@ const OpportunitiesList = () => {
               >
                 Copy
               </button>
+              <button
+                className="bg-purple-200 text-purple-900 px-4 py-1 rounded hover:bg-purple-300"
+                onClick={() => togglePin(opportunity.name)}
+              >
+                {pinnedOpportunities.has(opportunity.name) ? "Unpin" : "Pin"}
+              </button>
+
             </div>
           </div>
         ))}

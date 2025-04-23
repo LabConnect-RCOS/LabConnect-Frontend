@@ -219,6 +219,8 @@ const OpportunitiesList = () => {
   const [pinnedOpportunities, setPinnedOpportunities] = useState<Set<string>>(new Set());
   const [appliedOpportunities, setAppliedOpportunities] = useState<Set<string>>(new Set());
   const [viewFilter, setViewFilter] = useState<"All" | "Applied" | "Pinned" | "Saved">("All");
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -396,7 +398,8 @@ const displayList = [...pinned, ...unpinned];
   
 
   return (
-    <div className="p-4 transition-all">
+<div className={`p-4 transition-all min-h-screen ${darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}`}>
+
       <div className="mb-4 flex flex-wrap gap-4 items-center">
         <div>
           <label className="mr-2 font-medium">View:</label>
@@ -433,6 +436,13 @@ const displayList = [...pinned, ...unpinned];
             <option value="card">Card</option>
           </select>
         </div>
+
+        <button
+          className="bg-gray-700 text-white px-3 py-1 rounded hover:bg-gray-800"
+          onClick={() => setDarkMode(prev => !prev)}
+        >
+          Toggle {darkMode ? "Light" : "Dark"} Mode
+        </button>
 
   
         {savedOpportunities.size > 0 && (
@@ -561,14 +571,17 @@ const displayList = [...pinned, ...unpinned];
     <table className="w-full border-collapse">
       <thead>
         <tr className="bg-gray-100">
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Position</th>
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Description</th>
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Recommended Experience</th>
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Location</th>
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Pay</th>
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Professor</th>
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Term</th>
-          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Action</th>
+        <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">
+        Position</th>
+        <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">
+        Description</th>
+        <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">
+        Recommended Experience</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">Location</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">Pay</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">Professor</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">Term</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700 dark:text-gray-300 dark:border-gray-700">Action</th>
         </tr>
       </thead>
       <tbody>

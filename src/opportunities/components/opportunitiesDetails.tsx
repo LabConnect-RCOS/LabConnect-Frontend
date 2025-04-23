@@ -132,7 +132,7 @@ const sampleOpportunities: Opportunity[] = [
   },
   {
     name: "Sociotechnical Systems Lab Intern",
-    description: "Examine technology’s impact on social behavior.",
+    description: "Examine technology’s impact on social behavior. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis sapien vitae purus accumsan facilisis at quis risus. Nulla sit amet orci imperdiet, mollis nisl in, posuere dolor. Phasellus sagittis vulputate quam sit amet ultricies. Fusce ultricies nisl id lectus ultricies fermentum. Donec ut justo feugiat, pellentesque nunc ut, finibus nulla. In a dolor tempor, egestas urna vitae, faucibus nunc.",
     recommended_experience: "Sociology, Data Analysis, or STS coursework",
     pay: 12.75,
     semester: "Spring",
@@ -154,7 +154,7 @@ const sampleOpportunities: Opportunity[] = [
   },
   {
     name: "Cybersecurity and Privacy Researcher",
-    description: "Study attack vectors and encryption protocols.",
+    description: "Study attack vectors and encryption protocols. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis sapien vitae purus accumsan facilisis at quis risus. Nulla sit amet orci imperdiet, mollis nisl in, posuere dolor. Phasellus sagittis vulputate quam sit amet ultricies. Fusce ultricies nisl id lectus ultricies fermentum. Donec ut justo feugiat, pellentesque nunc ut, finibus nulla. In a dolor tempor, egestas urna vitae, faucibus nunc.",
     recommended_experience: "Networking, C, or cybersecurity basics",
     pay: 15.25,
     semester: "Fall",
@@ -213,6 +213,8 @@ const OpportunitiesList = () => {
 
   const [professorFilter, setProfessorFilter] = useState<string>("All");
 
+  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
+
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -233,6 +235,18 @@ const OpportunitiesList = () => {
   };
   
 
+  const toggleDescription = (name: string) => {
+    setExpandedDescriptions(prev => {
+      const updated = new Set(prev);
+      if (updated.has(name)) {
+        updated.delete(name);
+      } else {
+        updated.add(name);
+      }
+      return updated;
+    });
+  };
+  
 
   const handleCopy = (op: Opportunity) => {
     const content = `Position: ${op.name}
@@ -430,7 +444,34 @@ const OpportunitiesList = () => {
 
 
                 <td className="p-3 border font-medium">{opportunity.name}</td>
-                <td className="p-3 border">{opportunity.description}</td>
+
+
+                  <td className="p-3 border">
+                    {opportunity.description.length > 100 && !expandedDescriptions.has(opportunity.name) ? (
+                      <>
+                        {opportunity.description.slice(0, 100)}...
+                        <button
+                          className="text-blue-600 text-xs ml-1 underline"
+                          onClick={() => toggleDescription(opportunity.name)}
+                        >
+                          Show More
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {opportunity.description}
+                        {opportunity.description.length > 100 && (
+                          <button
+                            className="text-blue-600 text-xs ml-1 underline"
+                            onClick={() => toggleDescription(opportunity.name)}
+                          >
+                            Show Less
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </td>
+
                 <td className="p-3 border">{opportunity.recommended_experience}</td>
                 <td className="p-3 border">{opportunity.location}</td>
                 <td className="p-3 border">

@@ -16,7 +16,7 @@ const Jobs: React.FC = () => {
     (page: string) => void
   ];
 
-  const [sortBy, setSortBy] = useState<"year" | "pay">("year");
+  const [sortBy, setSortBy] = useState<"year" | "pay" | "professor">("year");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   
   const currentYear = new Date().getFullYear();
@@ -44,12 +44,14 @@ const Jobs: React.FC = () => {
           <select
             id="sortBy"
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as "year" | "pay")}
+            onChange={(e) => setSortBy(e.target.value as "year" | "pay" | "professor")}
             className="select select-bordered bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-600"
           >
-            <option value="year">Year</option>
+            <option value="year">Term</option>
             <option value="pay">Pay</option>
+            <option value="professor">Professor</option>
           </select>
+
         </div>
 
         <div className="flex flex-col text-sm">

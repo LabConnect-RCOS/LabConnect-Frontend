@@ -203,7 +203,14 @@ const OpportunitiesList = () => {
 
   
   const [viewSavedOnly, setViewSavedOnly] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  
   const getRowColor = (semester: string) => {
     switch (semester.toLowerCase()) {
       case "fall":
@@ -302,6 +309,17 @@ const OpportunitiesList = () => {
           <option value="desc">Highest to Lowest</option>
         </select>
       </div>
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Search:</label>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search name, description, professor..."
+          className="border px-3 py-2 rounded w-full max-w-md"
+        />
+      </div>
+
       <div className="overflow-x-auto border border-gray-300 bg-white shadow-sm rounded p-4">
         {savedOpportunities.size > 0 && (
           <div className="mb-4 text-sm text-gray-700 italic">
@@ -326,8 +344,17 @@ const OpportunitiesList = () => {
           </thead>
           <tbody>
             {sortedOpportunities
-              .filter(op => !viewSavedOnly || savedOpportunities.has(op.name))
+              .filter(op =>
+                (!viewSavedOnly || savedOpportunities.has(op.name)) &&
+                (
+                  op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  op.professor.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+              )
               .map((opportunity, index) => (
+
 
                 
                 <tr

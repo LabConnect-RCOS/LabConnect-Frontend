@@ -218,6 +218,7 @@ const OpportunitiesList = () => {
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
   const [pinnedOpportunities, setPinnedOpportunities] = useState<Set<string>>(new Set());
   const [appliedOpportunities, setAppliedOpportunities] = useState<Set<string>>(new Set());
+  const [viewFilter, setViewFilter] = useState<"All" | "Applied" | "Pinned" | "Saved">("All");
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -307,18 +308,31 @@ const OpportunitiesList = () => {
     sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
   );
 
-  const filteredOpportunities = sortedOpportunities
-  .filter(op =>
-    (!viewSavedOnly || savedOpportunities.has(op.name)) &&
-    (professorFilter === "All" || op.professor === professorFilter) &&
-    (semesterFilter === "All" || op.semester === semesterFilter) &&
-    (
-      op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      op.professor.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
+  const filteredOpportunities = sortedOpportunities.filter(op => {
+    const matchesSaved = savedOpportunities.has(op.name);
+    const matchesPinned = pinnedOpportunities.has(op.name);
+    const matchesApplied = appliedOpportunities.has(op.name);
+  
+    const matchesTracking =
+      viewFilter === "All" ||
+      (viewFilter === "Saved" && matchesSaved) ||
+      (viewFilter === "Pinned" && matchesPinned) ||
+      (viewFilter === "Applied" && matchesApplied);
+  
+    return (
+      matchesTracking &&
+      (!viewSavedOnly || matchesSaved) &&
+      (professorFilter === "All" || op.professor === professorFilter) &&
+      (semesterFilter === "All" || op.semester === semesterFilter) &&
+      (
+        op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        op.professor.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    );
+  });
+  
 
 const pinned = filteredOpportunities.filter(op => pinnedOpportunities.has(op.name));
 const unpinned = filteredOpportunities.filter(op => !pinnedOpportunities.has(op.name));
@@ -485,6 +499,21 @@ const displayList = [...pinned, ...unpinned];
           <option value="Summer">Summer</option>
         </select>
       </div>
+
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Filter by Tracking:</label>
+        <select
+          value={viewFilter}
+          onChange={(e) => setViewFilter(e.target.value as "All" | "Applied" | "Pinned" | "Saved")}
+          className="border px-2 py-1 rounded"
+        >
+          <option value="All">All</option>
+          <option value="Applied">Applied</option>
+          <option value="Pinned">Pinned</option>
+          <option value="Saved">Saved</option>
+        </select>
+      </div>
+
 
 
       <div className="flex gap-3 mt-2">

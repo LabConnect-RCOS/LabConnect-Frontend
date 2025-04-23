@@ -8,42 +8,51 @@ import { MdCancel } from "react-icons/md";
 import PropTypes from "prop-types";
 
 const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => {
-  
   return (
-    <div>
-      <hr />
-      <div className="px-3 max-h-20 flex">
-        <div className="flex gap-2 w-full">
-          <SearchBar />
+    <div className="bg-gray-50 dark:bg-gray-900 rounded-xl px-4 py-4 mb-4 shadow-sm transition-all">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+          {/* Search Input */}
+          <div className="w-full sm:w-auto">
+            <SearchBar />
+          </div>
 
-          <SmallTextButton className="" onClick={setPopUpMenu} special={true}>
-            <PiSlidersHorizontal className="pr-1"/>
+          {/* Change Filters Button */}
+          <SmallTextButton
+            onClick={setPopUpMenu}
+            className="text-blue-600 hover:underline transition"
+            special={true}
+          >
+            <PiSlidersHorizontal className="text-lg mr-1" />
             Change Filters
-            <PiSlidersHorizontal className="pl-1"/>
           </SmallTextButton>
 
-          {/* Fix rendering with new filters = [ [],[],[] ]*/}
+          {/* Active Filter Badges */}
           <GroupedComponents gap={2}>
-            {filters[1].map((filter) => {
-              return(
-                <HorizontalIconButton
-                  onClick={deleteFilter}
-                  icon={<MdCancel />}
-                  key={filter}
-                  special={false}
-                >
-                  {filter}
-                </HorizontalIconButton>
-              )
-            })}
+            {filters[1].map((filter) => (
+              <HorizontalIconButton
+                onClick={() => deleteFilter(filter)}
+                icon={<MdCancel />}
+                key={filter}
+                special={false}
+                className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm flex items-center"
+              >
+                {filter}
+              </HorizontalIconButton>
+            ))}
           </GroupedComponents>
         </div>
 
-        <SmallTextButton className="flex flex-right" onClick={resetFilters} special={true}>
+        {/* Reset Button */}
+        <SmallTextButton
+          onClick={resetFilters}
+          className="text-sm text-gray-600 hover:text-red-600 transition"
+          special={false}
+        >
           Reset
         </SmallTextButton>
+
       </div>
-      <hr />
     </div>
   );
 };

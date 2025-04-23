@@ -217,6 +217,7 @@ const OpportunitiesList = () => {
 
   const [semesterFilter, setSemesterFilter] = useState<string>("All");
 
+  const [viewMode, setViewMode] = useState<"table" | "card">("table");
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -344,6 +345,19 @@ const OpportunitiesList = () => {
             <option value="desc">Highest to Lowest</option>
           </select>
         </div>
+
+        <div>
+          <label className="mr-2 font-medium">View Mode:</label>
+          <select
+            value={viewMode}
+            onChange={(e) => setViewMode(e.target.value as "table" | "card")}
+            className="border px-2 py-1 rounded"
+          >
+            <option value="table">Table</option>
+            <option value="card">Card</option>
+          </select>
+        </div>
+
   
         {savedOpportunities.size > 0 && (
           <button
@@ -422,154 +436,210 @@ const OpportunitiesList = () => {
 
   
       <div className="overflow-x-auto border border-gray-300 bg-white shadow-sm rounded p-4">
-        {savedOpportunities.size > 0 && (
-          <div className="mb-4 text-sm text-gray-700 italic">
-            Saved {savedOpportunities.size} opportunit{savedOpportunities.size > 1 ? "ies" : "y"}
-          </div>
-        )}
-  
-        <div className="mb-2 text-sm text-gray-600">
-          Showing {sortedOpportunities.filter(op =>
+  {savedOpportunities.size > 0 && (
+    <div className="mb-4 text-sm text-gray-700 italic">
+      Saved {savedOpportunities.size} opportunit{savedOpportunities.size > 1 ? "ies" : "y"}
+    </div>
+  )}
+
+  <div className="mb-2 text-sm text-gray-600">
+    Showing {sortedOpportunities.filter(op =>
+      (!viewSavedOnly || savedOpportunities.has(op.name)) &&
+      (professorFilter === "All" || op.professor === professorFilter) &&
+      (semesterFilter === "All" || op.semester === semesterFilter) &&
+      (
+        op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        op.professor.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    ).length} result{sortedOpportunities.length !== 1 && "s"}
+  </div>
+
+  {viewMode === "table" ? (
+    <table className="w-full border-collapse">
+      <thead>
+        <tr className="bg-gray-100">
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Position</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Description</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Recommended Experience</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Location</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Pay</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Professor</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Term</th>
+          <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sortedOpportunities
+          .filter(op =>
             (!viewSavedOnly || savedOpportunities.has(op.name)) &&
             (professorFilter === "All" || op.professor === professorFilter) &&
+            (semesterFilter === "All" || op.semester === semesterFilter) &&
             (
               op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
               op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
               op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
               op.professor.toLowerCase().includes(searchQuery.toLowerCase())
             )
-          ).length} result{sortedOpportunities.length !== 1 && "s"}
-        </div>
-
-
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-100">
-            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Position</th>
-            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Description</th>
-
-              <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Recommended Experience </th>
-
-            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Location</th>
-            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Pay</th>
-            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Professor</th>
-            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Term</th>
-            <th className="p-3 text-left border font-semibold uppercase text-sm text-gray-700">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            {sortedOpportunities
-              .filter(op =>
-                (!viewSavedOnly || savedOpportunities.has(op.name)) &&
-                (professorFilter === "All" || op.professor === professorFilter) &&
-                (semesterFilter === "All" || op.semester === semesterFilter) &&
-                (
-                  op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                  op.professor.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-              )
-
-
-              .map((opportunity, index) => (
-
-
-                
-                <tr
-                  key={index} className={`hover:bg-gray-100 ${getRowColor(opportunity.semester)} border-b border-gray-200 transition-all`}>
-
-
-                <td className="p-3 border font-medium">{opportunity.name}</td>
-
-
-                  <td className="p-3 border">
-                    {opportunity.description.length > 100 && !expandedDescriptions.has(opportunity.name) ? (
-                      <>
-                        {opportunity.description.slice(0, 100)}...
-                        <button
-                          className="text-blue-600 text-xs ml-1 underline"
-                          onClick={() => toggleDescription(opportunity.name)}
-                        >
-                          Show More
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        {opportunity.description}
-                        {opportunity.description.length > 100 && (
-                          <button
-                            className="text-blue-600 text-xs ml-1 underline"
-                            onClick={() => toggleDescription(opportunity.name)}
-                          >
-                            Show Less
-                          </button>
-                        )}
-                      </>
-                    )}
-                  </td>
-
-                <td className="p-3 border">{opportunity.recommended_experience}</td>
-                <td className="p-3 border">{opportunity.location}</td>
-                <td className="p-3 border">
-                  <span className={tooltipStyle}>
-                    ${opportunity.pay}/hr
-                    {opportunity.pay >= 15 && (
-                      <span className="ml-2 inline-block bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full group-hover:bg-green-200">
-                        High Paying
-                        <span className={tooltipContent}>This position pays above average</span>
-                      </span>
-                    )}
-                  </span>
-                </td>
-
-                <td className="p-3 border">{opportunity.professor}</td>
-                  <td className="p-3 border">
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2">
-                        {getSemesterBadge(opportunity.semester)}
-                        <span className="text-sm text-gray-600">{opportunity.year}</span>
-                      </div>
-                      <span className="text-sm text-gray-500">
-                        Due: {opportunity.application_due.toLocaleDateString()}
-                      </span>
-                    </div>
-                  </td>
-
-                <td className="p-3 border"> 
-                  <div className="flex flex-col gap-2">
+          )
+          .map((opportunity, index) => (
+            <tr
+              key={index}
+              className={`hover:bg-gray-100 ${getRowColor(opportunity.semester)} border-b border-gray-200 transition-all`}
+            >
+              <td className="p-3 border font-medium">{opportunity.name}</td>
+              <td className="p-3 border">
+                {opportunity.description.length > 100 && !expandedDescriptions.has(opportunity.name) ? (
+                  <>
+                    {opportunity.description.slice(0, 100)}...
                     <button
-                      className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-                      onClick={() => setSelectedOpportunity(opportunity.name)}
+                      className="text-blue-600 text-xs ml-1 underline"
+                      onClick={() => toggleDescription(opportunity.name)}
                     >
-                      Apply
+                      Show More
                     </button>
-                    <button
-                      className={`px-4 py-1 rounded ${savedOpportunities.has(opportunity.name)
-                          ? "bg-yellow-400 text-black hover:bg-yellow-500"
-                          : "bg-gray-300 text-gray-800 hover:bg-gray-400"
-                        }`}
-                      onClick={() => toggleSave(opportunity.name)}
-                    >
-                      {savedOpportunities.has(opportunity.name) ? "Unsave" : "Save"}
-                    </button>
+                  </>
+                ) : (
+                  <>
+                    {opportunity.description}
+                    {opportunity.description.length > 100 && (
                       <button
-                        className="bg-gray-200 text-black px-4 py-1 rounded hover:bg-gray-300"
-                        onClick={() => handleCopy(opportunity)}>
-                        Copy
+                        className="text-blue-600 text-xs ml-1 underline"
+                        onClick={() => toggleDescription(opportunity.name)}
+                      >
+                        Show Less
                       </button>
-
+                    )}
+                  </>
+                )}
+              </td>
+              <td className="p-3 border">{opportunity.recommended_experience}</td>
+              <td className="p-3 border">{opportunity.location}</td>
+              <td className="p-3 border">
+                <span className={tooltipStyle}>
+                  ${opportunity.pay}/hr
+                  {opportunity.pay >= 15 && (
+                    <span className="ml-2 inline-block bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full group-hover:bg-green-200">
+                      High Paying
+                      <span className={tooltipContent}>This position pays above average</span>
+                    </span>
+                  )}
+                </span>
+              </td>
+              <td className="p-3 border">{opportunity.professor}</td>
+              <td className="p-3 border">
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-2">
+                    {getSemesterBadge(opportunity.semester)}
+                    <span className="text-sm text-gray-600">{opportunity.year}</span>
                   </div>
+                  <span className="text-sm text-gray-500">
+                    Due: {opportunity.application_due.toLocaleDateString()}
+                  </span>
+                </div>
+              </td>
+              <td className="p-3 border">
+                <div className="flex flex-col gap-2">
+                  <button
+                    className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                    onClick={() => setSelectedOpportunity(opportunity.name)}
+                  >
+                    Apply
+                  </button>
+                  <button
+                    className={`px-4 py-1 rounded ${
+                      savedOpportunities.has(opportunity.name)
+                        ? "bg-yellow-400 text-black hover:bg-yellow-500"
+                        : "bg-gray-300 text-gray-800 hover:bg-gray-400"
+                    }`}
+                    onClick={() => toggleSave(opportunity.name)}
+                  >
+                    {savedOpportunities.has(opportunity.name) ? "Unsave" : "Save"}
+                  </button>
+                  <button
+                    className="bg-gray-200 text-black px-4 py-1 rounded hover:bg-gray-300"
+                    onClick={() => handleCopy(opportunity)}
+                  >
+                    Copy
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  ) : (
+    <div className="grid md:grid-cols-2 gap-4">
+      {sortedOpportunities
+        .filter(op =>
+          (!viewSavedOnly || savedOpportunities.has(op.name)) &&
+          (professorFilter === "All" || op.professor === professorFilter) &&
+          (semesterFilter === "All" || op.semester === semesterFilter) &&
+          (
+            op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            op.professor.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        )
+        .map((opportunity, index) => (
+          <div
+            key={index}
+            className={`p-4 rounded border shadow-sm ${getRowColor(opportunity.semester)} transition-all`}
+          >
+            <div className="text-lg font-semibold mb-1">{opportunity.name}</div>
+            <div className="text-sm text-gray-600 mb-2">
+              {opportunity.description.length > 100 && !expandedDescriptions.has(opportunity.name)
+                ? `${opportunity.description.slice(0, 100)}... `
+                : opportunity.description}
+              {opportunity.description.length > 100 && (
+                <button
+                  className="text-blue-600 text-xs ml-1 underline"
+                  onClick={() => toggleDescription(opportunity.name)}
+                >
+                  {expandedDescriptions.has(opportunity.name) ? "Show Less" : "Show More"}
+                </button>
+              )}
+            </div>
+            <div className="text-sm">
+              <strong>Professor:</strong> {opportunity.professor}<br />
+              <strong>Pay:</strong> ${opportunity.pay}/hr<br />
+              <strong>Location:</strong> {opportunity.location}<br />
+              <strong>Experience:</strong> {opportunity.recommended_experience}<br />
+              <strong>Term:</strong> {getSemesterBadge(opportunity.semester)} {opportunity.year}<br />
+              <strong>Due:</strong> {opportunity.application_due.toLocaleDateString()}
+            </div>
+            <div className="mt-3 flex flex-col gap-2">
+              <button
+                className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                onClick={() => setSelectedOpportunity(opportunity.name)}
+              >
+                Apply
+              </button>
+              <button
+                className={`px-4 py-1 rounded ${
+                  savedOpportunities.has(opportunity.name)
+                    ? "bg-yellow-400 text-black hover:bg-yellow-500"
+                    : "bg-gray-300 text-gray-800 hover:bg-gray-400"
+                }`}
+                onClick={() => toggleSave(opportunity.name)}
+              >
+                {savedOpportunities.has(opportunity.name) ? "Unsave" : "Save"}
+              </button>
+              <button
+                className="bg-gray-200 text-black px-4 py-1 rounded hover:bg-gray-300"
+                onClick={() => handleCopy(opportunity)}
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        ))}
+    </div>
+  )}
+</div>
 
-
-                </td>
-              </tr>
-            ))}
-          </tbody>
-
-        </table>
-      </div>
 
 
     {selectedOpportunity && (

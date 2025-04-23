@@ -66,7 +66,7 @@ const sampleOpportunities: Opportunity[] = [
     professor: "Dr. Omar Farah"
   },
   {
-    name: "🧪 Biotech Innovation Intern",
+    name: "Biotech Innovation Intern",
     description: "Work with startups developing cutting-edge biotech products.",
     recommended_experience: "Biology, Chemistry, or Biomed Engineering",
     pay: 25.00,

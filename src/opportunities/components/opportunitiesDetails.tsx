@@ -409,10 +409,56 @@ const displayList = [...pinned, ...unpinned];
     setViewSavedOnly(false);
   };
   
+  const visibleOpportunities = sortedOpportunities.filter(op =>
+    (!viewSavedOnly || savedOpportunities.has(op.name)) &&
+    (viewFilter === "All" ||
+      (viewFilter === "Saved" && savedOpportunities.has(op.name)) ||
+      (viewFilter === "Pinned" && pinnedOpportunities.has(op.name)) ||
+      (viewFilter === "Applied" && appliedOpportunities.has(op.name))) &&
+    (professorFilter === "All" || op.professor === professorFilter) &&
+    (semesterFilter === "All" || op.semester === semesterFilter) &&
+    (!highPayOnly || op.pay >= 15) &&
+    (
+      op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      op.professor.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  );
+  
+  const totalCount = visibleOpportunities.length;
+  const savedCount = visibleOpportunities.filter(op => savedOpportunities.has(op.name)).length;
+  const appliedCount = visibleOpportunities.filter(op => appliedOpportunities.has(op.name)).length;
+  const pinnedCount = visibleOpportunities.filter(op => pinnedOpportunities.has(op.name)).length;
+  const avgPay = visibleOpportunities.length > 0
+    ? (visibleOpportunities.reduce((sum, op) => sum + op.pay, 0) / visibleOpportunities.length).toFixed(2)
+    : "0.00";
   
 
   return (
 <div className={`p-4 transition-all min-h-screen ${darkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}`}>
+      <div className="mb-6 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-4 text-sm text-gray-700 dark:text-gray-200">
+        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded shadow-sm text-center">
+          <div className="font-bold text-xl">{totalCount}</div>
+          <div>Total</div>
+        </div>
+        <div className="bg-yellow-100 dark:bg-yellow-900 p-3 rounded shadow-sm text-center">
+          <div className="font-bold text-xl">{savedCount}</div>
+          <div>Saved</div>
+        </div>
+        <div className="bg-green-100 dark:bg-green-900 p-3 rounded shadow-sm text-center">
+          <div className="font-bold text-xl">{appliedCount}</div>
+          <div>Applied</div>
+        </div>
+        <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded shadow-sm text-center">
+          <div className="font-bold text-xl">{pinnedCount}</div>
+          <div>Pinned</div>
+        </div>
+        <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded shadow-sm text-center">
+          <div className="font-bold text-xl">${avgPay}</div>
+          <div>Avg Pay</div>
+        </div>
+      </div>
 
       <div className="mb-4 flex flex-wrap gap-4 items-center">
         <div>
@@ -626,7 +672,7 @@ const displayList = [...pinned, ...unpinned];
             )
           )
           .map((opportunity, index) => (
-            
+
             <tr
               key={index}
               className={`hover:bg-gray-100 ${getRowColor(opportunity.semester)} border-b border-gray-200 transition-all ${opportunity.pay >= 15 ? "border-l-4 border-green-400" : ""

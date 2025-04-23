@@ -187,6 +187,9 @@ const sampleOpportunities: Opportunity[] = [
   }
 ];
 
+const professorList = Array.from(new Set(sampleOpportunities.map(op => op.professor)));
+
+
 // This component returns a 'list' of all the opportunities 
 
 const OpportunitiesList = () => {
@@ -207,6 +210,8 @@ const OpportunitiesList = () => {
 
   const [showClearMessage, setShowClearMessage] = useState(false);
 
+
+  const [professorFilter, setProfessorFilter] = useState<string>("All");
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -269,7 +274,14 @@ const OpportunitiesList = () => {
 
     });
   };
+
   
+  const resetFilters = () => {
+    setSortOrder("asc");
+    setSearchQuery("");
+    setViewSavedOnly(false);
+    setProfessorFilter("All");
+  };
   
   
 
@@ -334,6 +346,30 @@ const OpportunitiesList = () => {
           className="border px-3 py-2 rounded w-full max-w-md"
         />
       </div>
+
+
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Filter by Professor:</label>
+        <select
+          value={professorFilter}
+          onChange={(e) => setProfessorFilter(e.target.value)}
+          className="border px-2 py-1 rounded"
+        >
+          <option value="All">All</option>
+          {professorList.map((prof, index) => (
+            <option key={index} value={prof}>{prof}</option>
+          ))}
+        </select>
+      </div>
+
+      <button
+        className="ml-auto bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400"
+        onClick={resetFilters}
+      >
+        Reset Filters
+      </button>
+
+
   
       <div className="overflow-x-auto border border-gray-300 bg-white shadow-sm rounded p-4">
         {savedOpportunities.size > 0 && (
@@ -342,6 +378,19 @@ const OpportunitiesList = () => {
           </div>
         )}
   
+        <div className="mb-2 text-sm text-gray-600">
+          Showing {sortedOpportunities.filter(op =>
+            (!viewSavedOnly || savedOpportunities.has(op.name)) &&
+            (professorFilter === "All" || op.professor === professorFilter) &&
+            (
+              op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              op.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              op.professor.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+          ).length} result{sortedOpportunities.length !== 1 && "s"}
+        </div>
+
 
         <table className="w-full border-collapse">
           <thead>
@@ -359,9 +408,11 @@ const OpportunitiesList = () => {
             </tr>
           </thead>
           <tbody>
+
             {sortedOpportunities
               .filter(op =>
                 (!viewSavedOnly || savedOpportunities.has(op.name)) &&
+                (professorFilter === "All" || op.professor === professorFilter) &&
                 (
                   op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                   op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -369,6 +420,7 @@ const OpportunitiesList = () => {
                   op.professor.toLowerCase().includes(searchQuery.toLowerCase())
                 )
               )
+
               .map((opportunity, index) => (
 
 

@@ -205,6 +205,9 @@ const OpportunitiesList = () => {
   const [viewSavedOnly, setViewSavedOnly] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  const [showClearMessage, setShowClearMessage] = useState(false);
+
+
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -271,7 +274,7 @@ const OpportunitiesList = () => {
   
 
   return (
-    <div className="p-4">
+    <div className="p-4 transition-all">
       <div className="mb-4 flex flex-wrap gap-4 items-center">
         <div>
           <label className="mr-2 font-medium">View:</label>
@@ -284,8 +287,7 @@ const OpportunitiesList = () => {
             <option value="Saved">Saved</option>
           </select>
         </div>
-
-
+  
         <div>
           <label className="mr-2 font-medium">Sort by Pay:</label>
           <select
@@ -297,18 +299,31 @@ const OpportunitiesList = () => {
             <option value="desc">Highest to Lowest</option>
           </select>
         </div>
+  
+        {savedOpportunities.size > 0 && (
+          <button
+            className="ml-auto bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
+            onClick={() => {
+              localStorage.removeItem("savedOpportunities");
+              setSavedOpportunities(new Set());
+              setShowClearMessage(true);
+              setTimeout(() => setShowClearMessage(false), 2500);
+            }}
+          >
+            Clear All Saved
+          </button>
+
+        )}
       </div>
-      <div className="mb-4">
-        <label className="mr-2 font-medium">Sort by Pay:</label>
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
-          className="border px-2 py-1 rounded"
-        >
-          <option value="asc">Lowest to Highest</option>
-          <option value="desc">Highest to Lowest</option>
-        </select>
-      </div>
+
+
+      {showClearMessage && (
+        <div className="mb-4 px-4 py-2 bg-green-100 text-green-800 text-sm rounded shadow transition-opacity duration-500">
+          ✅ Cleared all saved opportunities.
+        </div>
+      )}
+
+  
       <div className="mb-4">
         <label className="mr-2 font-medium">Search:</label>
         <input
@@ -319,13 +334,14 @@ const OpportunitiesList = () => {
           className="border px-3 py-2 rounded w-full max-w-md"
         />
       </div>
-
+  
       <div className="overflow-x-auto border border-gray-300 bg-white shadow-sm rounded p-4">
         {savedOpportunities.size > 0 && (
           <div className="mb-4 text-sm text-gray-700 italic">
             Saved {savedOpportunities.size} opportunit{savedOpportunities.size > 1 ? "ies" : "y"}
           </div>
         )}
+  
 
         <table className="w-full border-collapse">
           <thead>

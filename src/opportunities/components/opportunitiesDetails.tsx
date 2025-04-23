@@ -217,6 +217,7 @@ const OpportunitiesList = () => {
   const [semesterFilter, setSemesterFilter] = useState<string>("All");
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
   const [pinnedOpportunities, setPinnedOpportunities] = useState<Set<string>>(new Set());
+  const [appliedOpportunities, setAppliedOpportunities] = useState<Set<string>>(new Set());
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -336,6 +337,19 @@ const displayList = [...pinned, ...unpinned];
       return updated;
     });
   };
+
+  const toggleApplied = (name: string) => {
+    setAppliedOpportunities(prev => {
+      const updated = new Set(prev);
+      if (updated.has(name)) {
+        updated.delete(name);
+      } else {
+        updated.add(name);
+      }
+      return updated;
+    });
+  };
+
   
 
   const resetFilters = () => {
@@ -570,6 +584,12 @@ const displayList = [...pinned, ...unpinned];
               </td>
               <td className="p-3 border">
                 <div className="flex flex-col gap-2">
+                  {appliedOpportunities.has(opportunity.name) && (
+                    <span className="inline-block bg-green-200 text-green-800 text-xs px-2 py-0.5 rounded-full mb-1 self-start">
+                      ✅ Applied
+                    </span>
+                  )}
+
                   <button
                     className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
                     onClick={() => setSelectedOpportunity(opportunity.name)}
@@ -598,6 +618,14 @@ const displayList = [...pinned, ...unpinned];
                   >
                     {pinnedOpportunities.has(opportunity.name) ? "Unpin" : "Pin"}
                   </button>
+
+                  <button
+                    className="bg-green-100 text-green-800 px-4 py-1 rounded hover:bg-green-200"
+                    onClick={() => toggleApplied(opportunity.name)}
+                  >
+                    {appliedOpportunities.has(opportunity.name) ? "Unmark" : "Mark as Applied"}
+                  </button>
+
 
                 </div>
               </td>
@@ -647,6 +675,12 @@ const displayList = [...pinned, ...unpinned];
               <strong>Due:</strong> {opportunity.application_due.toLocaleDateString()}
             </div>
             <div className="mt-3 flex flex-col gap-2">
+              {appliedOpportunities.has(opportunity.name) && (
+                <span className="inline-block bg-green-200 text-green-800 text-xs px-2 py-0.5 rounded-full mb-2">
+                  ✅ Applied
+                </span>
+              )}
+
               <button
                 className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
                 onClick={() => setSelectedOpportunity(opportunity.name)}
@@ -674,6 +708,13 @@ const displayList = [...pinned, ...unpinned];
                 onClick={() => togglePin(opportunity.name)}
               >
                 {pinnedOpportunities.has(opportunity.name) ? "Unpin" : "Pin"}
+              </button>
+
+              <button
+                className="bg-green-100 text-green-800 px-4 py-1 rounded hover:bg-green-200"
+                onClick={() => toggleApplied(opportunity.name)}
+              >
+                {appliedOpportunities.has(opportunity.name) ? "Unmark" : "Mark as Applied"}
               </button>
 
             </div>

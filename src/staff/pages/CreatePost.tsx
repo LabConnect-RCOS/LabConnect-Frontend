@@ -15,10 +15,26 @@ export default function CreatePost({ edit }: CreatePostProps) {
   }
 
   return (
-    <div className="w-9/12 mx-auto">
-      <SEO title={edit === true ? "Edit Research Opportunity" : "Create Research Opportunity"} description={edit === true ? "Edit Research Opportunity Page" : "Create Research Opportunity Page"} />
-      <h1 className="text-center my-8 text-3xl font-bold">{edit === true ? "Edit Research Opportunity" : "Create Research Opportunity"}</h1>
-      <CreationForms edit={edit} />
+
+    <div className="w-full min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4">
+      <SEO
+        title={edit ? "Edit Research Opportunity" : "Create Research Opportunity"}
+        description={edit ? "Edit Research Opportunity Page" : "Create Research Opportunity Page"}
+      />
+
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-center text-4xl font-extrabold text-gray-900 dark:text-white mb-10">
+          {edit ? "Edit Research Opportunity" : "Create Research Opportunity"}
+        </h1>
+        <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-10 transition-all">
+          <CreationForms edit={edit} />
+        </div>
+
+      </div>
+      
     </div>
+
   );
-};
+
+}
+

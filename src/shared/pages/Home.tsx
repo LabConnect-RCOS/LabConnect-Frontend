@@ -44,7 +44,9 @@ const Home = () => {
     <section className="w-full">
       <SEO title="LabConnect" description="LabConnect home page" />
 
+
       {/* Welcome Section */}
+
       <section className="home-general text-center w-full">
         <div className="img-center pt-28">
           <img src={logo} alt="LabConnect" height="289" />
@@ -87,7 +89,9 @@ const Home = () => {
           to view and edit your current posts.
         </p>
 
+
         {/* Learn More Button */}
+
         <div className="mt-10">
           <button
             onClick={handleScrollToAbout}
@@ -99,32 +103,42 @@ const Home = () => {
       </section>
       <div className="h-40"></div>
 
+
       {/* About Us Section */}
-      <section
-        id="about"
-        ref={aboutSectionRef}
-        className="w-full flex justify-center py-10"
-      >
-        <div
-          style={{
-            backgroundColor: "#4682e3",
-            filter: "saturate(1.2)"
-          }}
-          className="rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6"
+
+        {/* Tried to make a card-like structure for the About Us Section, Similar to the "Meet Our Team" Section*/}
+        <section
+          id="about"
+          ref={aboutSectionRef}
+          className="w-full flex justify-center py-16 px-6 bg-gradient-to-b from-gray-50 to-white"
         >
-          <h2 className="text-2xl font-semibold">About Us</h2>
-          <p className="mt-4 text-lg">
-            LabConnect is a platform dedicated to bridging the gap between students
-            and research opportunities. We aim to make it easier for students to find
-            meaningful lab/research work while helping professors connect with passionate
-            individuals through a convenient, all-in-one application. Our team is hard
-            at work, and we will provide updates on our progress so keep an eye out for
-            announcements!
-          </p>
-        </div>
-      </section>
+          <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl p-10 w-full max-w-5xl transform transition-all duration-500 hover:scale-[1.01]">
+            <div className="flex items-start gap-4">
+              <div className="bg-blue-100 text-blue-700 rounded-full p-3">
+
+                {/* Used an image from w3.  We can replace it if we want */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">About Us</h2>
+                <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <strong>LabConnect</strong> LabConnect is a platform dedicated to bridging the gap between students
+                    and research opportunities. We aim to make it easier for students to find
+                    meaningful lab/research work while helping professors connect with passionate
+                    individuals through a convenient, all-in-one application. Our team is hard
+                    at work, and we will provide updates on our progress so keep an eye out for
+                    announcements!
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
       {/* Meet Our Team Section */}
+
       <section id="team" className="py-20 text-center w-full">
         <h2 className="text-2xl font-semibold">Meet Our Team</h2>
         <p className="mt-4 max-w-3xl mx-auto text-lg px-6">
@@ -133,6 +147,7 @@ const Home = () => {
         </p>
 
         <div className="flex flex-wrap justify-center gap-8 mt-10">
+
           {/* Team Member Cards */}
           {[
             {
@@ -180,7 +195,10 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+
       {/* Contact Us Section */}
+      
       <section id="contact" className="py-20 bg-gray-100 text-center w-full">
         <div className="max-w-md mx-auto p-4">
           <h1 className="text-2xl font-bold mb-4">Contact Us</h1>

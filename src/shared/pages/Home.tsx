@@ -25,8 +25,18 @@ const Home = () => {
     setContactForm({ ...contactForm, [e.target.name]: e.target.value });
   };
 
+  const [emailError, setEmailError] = useState("");
+
   const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
+    // Validate RPI email domain
+    if (!contactForm.email.toLowerCase().endsWith("@rpi.edu")) {
+      setEmailError("Email must end with @rpi.edu");
+      return;
+    }
+  
+    setEmailError(""); // Clear error
     setContactSubmitted(true);
   };
 
@@ -197,20 +207,23 @@ const Home = () => {
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="contact-email" className="block font-medium">
-                  RPI Email
-                </label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  name="email"
-                  value={contactForm.email}
-                  onChange={handleContactChange}
-                  className="w-full p-2 border border-gray-300 rounded mt-1"
-                  required
-                />
-              </div>
+                <div>
+                  <label htmlFor="contact-email" className="block font-medium">
+                    RPI Email
+                  </label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    value={contactForm.email}
+                    onChange={handleContactChange}
+                    className="w-full p-2 border border-gray-300 rounded mt-1"
+                    required
+                  />
+                  {emailError && (
+                    <p className="text-red-600 text-sm mt-1">{emailError}</p>
+                  )}
+                </div>
               <div>
                 <label htmlFor="contact-subject" className="block font-medium">
                   Subject

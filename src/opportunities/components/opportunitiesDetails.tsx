@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useEffect } from "react"; // ensure this is already at the top
+
 
 
 //Created a new interface to make displaying an opportunity easier, contains 9 fields
@@ -219,15 +221,23 @@ const OpportunitiesList = () => {
   const [pinnedOpportunities, setPinnedOpportunities] = useState<Set<string>>(new Set());
   const [appliedOpportunities, setAppliedOpportunities] = useState<Set<string>>(new Set());
   const [viewFilter, setViewFilter] = useState<"All" | "Applied" | "Pinned" | "Saved">("All");
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const stored = localStorage.getItem("darkMode");
+    return stored ? JSON.parse(stored) : false;
+  });
+  
   const [notes, setNotes] = useState<Record<string, string>>(() => {
     const stored = localStorage.getItem("opportunityNotes");
     return stored ? JSON.parse(stored) : {};
   });
 
   const [highPayOnly, setHighPayOnly] = useState<boolean>(false);
+  
 
-
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
+  
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -529,11 +539,15 @@ const displayList = [...pinned, ...unpinned];
         </div>
 
         <button
-          className="bg-gray-700 text-white px-3 py-1 rounded hover:bg-gray-800"
+          className={`px-4 py-1 rounded font-medium transition-colors ${darkMode
+              ? "bg-yellow-300 text-black hover:bg-yellow-400"
+              : "bg-gray-800 text-white hover:bg-gray-900"
+            }`}
           onClick={() => setDarkMode(prev => !prev)}
         >
-          Toggle {darkMode ? "Light" : "Dark"} Mode
+          {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
         </button>
+
 
   
         {savedOpportunities.size > 0 && (

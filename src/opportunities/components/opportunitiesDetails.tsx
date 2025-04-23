@@ -278,6 +278,25 @@ const OpportunitiesList = () => {
       alert("Opportunity details copied to clipboard!");
     });
   };
+
+  const exportToJSON = () => {
+    const exported = sampleOpportunities.filter(op =>
+      pinnedOpportunities.has(op.name) ||
+      savedOpportunities.has(op.name) ||
+      appliedOpportunities.has(op.name)
+    );
+  
+    const blob = new Blob([JSON.stringify(exported, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+  
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "opportunities_export.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
   
 
   const tooltipStyle = "relative group";
@@ -468,12 +487,22 @@ const displayList = [...pinned, ...unpinned];
       </div>
 
 
-      <button
-        className="ml-auto bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400"
-        onClick={resetFilters}
-      >
-        Reset Filters
-      </button>
+      <div className="flex gap-3 mt-2">
+        <button
+          className="bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400"
+          onClick={resetFilters}
+        >
+          Reset Filters
+        </button>
+
+        <button
+          className="bg-blue-100 text-blue-800 px-4 py-1 rounded hover:bg-blue-200"
+          onClick={exportToJSON}
+        >
+          Export Tracked to JSON
+        </button>
+      </div>
+
 
       
 

@@ -220,7 +220,11 @@ const OpportunitiesList = () => {
   const [appliedOpportunities, setAppliedOpportunities] = useState<Set<string>>(new Set());
   const [viewFilter, setViewFilter] = useState<"All" | "Applied" | "Pinned" | "Saved">("All");
   const [darkMode, setDarkMode] = useState<boolean>(false);
-
+  const [notes, setNotes] = useState<Record<string, string>>(() => {
+    const stored = localStorage.getItem("opportunityNotes");
+    return stored ? JSON.parse(stored) : {};
+  });
+  
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -385,6 +389,13 @@ const displayList = [...pinned, ...unpinned];
     });
   };
 
+  const updateNote = (name: string, text: string) => {
+    setNotes(prev => {
+      const updated = { ...prev, [name]: text };
+      localStorage.setItem("opportunityNotes", JSON.stringify(updated));
+      return updated;
+    });
+  };
   
 
   const resetFilters = () => {
@@ -696,6 +707,12 @@ const displayList = [...pinned, ...unpinned];
                   >
                     {appliedOpportunities.has(opportunity.name) ? "Unmark" : "Mark as Applied"}
                   </button>
+                  <textarea
+                    value={notes[opportunity.name] || ""}
+                    onChange={(e) => updateNote(opportunity.name, e.target.value)}
+                    placeholder="Notes..."
+                    className="mt-2 border rounded px-2 py-1 text-sm w-full dark:bg-gray-800 dark:text-white dark:border-gray-600"
+                  />
 
 
                 </div>
@@ -787,6 +804,14 @@ const displayList = [...pinned, ...unpinned];
               >
                 {appliedOpportunities.has(opportunity.name) ? "Unmark" : "Mark as Applied"}
               </button>
+
+              <textarea
+                value={notes[opportunity.name] || ""}
+                onChange={(e) => updateNote(opportunity.name, e.target.value)}
+                placeholder="Notes..."
+                className="mt-3 border rounded px-2 py-1 text-sm w-full dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              />
+
 
             </div>
           </div>

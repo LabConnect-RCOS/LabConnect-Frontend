@@ -196,6 +196,18 @@ const OpportunitiesList = () => {
   const [viewSavedOnly, setViewSavedOnly] = useState<boolean>(false);
 
 
+  const handleCopy = (op: Opportunity) => {
+    const content = `Position: ${op.name}
+  Location: ${op.location}
+  Pay: $${op.pay}/hr
+  Professor: ${op.professor}
+  Recommended: ${op.recommended_experience}
+  Due: ${op.application_due.toLocaleDateString()}`;
+    navigator.clipboard.writeText(content).then(() => {
+      alert("Opportunity details copied to clipboard!");
+    });
+  };
+  
 
   const tooltipStyle = "relative group";
   const tooltipContent = "absolute hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap z-10";
@@ -323,6 +335,12 @@ const OpportunitiesList = () => {
                     >
                       {savedOpportunities.has(opportunity.name) ? "Unsave" : "Save"}
                     </button>
+                      <button
+                        className="bg-gray-200 text-black px-4 py-1 rounded hover:bg-gray-300"
+                        onClick={() => handleCopy(opportunity)}>
+                        Copy
+                      </button>
+
                   </div>
 
 

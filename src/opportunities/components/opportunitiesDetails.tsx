@@ -215,6 +215,9 @@ const OpportunitiesList = () => {
 
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
 
+  const [semesterFilter, setSemesterFilter] = useState<string>("All");
+
+
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -233,6 +236,21 @@ const OpportunitiesList = () => {
         return "bg-white";
     }
   };
+
+  const getSemesterBadge = (semester: string) => {
+    const base = "text-xs px-2 py-0.5 rounded-full font-medium";
+    switch (semester.toLowerCase()) {
+      case "fall":
+        return <span className={`${base} bg-orange-100 text-orange-800`}>Fall</span>;
+      case "spring":
+        return <span className={`${base} bg-green-100 text-green-800`}>Spring</span>;
+      case "summer":
+        return <span className={`${base} bg-blue-100 text-blue-800`}>Summer</span>;
+      default:
+        return <span className={`${base} bg-gray-100 text-gray-800`}>{semester}</span>;
+    }
+  };
+  
   
 
   const toggleDescription = (name: string) => {
@@ -293,8 +311,9 @@ const OpportunitiesList = () => {
   const resetFilters = () => {
     setSortOrder("asc");
     setSearchQuery("");
-    setViewSavedOnly(false);
     setProfessorFilter("All");
+    setSemesterFilter("All");
+    setViewSavedOnly(false);
   };
   
   
@@ -376,6 +395,22 @@ const OpportunitiesList = () => {
         </select>
       </div>
 
+
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Filter by Semester:</label>
+        <select
+          value={semesterFilter}
+          onChange={(e) => setSemesterFilter(e.target.value)}
+          className="border px-2 py-1 rounded"
+        >
+          <option value="All">All</option>
+          <option value="Fall">Fall</option>
+          <option value="Spring">Spring</option>
+          <option value="Summer">Summer</option>
+        </select>
+      </div>
+
+
       <button
         className="ml-auto bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400"
         onClick={resetFilters}
@@ -383,6 +418,7 @@ const OpportunitiesList = () => {
         Reset Filters
       </button>
 
+      
 
   
       <div className="overflow-x-auto border border-gray-300 bg-white shadow-sm rounded p-4">
@@ -427,6 +463,7 @@ const OpportunitiesList = () => {
               .filter(op =>
                 (!viewSavedOnly || savedOpportunities.has(op.name)) &&
                 (professorFilter === "All" || op.professor === professorFilter) &&
+                (semesterFilter === "All" || op.semester === semesterFilter) &&
                 (
                   op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                   op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -434,6 +471,7 @@ const OpportunitiesList = () => {
                   op.professor.toLowerCase().includes(searchQuery.toLowerCase())
                 )
               )
+
 
               .map((opportunity, index) => (
 
@@ -487,13 +525,18 @@ const OpportunitiesList = () => {
                 </td>
 
                 <td className="p-3 border">{opportunity.professor}</td>
-                <td className="p-3 border">
-                  {opportunity.semester} {opportunity.year}
-                  <br />
-                  <span className="text-sm text-gray-500">
-                    Due: {opportunity.application_due.toLocaleDateString()}
-                  </span>
-                </td>
+                  <td className="p-3 border">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-2">
+                        {getSemesterBadge(opportunity.semester)}
+                        <span className="text-sm text-gray-600">{opportunity.year}</span>
+                      </div>
+                      <span className="text-sm text-gray-500">
+                        Due: {opportunity.application_due.toLocaleDateString()}
+                      </span>
+                    </div>
+                  </td>
+
                 <td className="p-3 border"> 
                   <div className="flex flex-col gap-2">
                     <button

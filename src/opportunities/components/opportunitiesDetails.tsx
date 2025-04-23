@@ -125,7 +125,11 @@ const sampleOpportunities: Opportunity[] = [
   },
 ];
 
-const OpportunitiesList = () => {
+const OpportunitiesList = ({ sortOrder = "asc" }: { sortOrder: "asc" | "desc" }) => {
+  const sortedOpportunities = [...sampleOpportunities].sort((a, b) =>
+    sortOrder === "asc" ? a.year - b.year : b.year - a.year
+  );
+
   return (
     <div className="p-4 bg-white dark:bg-gray-800 rounded-md shadow-md">
       <div className="overflow-x-auto">
@@ -142,7 +146,7 @@ const OpportunitiesList = () => {
             </tr>
           </thead>
           <tbody>
-            {sampleOpportunities.map((opportunity, index) => (
+            {sortedOpportunities.map((opportunity, index) => (
               <tr
                 key={index}
                 className="hover:bg-gray-50 dark:hover:bg-gray-600 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
@@ -170,3 +174,4 @@ const OpportunitiesList = () => {
 };
 
 export default OpportunitiesList;
+

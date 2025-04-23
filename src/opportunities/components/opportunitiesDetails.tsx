@@ -195,6 +195,20 @@ const OpportunitiesList = () => {
   const [savedOpportunities, setSavedOpportunities] = useState<Set<string>>(new Set());
   const [viewSavedOnly, setViewSavedOnly] = useState<boolean>(false);
 
+  const getRowColor = (semester: string) => {
+    switch (semester.toLowerCase()) {
+      case "fall":
+        return "bg-orange-50";
+      case "spring":
+        return "bg-green-50";
+      case "summer":
+        return "bg-blue-50";
+      default:
+        return "bg-white";
+    }
+  };
+  
+
 
   const handleCopy = (op: Opportunity) => {
     const content = `Position: ${op.name}
@@ -289,11 +303,12 @@ const OpportunitiesList = () => {
             {sortedOpportunities
               .filter(op => !viewSavedOnly || savedOpportunities.has(op.name))
               .map((opportunity, index) => (
+
                 
-              <tr
-                key={index}
-                className="hover:bg-gray-100 bg-gray-50 border-b border-gray-200 transition-all"
-              >
+                <tr
+                  key={index} className={`hover:bg-gray-100 ${getRowColor(opportunity.semester)} border-b border-gray-200 transition-all`}>
+
+
                 <td className="p-3 border font-medium">{opportunity.name}</td>
                 <td className="p-3 border">{opportunity.description}</td>
                 <td className="p-3 border">{opportunity.recommended_experience}</td>

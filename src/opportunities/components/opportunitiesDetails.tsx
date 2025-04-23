@@ -224,7 +224,9 @@ const OpportunitiesList = () => {
     const stored = localStorage.getItem("opportunityNotes");
     return stored ? JSON.parse(stored) : {};
   });
-  
+
+  const [highPayOnly, setHighPayOnly] = useState<boolean>(false);
+
 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -330,6 +332,7 @@ const OpportunitiesList = () => {
       (!viewSavedOnly || matchesSaved) &&
       (professorFilter === "All" || op.professor === professorFilter) &&
       (semesterFilter === "All" || op.semester === semesterFilter) &&
+      (highPayOnly ? op.pay >= 15 : true) &&
       (
         op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -535,6 +538,20 @@ const displayList = [...pinned, ...unpinned];
         </select>
       </div>
 
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Pay Filter:</label>
+        <label className="inline-flex items-center space-x-2">
+          <input
+            type="checkbox"
+            checked={highPayOnly}
+            onChange={() => setHighPayOnly(prev => !prev)}
+            className="form-checkbox h-4 w-4 text-blue-600"
+          />
+          <span className="text-sm">Show $15/hr+ only</span>
+        </label>
+      </div>
+
+
 
 
       <div className="flex gap-3 mt-2">
@@ -609,10 +626,13 @@ const displayList = [...pinned, ...unpinned];
             )
           )
           .map((opportunity, index) => (
+            
             <tr
               key={index}
-              className={`hover:bg-gray-100 ${getRowColor(opportunity.semester)} border-b border-gray-200 transition-all`}
+              className={`hover:bg-gray-100 ${getRowColor(opportunity.semester)} border-b border-gray-200 transition-all ${opportunity.pay >= 15 ? "border-l-4 border-green-400" : ""
+                }`}
             >
+
               <td className="p-3 border font-medium">{opportunity.name}</td>
               <td className="p-3 border">
                 {opportunity.description.length > 100 && !expandedDescriptions.has(opportunity.name) ? (
@@ -647,7 +667,8 @@ const displayList = [...pinned, ...unpinned];
                   {opportunity.pay >= 15 && (
                     <span className="ml-2 inline-block bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full group-hover:bg-green-200">
                       High Paying
-                      <span className={tooltipContent}>This position pays above average</span>
+                      <span className={tooltipContent}>This position pays $15/hr or more</span>
+
                     </span>
                   )}
                 </span>
@@ -738,8 +759,10 @@ const displayList = [...pinned, ...unpinned];
         .map((opportunity, index) => (
           <div
             key={index}
-            className={`p-4 rounded border shadow-sm ${getRowColor(opportunity.semester)} transition-all`}
+            className={`p-4 rounded border shadow-sm transition-all ${getRowColor(opportunity.semester)
+              } ${opportunity.pay >= 15 ? "border-green-400 border-l-4" : "border-gray-300"} dark:border-gray-700`}
           >
+
             <div className="text-lg font-semibold mb-1">{opportunity.name}</div>
             <div className="text-sm text-gray-600 mb-2">
               {opportunity.description.length > 100 && !expandedDescriptions.has(opportunity.name)

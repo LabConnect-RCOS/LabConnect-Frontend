@@ -192,7 +192,16 @@ const sampleOpportunities: Opportunity[] = [
 const OpportunitiesList = () => {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [selectedOpportunity, setSelectedOpportunity] = useState<null | string>(null);
-  const [savedOpportunities, setSavedOpportunities] = useState<Set<string>>(new Set());
+  const [savedOpportunities, setSavedOpportunities] = useState<Set<string>>(() => {
+    const stored = localStorage.getItem("savedOpportunities");
+    if (stored) {
+      return new Set(JSON.parse(stored));
+    }
+    return new Set();
+  });
+  console.log("Loaded saved opportunities:", Array.from(savedOpportunities));
+
+  
   const [viewSavedOnly, setViewSavedOnly] = useState<boolean>(false);
 
   const getRowColor = (semester: string) => {
@@ -231,6 +240,11 @@ const OpportunitiesList = () => {
     sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
   );
 
+
+  /**
+ * Toggles save/unsave for an opportunity and syncs to localStorage
+ * Persisted in JSON format as an array of strings
+ */
   const toggleSave = (name: string) => {
     setSavedOpportunities(prev => {
       const updated = new Set(prev);
@@ -239,9 +253,14 @@ const OpportunitiesList = () => {
       } else {
         updated.add(name);
       }
+
+      localStorage.setItem("savedOpportunities", JSON.stringify(Array.from(updated)));
       return updated;
+
     });
   };
+  
+  
   
 
   return (
@@ -284,6 +303,12 @@ const OpportunitiesList = () => {
         </select>
       </div>
       <div className="overflow-x-auto border border-gray-300 bg-white shadow-sm rounded p-4">
+        {savedOpportunities.size > 0 && (
+          <div className="mb-4 text-sm text-gray-700 italic">
+            Saved {savedOpportunities.size} opportunit{savedOpportunities.size > 1 ? "ies" : "y"}
+          </div>
+        )}
+
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">

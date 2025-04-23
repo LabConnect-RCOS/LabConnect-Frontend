@@ -45,45 +45,51 @@ const Home = () => {
       <SEO title="LabConnect" description="LabConnect home page" />
 
 
-      {/* Welcome Section */}
+    {/* Welcome Section */}
 
-      <section className="text-center w-full pt-24 pb-32 bg-white">
-        <div className="max-w-3xl mx-auto flex flex-col items-center px-6">
-          <img src={logo} alt="LabConnect" className="w-40 h-auto mb-8 drop-shadow-md" />
+    <section className="text-center w-full py-28 bg-white">
+      <div className="max-w-5xl mx-auto flex flex-col items-center px-6">
+        <img src={logo} alt="LabConnect" className="w-60 h-auto mb-10 drop-shadow-lg" />
 
-          <div className="bg-gray-50 rounded-2xl shadow-xl px-8 py-10 transform transition-all duration-300 hover:shadow-2xl">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Welcome to LabConnect!</h1>
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
-              If you are a student, go to the{" "}
-              <Link to="/jobs" className="text-blue-600 font-semibold hover:underline">
-                Jobs
-              </Link>{" "}
-              tab to view currently available research opportunities.
-              <br />
-              If you are a professor or staff member,{" "}
-              <Link to="/signin" className="text-blue-600 font-semibold hover:underline">
-                Sign In
-              </Link>{" "}
-              and then go to{" "}
-              <Link to="/create" className="text-blue-600 font-semibold hover:underline">
-                Create
-              </Link>{" "}
-              to start posting opportunities, or{" "}
-              <Link to="/profile" className="text-blue-600 font-semibold hover:underline">
-                Profile
-              </Link>{" "}
-              to view and edit your current posts.
-            </p>
+        <div className="bg-gray-50 shadow-2xl rounded-3xl px-10 py-12 w-full max-w-4xl transition-all duration-300 hover:shadow-3xl">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+            Welcome to LabConnect!
+          </h1>
 
-            <button
-              onClick={handleScrollToAbout}
-              className="mt-4 inline-block px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-blue-700 transition duration-300"
-            >
-              Learn More
-            </button>
-          </div>
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+            If you are a student, go to the{" "}
+            <Link to="/jobs" className="text-blue-600 font-semibold hover:underline">
+              Jobs
+            </Link>{" "}
+            tab to view currently available research opportunities.
+            <br className="hidden md:block" />
+
+            <br></br>
+            
+            If you are a professor or staff member,{" "}
+            <Link to="/signin" className="text-blue-600 font-semibold hover:underline">
+              Sign In
+            </Link>{" "}
+            and then go to{" "}
+            <Link to="/create" className="text-blue-600 font-semibold hover:underline">
+              Create
+            </Link>{" "}
+            to start posting opportunities, or{" "}
+            <Link to="/profile" className="text-blue-600 font-semibold hover:underline">
+              Profile
+            </Link>{" "}
+            to view and edit your current posts.
+          </p>
+          <button
+            onClick={handleScrollToAbout}
+            className="mt-4 px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-blue-700 transition duration-300"
+          >
+            Learn More
+          </button>
         </div>
-      </section>
+      </div>
+    </section>
+
       
       <div className="h-40"></div>
 

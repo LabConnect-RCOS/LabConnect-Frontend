@@ -47,60 +47,44 @@ const Home = () => {
 
       {/* Welcome Section */}
 
-      <section className="home-general text-center w-full">
-        <div className="img-center pt-28">
-          <img src={logo} alt="LabConnect" height="289" />
-        </div>
+      <section className="text-center w-full pt-24 pb-32 bg-white">
+        <div className="max-w-3xl mx-auto flex flex-col items-center px-6">
+          <img src={logo} alt="LabConnect" className="w-40 h-auto mb-8 drop-shadow-md" />
 
-        <h1 className="text-xl pt-32">Welcome to LabConnect!</h1>
-        <br />
-        <p className="text-base px-6">
-          If you are a student, go to the{" "}
-          <Link
-            to="/jobs"
-            className="blue-link hover:text-blue-900 focus:text-blue-900"
-          >
-            <b>Jobs</b>
-          </Link>{" "}
-          tab to view currently available research opportunities.
-          <br />
-          If you are a professor or staff member,{" "}
-          <Link
-            to="/signin"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
-          >
-            <b>Sign In</b>
-          </Link>{" "}
-          and then go to{" "}
-          <Link
-            to="/create"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
-          >
-            <b>Create</b>
-          </Link>{" "}
-          to start posting <br />
-          opportunities or{" "}
-          <Link
-            to="/profile"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
-          >
-            <b>Profile</b>
-          </Link>{" "}
-          to view and edit your current posts.
-        </p>
+          <div className="bg-gray-50 rounded-2xl shadow-xl px-8 py-10 transform transition-all duration-300 hover:shadow-2xl">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Welcome to LabConnect!</h1>
+            <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-6">
+              If you are a student, go to the{" "}
+              <Link to="/jobs" className="text-blue-600 font-semibold hover:underline">
+                Jobs
+              </Link>{" "}
+              tab to view currently available research opportunities.
+              <br />
+              If you are a professor or staff member,{" "}
+              <Link to="/signin" className="text-blue-600 font-semibold hover:underline">
+                Sign In
+              </Link>{" "}
+              and then go to{" "}
+              <Link to="/create" className="text-blue-600 font-semibold hover:underline">
+                Create
+              </Link>{" "}
+              to start posting opportunities, or{" "}
+              <Link to="/profile" className="text-blue-600 font-semibold hover:underline">
+                Profile
+              </Link>{" "}
+              to view and edit your current posts.
+            </p>
 
-
-        {/* Learn More Button */}
-
-        <div className="mt-10">
-          <button
-            onClick={handleScrollToAbout}
-            className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Learn More
-          </button>
+            <button
+              onClick={handleScrollToAbout}
+              className="mt-4 inline-block px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-full shadow-md hover:bg-blue-700 transition duration-300"
+            >
+              Learn More
+            </button>
+          </div>
         </div>
       </section>
+      
       <div className="h-40"></div>
 
 

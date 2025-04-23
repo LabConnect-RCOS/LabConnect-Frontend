@@ -20,7 +20,7 @@ const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => 
           {/* Change Filters Button */}
           <SmallTextButton
             onClick={setPopUpMenu}
-            className="text-blue-600 hover:underline transition"
+            className="text-blue-600 dark:text-blue-400 hover:underline transition"
             special={true}
           >
             <PiSlidersHorizontal className="text-lg mr-1" />
@@ -46,7 +46,7 @@ const FiltersField = ({ resetFilters, deleteFilter, filters, setPopUpMenu }) => 
         {/* Reset Button */}
         <SmallTextButton
           onClick={resetFilters}
-          className="text-sm text-gray-600 hover:text-red-600 transition"
+          className="text-sm text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition"
           special={false}
         >
           Reset

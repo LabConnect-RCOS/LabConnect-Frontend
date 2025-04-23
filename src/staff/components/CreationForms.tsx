@@ -4,6 +4,8 @@ import { useParams } from "react-router";
 import CheckBox from "./Checkbox.tsx";
 import Input from "./Input";
 import { Locations } from "../../shared/data/locations.ts";
+import DarkModeToggle from "../../opportunities/components/DarkModeToggle"; // Adjust path if needed
+
 
 interface CreationFormsProps {
   edit: boolean;
@@ -106,6 +108,10 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   }, [edit, postID, reset]);
 
   return loading === false && years != null ? (
+    <section className="min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-6 transition-colors duration-300">
+      <div className="flex justify-end mb-4">
+        <DarkModeToggle />
+      </div>
     <form onSubmit={handleSubmit(submitHandler)} className="space-y-8">
       {/* Title, Location, Deadline */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -172,6 +178,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
               min: 0,
             })}
             type="number"
+            min = {0}
             options={[]}
             placeHolder="Enter hourly pay"
           />
@@ -240,6 +247,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
         </button>
       </div>
     </form>
+  </section>
   ) : loading === "no response" ? (
     <h1 className="text-center text-red-600">There was no response</h1>
   ) : (

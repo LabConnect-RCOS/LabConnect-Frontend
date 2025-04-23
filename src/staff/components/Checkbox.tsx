@@ -12,14 +12,21 @@ const CheckBox = ({
 }) => {
   return (
     <div className="mb-2">
+      {/* Label */}
       {label && (
         <div className="mb-1">
-          <span className="font-semibold text-gray-800">{label}</span>
+          <span className="font-semibold text-gray-800 dark:text-gray-200">
+            {label}
+          </span>
         </div>
       )}
+
+      {/* Error Message */}
       {errors && errors[name] && (
         <p className="text-red-500 text-sm mb-1">{errorMessage}</p>
       )}
+
+      {/* Options */}
       <div className="flex flex-wrap gap-3">
         {options &&
           options.map((item) => (
@@ -29,9 +36,13 @@ const CheckBox = ({
                 value={item}
                 {...formHook}
                 id={item}
-                className={type === "radio" ? "radio" : "checkbox"}
+                className={`${type === "radio" ? "radio" : "checkbox"} 
+                            border-gray-300 dark:border-gray-600 
+                            focus:ring-blue-500`}
               />
-              <span className="text-sm text-gray-700">{item}</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">
+                {item}
+              </span>
             </label>
           ))}
       </div>

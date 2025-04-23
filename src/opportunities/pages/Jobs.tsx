@@ -2,7 +2,7 @@ import React from "react";
 import Posts from "../components/Posts";
 import PageNavigation from "../../shared/components/Navigation/PageNavigation";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook";
-import OpportunitiesList from "../components/opportunitiesDetails.tsx";
+import OpportunitiesList from "../components/opportunitiesDetails";
 import DarkModeToggle from "../components/DarkModeToggle";
 
 interface PageNavigationType {
@@ -21,20 +21,19 @@ const Jobs: React.FC = () => {
 
   return (
     <section className="flex flex-col gap-4 bg-white text-black dark:bg-gray-900 dark:text-gray-100 min-h-screen p-4 transition-colors duration-300">
+      {/* Dark Mode Toggle Button */}
       <div className="flex justify-end">
         <DarkModeToggle />
       </div>
 
-      <section className="flex2 gap-3">
-        <section className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-          <PageNavigation title="Jobs" pages={pages} switchPage={switchPage} />
-          {pages.activePage === "Search" && <Posts years={validYears} />}
-        </section>
+      {/* Page Navigation + Posts */}
+      <section className="flex flex-col gap-3 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg shadow-md transition-colors duration-200">
+        <PageNavigation title="Jobs" pages={pages} switchPage={switchPage} />
+        {pages.activePage === "Search" && <Posts years={validYears} />}
       </section>
 
-      <section className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
-        <OpportunitiesList />
-      </section>
+      {/* Opportunities Table */}
+      <OpportunitiesList />
     </section>
   );
 };

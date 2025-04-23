@@ -139,66 +139,69 @@ const Home = () => {
 
       {/* Meet Our Team Section */}
 
-      <section id="team" className="py-20 text-center w-full">
-        <h2 className="text-2xl font-semibold">Meet Our Team</h2>
-        <p className="mt-4 max-w-3xl mx-auto text-lg px-6">
-          Thanks for checking us out! We are a team of dedicated open-source developers
-          working hard to make this product into a reality.
-        </p>
+      <section id="team" className="py-24 px-6 bg-gray-50 text-center w-full">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">Meet Our Team</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-12">
+            We're a passionate team of open-source developers dedicated to connecting students and researchers.
+          </p>
 
-        <div className="flex flex-wrap justify-center gap-8 mt-10">
-
-          {/* Team Member Cards */}
-          {[
-            {
-              name: "Rafael Cenzano",
-              major: "Computer Science",
-              gradYear: "2025",
-              role: "Backend Developer",
-              skill: "Flask"
-            },
-            {
-              name: "Will Broadwell",
-              major: "Computer Science",
-              gradYear: "2026",
-              role: "Frontend Developer",
-              skill: "TailwindCSS"
-            },
-            {
-              name: "Sagar Sahu",
-              major: "Computer Science",
-              gradYear: "2026",
-              role: "Frontend Developer",
-              skill: "React"
-            },
-            {
-              name: "Sarah Wohlford",
-              major: "Computer Science",
-              gradYear: "2027",
-              role: "Backend Developer",
-              skill: "PostgreSQL"
-            }
-          ].map((member, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-md rounded-2xl p-6 w-64 flex flex-col items-center text-center transform transition duration-300 hover:shadow-xl hover:-translate-y-2"
-            >
-              <h3 className="text-lg font-semibold">{member.name}</h3>
-              <p className="text-sm text-gray-600 mt-2">
-                {member.major}, Class of {member.gradYear}
-              </p>
-              <p className="text-sm text-blue-600 mt-2 font-medium">
-                {member.role}
-              </p>
-              <p className="text-sm text-gray-500 mt-1">Skill: {member.skill}</p>
-            </div>
-          ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {[
+              {
+                name: "Rafael Cenzano",
+                major: "Computer Science",
+                gradYear: "2025",
+                role: "Backend Developer",
+                skill: "Flask"
+              },
+              {
+                name: "Will Broadwell",
+                major: "Computer Science",
+                gradYear: "2026",
+                role: "Frontend Developer",
+                skill: "TailwindCSS"
+              },
+              {
+                name: "Sagar Sahu",
+                major: "Computer Science",
+                gradYear: "2026",
+                role: "Frontend Developer",
+                skill: "React"
+              },
+              {
+                name: "Sarah Wohlford",
+                major: "Computer Science",
+                gradYear: "2027",
+                role: "Backend Developer",
+                skill: "PostgreSQL"
+              }
+            ].map((member, index) => (
+              <div
+                key={index}
+                className="bg-white shadow-lg rounded-2xl p-6 transform transition duration-300 hover:shadow-2xl hover:-translate-y-1"
+              >
+                <div className="mb-4">
+                  <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xl font-bold">
+                    {member.name.split(" ")[0][0]}{member.name.split(" ")[1][0]}
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
+                <p className="text-sm text-gray-500 mt-1">
+                  {member.major}, Class of {member.gradYear}
+                </p>
+                <p className="mt-2 text-blue-600 font-medium">{member.role}</p>
+                <p className="text-sm text-gray-500 mt-1">Skill: {member.skill}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
 
+
       {/* Contact Us Section */}
-      
+
       <section id="contact" className="py-20 bg-gray-100 text-center w-full">
         <div className="max-w-md mx-auto p-4">
           <h1 className="text-2xl font-bold mb-4">Contact Us</h1>

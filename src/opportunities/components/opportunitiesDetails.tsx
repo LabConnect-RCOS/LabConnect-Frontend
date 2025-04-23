@@ -460,6 +460,37 @@ const displayList = [...pinned, ...unpinned];
         </div>
       </div>
 
+      <div className="mb-4 flex flex-wrap gap-3 items-center">
+        <button
+          className="bg-red-100 text-red-800 px-4 py-1 rounded hover:bg-red-200"
+          onClick={() => {
+            localStorage.removeItem("opportunityNotes");
+            setNotes({});
+            alert("All notes cleared.");
+          }}
+        >
+          🧹 Clear All Notes
+        </button>
+
+        <button
+          className="bg-purple-100 text-purple-800 px-4 py-1 rounded hover:bg-purple-200"
+          onClick={() =>
+            setViewFilter((prev) => (prev === "Pinned" ? "All" : "Pinned"))
+          }
+        >
+          {viewFilter === "Pinned" ? "Show All" : "Show Only Pinned"}
+        </button>
+
+        <button
+          className="bg-green-100 text-green-800 px-4 py-1 rounded hover:bg-green-200"
+          onClick={() =>
+            setViewFilter((prev) => (prev === "Applied" ? "All" : "Applied"))
+          }
+        >
+          {viewFilter === "Applied" ? "Show All" : "Show Only Applied"}
+        </button>
+      </div>
+
       <div className="mb-4 flex flex-wrap gap-4 items-center">
         <div>
           <label className="mr-2 font-medium">View:</label>

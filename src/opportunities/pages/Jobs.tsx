@@ -16,8 +16,9 @@ const Jobs: React.FC = () => {
     (page: string) => void
   ];
 
+  const [sortBy, setSortBy] = useState<"year" | "pay">("year");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-
+  
   const currentYear = new Date().getFullYear();
   const validYears = Array.from({ length: 4 }, (_, i) => (currentYear + i).toString());
 
@@ -35,24 +36,42 @@ const Jobs: React.FC = () => {
       </section>
 
       {/* Sorting Controls */}
-      <div className="flex justify-end items-center gap-2">
-        <label htmlFor="sort" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-          Sort by Year:
-        </label>
-        <select
-          id="sort"
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
-          className="select select-bordered bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-600"
-        >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
-        </select>
+      <div className="flex flex-row flex-wrap gap-4 justify-end items-center">
+        <div className="flex flex-col text-sm">
+          <label htmlFor="sortBy" className="text-gray-700 dark:text-gray-300 font-medium">
+            Sort By:
+          </label>
+          <select
+            id="sortBy"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as "year" | "pay")}
+            className="select select-bordered bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-600"
+          >
+            <option value="year">Year</option>
+            <option value="pay">Pay</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col text-sm">
+          <label htmlFor="sortOrder" className="text-gray-700 dark:text-gray-300 font-medium">
+            Order:
+          </label>
+          <select
+            id="sortOrder"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+            className="select select-bordered bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-600"
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
       </div>
 
+
       {/* Opportunities List */}
-      <OpportunitiesList sortOrder={sortOrder} />
-    </section>
+      <OpportunitiesList sortBy={sortBy} sortOrder={sortOrder} />
+      </section>
   );
 };
 

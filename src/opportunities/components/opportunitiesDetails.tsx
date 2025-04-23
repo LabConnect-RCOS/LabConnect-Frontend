@@ -128,7 +128,15 @@ const sampleOpportunities: Opportunity[] = [
 
 //Ability to sort the opportunities based on time
 //Sorts by year first, then by semester for tiebreaker (spring, then summer, then fall)
-const OpportunitiesList = ({ sortOrder = "asc" }: { sortOrder: "asc" | "desc" }) => {
+const OpportunitiesList = ({
+  sortOrder = "asc",
+  sortBy = "year",
+}: {
+  sortOrder: "asc" | "desc";
+  sortBy: "year" | "pay";
+}) => {
+
+  
   const semesterOrder: Record<string, number> = {
     Spring: 1,
     Summer: 2,
@@ -136,6 +144,11 @@ const OpportunitiesList = ({ sortOrder = "asc" }: { sortOrder: "asc" | "desc" })
   };
   
   const sortedOpportunities = [...sampleOpportunities].sort((a, b) => {
+    if (sortBy === "pay") {
+      return sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay;
+    }
+  
+    // default = year + semester
     if (a.year !== b.year) {
       return sortOrder === "asc" ? a.year - b.year : b.year - a.year;
     }
@@ -145,6 +158,7 @@ const OpportunitiesList = ({ sortOrder = "asc" }: { sortOrder: "asc" | "desc" })
   
     return sortOrder === "asc" ? aSem - bSem : bSem - aSem;
   });
+  
   
   
 

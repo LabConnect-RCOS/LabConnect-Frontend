@@ -16,7 +16,7 @@ const Jobs: React.FC = () => {
     (page: string) => void
   ];
 
-  const [sortBy, setSortBy] = useState<"year" | "pay" | "professor">("year");
+  const [sortBy, setSortBy] = useState<"year" | "pay" | "professor" | "location">("year");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   
   const currentYear = new Date().getFullYear();
@@ -36,6 +36,7 @@ const Jobs: React.FC = () => {
       </section>
 
       {/* Sorting Controls */}
+      {/* You can sort by Term, Professor's name, Pay, and Location*/}
       <div className="flex flex-row flex-wrap gap-4 justify-end items-center">
         <div className="flex flex-col text-sm">
           <label htmlFor="sortBy" className="text-gray-700 dark:text-gray-300 font-medium">
@@ -44,13 +45,17 @@ const Jobs: React.FC = () => {
           <select
             id="sortBy"
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as "year" | "pay" | "professor")}
+            onChange={(e) =>
+              setSortBy(e.target.value as "year" | "pay" | "professor" | "location")
+            }
             className="select select-bordered bg-white dark:bg-gray-800 text-black dark:text-white border-gray-300 dark:border-gray-600"
           >
             <option value="year">Term</option>
             <option value="pay">Pay</option>
             <option value="professor">Professor</option>
+            <option value="location">Location</option>
           </select>
+
 
         </div>
 

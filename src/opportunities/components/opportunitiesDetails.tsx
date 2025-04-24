@@ -315,6 +315,19 @@ const OpportunitiesList = () => {
     link.click();
     document.body.removeChild(link);
   };
+
+  const exportNotesToJSON = () => {
+    const blob = new Blob([JSON.stringify(notes, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+  
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "opportunity_notes.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
   
   
 
@@ -401,6 +414,11 @@ const displayList = [...pinned, ...unpinned];
       return updated;
     });
   };
+
+  const clearAllApplied = () => {
+    setAppliedOpportunities(new Set());
+  };
+  
 
   const updateNote = (name: string, text: string) => {
     setNotes(prev => {
@@ -513,6 +531,14 @@ const displayList = [...pinned, ...unpinned];
         >
           {viewFilter === "Applied" ? "Show All" : "Show Only Applied"}
         </button>
+        
+        <button
+          className="bg-red-100 text-red-800 px-4 py-1 rounded hover:bg-red-200"
+          onClick={clearAllApplied}
+        >
+          ❌ Clear All Applied
+        </button>
+
       </div>
 
       <button
@@ -697,6 +723,14 @@ const displayList = [...pinned, ...unpinned];
         >
           Export Tracked to JSON
         </button>
+
+        <button
+          className="bg-yellow-100 text-yellow-800 px-4 py-1 rounded hover:bg-yellow-200"
+          onClick={exportNotesToJSON}
+        >
+          Export Notes to JSON
+        </button>
+
       </div>
 
 

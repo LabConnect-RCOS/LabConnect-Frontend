@@ -232,7 +232,9 @@ const OpportunitiesList = () => {
   });
 
   const [highPayOnly, setHighPayOnly] = useState<boolean>(false);
-  
+
+  const [viewNotesOnly, setViewNotesOnly] = useState<boolean>(false);
+
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -334,12 +336,18 @@ const OpportunitiesList = () => {
   const tooltipStyle = "relative group";
   const tooltipContent = "absolute hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 bottom-full mb-1 left-1/2 -translate-x-1/2 whitespace-nowrap z-10";
 
-
+  const noteTooltip = (note: string) =>
+    note
+      ? `relative group ml-1 cursor-pointer after:content-['📝'] after:inline-block after:ml-1
+          after:text-gray-500 hover:after:text-gray-700`
+      : "";
+  
   const sortedOpportunities = [...sampleOpportunities].sort((a, b) =>
     sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
   );
 
   const filteredOpportunities = sortedOpportunities.filter(op => {
+
     const matchesSaved = savedOpportunities.has(op.name);
     const matchesPinned = pinnedOpportunities.has(op.name);
     const matchesApplied = appliedOpportunities.has(op.name);
@@ -356,6 +364,7 @@ const OpportunitiesList = () => {
       (professorFilter === "All" || op.professor === professorFilter) &&
       (semesterFilter === "All" || op.semester === semesterFilter) &&
       (highPayOnly ? op.pay >= 15 : true) &&
+      (viewNotesOnly ? notes[op.name]?.trim().length > 0 : true) &&
       (
         op.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         op.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -364,6 +373,7 @@ const OpportunitiesList = () => {
       )
     );
   });
+  
   
 
 const pinned = filteredOpportunities.filter(op => pinnedOpportunities.has(op.name));
@@ -531,7 +541,7 @@ const displayList = [...pinned, ...unpinned];
         >
           {viewFilter === "Applied" ? "Show All" : "Show Only Applied"}
         </button>
-        
+
         <button
           className="bg-red-100 text-red-800 px-4 py-1 rounded hover:bg-red-200"
           onClick={clearAllApplied}
@@ -706,6 +716,20 @@ const displayList = [...pinned, ...unpinned];
         </label>
       </div>
 
+      <div className="mb-4">
+        <label className="mr-2 font-medium">Notes Filter:</label>
+        <label className="inline-flex items-center space-x-2">
+          <input
+            type="checkbox"
+            checked={viewNotesOnly}
+            onChange={() => setViewNotesOnly(prev => !prev)}
+            className="form-checkbox h-4 w-4 text-blue-600"
+          />
+          <span className="text-sm">Show opportunities with notes only</span>
+        </label>
+      </div>
+
+
 
 
 
@@ -795,8 +819,20 @@ const displayList = [...pinned, ...unpinned];
               className={`hover:bg-gray-100 ${getRowColor(opportunity.semester)} border-b border-gray-200 transition-all ${opportunity.pay >= 15 ? "border-l-4 border-green-400" : ""
                 }`}
             >
+              
+              <td className="p-3 border font-medium">
+                {opportunity.name}
+                {notes[opportunity.name]?.trim() && (
+                  <span className={noteTooltip(notes[opportunity.name])}>
+                    <span className="absolute hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 bottom-full mb-1 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap">
+                      {notes[opportunity.name].length > 60
+                        ? notes[opportunity.name].slice(0, 60) + "..."
+                        : notes[opportunity.name]}
+                    </span>
+                  </span>
+                )}
+              </td>
 
-              <td className="p-3 border font-medium">{opportunity.name}</td>
               <td className="p-3 border">
                 {opportunity.description.length > 100 && !expandedDescriptions.has(opportunity.name) ? (
                   <>

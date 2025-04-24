@@ -195,7 +195,16 @@ const professorList = Array.from(new Set(sampleOpportunities.map(op => op.profes
 // This component returns a 'list' of all the opportunities 
 
 const OpportunitiesList = () => {
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">(() => {
+    return (localStorage.getItem("opportunitySortOrder") as "asc" | "desc") || "asc";
+  });
+  
+
+  const [sortField, setSortField] = useState<"pay" | "name" | "deadline">(() => {
+    const stored = localStorage.getItem("opportunitySortField");
+    return (stored as "pay" | "name" | "deadline") || "pay";
+  });
+  
   const [selectedOpportunity, setSelectedOpportunity] = useState<null | string>(null);
   const [savedOpportunities, setSavedOpportunities] = useState<Set<string>>(() => {
     const stored = localStorage.getItem("savedOpportunities");
@@ -342,9 +351,31 @@ const OpportunitiesList = () => {
           after:text-gray-500 hover:after:text-gray-700`
       : "";
   
-  const sortedOpportunities = [...sampleOpportunities].sort((a, b) =>
-    sortOrder === "asc" ? a.pay - b.pay : b.pay - a.pay
-  );
+      const sortedOpportunities = [...sampleOpportunities].sort((a, b) => {
+        let valA: string | number | Date;
+        let valB: string | number | Date;
+      
+        switch (sortField) {
+          case "name":
+            valA = a.name.toLowerCase();
+            valB = b.name.toLowerCase();
+            break;
+          case "deadline":
+            valA = a.application_due;
+            valB = b.application_due;
+            break;
+          case "pay":
+          default:
+            valA = a.pay;
+            valB = b.pay;
+            break;
+        }
+      
+        if (valA < valB) return sortOrder === "asc" ? -1 : 1;
+        if (valA > valB) return sortOrder === "asc" ? 1 : -1;
+        return 0;
+      });
+      
 
   const filteredOpportunities = sortedOpportunities.filter(op => {
 
@@ -588,17 +619,35 @@ const displayList = [...pinned, ...unpinned];
           </select>
         </div>
   
-        <div>
-          <label className="mr-2 font-medium">Sort by Pay:</label>
+        <div className="flex gap-2 items-center">
+          <label className="font-medium">Sort:</label>
           <select
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value as "asc" | "desc")}
+            value={sortField}
+            onChange={(e) => {
+              const val = e.target.value as "pay" | "name" | "deadline";
+              setSortField(val);
+              localStorage.setItem("opportunitySortField", val);
+            }}
             className="border px-2 py-1 rounded"
           >
-            <option value="asc">Lowest to Highest</option>
-            <option value="desc">Highest to Lowest</option>
+            <option value="pay">Pay</option>
+            <option value="name">Name</option>
+            <option value="deadline">Deadline</option>
+          </select>
+          <select
+            value={sortOrder}
+            onChange={(e) => {
+              const val = e.target.value as "asc" | "desc";
+              setSortOrder(val);
+              localStorage.setItem("opportunitySortOrder", val);
+            }}
+            className="border px-2 py-1 rounded"
+          >
+            <option value="asc">Asc</option>
+            <option value="desc">Desc</option>
           </select>
         </div>
+
 
         <div>
           <label className="mr-2 font-medium">View Mode:</label>

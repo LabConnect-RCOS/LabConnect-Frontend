@@ -482,6 +482,20 @@ const displayList = [...pinned, ...unpinned];
           🧹 Clear All Notes
         </button>
 
+
+        <button
+          className="bg-red-200 text-red-800 px-4 py-1 rounded hover:bg-red-300"
+          onClick={() => {
+            localStorage.removeItem("savedOpportunities");
+            setSavedOpportunities(new Set());
+            setPinnedOpportunities(new Set());
+            setAppliedOpportunities(new Set());
+            alert("All tracking (Saved, Applied, Pinned) cleared.");
+          }}
+        >
+          🧹 Clear All Tracked
+        </button>
+
         <button
           className="bg-purple-100 text-purple-800 px-4 py-1 rounded hover:bg-purple-200"
           onClick={() =>
@@ -500,6 +514,30 @@ const displayList = [...pinned, ...unpinned];
           {viewFilter === "Applied" ? "Show All" : "Show Only Applied"}
         </button>
       </div>
+
+      <button
+        className="bg-black text-white px-4 py-1 rounded hover:bg-gray-800"
+        onClick={() => {
+          localStorage.removeItem("savedOpportunities");
+          localStorage.removeItem("opportunityNotes");
+          setSavedOpportunities(new Set());
+          setPinnedOpportunities(new Set());
+          setAppliedOpportunities(new Set());
+          setNotes({});
+          setSortOrder("asc");
+          setSearchQuery("");
+          setProfessorFilter("All");
+          setSemesterFilter("All");
+          setViewSavedOnly(false);
+          setHighPayOnly(false);
+          setViewFilter("All");
+          setDarkMode(false);
+          alert("All settings, filters, and tracking cleared.");
+        }}
+      >
+        🔄 Reset Everything
+      </button>
+
 
       <div className="mb-4 flex flex-wrap gap-4 items-center">
         <div>

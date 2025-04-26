@@ -164,7 +164,7 @@
   @apply flex flex-row justify-between px-12 text-center;
 }
 .grey-link {
-  @apply no-underline text-neutral-600;
+  @apply no-underline text-gray-600;
 }
 .blue-link {
   @apply no-underline text-blue-500;
@@ -181,10 +181,10 @@
   @apply min-w-32 w-96 h-72 bg-base-100 shadow-xl rounded-md overflow-clip;
 }
 .lg-img-card {
-  @apply card-compact w-96 bg-base-100 transition;
+  @apply w-96 bg-base-100 transition;
 }
 .lg-txt-card {
-  @apply min-h-48 max-h-48 duration-300 card-compact w-56 p-1 bg-base-100;
+  @apply min-h-48 max-h-48 duration-300 w-56 p-1 bg-base-100;
 }
 .lg-txt-card-attributes {
   @apply overflow-visible w-fit badge badge-primary;

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const LargeTextCard = ({ to, title, due, pay, credits }) => {
   return (
     <Link to={to} className="no-underline">
-      <div className="lg-txt-card hover:shadow-md card">
+      <div className="lg-txt-card card card-compact hover:shadow-md">
         <div className="card-body">
           <h2
             className={`${title.length > 100 ? "text-sm" : "text-lg font-bold"

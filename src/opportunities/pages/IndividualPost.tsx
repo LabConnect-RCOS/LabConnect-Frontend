@@ -26,8 +26,7 @@ const IndividualPost = () => {
 
   async function findDetails() {
     const data = await fetchOpportunities();
-    details = data || "Nothing found";
-    setDetails(details);
+    setDetails(data || "Nothing found");
   }
 
   useEffect(() => {

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const LargeImageCard = ({ to, image, title }) => {
   return (
     <Link to={to} className="no-underline">
-      <div className="lg-img-card card hover:shadow-lg duration-175">
+      <div className="lg-img-card card card-compact hover:shadow-lg duration-175">
         <figure>
           <img src={image} alt={title} />
         </figure>

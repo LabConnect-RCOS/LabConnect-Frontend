@@ -108,8 +108,6 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
         setFunction()
     };
 
-    console.log("Filters: ", filters);
-
     return (
         <section className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>

@@ -10,7 +10,7 @@ const IndividualPost = () => {
 
   const fetchOpportunities = async () => {
     // Consider moving the base URL to a configuration
-    const baseURL = `${process.env.REACT_APP_BACKEND_SERVER}`;
+    const baseURL = `${import.meta.env.VITE_BACKEND_SERVER}`;
     const url = `${baseURL}/getOpportunity/${postID}`;
 
     const response = await fetch(url);

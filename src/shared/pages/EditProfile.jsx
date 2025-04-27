@@ -1,6 +1,6 @@
 import React from "react";
 import ProfileAvatar from "../components/UIElements/ProfileAvatar.tsx";
-import EditInformation from "../components/Profile/EditInformation";
+import EditInformation from "../components/Profile/EditInformation.jsx";
 
 const EditProfile = ({
   id,

@@ -19,7 +19,7 @@ export default function Department() {
   useEffect(() => {
     const fetchDepartment = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/departments/${department}`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/departments/${department}`, {
         credentials: "include",
       }
       );

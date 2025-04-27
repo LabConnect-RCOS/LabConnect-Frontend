@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import CheckBox from "../../shared/components/Checkbox.tsx";
-import Input from "./Input";
+import Input from "./Input.jsx";
 import { useParams } from "react-router";
 import { Locations } from "../../shared/data/locations.ts";
 
@@ -18,7 +18,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   const [years, setYears] = useState<string[]>([]);
 
   async function fetchYears() {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/years`);
 
     if (response.ok) {
       const data = await response.json();
@@ -65,7 +65,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   function submitHandler(data: FormData) {
     console.log({ ...data });
     if (edit) {
-      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+      fetch(`${import.meta.env.VITE_BACKEND_SERVER}/editOpportunity/${postID}`, {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify({ ...data }),
@@ -78,7 +78,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
         }
       });
     } else {
-      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/createOpportunity`, {
+      fetch(`${import.meta.env.VITE_BACKEND_SERVER}/createOpportunity`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({ ...data }),
@@ -99,7 +99,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   useEffect(() => {
     async function fetchEditData() {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/editOpportunity/${postID}`, {
         credentials: "include",
       }
       );

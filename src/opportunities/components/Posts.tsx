@@ -135,7 +135,7 @@ const Posts = () => {
     );
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/opportunity/filter?${queryParams.toString()}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/opportunity/filter?${queryParams.toString()}`, {
         method: "GET",
         credentials: "include",
       });

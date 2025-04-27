@@ -1,7 +1,7 @@
 import React from "react";
 import SmallTextButton from "./SmallTextButton.tsx";
 import SearchBar from "./SearchBar.tsx";
-import GroupedComponents from "../../shared/components/UIElements/GroupedComponents";
+import GroupedComponents from "../../shared/components/UIElements/GroupedComponents.jsx";
 import HorizontalIconButton from "./HorizontalIconButton.tsx";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";

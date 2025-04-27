@@ -23,7 +23,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/profile`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/profile`, {
         credentials: "include",
       }
       );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CheckBox from "../../shared/components/Checkbox.tsx";
-import Input from "../../staff/components/Input";
+import Input from "../../staff/components/Input.jsx";
 import { Filters } from "../../types/opportunities.ts";
 
 interface PopUpMenuProps {
@@ -27,7 +27,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
 
     useEffect(() => {
         const fetchMajors = async () => {
-            const url = `${process.env.REACT_APP_BACKEND_SERVER}/majors`;
+            const url = `${import.meta.env.VITE_BACKEND_SERVER}/majors`;
             const response = await fetch(url);
             if (!response.ok) {
                 console.log("Error fetching majors");
@@ -41,7 +41,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
 
     useEffect(() => {
         const fetchYears = async () => {
-            const url = `${process.env.REACT_APP_BACKEND_SERVER}/years`;
+            const url = `${import.meta.env.VITE_BACKEND_SERVER}/years`;
             const response = await fetch(url);
             if (!response.ok) {
                 console.log("Error fetching valid years");

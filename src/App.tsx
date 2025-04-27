@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./style/App.css";
 
 import Home from "./shared/pages/Home.tsx";
 import PageNotFound from "./shared/pages/404.tsx";
@@ -23,12 +22,9 @@ function App() {
   return (
     <AuthProvider>
       <HelmetProvider>
-        
+
         <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
           <MainNavigation />
-          {/*
-            The <main> element now has padding ("p-8") but a transparent background.
-          */}
           <main className="p-8 flex-grow bg-transparent">
             <Routes>
               <Route path="/" element={<Home />} />

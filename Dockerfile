@@ -28,7 +28,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Healthcheck for nginx
 HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://0.0.0.0/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://0.0.0.0/health || exit 1
 
 # Expose port 80 (standard HTTP)
 EXPOSE 80

@@ -1,38 +1,37 @@
-FROM node:23-alpine3.21 AS base
-
-# Install dependencies
-FROM base AS deps
+# Build stage
+FROM node:22-alpine3.21 AS builder
 
 WORKDIR /app
 
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+# Install libc6-compat if needed
 RUN apk add --no-cache libc6-compat
 
+# Install dependencies
 COPY package.json package-lock.json ./
-
 RUN npm ci
 
-# Build the app with the node modules installed
-FROM base AS builder
-
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
+# Build the Vite app
 COPY . .
-
 RUN npm run build
 
-# Create a new image with the build files
-FROM base AS runner
+# Final stage: nginx serving dist/
+FROM nginx:stable-alpine as runner
 
-WORKDIR /app
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder /app/build ./build
-RUN npm install -g serve
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
 
+# Copy built Vite files
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Healthcheck for nginx
 HEALTHCHECK --interval=10s --timeout=5s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://0.0.0.0:3000/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://0.0.0.0/ || exit 1
 
-EXPOSE 3000
+# Expose port 80 (standard HTTP)
+EXPOSE 80
 
-CMD ["serve", "-s", "build"]
+# Start nginx automatically
+CMD ["nginx", "-g", "daemon off;"]

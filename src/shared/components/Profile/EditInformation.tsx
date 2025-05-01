@@ -45,7 +45,7 @@ const EditInformation = ({className, id, name, department, researchCenter, descr
     },
   });
 
-  let forms = (
+  const forms = (
     <form
       onSubmit={handleSubmit((data) => {
         submitHandler(data);

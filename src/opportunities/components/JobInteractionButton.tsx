@@ -1,6 +1,13 @@
 import React from "react";
 
-const JobInteractionButton = ({ className, special, onClick, children }) => {
+interface JobInteractionButtonProps {
+  className: string;
+  special: string;
+  onClick: () => void
+  children: React.ReactNode
+}
+
+const JobInteractionButton = ({ className, special, onClick, children }: JobInteractionButtonProps) => {
   return (
     <div className={`${className}`}>
       <button

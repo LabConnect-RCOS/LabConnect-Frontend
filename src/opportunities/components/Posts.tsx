@@ -117,7 +117,7 @@ const Posts = () => {
   }, []);
 
 
-  const fetchOpportunities = async () => {
+  const fetchOpportunities = useCallback(async () => {
     const queryParams = new URLSearchParams(
       Object.entries(opportunityState.filters.filterMap)
         .filter(([, value]) => {
@@ -152,11 +152,11 @@ const Posts = () => {
       console.error("Error fetching opportunities:", error);
       dispatch({ type: "SET_OPPORTUNITIES", opportunities: [] });
     }
-  };
+  }, [opportunityState.filters.filterMap, dispatch]);
 
   useEffect(() => {
     fetchOpportunities();
-  }, [opportunityState.filters.filterMap]);
+  }, [fetchOpportunities]);
 
   return (
     <section>

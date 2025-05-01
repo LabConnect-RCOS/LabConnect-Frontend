@@ -1,13 +1,18 @@
 import React from "react";
 import { useLocation } from "react-router";
 
-const JobsNavigation = ({ jobPage, switchPage }) => {
+interface JobsNavigationProps {
+  jobPage: boolean;
+  switchPage: () => void;
+}
+
+const JobsNavigation = ({ jobPage, switchPage }: JobsNavigationProps) => {
   const path = useLocation().pathname;
 
   const activeLink = "active-link";
   const normalLink = "normal-link hover:border-b-2 hover:text-black";
 
-  
+
 
   return (
     <div className="flex gap-5" style={{ alignItems: "center" }}>

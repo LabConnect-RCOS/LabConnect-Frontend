@@ -1,6 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+interface OpportunityActionCardProps {
+  editPath: string;
+  title: string;
+  body: React.ReactNode;
+  id: string;
+  activeStatus: string;
+  changeActiveStatus: (id: string, activeStatus: string) => void;
+  deleteOpp: (id: string) => void;
+}
+
 const OpportunityActionCard = ({
   editPath,
   title,
@@ -9,7 +19,7 @@ const OpportunityActionCard = ({
   activeStatus,
   changeActiveStatus,
   deleteOpp,
-}) => {
+}: OpportunityActionCardProps) => {
   if (title.length > 100) {
     title = title.slice(0, 150) + " ...";
   }

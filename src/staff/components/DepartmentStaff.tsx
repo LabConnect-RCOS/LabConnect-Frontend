@@ -1,9 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import AvatarCard from "../../shared/components/UIElements/AvatarCard.tsx";
 import { Link } from "react-router-dom";
 
-const DepartmentStaff = ({ staff }) => {
+interface DepartmentStaffProps {
+  staff: {id: string, name: string, image: string}[];
+}
+
+const DepartmentStaff = ({ staff }: DepartmentStaffProps) => {
   return (
     <div className="staff-body" style={{ rowGap: "1.5rem" }}>
       {staff.map((staff_member) => {
@@ -19,16 +22,6 @@ const DepartmentStaff = ({ staff }) => {
       })}
     </div>
   );
-};
-
-DepartmentStaff.propTypes = {
-  staff: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default DepartmentStaff;

@@ -59,7 +59,7 @@ export default function Department() {
   );
 
   return (
-    <section className="center container-xl">
+    <section className="pb-10 flex flex-col gap-4 container-xl">
       <SEO title={`${department} - Labconnect`} description={`${department} page on labconnect`} />
       <Breadcrumb
         tree={[

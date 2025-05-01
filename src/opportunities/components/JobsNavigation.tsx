@@ -9,17 +9,17 @@ interface JobsNavigationProps {
 const JobsNavigation = ({ jobPage, switchPage }: JobsNavigationProps) => {
   const path = useLocation().pathname;
 
-  const activeLink = "active-link";
-  const normalLink = "normal-link hover:border-b-2 hover:text-black";
+  const activeLink = "text-black py-3 border-b-2 border-black text-lg";
+  const normalLink = "text-gray-600 py-3 text-lg border-black hover:border-b-2 hover:text-black";
 
 
 
   return (
     <div className="flex gap-5" style={{ alignItems: "center" }}>
-      <h1 className="jobs-header">Jobs</h1>
+      <h1 className="text-2xl font-bold">Jobs</h1>
 
       <nav
-        className="jobs-categories"
+        className="text-base flex gap-4 justify-items-center font-semibold"
         style={{ alignItems: "center" }}
       >
         <button

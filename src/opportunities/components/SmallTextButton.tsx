@@ -12,9 +12,8 @@ const SmallTextButton = ({ children, onClick, special, className }: SmallTextBut
     <div className={`${className}`}>
       <button
         onClick={onClick}
-        className={`${special && "font-medium"} ${
-          !special && "font-sm"
-        } border-gray-400 btn-job px-2.5 hover:text-blue-700 hover:border-blue-700`}
+        className={`${special && "font-medium"} ${!special && "font-sm"
+          } border-gray-400 flex align-items-center p-2 rounded-3xl border px-2.5 hover:text-blue-700 hover:border-blue-700`}
       >
         {children}
       </button>

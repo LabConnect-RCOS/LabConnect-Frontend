@@ -22,6 +22,9 @@ function App() {
   return (
     <AuthProvider>
       <HelmetProvider>
+        <div className="bg-red-500 text-white p-6 text-2xl rounded-lg">
+          If this is red with white text, Tailwind works
+        </div>
 
         <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
           <MainNavigation />

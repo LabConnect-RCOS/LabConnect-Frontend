@@ -12,9 +12,8 @@ const JobInteractionButton = ({ className, special, onClick, children }: JobInte
     <div className={`${className}`}>
       <button
         onClick={onClick}
-        className={`${special && "font-medium"} ${
-          !special && "font-sm"
-        } job-inter-btn hover:text-blue-700 hover:border-blue-700`}
+        className={`${special && "font-medium"} ${!special && "font-sm"
+          } flex align-items-center p-2 px-4 rounded-3xl border hover:text-blue-700 hover:border-blue-700`}
       >
         {children}
       </button>

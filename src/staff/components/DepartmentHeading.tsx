@@ -11,8 +11,8 @@ interface DepartmentHeadingProps {
 export default function DepartmentHeading({ name, description, image, website }: DepartmentHeadingProps) {
   return (
     <div className="flex justify-center">
-      <div className="flex2 lg:flex-row gap-5">
-        <figure className="featimage lg:min-w-96">
+      <div className="flex flex-col lg:flex-row gap-5">
+        <figure className="min-w-32 w-96 h-72 bg-base-100 shadow-xl rounded-md overflow-clip lg:min-w-96">
           <img src={image} alt={`${name} department`} />
         </figure>
         <h1>{name}</h1>

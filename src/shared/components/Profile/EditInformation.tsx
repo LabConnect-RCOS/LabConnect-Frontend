@@ -24,7 +24,7 @@ interface FormType {
   researchCenter: string;
 }
 
-const EditInformation = ({className, id, name, department, researchCenter, description, email, role, image }: EditInformationProps) => {
+const EditInformation = ({ className, id, name, department, researchCenter, description, email, role, image }: EditInformationProps) => {
   const submitHandler = (data: FormType) => {
     console.log(data);
   };
@@ -50,7 +50,7 @@ const EditInformation = ({className, id, name, department, researchCenter, descr
       onSubmit={handleSubmit((data) => {
         submitHandler(data);
       })}
-      className="flex2 gap-2"
+      className="flex flex-col gap-2"
     >
       <Input
         label="Description (min. 5 characters)"
@@ -70,7 +70,7 @@ const EditInformation = ({className, id, name, department, researchCenter, descr
   );
 
   return (
-    <div className={`${className} font-light flex2 gap-2`}>
+    <div className={`${className} font-light flex flex-col gap-2`}>
       <h2 className="font-extrabold text-5xl">My Profile</h2>
       <div>
         <h3 className="text-lg">ID: {id}</h3>
@@ -81,7 +81,7 @@ const EditInformation = ({className, id, name, department, researchCenter, descr
         <h3 className="text-lg">Research Center: {researchCenter}</h3>
       </div>
       {forms}
-      
+
     </div>
   );
 };

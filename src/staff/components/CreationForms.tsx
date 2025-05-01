@@ -138,7 +138,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       onSubmit={handleSubmit((data) => {
         submitHandler(data);
       })}
-      className="form-container" // Form container for vertical layout
+      className="flex flex-col gap-5" // Form container for vertical layout
     >
       {/* Group 1: Horizontal layout for Title, Location, Deadline */}
       <section className="flex flex-row">
@@ -272,7 +272,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       </section>
 
       {/* Class Year and Description aligned horizontally */}
-      <div className="horizontal-form">
+      <div className="flex gap-5">
         <CheckBox
           label="Eligible Class Years"
           options={years.map(String)}

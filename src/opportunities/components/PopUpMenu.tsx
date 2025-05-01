@@ -121,7 +121,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                     onSubmit={handleSubmit((data) => {
                                         submitHandler(data);
                                     })}
-                                    className="form-container"
+                                    className="flex flex-col gap-5"
                                 > <section className="flex flex-col max-h[100] overflow-y-auto"> {/* Added max-height and overflow-y-auto */}
                                         <section className="flex justify-center">
                                             {checkboxes.map((filter) => (

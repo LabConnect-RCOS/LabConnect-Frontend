@@ -48,7 +48,7 @@ export default function ProfilePage() {
   // );
 
   return (
-    <section className="center container-xl">
+    <section className="pb-10 flex flex-col gap-4 container-xl">
       {profile === null && "Loading..."}
       {profile && typeof profile === "object" && <ProfileComponents profile={profile} id={profile.id} staff={false} />}
       {profile === false && "Profile not found"}

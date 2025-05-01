@@ -4,8 +4,30 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import Input from "../../../staff/components/Input";
 
-const EditInformation = ({className, id, name, department, researchCenter, description, email, role, image }) => {
-  const submitHandler = (data) => {
+interface EditInformationProps {
+  className?: string;
+  id: string;
+  name: string;
+  department: string;
+  researchCenter: string;
+  description: string;
+  email: string;
+  role: string;
+  image: string;
+}
+
+interface FormType {
+  id: string,
+  name: string,
+  email: string,
+  role: string,
+  description: string;
+  department: string;
+  researchCenter: string;
+}
+
+const EditInformation = ({className, id, name, department, researchCenter, description, email, role, image }: EditInformationProps) => {
+  const submitHandler = (data: FormType) => {
     console.log(data);
   };
 

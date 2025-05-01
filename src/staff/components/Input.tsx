@@ -1,5 +1,16 @@
 import React from "react";
 
+interface InputProps {
+  type?: string;
+  errorMessage: string;
+  errors: any;
+  name: string;
+  formHook: object;
+  label: string;
+  options?: string[];
+  placeHolder?: string;
+}
+
 const Input = ({
   type,
   errorMessage,
@@ -9,7 +20,7 @@ const Input = ({
   label,
   options,
   placeHolder,
-}) => {
+}: InputProps) => {
   // if (!formHook) {
   //   return <h1>FormHook Not Given</h1>;
   // }
@@ -28,8 +39,8 @@ const Input = ({
     <textarea
       {...formHook}
       placeholder={placeHolder || "Type Here"}
-      cols="50"
-      rows="7"
+      cols={Number(50)}
+      rows={Number(7)}
       className="border-2 rounded p-2 m-0"
     ></textarea>
   );

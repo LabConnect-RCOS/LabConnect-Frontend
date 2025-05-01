@@ -1,7 +1,11 @@
 import React from "react";
 import AboutSectionElement from "./AboutSectionElement";
 
-const AboutSection = ({ aboutSection }) => {
+interface AboutSectionProps {
+  aboutSection: AboutItem[];
+}
+
+const AboutSection = ({ aboutSection }: AboutSectionProps) => {
   let i = 0;
 
   return (

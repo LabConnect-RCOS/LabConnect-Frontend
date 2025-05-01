@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const IndividualPost = () => {
   const { postID } = useParams();
 
-  const [details, setDetails] = useState("Searching");
+  const [details, setDetails] = useState<string | OpportunityData>("Searching");
 
   const fetchOpportunities = async () => {
     // Consider moving the base URL to a configuration
@@ -40,7 +40,7 @@ const IndividualPost = () => {
       ) : details === "Nothing found" ? (
         <p>No post found</p>
       ) : (
-        <JobDetails {...details} />
+        <JobDetails {...details as OpportunityData} />
       )}
     </div>
   );

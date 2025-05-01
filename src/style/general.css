@@ -80,9 +80,6 @@
 .jobs-categories {
   @apply text-base flex gap-4 justify-items-center font-semibold;
 }
-.postsfield-header {
-  @apply border-t border-b grid grid-cols-9;
-}
 .searchbar {
   @apply flex p-2 px-3 border rounded-3xl align-items-center;
 }

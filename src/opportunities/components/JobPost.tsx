@@ -1,5 +1,16 @@
 import React from "react";
 
+interface JobPostProps {
+  title: string;
+  professor: string;
+  id: string;
+  location: string;
+  season: string;
+  year: string;
+  onClick: (id: string) => void;
+  active: boolean;
+}
+
 const JobPost = ({
   title,
   professor,
@@ -9,7 +20,7 @@ const JobPost = ({
   year,
   onClick,
   active,
-}) => {
+}: JobPostProps) => {
   return (
     <div className="job-post-header">
       <div className={`${active && "border-l-2 border-l-purple-600"}`} />

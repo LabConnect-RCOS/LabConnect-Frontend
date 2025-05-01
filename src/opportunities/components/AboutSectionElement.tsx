@@ -1,6 +1,6 @@
 import React from "react";
 
-const AboutSectionElement = ({ title, description }) => {
+const AboutSectionElement = ({ title, description }: { title: string, description: string }) => {
   return (
     <div className="about-head">
       <h5 className="about-title">{title}</h5>

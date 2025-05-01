@@ -1,7 +1,5 @@
 import React from "react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import Input from "../../../staff/components/Input";
 
 interface EditInformationProps {
@@ -47,7 +45,7 @@ const EditInformation = ({className, id, name, department, researchCenter, descr
     },
   });
 
-  var forms = (
+  let forms = (
     <form
       onSubmit={handleSubmit((data) => {
         submitHandler(data);

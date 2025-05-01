@@ -1,9 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import PropTypes from 'prop-types';
+interface SEOProps {
+    title: string;
+    description: string;
+}
 
-export default function SEO({ title, description }) {
+export default function SEO({ title, description }: SEOProps) {
     return (
         <Helmet>
             { /* Standard metadata tags */}
@@ -25,8 +28,3 @@ export default function SEO({ title, description }) {
         </Helmet>
     )
 }
-
-SEO.propTypes = {
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-};

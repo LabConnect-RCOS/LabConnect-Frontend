@@ -1,7 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const HorizontalIconButton = ({ children, onClick, icon, special }) => {
+interface HorizontalIconButtonProps {
+  children?: React.ReactNode;
+  onClick: (arg?: React.ReactNode) => void;
+  icon: React.ReactNode;
+  special: boolean;
+}
+
+const HorizontalIconButton = ({ children, onClick, icon, special }: HorizontalIconButtonProps) => {
   return (
     <div
       className={`${special && "font-medium"} ${
@@ -20,12 +26,5 @@ const HorizontalIconButton = ({ children, onClick, icon, special }) => {
     </div>
   );
 };
-
-HorizontalIconButton.propTypes = {
-  children: PropTypes.node,
-  onClick: PropTypes.func.isRequired,
-  icon: PropTypes.node,
-  special: PropTypes.bool,
-}
 
 export default HorizontalIconButton;

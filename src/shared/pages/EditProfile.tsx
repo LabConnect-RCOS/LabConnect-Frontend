@@ -1,6 +1,17 @@
 import React from "react";
-import ProfileAvatar from "../components/UIElements/ProfileAvatar.tsx";
-import EditInformation from "../components/Profile/EditInformation";
+import ProfileAvatar from "../components/Profile/ProfileAvatar.tsx";
+import EditInformation from "../components/Profile/EditInformation.tsx";
+
+interface EditProfileProps {
+  id: string;
+  name: string;
+  department: string;
+  researchCenter: string;
+  description: string;
+  email: string;
+  role: string;
+  image: string;
+}
 
 const EditProfile = ({
   id,
@@ -11,7 +22,7 @@ const EditProfile = ({
   email,
   role,
   image,
-}) => {
+}: EditProfileProps) => {
   return (
     <section>
       <div className="flex gap-5">

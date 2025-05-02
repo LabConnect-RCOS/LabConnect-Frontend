@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router";
+// import { useLocation } from "react-router";
 
 interface JobsNavigationProps {
   jobPage: boolean;
@@ -7,7 +7,7 @@ interface JobsNavigationProps {
 }
 
 const JobsNavigation = ({ jobPage, switchPage }: JobsNavigationProps) => {
-  const path = useLocation().pathname;
+  // const path = useLocation().pathname;
 
   const activeLink = "text-black py-3 border-b-2 border-black text-lg";
   const normalLink = "text-gray-600 py-3 text-lg border-black hover:border-b-2 hover:text-black";

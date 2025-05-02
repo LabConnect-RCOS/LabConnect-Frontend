@@ -13,7 +13,7 @@ docker-build: build
 	docker push enchanter77/labconnect-frontend
 
 lint:
-	eslint --max-warnings=0 'src/**/*{js,jsx,ts,tsx}'
+	npm run lint
 
 lintfix:
 	eslint --max-warnings=0 'src/**/*{js,jsx,ts,tsx}' --fix

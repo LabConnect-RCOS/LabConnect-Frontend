@@ -79,6 +79,7 @@ const EditInformation = ({ className, id, name, department, researchCenter, desc
         <h3 className="text-lg">Role: {role}</h3>
         <h3 className="text-lg">Department: {department}</h3>
         <h3 className="text-lg">Research Center: {researchCenter}</h3>
+        <img src={image} alt={`${name}'s profile`} className="w-32 h-32 rounded-full mt-2" />
       </div>
       {forms}
 

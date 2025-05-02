@@ -1,8 +1,4 @@
 import React from "react";
-<<<<<<<< HEAD:src/shared/pages/EditProfile.jsx
-import ProfileAvatar from "../components/UIElements/ProfileAvatar.tsx";
-import EditInformation from "../components/Profile/EditInformation.jsx";
-========
 import ProfileAvatar from "../components/Profile/ProfileAvatar.tsx";
 import EditInformation from "../components/Profile/EditInformation.tsx";
 
@@ -16,7 +12,6 @@ interface EditProfileProps {
   role: string;
   image: string;
 }
->>>>>>>> main:src/shared/pages/EditProfile.tsx
 
 const EditProfile = ({
   id,

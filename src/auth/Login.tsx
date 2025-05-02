@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { useAuth } from "../context/AuthContext.tsx";
 
 export default function LoginRedirection() {
@@ -5,6 +6,6 @@ export default function LoginRedirection() {
     if (auth.isAuthenticated) {
         window.location.href = "/";
     }
-    window.location.href = `${process.env.REACT_APP_BACKEND_SERVER}/login`;
+    window.location.href = `${import.meta.env.VITE_BACKEND_SERVER}/login`;
     return null;
 };

@@ -23,7 +23,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/profile`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/profile`, {
         credentials: "include",
       }
       );
@@ -48,7 +48,7 @@ export default function ProfilePage() {
   // );
 
   return (
-    <section className="center container-xl">
+    <section className="pb-10 flex flex-col gap-4 container-xl">
       {profile === null && "Loading..."}
       {profile && typeof profile === "object" && <ProfileComponents profile={profile} id={profile.id} staff={false} />}
       {profile === false && "Profile not found"}

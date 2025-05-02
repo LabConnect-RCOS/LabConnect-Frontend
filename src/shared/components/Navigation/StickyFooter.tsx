@@ -33,7 +33,7 @@ export default function StickyFooter() {
           <span className="font-bold text-xl">LabConnect</span>
         </div>
         {/* Navigation Links (Center) */}
-        <div className="hidden md:flex flex-grow justify-center">
+        <div className="hidden md:flex grow justify-center">
           <nav className="flex space-x-12">
             {navLinks.map((link, index) => (
               <Link

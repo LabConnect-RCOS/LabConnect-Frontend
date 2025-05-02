@@ -19,7 +19,7 @@ export default function Departments() {
     const fetchDepartments = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_SERVER}/departments`, {
+          `${import.meta.env.VITE_BACKEND_SERVER}/departments`, {
           credentials: "include",
         }
         );
@@ -38,7 +38,7 @@ export default function Departments() {
   }, []);
 
   const departmentComponents = (
-    <section className="flex2 gap-3">
+    <section className="flex flex-col gap-3">
       <DepartmentItems items={Array.isArray(departments) ? departments : []} />
     </section>
   );

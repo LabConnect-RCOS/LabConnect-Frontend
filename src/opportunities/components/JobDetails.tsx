@@ -23,7 +23,7 @@ const JobDetails = ({
   recommended_experience,
 }: JobDetailsProps) => {
   return (
-    <article className="job-details-header">
+    <article className="w-full col-span-7 border-l border-r p-24 flex flex-col gap-5 shadow-sm">
       <JobHeader
         title={name}
         author={author}
@@ -32,18 +32,16 @@ const JobDetails = ({
       />
       <AboutSection aboutSection={aboutSection} />
       <JobDescription
-        description={`${
-          description ? description : "No description available."
-        }`}
+        description={`${description ? description : "No description available."
+          }`}
       />
 
       <JobDescription
         title="Recommended Experience"
-        description={`${
-          recommended_experience
+        description={`${recommended_experience
             ? recommended_experience
             : "No recommended experience available."
-        }`}
+          }`}
       />
     </article>
   );

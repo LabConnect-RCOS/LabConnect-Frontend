@@ -10,7 +10,7 @@ interface LargeImageCardProps {
 const LargeImageCard = ({ to, image, title }: LargeImageCardProps) => {
   return (
     <Link to={to} className="no-underline">
-      <div className="lg-img-card card card-compact hover:shadow-lg duration-175">
+      <div className="w-96 bg-base-100 transition card card-compact hover:shadow-lg duration-175">
         <figure>
           <img src={image} alt={title} />
         </figure>

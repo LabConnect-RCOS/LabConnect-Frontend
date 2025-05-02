@@ -10,8 +10,8 @@ interface JobHeaderProps {
 
 const JobHeader = ({ title, img, author, department }: JobHeaderProps) => {
   return (
-    <section className="job-header-header">
-      <h2 className="job-header-title">{title}</h2>
+    <section className="flex flex-col gap-3">
+      <h2 className="font-bold text-5xl">{title}</h2>
       <Avatar img={img} name={author} role={department} />
     </section>
   );

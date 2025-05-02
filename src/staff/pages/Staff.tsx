@@ -16,7 +16,7 @@ export default function StaffPage() {
   useEffect(() => {
     const fetchProfile = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/staff/${staffId}`, {
         credentials: "include",
       }
       );

@@ -46,7 +46,7 @@ export default function MainNavigation() {
               <span className="font-bold text-xl">LabConnect</span>
             </div>
             {/* Center Section: Navigation Links */}
-            <div className="hidden md:flex flex-grow justify-center">
+            <div className="hidden md:flex grow justify-center">
               <nav className="flex space-x-12">
                 {routes.map((item) => (
                   <NavLink

@@ -40,7 +40,7 @@ export default function CheckBox({
           <p className="text-red-500">{errorMessage}</p>
         )}
 
-        <div className="flex2">
+        <div className="flex flex-col">
           {options &&
             options.map((item) => {
               return (

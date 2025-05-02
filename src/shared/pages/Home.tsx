@@ -108,7 +108,7 @@ const Home = () => {
       <SEO title="LabConnect" description="LabConnect home page" />
 
       {/* Welcome Section */}
-      <section className="home-general text-center w-full relative">
+      <section className="text-center font-sans text-center w-full relative">
         {/* Inbox label + button locked top‑right */}
         <div
           ref={inboxRef}
@@ -146,7 +146,7 @@ const Home = () => {
           )}
         </div>
 
-        <div className="img-center pt-4">
+        <div className="flex justify-center items-center pt-4">
           <img
             src={isDarkMode ? darkLogo : darkLogo}
             alt="LabConnect"
@@ -168,7 +168,7 @@ const Home = () => {
           If you are a student, go to the{" "}
           <Link
             to="/opportunities"
-            className="blue-link hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Opportunities</b>
           </Link>{" "}
@@ -177,21 +177,21 @@ const Home = () => {
           If you are a professor or staff member,{" "}
           <Link
             to="/signin"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Sign In</b>
           </Link>{" "}
           and then go to{" "}
           <Link
             to="/create"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Create</b>
           </Link>{" "}
           to start posting opportunities or{" "}
           <Link
             to="/profile"
-            className="blue-link text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Profile</b>
           </Link>{" "}

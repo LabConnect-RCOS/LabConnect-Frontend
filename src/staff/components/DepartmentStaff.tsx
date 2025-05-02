@@ -3,12 +3,12 @@ import AvatarCard from "../../shared/components/UIElements/AvatarCard.tsx";
 import { Link } from "react-router-dom";
 
 interface DepartmentStaffProps {
-  staff: {id: string, name: string, image: string}[];
+  staff: { id: string, name: string, image: string }[];
 }
 
 const DepartmentStaff = ({ staff }: DepartmentStaffProps) => {
   return (
-    <div className="staff-body" style={{ rowGap: "1.5rem" }}>
+    <div className="px-2 grid grid-cols-4" style={{ rowGap: "1.5rem" }}>
       {staff.map((staff_member) => {
         return (
           <Link

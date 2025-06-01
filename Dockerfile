@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 # Final stage: nginx serving dist/
-FROM nginx:stable-alpine as runner
+FROM nginx:stable-alpine AS runner
 
 # Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*

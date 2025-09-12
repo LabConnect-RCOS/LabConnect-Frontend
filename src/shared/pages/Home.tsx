@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaEnvelope } from "react-icons/fa";
-import darkLogo from "../../images/LabConnect_Logo2-removebg-preview.png";
+import logo from "../../images/LabConnect_Logo2-removebg-preview.png";
 import SEO from "../components/SEO.tsx";
 
 const Home = () => {
@@ -20,11 +20,6 @@ const Home = () => {
   const [showReturnToTop, setShowReturnToTop] = useState(false);
   const [buttonBottom, setButtonBottom] = useState(5);
 
-  // Local dark mode state; initialize from the <html> element
-  const [isDarkMode, setIsDarkMode] = useState(
-    document.documentElement.classList.contains("dark")
-  );
-
   // Inbox popup state & ref
   const [showInbox, setShowInbox] = useState(false);
   const inboxRef = useRef<HTMLDivElement>(null);
@@ -39,15 +34,7 @@ const Home = () => {
   // Preload the dark logo to ensure it's cached.
   useEffect(() => {
     const preloadImg = new Image();
-    preloadImg.src = darkLogo;
-  }, []);
-
-  // Poll for dark‑mode changes
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setIsDarkMode(document.documentElement.classList.contains("dark"));
-    }, 50);
-    return () => clearInterval(intervalId);
+    preloadImg.src = logo;
   }, []);
 
   // Scroll event for Return to Top button
@@ -148,7 +135,7 @@ const Home = () => {
 
         <div className="flex justify-center items-center pt-4">
           <img
-            src={isDarkMode ? darkLogo : darkLogo}
+            src={logo}
             alt="LabConnect"
             height="289"
             style={{ transition: "none" }}

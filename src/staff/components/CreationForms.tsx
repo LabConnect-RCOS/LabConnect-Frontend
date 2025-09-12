@@ -273,16 +273,19 @@ export default function CreationForms({ edit }: CreationFormsProps) {
 
       {/* Class Year and Description aligned horizontally */}
       <div className="flex gap-5">
-        <CheckBox
-          label="Eligible Class Years"
-          options={years.map(String)}
-          errors={errors}
-          errorMessage={"At least one year must be selected"}
-          name={"years"}
-          formHook={{ ...register("years", { required: true }) }}
-          type="checkbox"
-        />
+        <div className="w-1/3">
+          <CheckBox
+            label="Eligible Class Years"
+            options={years.map(String)}
+            errors={errors}
+            errorMessage={"At least one year must be selected"}
+            name={"years"}
+            formHook={{ ...register("years", { required: true }) }}
+            type="checkbox"
+          />
+        </div>
 
+        <div className="w-1/3">
         <Input
           errors={errors}
           label="Description (min. 10 characters)"
@@ -298,25 +301,28 @@ export default function CreationForms({ edit }: CreationFormsProps) {
           options={[]}
           placeHolder="Enter description"
         />
+        </div>
 
-        <Input
-          errors={errors}
-          label="Recommended Experience"
-          name={"recommended_experience"}
-          errorMessage=""
-          formHook={{
-            ...register("recommended_experience", {
-            }),
-          }}
-          type="textarea"
-          options={[]}
-          placeHolder="Enter recommended experience"
-        />
+        <div className="w-1/3">
+          <Input
+            errors={errors}
+            label="Recommended Experience"
+            name={"recommended_experience"}
+            errorMessage=""
+            formHook={{
+              ...register("recommended_experience", {
+              }),
+            }}
+            type="textarea"
+            options={[]}
+            placeHolder="Enter recommended experience"
+          />
+        </div>
       </div>
 
       {/* Submit button */}
-      <section className="pt-3 pb-5">
-        <input type="submit" className="btn btn-primary bg-blue-700 w-full" />
+      <section className="flex justify-center items-center pt-3 pb-5">
+        <input type="submit" className="btn btn-primary rounded-2xl bg-blue-700 w-3/5 text-gray-100 "/>
       </section>
     </form>
   ) : loading === "no response" ? (

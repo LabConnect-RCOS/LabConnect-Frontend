@@ -21,6 +21,12 @@
 
     And open the link in the terminal to check if everything is working fine
 
+4. Create your own branch
+    Run:
+    git branch <YourName>-frontend
+
+    You may need to sign in to github on vs code to do this, lmk if you do and I can help
+
 
 
 Lmk if anything in here needs revision in class

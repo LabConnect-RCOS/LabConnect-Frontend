@@ -54,6 +54,9 @@ posted by professors, graduate students, or lab staff.</p>
 [![Node.js][Node.js]][Node.js-url]
 [![Tailwind CSS][TailwindCSS]][TailwindCSS-url]
 
+### Current Frontend UI
+<img src="src/images/website_image2.png" alt="Website Image 1" width="360" align="top">
+<img src="src/images/website_image1.png" alt="Website Image 2" width="360" align="top">
 
 <!-- Getting Started -->
 ## Prerequisites
@@ -93,7 +96,11 @@ posted by professors, graduate students, or lab staff.</p>
     ```
 
 ## Deployment
-Create PRs to the main branch. Upon merging, a build test will make sure your code is running without errors and safe to merge to main.
+Create PRs to the main branch from your working branch. Make sure your new code is tested and bug free. Upon creating a merge request, a build test will make sure your code is running without errors and safe to merge to main.
+
+## Contact Us
+[![Discord](https://img.shields.io/badge/Discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/tsaxCKjYHT)
+[![Jira](https://img.shields.io/badge/Jira-0052CC.svg?style=for-the-badge&logo=jira&logoColor=white)](https://rcoslabconnect.atlassian.net/jira/software/projects/CCS/list)
 
 ## Project Contributors
 
@@ -131,9 +138,6 @@ Running list of contributors to the LabConnect project:
 
 ### Special Thanks
 We extend our special thanks support and opportunity provided by the RCOS community.
-
-### Contact Us
-Join our Discord for any questions or concerns [here](https://discord.gg/tsaxCKjYHT)
 
 ## License
 

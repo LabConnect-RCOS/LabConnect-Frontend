@@ -95,7 +95,7 @@ const Home = () => {
       <SEO title="LabConnect" description="LabConnect home page" />
 
       {/* Welcome Section */}
-      <section className="text-center font-sans text-center w-full relative">
+      <section className="text-center font-sans w-full relative">
         {/* Inbox label + button locked top‑right */}
         <div
           ref={inboxRef}
@@ -164,21 +164,21 @@ const Home = () => {
           If you are a professor or staff member,{" "}
           <Link
             to="/signin"
-            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Sign In</b>
           </Link>{" "}
           and then go to{" "}
           <Link
             to="/create"
-            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Create</b>
           </Link>{" "}
           to start posting opportunities or{" "}
           <Link
             to="/profile"
-            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Profile</b>
           </Link>{" "}

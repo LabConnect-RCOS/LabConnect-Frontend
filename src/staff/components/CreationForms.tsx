@@ -142,7 +142,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
     >
       {/* Group 1: Horizontal layout for Title, Location, Deadline */}
       <section className="flex flex-row">
-        <div className="w-1/3 pl-3">
+        <div className= "grid grid-cols-3 gap-6 p-6 bg-white rounded-xl shadow-md"></form>
           <Input
             label="Title (min. 5 characters)"
             name={"title"}
@@ -161,7 +161,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
           />
         </div>
 
-        <div className="w-1/3 pr-3 pl-3">
+        <div className="grid grid-cols-3 gap-6 p-6 bg-white rounded-xl shadow-md">
           <Input
             errors={errors}
             label="Location"
@@ -178,7 +178,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
           />
         </div>
 
-        <div className="w-1/3 pr-3">
+        <div className="grid grid-cols-3 gap-6 p-6 bg-white rounded-xl shadow-md">
           <Input
             errors={errors}
             label="Deadline"
@@ -194,8 +194,8 @@ export default function CreationForms({ edit }: CreationFormsProps) {
 
 
       {/* Compensation Type Section with Rectangular Box */}
-      <section className="flex flex-row">
-        <div className="w-1/3 pl-3">
+      <section className="grid grid-cols-3 gap-6 p-6 bg-white rounded-xl shadow-md">
+        <div className="grid grid-cols-3 gap-6 p-6 bg-white rounded-xl shadow-md">
           <label className="label-text font-medium">Compensation Type</label>
           <div className="flex items-center pt-5 pb-1">
             <input
@@ -231,7 +231,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
 
         {/* Conditionally Render Pay Input or Credit Checkboxes */}
         {compensationType === "For Pay" || compensationType === "Any" ? (
-          <div className="w-1/3 pr-3 pl-3">
+          <div className="grid grid-cols-3 gap-6 p-6 bg-white rounded-xl shadow-md">
             <div className="w-4/5">
               <Input
                 errors={errors}

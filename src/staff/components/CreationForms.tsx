@@ -141,8 +141,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       className="flex flex-col gap-5" // Form container for vertical layout
     >
       {/* Group 1: Horizontal layout for Title, Location, Deadline */}
-      <section className="flex flex-row">
-        <div className= "grid grid-cols-3 gap-6 p-6 bg-white rounded-xl shadow-md"></form>
+      <section className="grid grid-cols-3 gap-6 bg-white rounded-xl shadow-md p-6">
           <Input
             label="Title (min. 5 characters)"
             name={"title"}
@@ -190,7 +189,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
             options={[]}
           />
         </div>
-      </section>
+      </section> 
 
 
       {/* Compensation Type Section with Rectangular Box */}
@@ -321,13 +320,12 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       </div>
 
       {/* Submit button */}
-      <section className="flex justify-center items-center pt-3 pb-5">
-        <input type="submit" className="btn btn-primary rounded-2xl bg-blue-700 w-3/5 text-gray-100 "/>
-      </section>
-    </form>
-  ) : loading === "no response" ? (
-    <h1>There was no response</h1>
-  ) : (
-    <h1>Loading...</h1>
-  );
+    <section className="flex justify-center py-6">
+  <button
+    type="submit"
+    className="bg-blue-600 text-white px-12 py-3 rounded-2xl shadow-md hover:bg-blue-700 transition"
+  >
+    Submit
+  </button>
+</section>
 };

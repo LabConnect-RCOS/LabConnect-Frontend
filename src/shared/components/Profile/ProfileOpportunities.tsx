@@ -44,7 +44,13 @@ export default function ProfileOpportunities({ id, staff }: { id: string, staff:
   return (
     <div>
       <h1>Posted Opportunties</h1>
-      {opportunities !== null ? opportunityList : "Loading..."}
+       {opportunities !== null ? (
+        opportunityList
+      ) : (
+        <div className="flex justify-center items-center py-6">
+          <div className="w-8 h-8 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin"></div>
+        </div>
+      )}
       {opportunities === "no response" && "No Opportunities Found"}
     </div>
   );

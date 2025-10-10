@@ -270,54 +270,45 @@ export default function CreationForms({ edit }: CreationFormsProps) {
         ) : null}
       </section>
 
-      {/* Class Year and Description aligned horizontally */}
-      <div className="flex gap-5">
-        <div className="w-1/3">
-          <CheckBox
-            label="Eligible Class Years"
-            options={years.map(String)}
-            errors={errors}
-            errorMessage={"At least one year must be selected"}
-            name={"years"}
-            formHook={{ ...register("years", { required: true }) }}
-            type="checkbox"
-          />
-        </div>
+{/* Class Year, Description, and Recommended Experience */}
+<section className="grid grid-cols-3 gap-6 bg-white rounded-xl shadow-md p-6">
+  {/* Eligible Class Years */}
+  <div>
+    <CheckBox
+      label="Eligible Class Years"
+      options={years.map(String)}
+      errors={errors}
+      errorMessage={"At least one year must be selected"}
+      name={"years"}
+      formHook={{ ...register("years", { required: true }) }}
+      type="checkbox"
+    />
+  </div>
 
-        <div className="w-1/3">
-        <Input
-          errors={errors}
-          label="Description (min. 10 characters)"
-          name={"description"}
-          errorMessage="Description must be at least 10 characters"
-          formHook={{
-            ...register("description", {
-              required: true,
-              minLength: 10,
-            }),
-          }}
-          type="textarea"
-          options={[]}
-          placeHolder="Enter description"
-        />
-        </div>
+  {/* Description */}
+  <div className="flex flex-col">
+    <label className="font-medium mb-1">Description (min. 10 characters)</label>
+    <textarea
+      {...register("description", { required: true, minLength: 10 })}
+      placeholder="Enter description"
+      className="border rounded-xl p-3 h-40 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+    {errors.description && (
+      <p className="text-red-500 text-sm mt-1">Description must be at least 10 characters</p>
+    )}
+  </div>
 
-        <div className="w-1/3">
-          <Input
-            errors={errors}
-            label="Recommended Experience"
-            name={"recommended_experience"}
-            errorMessage=""
-            formHook={{
-              ...register("recommended_experience", {
-              }),
-            }}
-            type="textarea"
-            options={[]}
-            placeHolder="Enter recommended experience"
-          />
-        </div>
-      </div>
+  {/* Recommended Experience */}
+  <div className="flex flex-col">
+    <label className="font-medium mb-1">Recommended Experience</label>
+    <textarea
+      {...register("recommended_experience")}
+      placeholder="Enter recommended experience"
+      className="border rounded-xl p-3 h-40 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+</section>
+
 
       {/* Submit button */}
     <section className="flex justify-center py-6">

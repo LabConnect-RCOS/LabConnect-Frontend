@@ -3,7 +3,7 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext.tsx";
-import logo from "../../../images/LabConnect_Logo-removebg-preview.png"; // Adjust path if needed
+import logo from "../../../images/simple_logo-transparent.png"; // Adjust path if needed
 
 export default function MainNavigation() {
   const { auth } = useAuth();
@@ -40,7 +40,7 @@ export default function MainNavigation() {
                 <img
                   src={logo}
                   alt="LabConnect Logo"
-                  className="h-16 w-auto filter brightness-0 invert"
+                  className="pr-3 pl-5 h-16 w-auto filter brightness-0 invert"
                 />
               </Link>
               <span className="font-bold text-xl">LabConnect</span>
@@ -53,8 +53,8 @@ export default function MainNavigation() {
                     key={item.name}
                     to={item.href}
                     className={({ isActive }) =>
-                      `text-2xl font-bold hover:underline ${
-                        isActive ? "underline" : ""
+                      `text-2xl font-bold transition duration-175 hover:scale-115 ${
+                        isActive ? "underline scale-115" : ""
                       }`
                     }
                   >

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext.tsx";
-import logo from "../../../images/LabConnect_Logo-removebg-preview.png";
+import logo from "../../../images/simple_logo-transparent.png";
 
 export default function StickyFooter() {
   const { auth } = useAuth();
@@ -27,7 +27,7 @@ export default function StickyFooter() {
             <img
               src={logo}
               alt="LabConnect Logo"
-              className="h-16 w-auto mr-2 filter brightness-0 invert"
+              className="pr-3 pl-5 h-16 w-auto mr-2 filter brightness-0 invert"
             />
           </Link>
           <span className="font-bold text-xl">LabConnect</span>
@@ -39,7 +39,7 @@ export default function StickyFooter() {
               <Link
                 key={index}
                 to={link.to}
-                className="hover:underline text-2xl font-bold"
+                className="transition duration-175 hover:scale-115 text-2xl font-bold"
               >
                 {link.label}
               </Link>

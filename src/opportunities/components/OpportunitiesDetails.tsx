@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { OpportunityList } from "../../types/opportunities.ts";
 
 interface OpportunitiesListProps {
@@ -39,9 +40,11 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
                     {opportunity.semester} {opportunity.year}
                   </td>
                   <td className="p-3 border">
-                    <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-2">
-                      View
-                    </button>
+                    <Link to={`/post/${opportunity.id}`}>
+                      <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-2">
+                        View
+                      </button>
+                    </Link>
                   </td>
                   <td className="p-3 border">
                     <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">

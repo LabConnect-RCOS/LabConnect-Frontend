@@ -25,7 +25,6 @@ const JobDetails = ({
         title={name}
         author={author}
         img={authorProfile}
-        department={department}
       />
       <JobDescription
         description={`${description ? description : "No description available."

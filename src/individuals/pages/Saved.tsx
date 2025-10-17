@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.tsx";
 import { Opportunity } from "../../types/opportunity.ts";
+import { getCookie } from "../../utils.ts";
 
 export default function SavedPage() {
     const { auth } = useAuth();
@@ -11,6 +12,8 @@ export default function SavedPage() {
     }
 
     const [saved, setSaved] = useState<null | Opportunity[]>(null);
+
+    const csrfToken = getCookie('csrf_access_token');
 
     const fetchSaved = async () => {
         try {
@@ -34,45 +37,6 @@ export default function SavedPage() {
 
     useEffect(() => {
         fetchSaved();
-        setSaved([{
-            id: "1",
-            name: "Test Opportunity",
-            description: "This is a test opportunity",
-            recommended_experience: "None",
-            pay: 0,
-            credits: "0",
-            semester: "Fall",
-            year: 2021,
-            application_due: "2025-03-14",
-            active: true,
-            location: "Remote",
-        },
-        {
-            id: "2",
-            name: "Test Opportunity2",
-            description: "This is a test opportunity",
-            recommended_experience: "None",
-            pay: 0,
-            credits: "0",
-            semester: "Fall",
-            year: 2021,
-            application_due: "2025-03-31",
-            active: true,
-            location: "Remote",
-        },
-        {
-            id: "3",
-            name: "Test Opportunity3",
-            description: "This is a test opportunity",
-            recommended_experience: "None",
-            pay: 0,
-            credits: "0",
-            semester: "Fall",
-            year: 2021,
-            application_due: "2025-02-14",
-            active: true,
-            location: "Remote",
-        }]);
     }, []);
 
     return (
@@ -126,17 +90,25 @@ export default function SavedPage() {
                                 <button className="p-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={async () => {
                                         try {
+                                            const headers: Record<string, string> = {
+                                                "Content-Type": "application/json", // Good practice for cross-origin requests
+                                            };
+                                            if (csrfToken) {
+                                                headers["X-CSRF-TOKEN"] = csrfToken;          // Include the token only when defined
+                                            }
+
                                             const response = await fetch(
-                                                `${process.env.REACT_APP_BACKEND_SERVER}/deleteSaveOpportunity/${opportunity.id}`, {
+                                                `${process.env.REACT_APP_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
                                                 method: "DELETE",
                                                 credentials: "include",
+                                                headers,
                                             });
 
                                             if (!response.ok) {
                                                 throw new Error("Failed to unsave");
                                             }
 
-                                            fetchSaved();
+                                            setSaved(prev => prev ? prev.filter(o => o.id !== opportunity.id) : prev);
                                         } catch {
                                             console.log("Error unsaving opportunity");
                                         }

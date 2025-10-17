@@ -32,6 +32,10 @@ const IndividualPost = () => {
     findDetails();
   });
 
+
+
+  
+
   return (
     <div>
       {details === "Searching" ? (

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import ProfileComponents from "../components/Profile/ProfileComponents.tsx";
+import ProfileComponents from "../../shared/components/Profile/ProfileComponents.tsx";
 import { useAuth } from "../../context/AuthContext.tsx";
 import { Profile } from "../../types/profile.ts";
 // import EditProfile from "./EditProfile";

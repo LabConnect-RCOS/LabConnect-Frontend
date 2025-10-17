@@ -5,7 +5,7 @@ import Home from "./shared/pages/Home.tsx";
 import PageNotFound from "./shared/pages/404.tsx";
 import MainNavigation from "./shared/components/Navigation/MainNavigation.tsx";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
-import ProfilePage from "./shared/pages/Profile.tsx";
+import ProfilePage from "./individuals/pages/Profile.tsx";
 import Departments from "./staff/pages/Departments.tsx";
 import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";
@@ -15,6 +15,7 @@ import LogoutRedirection from "./auth/Logout.tsx";
 import Token from "./auth/Token.tsx";
 import Opportunities from "./opportunities/pages/Opportunities.tsx";
 import IndividualPost from "./opportunities/pages/IndividualPost.tsx";
+import SavedPage from "./individuals/pages/Saved.tsx";
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './context/AuthContext.tsx';
 
@@ -35,7 +36,11 @@ function App() {
               <Route path="/logout" element={<LogoutRedirection />} />
               <Route path="/opportunities" element={<Opportunities />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/staff/department/:department" element={<Department />} />
+              <Route path="/saved" element={<SavedPage />} />
+              <Route
+                path="/staff/department/:department"
+                element={<Department />}
+              />
               <Route path="/staff" element={<Departments />} />
               <Route path="/staff/:staffId" element={<StaffPage />} />
               <Route path="/create" element={<CreatePost edit={false} />} />

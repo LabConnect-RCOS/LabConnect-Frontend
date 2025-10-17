@@ -47,12 +47,12 @@ function App() {
               <Route path="/edit/:postID" element={<CreatePost edit={true} />} />
               <Route path="/post/:postID" element={<IndividualPost />} />
               <Route path="/*" element={<PageNotFound />} />
-            </Routes >
-          </main >
+            </Routes>
+          </main>
           <StickyFooter />
-        </div >
-      </HelmetProvider >
-    </AuthProvider >
+        </div>
+      </HelmetProvider>
+    </AuthProvider>
   );
 }
 

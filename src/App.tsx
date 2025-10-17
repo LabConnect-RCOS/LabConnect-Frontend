@@ -5,7 +5,7 @@ import Home from "./shared/pages/Home.tsx";
 import PageNotFound from "./shared/pages/404.tsx";
 import MainNavigation from "./shared/components/Navigation/MainNavigation.tsx";
 import StickyFooter from "./shared/components/Navigation/StickyFooter.tsx";
-import ProfilePage from "./shared/pages/Profile.tsx";
+import ProfilePage from "./individuals/pages/Profile.tsx";
 import Departments from "./staff/pages/Departments.tsx";
 import StaffPage from "./staff/pages/Staff.tsx";
 import Department from "./staff/pages/Department.tsx";

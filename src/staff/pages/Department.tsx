@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import Breadcrumb from "../../shared/components/UIElements/Breadcrumb.tsx";
 import DepartmentHeading from "../components/DepartmentHeading.tsx";
 import DepartmentStaff from "../components/DepartmentStaff.tsx";
@@ -19,7 +19,7 @@ export default function Department() {
   useEffect(() => {
     const fetchDepartment = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/departments/${department}`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/departments/${department}`, {
         credentials: "include",
       }
       );
@@ -59,7 +59,7 @@ export default function Department() {
   );
 
   return (
-    <section className="center container-xl">
+    <section className="pb-10 flex flex-col gap-4 container-xl">
       <SEO title={`${department} - Labconnect`} description={`${department} page on labconnect`} />
       <Breadcrumb
         tree={[

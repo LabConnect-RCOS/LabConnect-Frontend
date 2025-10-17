@@ -8,7 +8,7 @@ export default function ProfileOpportunities({ id, staff }: { id: string, staff:
   useEffect(() => {
     async function setData() {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/${staff ? "staff" : "profile"}/opportunities/${id}`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/${staff ? "staff" : "profile"}/opportunities/${id}`, {
         credentials: "include",
       }
       );

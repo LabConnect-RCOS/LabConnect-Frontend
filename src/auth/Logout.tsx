@@ -12,7 +12,7 @@ export default function LogoutRedirection() {
         async function logoutUser() {
             try {
                 const response = await fetch(
-                    `${process.env.REACT_APP_BACKEND_SERVER}/logout`,
+                    `${import.meta.env.VITE_BACKEND_SERVER}/logout`,
                     {
                         credentials: "include",
                     }

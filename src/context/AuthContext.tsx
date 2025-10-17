@@ -16,20 +16,19 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [auth, setAuth] = useState<{ isAuthenticated: boolean; token: string | null }>({
+    const [auth, setAuth] = useState<{ isAuthenticated: boolean }>({
         isAuthenticated: false,
-        token: null,
     });
 
     const checkAuth = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/authcheck`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/authcheck`, {
                 credentials: "include",
             });
             if (response.ok) {
                 setAuth({ isAuthenticated: true });
             } else {
-                const refreshResponse = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/token/refresh`, {
+                const refreshResponse = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/token/refresh`, {
                     credentials: "include",
                 });
                 if (refreshResponse.ok) {

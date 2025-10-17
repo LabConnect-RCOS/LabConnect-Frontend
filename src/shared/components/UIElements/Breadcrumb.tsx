@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 
-const Breadcrumb = ({ tree }) => {
+interface BreadcrumbProps {
+  tree: {link: string, title: string}[];
+}
+
+interface Shape {
+  link: string;
+  title: string;
+}
+
+const Breadcrumb = ({ tree }: BreadcrumbProps) => {
   return (
     <div className="text-sm breadcrumbs">
       <ul>
-        {tree.map((item) => {
+        {tree.map((item: Shape) => {
           return (
             <li key={item.link}>
               <Link to={item.link}>{item.title}</Link>
@@ -16,14 +24,6 @@ const Breadcrumb = ({ tree }) => {
       </ul>
     </div>
   );
-};
-Breadcrumb.propTypes = {
-  tree: PropTypes.arrayOf(
-    PropTypes.shape({
-      link: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default Breadcrumb;

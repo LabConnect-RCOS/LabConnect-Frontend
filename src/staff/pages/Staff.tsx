@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProfileComponents from "../../shared/components/Profile/ProfileComponents.tsx";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.tsx";
 
 export default function StaffPage() {
@@ -16,7 +16,7 @@ export default function StaffPage() {
   useEffect(() => {
     const fetchProfile = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/staff/${staffId}`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/staff/${staffId}`, {
         credentials: "include",
       }
       );

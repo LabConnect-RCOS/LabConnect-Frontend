@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import CheckBox from "./Checkbox.tsx";
-import Input from "./Input";
+import CheckBox from "../../shared/components/Checkbox.tsx";
+import Input from "./Input.jsx";
 import { useParams } from "react-router";
 import { Locations } from "../../shared/data/locations.ts";
 
@@ -18,7 +18,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   const [years, setYears] = useState<string[]>([]);
 
   async function fetchYears() {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_SERVER}/years`);
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}/years`);
 
     if (response.ok) {
       const data = await response.json();
@@ -65,7 +65,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   function submitHandler(data: FormData) {
     console.log({ ...data });
     if (edit) {
-      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+      fetch(`${import.meta.env.VITE_BACKEND_SERVER}/editOpportunity/${postID}`, {
         method: "PUT",
         credentials: "include",
         body: JSON.stringify({ ...data }),
@@ -78,7 +78,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
         }
       });
     } else {
-      fetch(`${process.env.REACT_APP_BACKEND_SERVER}/createOpportunity`, {
+      fetch(`${import.meta.env.VITE_BACKEND_SERVER}/createOpportunity`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({ ...data }),
@@ -99,7 +99,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
   useEffect(() => {
     async function fetchEditData() {
       const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_SERVER}/editOpportunity/${postID}`, {
+        `${import.meta.env.VITE_BACKEND_SERVER}/editOpportunity/${postID}`, {
         credentials: "include",
       }
       );
@@ -138,7 +138,7 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       onSubmit={handleSubmit((data) => {
         submitHandler(data);
       })}
-      className="form-container" // Form container for vertical layout
+      className="flex flex-col gap-5" // Form container for vertical layout
     >
       {/* Group 1: Horizontal layout for Title, Location, Deadline */}
       <section className="flex flex-row">
@@ -272,17 +272,20 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       </section>
 
       {/* Class Year and Description aligned horizontally */}
-      <div className="horizontal-form">
-        <CheckBox
-          label="Eligible Class Years"
-          options={years.map(String)}
-          errors={errors}
-          errorMessage={"At least one year must be selected"}
-          name={"years"}
-          formHook={{ ...register("years", { required: true }) }}
-          type="checkbox"
-        />
+      <div className="flex gap-5">
+        <div className="w-1/3">
+          <CheckBox
+            label="Eligible Class Years"
+            options={years.map(String)}
+            errors={errors}
+            errorMessage={"At least one year must be selected"}
+            name={"years"}
+            formHook={{ ...register("years", { required: true }) }}
+            type="checkbox"
+          />
+        </div>
 
+        <div className="w-1/3">
         <Input
           errors={errors}
           label="Description (min. 10 characters)"
@@ -298,25 +301,28 @@ export default function CreationForms({ edit }: CreationFormsProps) {
           options={[]}
           placeHolder="Enter description"
         />
+        </div>
 
-        <Input
-          errors={errors}
-          label="Recommended Experience"
-          name={"recommended_experience"}
-          errorMessage=""
-          formHook={{
-            ...register("recommended_experience", {
-            }),
-          }}
-          type="textarea"
-          options={[]}
-          placeHolder="Enter recommended experience"
-        />
+        <div className="w-1/3">
+          <Input
+            errors={errors}
+            label="Recommended Experience"
+            name={"recommended_experience"}
+            errorMessage=""
+            formHook={{
+              ...register("recommended_experience", {
+              }),
+            }}
+            type="textarea"
+            options={[]}
+            placeHolder="Enter recommended experience"
+          />
+        </div>
       </div>
 
       {/* Submit button */}
-      <section className="pt-3 pb-5">
-        <input type="submit" className="btn btn-primary bg-blue-700 w-full" />
+      <section className="flex justify-center items-center pt-3 pb-5">
+        <input type="submit" className="btn btn-primary rounded-2xl bg-blue-700 w-3/5 text-gray-100 "/>
       </section>
     </form>
   ) : loading === "no response" ? (

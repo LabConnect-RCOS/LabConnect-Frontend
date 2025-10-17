@@ -14,7 +14,7 @@ export default function Token() {
 
     useEffect(() => {
         async function fetchToken(code: string) {
-            fetch(`${process.env.REACT_APP_BACKEND_SERVER}/token`, {
+            fetch(`${import.meta.env.VITE_BACKEND_SERVER}/token`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

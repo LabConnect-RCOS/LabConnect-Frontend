@@ -1,0 +1,32 @@
+1. Install nvm and node js in Ubuntu
+
+    Run:
+    sudo apt install curl
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+    Close and reopen terminal, then run:
+    nvm install node
+
+
+2. Clone repo onto PC and open in your text editor (in VS Code there is a Git Clone option on the welcome page)
+
+3. Install node_modules and test run the frontend
+
+    Run:
+    npm install
+
+    Then run:
+    npm run build
+    npm run preview
+
+    And open the link in the terminal to check if everything is working fine
+
+4. Create your own branch
+    Run:
+    git branch <YourName>-frontend
+
+    You may need to sign in to github on vs code to do this, lmk if you do and I can help
+
+
+
+Lmk if anything in here needs revision in class

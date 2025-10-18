@@ -18,7 +18,7 @@ export default function SavedPage() {
     const fetchSaved = async () => {
         try {
             const response = await fetch(
-                `${process.env.REACT_APP_BACKEND_SERVER}/savedOpportunities`, {
+                `${import.meta.env.VITE_BACKEND_SERVER}/savedOpportunities`, {
                 credentials: "include",
             }
             );
@@ -98,7 +98,7 @@ export default function SavedPage() {
                                             }
 
                                             const response = await fetch(
-                                                `${process.env.REACT_APP_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
+                                                `${import.meta.env.VITE_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
                                                 method: "DELETE",
                                                 credentials: "include",
                                                 headers,

@@ -8,26 +8,6 @@
 [![Stargazers][stars-shield]][stars-url]
 
 
-<!-- TABLE OF CONTENTS -->
-<details>
-    <summary> Table of Contents </summary>
-    <ol>
-        <li>
-            <a href="#about"> About the project</a>
-            <ul>
-                <li><a href="#built-with">Built With</a>
-            </ul>
-        </li>
-        <li>
-            <a href="#prerequisites"> Prerequisites</a>
-        </li>
-        <li>
-            <a href="#installation"> Installation</a>
-        </li>
-    </ol>
-</details>
-
-
 <!-- ABOUT THE PROJECT -->
 ## About
 <div align="center">

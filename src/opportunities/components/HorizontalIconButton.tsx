@@ -1,8 +1,8 @@
 import React from "react";
 
 interface HorizontalIconButtonProps {
-  children?: React.ReactNode;
-  onClick: (arg?: React.ReactNode) => void;
+  children: string;
+  onClick: (arg: string) => void;
   icon: React.ReactNode;
   special: boolean;
 }

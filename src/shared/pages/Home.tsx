@@ -95,7 +95,7 @@ const Home = () => {
       <SEO title="LabConnect" description="LabConnect home page" />
 
       {/* Welcome Section */}
-      <section className="text-center font-sans text-center w-full relative">
+      <section className="text-center font-sans w-full relative">
         {/* Inbox label + button locked top‑right */}
         <div
           ref={inboxRef}
@@ -164,21 +164,21 @@ const Home = () => {
           If you are a professor or staff member,{" "}
           <Link
             to="/signin"
-            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Sign In</b>
           </Link>{" "}
           and then go to{" "}
           <Link
             to="/create"
-            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Create</b>
           </Link>{" "}
           to start posting opportunities or{" "}
           <Link
             to="/profile"
-            className="no-underline text-blue-500 text-blue-600 hover:text-blue-900 focus:text-blue-900"
+            className="no-underline text-blue-500 hover:text-blue-900 focus:text-blue-900"
           >
             <b>Profile</b>
           </Link>{" "}
@@ -202,10 +202,10 @@ const Home = () => {
         className="w-full flex justify-center py-10"
       >
         <div className="group rounded-lg p-8 w-11/12 md:w-3/4 lg:w-/6 bg-[#4682e3] dark:bg-blue-900 hover:bg-[rgba(70,130,227,0.9)] dark:hover:bg-blue-800 filter saturate-[1.2] shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-          <h2 className="text-2xl font-semibold text-center text-dark-800 dark:text-white">
+          <h2 className="text-2xl font-semibold text-center text-dark-800 text-white">
             About Us
           </h2>
-          <p className="mt-4 text-lg text-center text-dark-800 dark:text-white">
+          <p className="mt-4 text-lg text-center text-dark-800 text-white">
             LabConnect is a platform dedicated to bridging the gap between
             students and research opportunities. We aim to make it easier for
             students to find meaningful lab/research work while helping
@@ -214,7 +214,7 @@ const Home = () => {
             provide updates on our progress so keep an eye out for
             announcements!
           </p>
-          <p className="mt-4 text-lg text-center text-dark-800 dark:text-white">
+          <p className="mt-4 text-lg text-center text-dark-800 text-white">
             If you&apos;re interested in learning more about the team at RCOS or
             are thinking about joining LabConnect or any branch of RCOS, please
             check out the new website here to learn more about existing projects
@@ -243,61 +243,47 @@ const Home = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-10">
           {[
             {
-              name: "Rafael Cenzano",
-              major: "Computer Science",
-              gradYear: "2025",
-              role: "Backend Developer",
-              skill: "Flask",
-            },
-            {
               name: "Will Broadwell",
               major: "Computer Science",
               gradYear: "2026",
-              role: "Frontend Developer",
-              skill: "TailwindCSS",
+              role: "Project Lead",
             },
             {
-              name: "Sagar Sahu",
+              name: "Rafael Cenzano",
+              major: "Computer Science",
+              gradYear: "2025",
+              role: "Outside Collaborator",
+            },
+            {
+              name: "Jaswanth Duddu",
               major: "Computer Science",
               gradYear: "2026",
-              role: "Frontend Developer",
-              skill: "React.js",
+              role: "Backend Developer",
             },
             {
               name: "Sarah Wohlford",
               major: "Computer Science",
               gradYear: "2027",
               role: "Backend Developer",
-              skill: "PostgreSQL",
             },
             {
-              name: "Sidharth E",
+              name: "Pragathi Ashok",
               major: "Computer Science",
               gradYear: "2026",
-              role: "Team Member",
-              skill: "TBD",
+              role: "Full Stack Developer",
             },
             {
-              name: "Mohammed P",
+              name: "Aniket Singh",
               major: "Computer Science",
               gradYear: "2027",
-              role: "Team Member",
-              skill: "TBD",
+              role: "Backend Developer",
             },
             {
-              name: "Gowrisankar P",
+              name: "Doan Nguyen",
               major: "Computer Science",
               gradYear: "2027",
-              role: "Team Member",
-              skill: "TBD",
-            },
-            {
-              name: "Devan P",
-              major: "Computer Science",
-              gradYear: "2027",
-              role: "Team Member",
-              skill: "TBD",
-            },
+              role: "Frontend Developer",
+            }
           ].map((member, index) => (
             <div
               key={index}
@@ -311,9 +297,6 @@ const Home = () => {
               </p>
               <p className="text-sm text-blue-600 dark:text-white mt-2 font-medium">
                 {member.role}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-white mt-1">
-                Skill: {member.skill}
               </p>
             </div>
           ))}

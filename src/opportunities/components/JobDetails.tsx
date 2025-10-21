@@ -14,7 +14,6 @@ interface JobDetailsProps {
 const JobDetails = ({
   name,
   author,
-  department,
   description,
   authorProfile,
   recommended_experience,

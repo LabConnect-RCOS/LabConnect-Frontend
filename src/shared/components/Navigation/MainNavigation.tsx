@@ -21,12 +21,13 @@ export default function MainNavigation() {
   // Define navigation routes based on authentication.
   const routes = auth.isAuthenticated
     ? [
-        { name: "Opportunities", href: "/opportunities" },
-        { name: "Create", href: "/create" },
-        { name: "Staff", href: "/staff" },
-        { name: "Profile", href: "/profile" },
-        { name: "Sign Out", href: "/signout" }
-      ]
+      { name: "Opportunities", href: "/opportunities" },
+      { name: "Create", href: "/create" },
+      { name: "Staff", href: "/staff" },
+      { name: "Profile", href: "/profile" },
+      { name: "Saved", href: "/saved" },
+      { name: "Sign Out", href: "/signout" }
+    ]
     : [{ name: "Sign In", href: "/signin" }];
 
   return (
@@ -75,9 +76,8 @@ export default function MainNavigation() {
                   />
                   <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 rounded-full" />
                   <div
-                    className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${
-                      isDarkMode ? "translate-x-5" : ""
-                    }`}
+                    className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isDarkMode ? "translate-x-5" : ""
+                      }`}
                   ></div>
                 </div>
                 <span className="ml-3 text-white text-lg font-bold">
@@ -118,9 +118,8 @@ export default function MainNavigation() {
                 />
                 <div className="w-11 h-6 bg-gray-300 dark:bg-gray-600 rounded-full peer-focus:outline-none peer-checked:bg-blue-600 relative transition-all duration-300">
                   <div
-                    className={`absolute left-1 top-1 bg-white dark:bg-gray-300 w-4 h-4 rounded-full transition-transform duration-300 ${
-                      isDarkMode ? "translate-x-5" : ""
-                    }`}
+                    className={`absolute left-1 top-1 bg-white dark:bg-gray-300 w-4 h-4 rounded-full transition-transform duration-300 ${isDarkMode ? "translate-x-5" : ""
+                      }`}
                   ></div>
                 </div>
                 <span className="ml-3 text-gray-700 dark:text-gray-200 font-medium">

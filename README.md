@@ -8,33 +8,12 @@
 [![Stargazers][stars-shield]][stars-url]
 
 
-<!-- TABLE OF CONTENTS -->
-<details>
-    <summary> Table of Contents </summary>
-    <ol>
-        <li>
-            <a href="#about"> About the project</a>
-            <ul>
-                <li><a href="#built-with">Built With</a>
-            </ul>
-        </li>
-        <li>
-            <a href="#prerequisites"> Prerequisites</a>
-        </li>
-        <li>
-            <a href="#installation"> Installation</a>
-        </li>
-    </ol>
-</details>
-
-
 <!-- ABOUT THE PROJECT -->
 ## About
 <div align="center">
     <a href="https://github.com/LabConnect-RCOS/LabConnect-Backend">
-<!-- <img src="https://github.com/RafaelCenzano/LabConnect/blob/main/bargeLogo.png" alt="Barge Logo" width="360" height="216"> -->
-</a>
-<img src="src/images/LabConnect_Logo-removebg-preview.png" alt="LabConnect Logo" width="360">
+        <img src="src/images/LabConnect_Logo-removebg-preview.png" alt="LabConnect Logo" width="360">
+    </a>
 <br/><br/>
 
 <p align="center">A centralized website to connect RPI undergraduate students with research or lab positions<br>
@@ -88,7 +67,7 @@ posted by professors, graduate students, or lab staff.</p>
 |------------------------|---------------|---------------------------------------------------------------|
 | `VITE_BACKEND_SERVER` | None | URL to the backend server |
 
-* Set the varaible with:
+* Set the variable with:
     ```
     $ export VITE_BACKEND_SERVER="http://127.0.0.1:9000"
     ```
@@ -96,7 +75,7 @@ posted by professors, graduate students, or lab staff.</p>
 ## Testing
  * To run the frontend locally run the following:
     ```
-    $ npm run dev
+    $ make develop
     ```
     This command allows editing and autoreloading while making changes
     
@@ -107,10 +86,11 @@ posted by professors, graduate students, or lab staff.</p>
     ```
 
 ## Building
-  * To build the application use this command to build the static files and test the production version of deploy the files.
+  * To build the application use this command to build the static files and test the production version of the files.
     ```
     $ npm run build
     ```
+    This command allows editing and autoreloading while making changes
 
 ## Deployment
 Create PRs to the main branch from your working branch. Make sure your new code is tested and bug free. Upon creating a merge request, a build test will make sure your code is running without errors and safe to merge to main.
@@ -137,24 +117,19 @@ Running list of contributors to the LabConnect project:
 
 ### Past Rensselaer Center for Open Source Development Team
 
-- **Mohammed P** [Backend] (S'25)
-- **Sagar S** [Frontend] (S'25)
-- **Gowrisankar P** [Frontend] (S'25)
-- **Devan P** [Frontend] (S'25)
-- **Sidarth E** [Frontend] (F'24,S'25)
-- **Sarah W** [Backend] (S'24,F'24,S'25,U'25)
-- **Ramzey Y** [Backend] (S'24,F'24)
-- **Siddhi W** [Frontend / Backend] (F'23,S'24,F'24)
-- **Mrunal A** [Frontend / Backend] (F'23,S'24,F'24)
-- **Abid T** [Frontend / Backend] (F'23,S'24)
-- **Nelson** [Backend] (S'24)
-- **Duy L** [Database Systems] (F'23)
-- **Yash K** [Frontend] (F'23)
-- **Sam B** [Scraping / Integration] (F'23)
+## Deployment
+Create PRs to the main branch. Upon merging, a build test will make sure your code is running without errors and safe to merge to main. On a completed merge the action will build and push the new docker image.
 
+### Linting
 
-### Special Thanks
-We extend our special thanks support and opportunity provided by the RCOS community.
+Run the linter and fix any lint issues to maintiain code quality and standards
+```
+make lint
+```
+
+## Contact Us
+[![Discord](https://img.shields.io/badge/Discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/tsaxCKjYHT)
+[![Jira](https://img.shields.io/badge/Jira-0052CC.svg?style=for-the-badge&logo=jira&logoColor=white)](https://rcoslabconnect.atlassian.net/jira/software/projects/CCS/list)
 
 ## License
 

@@ -13,42 +13,57 @@ interface FiltersFieldProps {
   setPopUpMenu: () => void;
 }
 
-export default function FiltersField({ resetFilters, deleteFilter, filters, setPopUpMenu }: FiltersFieldProps) {
+export default function FiltersField({
+  resetFilters,
+  deleteFilter,
+  filters,
+  setPopUpMenu,
+}: FiltersFieldProps) {
   return (
-    <div>
-      <hr />
+    <div className="text-gray-800 dark:text-gray-200">
+      <hr className="border-gray-300 dark:border-gray-700" />
+
       <div className="px-3 max-h-20 flex">
         <div className="flex gap-2 w-full">
+          {/* Make sure SearchBar forwards className to the actual <input> */}
           <SearchBar />
 
-          <SmallTextButton className="" onClick={setPopUpMenu} special={true}>
+          <SmallTextButton
+
+            onClick={setPopUpMenu}
+            special={true}
+          >
             <PiSlidersHorizontal className="pr-1" />
             Change Filters
             <PiSlidersHorizontal className="pl-1" />
           </SmallTextButton>
 
-          {/* Fix rendering with new filters = [ [],[],[] ]*/}
+          {/* Filter “chips” */}
           <GroupedComponents gap={2}>
-            {filters.map((filter) => {
-              return (
-                <HorizontalIconButton
-                  onClick={deleteFilter}
-                  icon={<MdCancel />}
-                  key={filter}
-                  special={false}
-                >
-                  {filter}
-                </HorizontalIconButton>
-              )
-            })}
+            {filters.map((filter) => (
+              <HorizontalIconButton
+                key={filter}
+                onClick={deleteFilter}
+                icon={<MdCancel />}
+                special={false}
+                
+              >
+                {filter}
+              </HorizontalIconButton>
+            ))}
           </GroupedComponents>
         </div>
 
-        <SmallTextButton className="flex flex-right" onClick={resetFilters} special={true}>
+        <SmallTextButton
+          onClick={resetFilters}
+          special={true}
+        >
           Reset
         </SmallTextButton>
       </div>
-      <hr />
+
+      <hr className="border-gray-300 dark:border-gray-700" />
     </div>
   );
-};
+}
+

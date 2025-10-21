@@ -1,5 +1,4 @@
 import React from "react";
-import AboutSection from "./AboutSection";
 import JobHeader from "./JobHeader";
 import JobDescription from "./JobDescription";
 
@@ -9,17 +8,14 @@ interface JobDetailsProps {
   department: string;
   description: string;
   authorProfile: string;
-  aboutSection: AboutItem[];
   recommended_experience: string;
 }
 
 const JobDetails = ({
   name,
   author,
-  department,
   description,
   authorProfile,
-  aboutSection,
   recommended_experience,
 }: JobDetailsProps) => {
   return (
@@ -28,9 +24,7 @@ const JobDetails = ({
         title={name}
         author={author}
         img={authorProfile}
-        department={department}
       />
-      <AboutSection aboutSection={aboutSection} />
       <JobDescription
         description={`${description ? description : "No description available."
           }`}

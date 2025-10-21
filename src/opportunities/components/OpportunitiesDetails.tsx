@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { OpportunityList } from "../../types/opportunities.ts";
 
 interface OpportunitiesListProps {
@@ -52,14 +53,12 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
                   <td className="p-3 border border-gray-300 dark:border-gray-600">
                     {opportunity.semester} {opportunity.year}
                   </td>
-                  <td className="p-3 border border-gray-300 dark:border-gray-600">
-                    <button
-                      className="bg-blue-600 dark:bg-blue-700 text-white px-4 py-1 rounded
-                                 hover:bg-blue-700 dark:hover:bg-blue-800
-                                 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      View
-                    </button>
+                  <td className="p-3 border">
+                    <Link to={`/post/${opportunity.id}`}>
+                      <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-2">
+                        View
+                      </button>
+                    </Link>
                   </td>
                   <td className="p-3 border border-gray-300 dark:border-gray-600">
                     <button

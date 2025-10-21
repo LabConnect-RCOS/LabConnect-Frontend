@@ -20,7 +20,6 @@ const IndividualPost = () => {
     }
 
     const data = await response.json();
-    console.log(data);
     return data["data"];
   };
 
@@ -32,6 +31,10 @@ const IndividualPost = () => {
   useEffect(() => {
     findDetails();
   });
+
+
+
+  
 
   return (
     <div>

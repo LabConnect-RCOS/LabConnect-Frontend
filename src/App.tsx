@@ -25,7 +25,7 @@ function App() {
       <HelmetProvider>
         <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
           <MainNavigation />
-          <main className="p-8 grow bg-transparent">
+          <main className="p-10 grow bg-transparent">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/health" element={<p>App is Healthy</p>} />

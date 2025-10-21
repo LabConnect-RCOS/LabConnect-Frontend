@@ -29,6 +29,7 @@ export default function ProfileOpportunities({ id, staff }: { id: string, staff:
       {id &&
         Array.isArray(opportunities) &&
         opportunities.map((opportunity) => (
+          
           <LargeTextCard
             to={`/post/${opportunity.id}`}
             title={opportunity.title}
@@ -43,7 +44,7 @@ export default function ProfileOpportunities({ id, staff }: { id: string, staff:
 
   return (
     <div>
-      <h1>Posted Opportunties</h1>
+      <h1 className="pt-10 pb-2 text-xl">Posted Opportunities:</h1>
       {opportunities !== null ? opportunityList : "Loading..."}
       {opportunities === "no response" && "No Opportunities Found"}
     </div>

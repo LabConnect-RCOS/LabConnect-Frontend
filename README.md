@@ -28,6 +28,9 @@ posted by professors, graduate students, or lab staff.</p>
 [![Node.js][Node.js]][Node.js-url]
 [![Tailwind CSS][TailwindCSS]][TailwindCSS-url]
 
+### Current Frontend UI
+<img src="src/images/website_image2.png" alt="Website Image 1" width="360" align="top">
+<img src="src/images/website_image1.png" alt="Website Image 2" width="360" align="top">
 
 <!-- Getting Started -->
 ## Prerequisites
@@ -64,10 +67,10 @@ posted by professors, graduate students, or lab staff.</p>
 |------------------------|---------------|---------------------------------------------------------------|
 | `VITE_BACKEND_SERVER` | None | URL to the backend server |
 
-Set the varaible with:
-```
-$ export VITE_BACKEND_SERVER="http://127.0.0.1:9000"
-```
+* Set the variable with:
+    ```
+    $ export VITE_BACKEND_SERVER="http://127.0.0.1:9000"
+    ```
 
 ## Testing
  * To run the frontend locally run the following:
@@ -75,12 +78,44 @@ $ export VITE_BACKEND_SERVER="http://127.0.0.1:9000"
     $ make develop
     ```
     This command allows editing and autoreloading while making changes
+    
+### Linting
+* Run the linter and fix any lint issues to maintiain code quality and standards
+    ```
+    make lint
+    ```
 
 ## Building
-  * To build the application use this command to build the static files and test the production version of deploy the files.
+  * To build the application use this command to build the static files and test the production version of the files.
     ```
-    npm run build
+    $ npm run build
     ```
+    This command allows editing and autoreloading while making changes
+
+## Deployment
+Create PRs to the main branch from your working branch. Make sure your new code is tested and bug free. Upon creating a merge request, a build test will make sure your code is running without errors and safe to merge to main.
+
+## Contact Us
+[![Discord](https://img.shields.io/badge/Discord-5865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/tsaxCKjYHT)
+[![Jira](https://img.shields.io/badge/Jira-0052CC.svg?style=for-the-badge&logo=jira&logoColor=white)](https://rcoslabconnect.atlassian.net/jira/software/projects/CCS/list)
+
+## Project Contributors
+
+Running list of contributors to the LabConnect project:
+
+### Project Lead
+
+- **Will Broadwell** [Project Lead]
+- **Rafael Cenzano** [Former Project Lead]
+
+### Rensselaer Center for Open Source Development Team
+
+- **Jaswanth D** [Frontend]
+- **Doan N** [Frontend]
+- **Pragathi A** [Frontend / Backend]
+- **Aniket S** [Backend]
+
+### Past Rensselaer Center for Open Source Development Team
 
 ## Deployment
 Create PRs to the main branch. Upon merging, a build test will make sure your code is running without errors and safe to merge to main. On a completed merge the action will build and push the new docker image.

@@ -49,7 +49,6 @@ const Opportunities: React.FC = () => {
           </div>
 
           {pages.activePage === "Search" && <Posts />}
-          {pages.activePage === "Saved" && <Posts />} {/* keep same component if that’s intended */}
         </section>
       </section>
     </section>

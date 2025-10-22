@@ -11,7 +11,7 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
     <div className="p-4 bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
-          <thead className="sticky top-0 z-10">
+          <thead className="top-0 z-10">
             <tr className="bg-gray-100 dark:bg-gray-800/80 backdrop-blur">
               <th className="p-3 text-left border border-gray-300 dark:border-gray-600">Position</th>
               <th className="p-3 text-left border border-gray-300 dark:border-gray-600">Description</th>

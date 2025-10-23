@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import JobDetails from "../components/JobDetails";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const IndividualPost = () => {

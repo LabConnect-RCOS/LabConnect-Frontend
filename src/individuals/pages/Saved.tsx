@@ -19,10 +19,14 @@ export default function SavedPage() {
         try {
             const response = await fetch(
 <<<<<<< HEAD
+<<<<<<< HEAD
                 `${import.meta.env.VITE_BACKEND_SERVER}/savedOpportunities`, {
 =======
                 `${process.env.REACT_APP_BACKEND_SERVER}/savedOpportunities`, {
 >>>>>>> 608bbc4 (Create page to show saved opportunities (#165))
+=======
+                `${import.meta.env.VITE_BACKEND_SERVER}/savedOpportunities`, {
+>>>>>>> 40a1bab (Fix ENV vars (#166))
                 credentials: "include",
             }
             );
@@ -103,10 +107,14 @@ export default function SavedPage() {
 
                                             const response = await fetch(
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 `${import.meta.env.VITE_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
 =======
                                                 `${process.env.REACT_APP_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
 >>>>>>> 608bbc4 (Create page to show saved opportunities (#165))
+=======
+                                                `${import.meta.env.VITE_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
+>>>>>>> 40a1bab (Fix ENV vars (#166))
                                                 method: "DELETE",
                                                 credentials: "include",
                                                 headers,

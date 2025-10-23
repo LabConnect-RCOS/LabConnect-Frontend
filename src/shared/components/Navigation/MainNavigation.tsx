@@ -54,12 +54,8 @@ export default function MainNavigation() {
                     key={item.name}
                     to={item.href}
                     className={({ isActive }) =>
-<<<<<<< HEAD
                       `text-2xl font-bold transition duration-175 hover:scale-115 ${
                         isActive ? "underline scale-115" : ""
-=======
-                      `text-2xl font-bold hover:underline ${isActive ? "underline" : ""
->>>>>>> 608bbc4 (Create page to show saved opportunities (#165))
                       }`
                     }
                   >

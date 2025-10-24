@@ -281,7 +281,7 @@ const Home = () => {
             {
               name: "Doan Nguyen",
               major: "Computer Science",
-              gradYear: "2027",
+              gradYear: "2026",
               role: "Frontend Developer",
             }
           ].map((member, index) => (

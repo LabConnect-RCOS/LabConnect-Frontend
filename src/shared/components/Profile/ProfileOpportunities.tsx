@@ -41,17 +41,38 @@ export default function ProfileOpportunities({ id, staff }: { id: string, staff:
     </div>
   );
 
-  return (
-    <div>
-      <h1>Posted Opportunties</h1>
-       {opportunities !== null ? (
-        opportunityList
-      ) : (
-        <div className="flex justify-center items-center py-6">
-          <div className="w-8 h-8 border-4 border-gray-300 border-t-green-500 rounded-full animate-spin"></div>
-        </div>
-      )}
-      {opportunities === "no response" && "No Opportunities Found"}
-    </div>
-  );
+return (
+  <div className="bg-white shadow-md rounded-2xl p-6 mt-4">
+    <h1 className="text-2xl font-semibold text-green-700 mb-4 border-b pb-2">
+      {staff ? "Posted Opportunities" : "Your Opportunities"}
+    </h1>
+
+    {opportunities === null && (
+      <div className="flex justify-center items-center py-10">
+        <div className="w-10 h-10 border-4 border-gray-200 border-t-green-500 rounded-full animate-spin"></div>
+      </div>
+    )}
+
+    {Array.isArray(opportunities) && opportunities.length > 0 && (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {opportunities.map((opportunity) => (
+          <LargeTextCard
+            to={`/post/${opportunity.id}`}
+            title={opportunity.title}
+            due={opportunity.due}
+            pay={opportunity.pay}
+            credits={opportunity.credits}
+            key={opportunity.id}
+          />
+        ))}
+      </div>
+    )}
+
+    {opportunities === "no response" && (
+      <div className="text-gray-500 text-center py-6">
+        No Opportunities Found
+      </div>
+    )}
+  </div>
+);
 };

@@ -248,10 +248,11 @@ export default function CreationForms({ edit }: CreationFormsProps) {
       {/* Eligible Years, Description, Experience */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-white rounded-xl shadow-md p-4 sm:p-6">
         {/* Eligible Class Years */}
-        <div>
+
+        <div className="inline-flex items-center gap-2 mr-6 mb-2">
           <CheckBox
             label="Eligible Class Years"
-            options={years.map(String)}
+            options={years.map(String) }
             errors={errors}
             errorMessage="At least one year must be selected"
             name="years"

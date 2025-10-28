@@ -45,7 +45,7 @@ export default function CheckBox({
             options.map((item) => {
               return (
                 <div key={item} className="form-control">
-                  <label className="cursor-pointer label">
+                  <label className="inline-flex items-center justify-between gap-3 cursor-pointer mb-2">
                     <span className="label-text">{item}</span>
                     <input
                       type={type === "radio" ? "radio" : "checkbox"}
@@ -53,12 +53,19 @@ export default function CheckBox({
                       {...formHook}
                       id={item}
                       className={type === "radio" ? "radio" : "checkbox"}
-                      defaultChecked={(name === "semesters" && filters?.semesters?.includes(item)) || (name === "years" && filters?.years?.includes(Number(item))) || (name === "credits" && filters?.credits?.includes(item) ? true : false)}
+                      defaultChecked={
+                        (name === "semesters" && filters?.semesters?.includes(item)) ||
+                        (name === "years" && filters?.years?.includes(Number(item))) ||
+                        (name === "credits" && filters?.credits?.includes(item))
+                          ? true
+                          : false
+                      }
                     />
                   </label>
                 </div>
               );
             })}
+
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import Posts from "../components/Posts";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook.ts";
+import SavedPage from "../../individuals/pages/Saved.tsx";
 
 interface PageNavigationType {
   activePage: string;
@@ -44,7 +45,8 @@ const Opportunities: React.FC = () => {
           </div>
 
           {pages.activePage === "Search" && <Posts />}
-
+          {pages.activePage === "Saved" && <SavedPage />}
+          
         </section>
       </section>
     </section>

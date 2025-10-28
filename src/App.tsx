@@ -36,7 +36,6 @@ function App() {
               <Route path="/logout" element={<LogoutRedirection />} />
               <Route path="/opportunities" element={<Opportunities />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/saved" element={<SavedPage />} />
               <Route
                 path="/staff/department/:department"
                 element={<Department />}

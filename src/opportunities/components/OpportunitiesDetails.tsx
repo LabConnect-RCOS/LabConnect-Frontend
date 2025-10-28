@@ -1,12 +1,84 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { OpportunityList } from "../../types/opportunities.ts";
+import { getCookie } from "../../utils.ts";
 
 interface OpportunitiesListProps {
   opportunities: OpportunityList[];
 }
 
 export default function OpportunitiesList({ opportunities }: OpportunitiesListProps) {
+
+  const csrfToken = getCookie('csrf_access_token');
+
+  const [localOpps, setLocalOpps] = useState(opportunities);
+
+  useEffect(() => {
+    setLocalOpps(opportunities);
+  }, [opportunities]);
+
+  function changeSavedOpportunity(opportunity: OpportunityList) {
+    console.log("Starting route")
+    if (!opportunity.saved) {
+      async () => {
+        try {
+            const headers: Record<string, string> = {
+                "Content-Type": "application/json", // Good practice for cross-origin requests
+            }
+            if (csrfToken) {
+                headers["X-CSRF-TOKEN"] = csrfToken;          // Include the token only when defined
+            }
+
+            const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_SERVER}/saveOpportunity/${opportunity.id}`, {
+                method: "POST",
+                credentials: "include",
+                headers,
+            })
+
+            if (!response.ok) {
+                throw new Error("Failed to save");
+            }
+            
+
+            // setSaved(prev => prev ? prev.filter(o => o.id !== opportunity.id) : prev);
+        } catch {
+            console.log("Error saving opportunity");
+        }
+      }
+      console.log("Done trying to save");
+    }
+    else {
+      async () => {
+        try {
+            const headers: Record<string, string> = {
+                "Content-Type": "application/json", // Good practice for cross-origin requests
+            };
+            if (csrfToken) {
+                headers["X-CSRF-TOKEN"] = csrfToken;          // Include the token only when defined
+            }
+
+            const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
+                method: "DELETE",
+                credentials: "include",
+                headers,
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to unsave");
+            }
+
+            // setSaved(prev => prev ? prev.filter(o => o.id !== opportunity.id) : prev);
+        } catch {
+            console.log("Error unsaving opportunity");
+        }
+      };
+  };
+  opportunity.saved=!opportunity.saved
+  console.log("Done");
+}
+
   return (
     <div className="p-4">
       <div className="overflow-x-auto">
@@ -28,7 +100,7 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
           <tbody>
             {/* Info about the opportunities */}
             {opportunities.length > 0 ? (
-              opportunities.map((opportunity) => (
+              localOpps.map((opportunity) => (
                 <tr key={opportunity.id} className="hover:bg-gray-50">
                   <td className="p-3 border font-medium">{opportunity.name}</td>
                   <td className="p-3 border">{opportunity.description}</td>
@@ -47,7 +119,7 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
                     </Link>
                   </td>
                   <td className="p-3 border">
-                    <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                    <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600" onClick={() => changeSavedOpportunity(opportunity)}>
                       {opportunity.saved ? "Unsave" : "Save"}
                     </button>
                   </td>

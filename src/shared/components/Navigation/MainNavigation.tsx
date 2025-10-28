@@ -25,7 +25,6 @@ export default function MainNavigation() {
       { name: "Create", href: "/create" },
       { name: "Staff", href: "/staff" },
       { name: "Profile", href: "/profile" },
-      { name: "Saved", href: "/saved" },
       { name: "Sign Out", href: "/signout" }
     ]
     : [{ name: "Sign In", href: "/signin" }];

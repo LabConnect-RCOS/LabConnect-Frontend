@@ -162,7 +162,7 @@ const Posts = () => {
     <section>
       <FiltersField resetFilters={resetFilters} deleteFilter={removeFilter} filters={opportunityState.filters.activeFilters} setPopUpMenu={() => setPopUpMenu(!popUpMenu)} />
       {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} filters={opportunityState.filters.filterMap} reset={resetFilters} setFilters={setFilters} />}
-      <OpportunitiesList opportunities={opportunityState.opportunities} />
+      <OpportunitiesList opportunities={opportunityState.opportunities} dispatch={dispatch} />
     </section>
   );
 };

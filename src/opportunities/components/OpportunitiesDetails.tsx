@@ -5,79 +5,68 @@ import { getCookie } from "../../utils.ts";
 
 interface OpportunitiesListProps {
   opportunities: OpportunityList[];
+  dispatch: (action: {type: string, opportunities: OpportunityList[]}) => void;
 }
 
-export default function OpportunitiesList({ opportunities }: OpportunitiesListProps) {
+export default function OpportunitiesList({ opportunities, dispatch }: OpportunitiesListProps) {
 
   const csrfToken = getCookie('csrf_access_token');
 
-  const [localOpps, setLocalOpps] = useState(opportunities);
+  function toggleSave(opportunity: OpportunityList) {
+    console.log(opportunities)
+    const updated = opportunities.map((item: OpportunityList) =>
+      item.id === opportunity.id
+        ? { ...item, saved: !item.saved }
+        : item
+    );
+    console.log(updated)
 
-  useEffect(() => {
-    setLocalOpps(opportunities);
-  }, [opportunities]);
+    dispatch({
+      type: "SET_OPPORTUNITIES",
+      opportunities: updated,
+    });
+  }
 
-  function changeSavedOpportunity(opportunity: OpportunityList) {
-    console.log("Starting route")
-    if (!opportunity.saved) {
-      async () => {
-        try {
-            const headers: Record<string, string> = {
-                "Content-Type": "application/json", // Good practice for cross-origin requests
-            }
-            if (csrfToken) {
-                headers["X-CSRF-TOKEN"] = csrfToken;          // Include the token only when defined
-            }
+  async function changeSavedOpportunity(opportunity: OpportunityList) {
+    console.log("Current saved state:", opportunity.saved);
 
-            const response = await fetch(
-                `${import.meta.env.VITE_BACKEND_SERVER}/saveOpportunity/${opportunity.id}`, {
-                method: "POST",
-                credentials: "include",
-                headers,
-            })
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (csrfToken) headers["X-CSRF-TOKEN"] = csrfToken;
 
-            if (!response.ok) {
-                throw new Error("Failed to save");
-            }
-            
+    const isSaving = !opportunity.saved;
+    const endpoint = isSaving
+      ? `${import.meta.env.VITE_BACKEND_SERVER}/saveOpportunity/${opportunity.id}`
+      : `${import.meta.env.VITE_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`;
+    const method = isSaving ? "POST" : "DELETE";
 
-            // setSaved(prev => prev ? prev.filter(o => o.id !== opportunity.id) : prev);
-        } catch {
-            console.log("Error saving opportunity");
-        }
+    try {
+      console.log(`Attempting to ${isSaving ? "save" : "unsave"} opportunity...`);
+
+      const response = await fetch(endpoint, {
+        method,
+        credentials: "include",
+        headers,
+        body: JSON.stringify({}), // safe for POST, harmless for DELETE
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to ${isSaving ? "save" : "unsave"} opportunity`);
       }
-      console.log("Done trying to save");
+
+      console.log(`Successfully ${isSaving ? "saved" : "unsaved"} opportunity.`);
+    } catch (error) {
+      console.error(
+        `Error ${isSaving ? "saving" : "unsaving"} opportunity:`,
+        error
+      );
+    } finally {
+      // Optimistically update local UI
+      toggleSave(opportunity);
+      console.log("Local save state toggled.");
     }
-    else {
-      async () => {
-        try {
-            const headers: Record<string, string> = {
-                "Content-Type": "application/json", // Good practice for cross-origin requests
-            };
-            if (csrfToken) {
-                headers["X-CSRF-TOKEN"] = csrfToken;          // Include the token only when defined
-            }
-
-            const response = await fetch(
-                `${import.meta.env.VITE_BACKEND_SERVER}/unsaveOpportunity/${opportunity.id}`, {
-                method: "DELETE",
-                credentials: "include",
-                headers,
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to unsave");
-            }
-
-            // setSaved(prev => prev ? prev.filter(o => o.id !== opportunity.id) : prev);
-        } catch {
-            console.log("Error unsaving opportunity");
-        }
-      };
-  };
-  opportunity.saved=!opportunity.saved
-  console.log("Done");
-}
+  }
 
   return (
     <div className="p-4">
@@ -100,7 +89,7 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
           <tbody>
             {/* Info about the opportunities */}
             {opportunities.length > 0 ? (
-              localOpps.map((opportunity) => (
+              opportunities.map((opportunity) => (
                 <tr key={opportunity.id} className="hover:bg-gray-50">
                   <td className="p-3 border font-medium">{opportunity.name}</td>
                   <td className="p-3 border">{opportunity.description}</td>

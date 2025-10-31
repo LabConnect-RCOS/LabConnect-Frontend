@@ -13,15 +13,26 @@ interface DepartmentItemsProps {
 
 export default function DepartmentItems({ items }: DepartmentItemsProps) {
   return (
-    <div className="grid grid-cols-3" style={{ rowGap: "3rem" }}>
-      {items.map((item) => (
+    <div
+      className="
+        grid 
+        gap-12 
+        sm:grid-cols-2 
+        lg:grid-cols-3 
+        xl:grid-cols-4 
+        justify-items-center
+        px-6 
+        py-8
+      "
+    >
+      {items.map(({ department_id, title, image }) => (
         <LargeImageCard
-          key={item.department_id}
-          to={`/staff/department/${item.department_id}`}
-          title={item.title}
-          image={item.image}
+          key={department_id}
+          to={`/staff/department/${department_id}`}
+          title={title}
+          image={image}
         />
       ))}
     </div>
   );
-};
+}

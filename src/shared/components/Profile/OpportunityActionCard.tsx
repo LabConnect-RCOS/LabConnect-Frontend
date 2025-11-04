@@ -11,7 +11,7 @@ interface OpportunityActionCardProps {
   deleteOpp: (id: string) => void;
 }
 
-const OpportunityActionCard = ({
+const OpportunityActionCard: React.FC<OpportunityActionCardProps> = ({
   editPath,
   title,
   body,
@@ -19,50 +19,47 @@ const OpportunityActionCard = ({
   activeStatus,
   changeActiveStatus,
   deleteOpp,
-}: OpportunityActionCardProps) => {
-  if (title.length > 100) {
-    title = title.slice(0, 150) + " ...";
-  }
-
-  const color = activeStatus ? "btn-primary" : "btn-secondary";
-
-  const buttonClass = `btn-sm btn ${color}`;
+}) => {
+  const truncatedTitle = title.length > 100 ? title.slice(0, 150) + "..." : title;
+  const isActive = activeStatus === "true" || activeStatus === "active" || activeStatus === "1";
+  const statusColor = isActive ? "btn-success" : "btn-warning";
+  const statusLabel = isActive ? "Deactivate" : "Activate";
 
   return (
-    <div className="min-h-48 max-h-48 duration-300 w-64 p-1 bg-base-100 hover:shadow-md card">
-      <div className="card-body">
-        <h2
-          className={`${title.length > 100 ? "text-sm" : "text-lg font-bold"
-            }  p-0 m-0`}
-        >
-          {title}
+    <div className="card w-72 bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200 rounded-2xl overflow-hidden">
+      <div className="card-body p-4 space-y-3">
+        {/* Title */}
+        <h2 className="text-lg font-semibold text-gray-800 line-clamp-2">
+          {truncatedTitle}
         </h2>
-        <p className="text-sm font-light p-0 m-0">{body}</p>
-        <div className="card-actions justify-start">
 
+        {/* Body / Description */}
+        <p className="text-sm text-gray-600 line-clamp-3">{body}</p>
 
-          {/* Edit button */}
+        {/* Divider */}
+        <div className="border-t border-gray-200 my-2"></div>
+
+        {/* Actions */}
+        <div className="flex flex-wrap justify-between items-center gap-2">
+          {/* Edit Button */}
           <Link to={editPath}>
-            <button className="btn-sm btn btn-primary">Edit</button>
+            <button className="btn btn-sm btn-primary rounded-full px-4">
+              Edit
+            </button>
           </Link>
 
-
-          {/* Deactivate Button */}
+          {/* Activate/Deactivate */}
           <button
-            className={buttonClass}
-            onClick={() => {
-              changeActiveStatus(id, activeStatus);
-            }}
+            className={`btn btn-sm rounded-full px-4 ${statusColor}`}
+            onClick={() => changeActiveStatus(id, activeStatus)}
           >
-            {activeStatus ? "Deactivate" : "Activate"}
+            {statusLabel}
           </button>
 
           {/* Delete Button */}
           <button
-            className={"btn-sm btn btn-primary"}
-            onClick={() => {
-              deleteOpp(id);
-            }}
+            className="btn btn-sm btn-error rounded-full px-4"
+            onClick={() => deleteOpp(id)}
           >
             Delete
           </button>

@@ -1,5 +1,5 @@
 import React from "react";
-import LargeImageCard from "./LargeImageCard";
+import LargeImageCard from "./LargeImageCard"; 
 
 interface DepartmentItem {
   department_id: string;

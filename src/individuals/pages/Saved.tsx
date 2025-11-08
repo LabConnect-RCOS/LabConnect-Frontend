@@ -69,7 +69,7 @@ export default function SavedPage() {
                                 <td className="p-3 border">{opportunity.credits}</td>
                                 <td className="p-3 border">{opportunity.semester}</td>
                                 <td className="p-3 border">{opportunity.year}</td>
-                                <td style={{
+                                <td className="p-3 border border-black" style={{
                                     color: (() => {
                                         const today = new Date();
                                         const dueDate = new Date(opportunity.application_due);
@@ -86,8 +86,8 @@ export default function SavedPage() {
                                 }}>
                                     {new Date(opportunity.application_due).toLocaleDateString("en-US")}
                                 </td>
-                                <td>{opportunity.location}</td>
-                                <td>
+                                <td className="p-3 border">{opportunity.location}</td>
+                                <td className="p-3 border">
                                     <button className="p-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         onClick={async () => {
                                             try {

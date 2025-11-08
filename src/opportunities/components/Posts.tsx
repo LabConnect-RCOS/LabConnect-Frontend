@@ -17,11 +17,13 @@ const Posts = () => {
       activeFilters: string[];
       filterMap: Filters;
     };
+    query: string;
     activeId: string;
     opportunities: OpportunityList[];
   }
 
   type OpportunityAction =
+    | { type: "SET_QUERY"; query: string }
     | { type: "SET_FILTERS"; activeFilters: string[]; filterMap: Filters }
     | { type: "RESET_FILTERS" }
     | { type: "REMOVE_FILTER"; filter: string }
@@ -29,6 +31,11 @@ const Posts = () => {
 
   const reducer: React.Reducer<OpportunityState, OpportunityAction> = (state, action) => {
     switch (action.type) {
+      case "SET_QUERY":
+        return {
+          ...state,
+          query: action.query,
+        };
       case "SET_FILTERS":
         if (!action.activeFilters || !action.filterMap) return state;
 
@@ -99,6 +106,7 @@ const Posts = () => {
         majors: [],
       },
     },
+    query: "",
     activeId: "",
     opportunities: [],
   });
@@ -116,6 +124,9 @@ const Posts = () => {
     dispatch({ type: "SET_FILTERS", activeFilters, filterMap });
   }, []);
 
+  const setQuery = useCallback((query: string) => {
+    dispatch({ type: "SET_QUERY", query });
+  }, []);
 
   const fetchOpportunities = useCallback(async () => {
     const queryParams = new URLSearchParams(
@@ -160,7 +171,7 @@ const Posts = () => {
 
   return (
     <section>
-      <FiltersField resetFilters={resetFilters} deleteFilter={removeFilter} filters={opportunityState.filters.activeFilters} setPopUpMenu={() => setPopUpMenu(!popUpMenu)} />
+      <FiltersField resetFilters={resetFilters} deleteFilter={removeFilter} filters={opportunityState.filters.activeFilters} setQuery={setQuery}setPopUpMenu={() => setPopUpMenu(!popUpMenu)} />
       {popUpMenu && <PopUpMenu setFunction={() => setPopUpMenu(!popUpMenu)} filters={opportunityState.filters.filterMap} reset={resetFilters} setFilters={setFilters} />}
       <OpportunitiesList opportunities={opportunityState.opportunities} dispatch={dispatch} />
     </section>

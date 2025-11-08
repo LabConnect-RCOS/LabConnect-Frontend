@@ -26,6 +26,7 @@ export default function OpportunitiesList({ opportunities, dispatch }: Opportuni
       opportunities: updated,
     });
   }
+  console.log(opportunities);
 
   async function changeSavedOpportunity(opportunity: OpportunityList) {
     console.log("Current saved state:", opportunity.saved);

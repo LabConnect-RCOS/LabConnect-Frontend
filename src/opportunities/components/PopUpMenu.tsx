@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CheckBox from "../../shared/components/Checkbox.tsx";
 import Input from "../../staff/components/Input.jsx";
-import { Filters } from "../../types/opportunities.ts";
+import { Filters } from "../../types/filters.ts";
+import { useOpportunity } from "../../context/OpportunityContext.tsx";
+
+const { filterMap, setFilters, resetFilters } = useOpportunity();
 
 interface PopUpMenuProps {
-    setFunction: () => void;
-    reset: () => void;
-    filters: Filters;
-    setFilters: (activeFilters: string[], filterMap: Filters) => void;
+    setOpen: () => void;
 }
 
 interface Major {
@@ -16,7 +16,7 @@ interface Major {
     name: string;
 }
 
-export default function PopUpMenu({ setFunction, reset, filters, setFilters }: PopUpMenuProps) {
+export default function PopUpMenu({ setOpen }: PopUpMenuProps) {
     const [majors, setMajors] = useState<Major[]>();
     const [validYears, setValidYears] = useState<string[]>([]);
 
@@ -61,7 +61,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
         defaultValues: {
             years: [],
             credits: [],
-            hourlyPay: filters.hourlyPay ?? 0,
+            hourlyPay: filterMap.hourlyPay ?? 0,
             majors: []
         },
     });
@@ -105,7 +105,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
             ...majors
         ];
         setFilters(activeFilters, newFilterMap);
-        setFunction()
+        setOpen()
     };
 
     return (
@@ -134,7 +134,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                                         formHook={{ ...register(filter[2], {}) }}
                                                         name={filter[2]}
                                                         type="checkbox"
-                                                        filters={filters}
+                                                        filters={filterMap}
                                                     />
                                                 </div>
                                             ))}
@@ -176,7 +176,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                                                 key={index}
                                                                 value={major.code}
                                                                 className="py-2 px-3 hover:bg-blue-100"
-                                                                selected={filters.majors.includes(major.code)}
+                                                                selected={filterMap.majors.includes(major.code)}
                                                             >
                                                                 {major.name}
                                                             </option>
@@ -188,10 +188,10 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
 
                                     <section className="flex flex-row justify-center">
                                         <div className="w-1/3 flex justify-center">
-                                            <button type="button" onClick={setFunction} className="btn btn-primary border-black text-gray-700 bg-white w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-black focus:text-gray-900 focus:bg-gray-100 focus:border-black">Cancel</button>
+                                            <button type="button" onClick={setOpen} className="btn btn-primary border-black text-gray-700 bg-white w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-black focus:text-gray-900 focus:bg-gray-100 focus:border-black">Cancel</button>
                                         </div>
                                         <div className="w-1/3 flex justify-center">
-                                            <button type="button" onClick={() => { reset(); setFunction(); }} className="btn btn-primary border-black text-gray-700 bg-white w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-black focus:text-gray-900 focus:bg-gray-100 focus:border-black">Reset</button>
+                                            <button type="button" onClick={() => { resetFilters(); setOpen(); }} className="btn btn-primary border-black text-gray-700 bg-white w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-black focus:text-gray-900 focus:bg-gray-100 focus:border-black">Reset</button>
                                         </div>
                                         <div className="w-1/3 flex justify-center">
                                             <input type="submit" value="Search" className="btn btn-primary bg-blue-700 text-gray-100 w-1/2 hover:bg-blue-800 focus:bg-blue-800" />

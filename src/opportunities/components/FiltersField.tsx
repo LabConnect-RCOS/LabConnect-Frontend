@@ -5,16 +5,15 @@ import HorizontalIconButton from "./HorizontalIconButton.tsx";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
+import { useOpportunity } from "../../context/OpportunityContext.tsx";
 
 interface FiltersFieldProps {
-  resetFilters: () => void;
-  deleteFilter: (filter: string) => void;
-  setQuery: (query: string) => void;
-  filters: string[];
   setPopUpMenu: () => void;
 }
 
-export default function FiltersField({ resetFilters, deleteFilter, setQuery, filters, setPopUpMenu }: FiltersFieldProps) {
+const { activeFilters, resetFilters, removeFilter, setQuery } = useOpportunity();
+
+export default function FiltersField({ setPopUpMenu }: FiltersFieldProps) {
   const [newQuery, setNewQuery] = React.useState("");
   return (
     <div>
@@ -40,10 +39,10 @@ export default function FiltersField({ resetFilters, deleteFilter, setQuery, fil
 
           {/* Fix rendering with new filters = [ [],[],[] ]*/}
           <GroupedComponents gap={2}>
-            {filters.map((filter) => {
+            {activeFilters.map((filter) => {
               return (
                 <HorizontalIconButton
-                  onClick={deleteFilter}
+                  onClick={() => removeFilter(filter)}
                   icon={<MdCancel />}
                   key={filter}
                   special={false}

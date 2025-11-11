@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { OpportunityList } from "../../types/opportunities.ts";
+import { Opportunity } from "../../types/opportunity.ts";
+import { OpportunityAction } from "../../types/opportunityaction.ts";
 import { getCookie } from "../../utils.ts";
+import { useOpportunity } from "../../context/OpportunityContext.tsx";
 
-interface OpportunitiesListProps {
-  opportunities: OpportunityList[];
-  dispatch: (action: {type: string, opportunities: OpportunityList[]}) => void;
-}
+const { opportunities, setOpportunities } = useOpportunity();
 
-export default function OpportunitiesList({ opportunities, dispatch }: OpportunitiesListProps) {
+export default function OpportunitiesList() {
 
   const csrfToken = getCookie('csrf_access_token');
 
-  function toggleSave(opportunity: OpportunityList) {
+  function toggleSave(opportunity: Opportunity) {
     console.log(opportunities)
-    const updated = opportunities.map((item: OpportunityList) =>
+    const updated = opportunities.map((item: Opportunity) =>
       item.id === opportunity.id
         ? { ...item, saved: !item.saved }
         : item
     );
     console.log(updated)
 
-    dispatch({
-      type: "SET_OPPORTUNITIES",
-      opportunities: updated,
-    });
+    setOpportunities(updated);
   }
   console.log(opportunities);
 
-  async function changeSavedOpportunity(opportunity: OpportunityList) {
+  async function changeSavedOpportunity(opportunity: Opportunity) {
     console.log("Current saved state:", opportunity.saved);
 
     const headers: Record<string, string> = {

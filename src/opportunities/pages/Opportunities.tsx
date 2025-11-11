@@ -2,6 +2,7 @@ import React from "react";
 import Posts from "../components/Posts";
 import usePageNavigation from "../../shared/hooks/page-navigation-hook.ts";
 import SavedPage from "../../individuals/pages/Saved.tsx";
+import { OpportunityProvider } from "../../context/OpportunityContext.tsx";
 
 interface PageNavigationType {
   activePage: string;
@@ -21,35 +22,37 @@ const Opportunities: React.FC = () => {
 
   // displaying opportunities list component
   return (
-    <section className="flex flex-col h-screen justify-between gap-3">
-      <section className="flex flex-col gap-3">
-        <section>
-          <div className="flex gap-5" style={{ alignItems: "center" }}>
-            <h1 className="text-2xl font-bold">Opportunities</h1>
+    <OpportunityProvider>
+      <section className="flex flex-col h-screen justify-between gap-3">
+        <section className="flex flex-col gap-3">
+          <section>
+            <div className="flex gap-5" style={{ alignItems: "center" }}>
+              <h1 className="text-2xl font-bold">Opportunities</h1>
 
-            <nav className="text-base flex gap-4 justify-items-center font-semibold" style={{ alignItems: "center" }}>
-              {pages.pages.map((page) => {
-                return (
-                  <button
-                    key={page}
-                    onClick={() => {
-                      switchPage(page);
-                    }}
-                    className={page === pages.activePage ? activeLink : normalLink}
-                  >
-                    {page}
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
+              <nav className="text-base flex gap-4 justify-items-center font-semibold" style={{ alignItems: "center" }}>
+                {pages.pages.map((page) => {
+                  return (
+                    <button
+                      key={page}
+                      onClick={() => {
+                        switchPage(page);
+                      }}
+                      className={page === pages.activePage ? activeLink : normalLink}
+                    >
+                      {page}
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
 
-          {pages.activePage === "Search" && <Posts />}
-          {pages.activePage === "Saved" && <SavedPage />}
-          
+            {pages.activePage === "Search" && <Posts />}
+            {pages.activePage === "Saved" && <SavedPage />}
+            
+          </section>
         </section>
       </section>
-    </section>
+    </OpportunityProvider>
   );
 };
 

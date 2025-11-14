@@ -9,14 +9,23 @@ interface LargeImageCardProps {
 
 const LargeImageCard = ({ to, image, title }: LargeImageCardProps) => {
   return (
-    <Link to={to} className="no-underline">
-      <div className="w-96 bg-base-100 transition card card-compact hover:shadow-lg duration-175">
-        <figure>
-          <img src={image} alt={title} />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{title}</h2>
+    <Link to={to} className="no-underline w-full h-full">
+      <div className="h-full flex flex-col rounded-xl shadow-md overflow-hidden bg-white">
+
+        {/* Fixed aspect ratio strictly for image */}
+        <div className="w-full aspect-[16/9] overflow-hidden">
+          <img
+              src={image}
+              alt={title}
+              className="block w-full h-full object-cover object-top"
+          />
         </div>
+
+        {/* Fixed-height footer area for title */}
+        <div className="p-4 text-center h-16 flex items-center justify-center">
+          <h2 className="text-lg font-semibold">{title}</h2>
+        </div>
+
       </div>
     </Link>
   );

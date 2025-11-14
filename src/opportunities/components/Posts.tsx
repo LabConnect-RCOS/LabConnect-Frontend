@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import FiltersField from "./FiltersField.tsx";
 import OpportunitiesList from "./OpportunitiesList.tsx";
 import PopUpMenu from "./PopUpMenu.tsx";
-import { useOpportunity } from "../../context/OpportunityContext.tsx";
+import { useOpportunity } from "../../context/useOpportunity.tsx";
 
 
 const Posts = () => {

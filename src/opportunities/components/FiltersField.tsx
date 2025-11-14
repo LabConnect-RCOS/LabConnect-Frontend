@@ -5,15 +5,15 @@ import HorizontalIconButton from "./HorizontalIconButton.tsx";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
-import { useOpportunity } from "../../context/OpportunityContext.tsx";
+import { useOpportunity } from "../../context/useOpportunity.tsx";
 
 interface FiltersFieldProps {
   setPopUpMenu: () => void;
 }
 
-const { activeFilters, resetFilters, removeFilter, setQuery } = useOpportunity();
 
 export default function FiltersField({ setPopUpMenu }: FiltersFieldProps) {
+  const { activeFilters, resetFilters, removeFilter, setQuery } = useOpportunity();
   const [newQuery, setNewQuery] = React.useState("");
   return (
     <div>

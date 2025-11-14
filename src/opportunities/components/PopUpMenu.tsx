@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import CheckBox from "../../shared/components/Checkbox.tsx";
 import Input from "../../staff/components/Input.jsx";
 import { Filters } from "../../types/filters.ts";
-import { useOpportunity } from "../../context/OpportunityContext.tsx";
-
-const { filterMap, setFilters, resetFilters } = useOpportunity();
+import { useOpportunity } from "../../context/useOpportunity.tsx";
 
 interface PopUpMenuProps {
     setOpen: () => void;
@@ -17,6 +15,7 @@ interface Major {
 }
 
 export default function PopUpMenu({ setOpen }: PopUpMenuProps) {
+    const { filterMap, setFilters, resetFilters } = useOpportunity();
     const [majors, setMajors] = useState<Major[]>();
     const [validYears, setValidYears] = useState<string[]>([]);
 

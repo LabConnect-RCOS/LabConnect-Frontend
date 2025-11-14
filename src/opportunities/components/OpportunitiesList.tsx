@@ -3,13 +3,12 @@ import { Link } from "react-router-dom";
 import { Opportunity } from "../../types/opportunity.ts";
 import { OpportunityAction } from "../../types/opportunityaction.ts";
 import { getCookie } from "../../utils.ts";
-import { useOpportunity } from "../../context/OpportunityContext.tsx";
-
-const { opportunities, setOpportunities } = useOpportunity();
+import { useOpportunity } from "../../context/useOpportunity.tsx";
 
 export default function OpportunitiesList() {
 
   const csrfToken = getCookie('csrf_access_token');
+  const { opportunities, setOpportunities } = useOpportunity();
 
   function toggleSave(opportunity: Opportunity) {
     console.log(opportunities)

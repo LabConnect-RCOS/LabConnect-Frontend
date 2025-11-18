@@ -20,29 +20,38 @@ const ProfileComponents: React.FC<ProfileComponentsProps> = ({ profile, id, staf
         description={`${profile.department} page on Labconnect`}
       />
 
-      {/* Breadcrumb for staff pages */}
+      {/* staff pages */}
       {staff && (
-        <Breadcrumb
-          tree={[
-            { link: "/staff", title: "Staff" },
-            { link: `/staff/department/${profile.department}`, title: profile.department || "Unknown Department" },
-            { link: `/staff/${id}`, title: profile.name || "Unknown Staff" },
-          ]}
-        />
+        <div className="mb-4">
+          <Breadcrumb
+            tree={[
+              { link: "/staff", title: "Staff" },
+              {
+                link: `/staff/department/${profile.department}`,
+                title: profile.department || "Unknown Department",
+              },
+              { link: `/staff/${id}`, title: profile.name || "Unknown Staff" },
+            ]}
+          />
+        </div>
       )}
 
       {/* Profile Header Section */}
-      <section className="mt-8 p-5 bg-white rounded-lg shadow-sm">
-        <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+      <section className="mt-6 p-6 bg-white rounded-2xl shadow-md border border-gray-100">
+        <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
           <ProfileAvatar name={profile.name} image={profile.image} />
-          <ProfileDescription {...profile} />
+          <div className="w-full">
+            <ProfileDescription {...profile} />
+          </div>
         </div>
       </section>
 
       {/* Opportunities Section */}
       {id && (
-        <section className="mt-6 p-5 bg-gray-50 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">Opportunities</h2>
+        <section className="mt-8 p-6 bg-gray-50 rounded-2xl shadow-sm border border-gray-100">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-800 mb-5">
+            Opportunities
+          </h2>
           <ProfileOpportunities id={id} staff={staff} />
         </section>
       )}

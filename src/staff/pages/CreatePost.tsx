@@ -16,19 +16,27 @@ export default function CreatePost({ edit }: CreatePostProps) {
   }
 
   return (
-    <section className="min-h-[calc(100vh-8rem)] bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <section className="min-h-[calc(100vh-8rem)] bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <SEO
         title={edit ? "Edit Research Opportunity" : "Create Research Opportunity"}
         description={edit ? "Edit Research Opportunity Page" : "Create Research Opportunity Page"}
       />
 
-      <div className="w-11/12 md:w-9/12 mx-auto py-8">
-        <h1 className="text-center my-8 text-3xl font-bold text-gray-900 dark:text-gray-100">
+      <div className="max-w-6xl mx-auto px-4 py-10">
+        <h1 className="text-center mb-8 text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">
           {edit ? "Edit Research Opportunity" : "Create Research Opportunity"}
         </h1>
 
-        {/* subtle card so fields pop in dark mode */}
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm">
+        {/* Single clear card, same style as other pages */}
+        <div
+          className="
+            rounded-2xl
+            border border-gray-200 dark:border-gray-700
+            bg-white dark:bg-gray-800
+            shadow-lg
+            px-6 py-8 md:px-10 md:py-10
+          "
+        >
           <CreationForms edit={edit} />
         </div>
       </div>

@@ -35,7 +35,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                 const data = await response.json();
                 setMajors(data);
             }
-        }
+        };
         fetchMajors();
     }, []);
 
@@ -49,7 +49,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                 const data = await response.json();
                 setValidYears(data);
             }
-        }
+        };
         fetchYears();
     }, []);
 
@@ -67,10 +67,10 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
     });
 
     interface FormData {
-        years: string[],
-        credits: string[],
-        hourlyPay: number,
-        majors: string[]
+        years: string[];
+        credits: string[];
+        hourlyPay: number;
+        majors: string[];
     }
 
     function formatCredits(credits: string[]): string | null {
@@ -96,7 +96,7 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
             credits: credits,
             hourlyPay: Number(hourlyPay),
             majors: majors
-        }
+        };
 
         const activeFilters: string[] = [
             ...years,
@@ -105,24 +105,41 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
             ...majors
         ];
         setFilters(activeFilters, newFilterMap);
-        setFunction()
-    };
+        setFunction();
+    }
 
     return (
-        <section className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <div className="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+        <section
+            className="relative z-10"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            {/* Overlay */}
+            <div
+                className="fixed inset-0 bg-gray-500/75 dark:bg-black/60 transition-opacity"
+                aria-hidden="true"
+            ></div>
+
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl">
-                        <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-4">
-                            <div className="text-2xl font-semibold text-center pb-3">Filters</div>
+                    {/* Modal shell */}
+                    <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-900 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl text-gray-900 dark:text-gray-100">
+                        <div className="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 border-4 border-gray-100 dark:border-gray-700">
+                            <div className="text-2xl font-semibold text-center pb-3">
+                                Filters
+                            </div>
+
                             <section className="flex flex-col">
                                 <form
                                     onSubmit={handleSubmit((data) => {
-                                        submitHandler(data);
+                                        submitHandler(data as FormData);
                                     })}
                                     className="flex flex-col gap-5"
-                                > <section className="flex flex-col max-h[100] overflow-y-auto"> {/* Added max-height and overflow-y-auto */}
+                                >
+                                    {/* Scrollable content */}
+                                    <section className="flex flex-col max-h-[480px] overflow-y-auto">
+                                        {/* Year / credits checkboxes */}
                                         <section className="flex justify-center">
                                             {checkboxes.map((filter) => (
                                                 <div className="w-1/3" key={filter[2]}>
@@ -139,6 +156,8 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                                 </div>
                                             ))}
                                         </section>
+
+                                        {/* Hourly pay input */}
                                         <section className="flex justify-center">
                                             <Input
                                                 errors={errors}
@@ -148,10 +167,13 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                                 formHook={{
                                                     ...register("hourlyPay", {
                                                         required: "Hourly pay is required",
-                                                        validate: value => value >= 0 || "Hourly pay must be greater or equal to 0",
+                                                        validate: (value: number) =>
+                                                            value >= 0 ||
+                                                            "Hourly pay must be greater or equal to 0",
                                                         pattern: {
                                                             value: /^\d+(\.\d{1,2})?$/,
-                                                            message: "Hourly pay must be a positive number with up to two decimal places"
+                                                            message:
+                                                                "Hourly pay must be a positive number with up to two decimal places"
                                                         }
                                                     })
                                                 }}
@@ -161,22 +183,27 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                             />
                                         </section>
 
+                                        {/* Majors list */}
                                         <section className="pt-7 flex flex-col justify-center">
-                                            <h1 className="font-semibold text-lg text-center">Majors</h1>
+                                            <h1 className="font-semibold text-lg text-center">
+                                                Majors
+                                            </h1>
                                             <section className="flex justify-center py-4">
                                                 <select
                                                     multiple
                                                     size={5}
                                                     {...register("majors", {})}
-                                                    className="form-multiselect block w-3/4 border-gray-300 rounded-md shadow-lg focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50 bg-white text-gray-700"
+                                                    className="form-multiselect block w-3/4 border border-gray-300 dark:border-gray-700 rounded-md shadow-lg focus:border-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-50 bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-100"
                                                 >
                                                     {majors &&
                                                         majors.map((major, index) => (
                                                             <option
                                                                 key={index}
                                                                 value={major.code}
-                                                                className="py-2 px-3 hover:bg-blue-100"
-                                                                selected={filters.majors.includes(major.code)}
+                                                                className="py-2 px-3 hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                                                                selected={filters.majors.includes(
+                                                                    major.code
+                                                                )}
                                                             >
                                                                 {major.name}
                                                             </option>
@@ -186,18 +213,39 @@ export default function PopUpMenu({ setFunction, reset, filters, setFilters }: P
                                         </section>
                                     </section>
 
-                                    <section className="flex flex-row justify-center">
+                                    {/* Footer buttons */}
+                                    <section className="flex flex-row justify-center gap-4 sm:gap-0">
                                         <div className="w-1/3 flex justify-center">
-                                            <button type="button" onClick={setFunction} className="btn btn-primary border-black text-gray-700 bg-white w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-black focus:text-gray-900 focus:bg-gray-100 focus:border-black">Cancel</button>
+                                            <button
+                                                type="button"
+                                                onClick={setFunction}
+                                                className="btn btn-primary border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-gray-500 dark:hover:bg-gray-700 dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            >
+                                                Cancel
+                                            </button>
                                         </div>
+
                                         <div className="w-1/3 flex justify-center">
-                                            <button type="button" onClick={() => { reset(); setFunction(); }} className="btn btn-primary border-black text-gray-700 bg-white w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-black focus:text-gray-900 focus:bg-gray-100 focus:border-black">Reset</button>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    reset();
+                                                    setFunction();
+                                                }}
+                                                className="btn btn-primary border border-gray-400 dark:border-gray-600 text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 w-1/2 hover:text-gray-900 hover:bg-gray-200 hover:border-gray-500 dark:hover:bg-gray-700 dark:hover:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            >
+                                                Reset
+                                            </button>
                                         </div>
+
                                         <div className="w-1/3 flex justify-center">
-                                            <input type="submit" value="Search" className="btn btn-primary bg-blue-700 text-gray-100 w-1/2 hover:bg-blue-800 focus:bg-blue-800" />
+                                            <input
+                                                type="submit"
+                                                value="Search"
+                                                className="btn btn-primary bg-blue-700 text-gray-100 w-1/2 hover:bg-blue-800 focus:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
                                         </div>
                                     </section>
-
                                 </form>
                             </section>
                         </div>

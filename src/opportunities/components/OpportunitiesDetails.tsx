@@ -53,7 +53,7 @@ export default function OpportunitiesList({ opportunities }: OpportunitiesListPr
                   <td className="p-3 border border-gray-300 dark:border-gray-600">
                     {opportunity.semester} {opportunity.year}
                   </td>
-                  <td className="p-3 border">
+                  <td className="p-3 border border-gray-300 dark:border-gray-600">
                     <Link to={`/post/${opportunity.id}`}>
                       <button className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 mr-2">
                         View

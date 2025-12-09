@@ -1,77 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Profile } from "../../../types/profile.ts";
 
-interface OpportunityActionCardProps {
-  editPath: string;
-  title: string;
-  body: React.ReactNode;
-  id: string;
-  activeStatus: string;
-  changeActiveStatus: (id: string, activeStatus: string) => void;
-  deleteOpp: (id: string) => void;
-}
-
-const OpportunityActionCard: React.FC<OpportunityActionCardProps> = ({
-  editPath,
-  title,
-  body,
-  id,
-  activeStatus,
-  changeActiveStatus,
-  deleteOpp,
-}) => {
-  const truncatedTitle =
-    title.length > 100 ? title.slice(0, 150) + "..." : title;
-
-  const isActive =
-    activeStatus === "true" ||
-    activeStatus === "active" ||
-    activeStatus === "1";
-
-  const statusColor = isActive ? "btn-success" : "btn-warning";
-  const statusLabel = isActive ? "Deactivate" : "Activate";
-
+export default function ProfileDescription({
+  name,
+  department,
+  description,
+  website,
+  pronouns
+}: Profile) {
   return (
-    <div className="card w-72 bg-white shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 rounded-2xl">
-      <div className="card-body p-5 space-y-4">
-        
-        {/* Title */}
-        <h2 className="text-lg font-semibold text-gray-900 leading-snug line-clamp-2">
-          {truncatedTitle}
-        </h2>
+    <div className="font-light flex flex-col gap-5 p-8 rounded-2xl shadow-lg bg-gradient-to-br from-white to-gray-50 border border-gray-200 max-w-xl transition-transform hover:scale-[1.01] duration-200">
+      {/* Name */}
+      <h2 className="font-extrabold text-4xl md:text-5xl text-gray-900 tracking-tight drop-shadow-sm bg-gradient-to-r from-blue-600 to-violet-600 text-transparent bg-clip-text">{name}</h2>
 
-        {/* Body */}
-        <p className="text-sm text-gray-600 line-clamp-3">{body}</p>
+      {/* Department */}
+      <h5 className="text-gray-700 text-lg font-semibold">{department}</h5>
 
-        {/* Divider */}
-        <div className="border-t border-gray-200"></div>
+      {/* Pronouns */}
+      {pronouns && (<span className="text-gray-700 text-sm font-medium bg-blue-100 px-3 py-1 rounded-full w-fit shadow-sm">{pronouns}</span>)}
 
-        {/* Actions */}
-        <div className="flex flex-wrap justify-between items-center gap-2 pt-1">
+      {/* Description */}
+      <p className="text-gray-800 leading-relaxed text-base bg-white/60 p-3 rounded-xl shadow-sm">{description}</p>
 
-          <Link to={editPath}>
-            <button className="btn btn-sm btn-primary rounded-full px-4 shadow-none hover:shadow">
-              Edit
-            </button>
-          </Link>
-
-          <button
-            className={`btn btn-sm rounded-full px-4 shadow-none hover:shadow ${statusColor}`}
-            onClick={() => changeActiveStatus(id, activeStatus)}
-          >
-            {statusLabel}
-          </button>
-
-          <button
-            className="btn btn-sm btn-error rounded-full px-4 shadow-none hover:shadow"
-            onClick={() => deleteOpp(id)}
-          >
-            Delete
-          </button>
-        </div>
-      </div>
+      {/* Website */}
+      {Boolean(website) && (
+        <Link
+          to={website!}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline underline-offset-2 hover:text-blue-800 transition-colors w-fit font-medium"
+        >
+          🌐 Visit Website →
+        </Link>
+      )}
     </div>
   );
-};
-
-export default OpportunityActionCard;
+}

@@ -19,25 +19,46 @@ const JobDetails = ({
   recommended_experience,
 }: JobDetailsProps) => {
   return (
-    <article className="w-full col-span-7 border-l border-r p-24 flex flex-col gap-5 shadow-sm">
-      <JobHeader
-        title={name}
-        author={author}
-        img={authorProfile}
-      />
-      <JobDescription
-        description={`${description ? description : "No description available."
-          }`}
-      />
+    <section>
+      <article
+        className="
+          w-full max-w-4xl
+          bg-white dark:bg-gray-900
+          text-gray-900 dark:text-white
+          rounded-2xl
+          shadow-lg
+          px-6 py-8 md:px-10 md:py-10
+        "
+      >
+        <div className="flex gap-6 md:gap-10">
+          {/* Accent vertical line */}
+          <div className="" />
 
-      <JobDescription
-        title="Recommended Experience"
-        description={`${recommended_experience
-            ? recommended_experience
-            : "No recommended experience available."
-          }`}
-      />
-    </article>
+          <div className="flex-1 flex flex-col gap-6">
+            <JobHeader
+              title={name}
+              author={author}
+              img={authorProfile}
+            />
+
+            <JobDescription
+              title="Role Description"
+              description={
+                description || "No description available."
+              }
+            />
+
+            <JobDescription
+              title="Recommended Experience"
+              description={
+                recommended_experience ||
+                "No recommended experience available."
+              }
+            />
+          </div>
+        </div>
+      </article>
+    </section>
   );
 };
 

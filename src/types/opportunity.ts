@@ -9,6 +9,6 @@ export type Opportunity = {
   year: number;
   application_due: Date;
   location: string;
-  lab_managers: string
+  lab_managers: string;
   saved: boolean;
 }

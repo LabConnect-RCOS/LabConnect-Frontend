@@ -42,7 +42,6 @@ const Posts = () => {
       } else {
         const data = await response.json();
         setOpportunities(data);
-        console.log(data);
       }
     } catch (error) {
       console.error("Error fetching opportunities:", error);

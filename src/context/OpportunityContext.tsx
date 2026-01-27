@@ -18,8 +18,8 @@ interface OpportunityState {
 
 const initialState: OpportunityState = {
   filters: {
-    activeFilters: ["2025"],
-    filterMap: { years: [2025], credits: [], hourlyPay: 0, majors: [] },
+    activeFilters: [currYr.toString()],
+    filterMap: { years: [currYr], credits: [], hourlyPay: 0, majors: [] },
   },
   query: "",
   activeId: "",

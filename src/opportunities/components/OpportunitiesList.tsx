@@ -17,11 +17,9 @@ export default function OpportunitiesList() {
         ? { ...item, saved: !item.saved }
         : item
     );
-    console.log(updated)
 
     setOpportunities(updated);
   }
-  console.log(opportunities);
 
   async function changeSavedOpportunity(opportunity: Opportunity) {
     console.log("Current saved state:", opportunity.saved);

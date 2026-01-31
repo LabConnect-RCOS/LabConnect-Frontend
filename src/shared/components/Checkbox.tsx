@@ -53,7 +53,7 @@ export default function CheckBox({
                       {...formHook}
                       id={item}
                       className={type === "radio" ? "radio" : "checkbox"}
-                      defaultChecked={(name === "years" && filters?.years?.includes(Number(item))) || (name === "credits" && filters?.credits?.includes(item) ? true : false)}
+                      defaultChecked={((name === "years" && filters?.years?.includes(Number(item))) || (name === "credits" && filters?.credits?.includes(item))) ? true : false}
                     />
                   </label>
                 </div>

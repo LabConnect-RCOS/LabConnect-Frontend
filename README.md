@@ -110,10 +110,7 @@ Running list of contributors to the LabConnect project:
 
 ### Rensselaer Center for Open Source Development Team
 
-- **Jaswanth D** [Frontend]
-- **Doan N** [Frontend]
-- **Pragathi A** [Frontend / Backend]
-- **Aniket S** [Backend]
+- **Sarah Wohlford** [Backend]
 
 ### Past Rensselaer Center for Open Source Development Team
 

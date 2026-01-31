@@ -22,7 +22,6 @@ export default function OpportunitiesList() {
   }
 
   async function changeSavedOpportunity(opportunity: Opportunity) {
-    console.log("Current saved state:", opportunity.saved);
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
@@ -58,7 +57,6 @@ export default function OpportunitiesList() {
     } finally {
       // Optimistically update local UI
       toggleSave(opportunity);
-      console.log("Local save state toggled.");
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext.tsx";
 import { Opportunity } from "../../types/opportunity.ts";
@@ -12,37 +12,33 @@ export default function SavedPage() {
     }
 
     const [saved, setSaved] = useState<Opportunity[] | null>(null);
-
     const csrfToken = getCookie('csrf_access_token');
 
-    const fetchSaved = async () => {
-        try {
-            const response = await fetch(
-                `${import.meta.env.VITE_BACKEND_SERVER}/savedOpportunities`, {
-                credentials: "include",
-            }
-            );
-
-            if (!response.ok) {
-                throw new Error("Saved not found");
-            }
-
-            const data = await response.json();
-            setSaved(data);
-        } catch {
-            console.error("Error fetching saved opportunities");
-            setSaved([]);
-        }
-        console.log(saved)
-    }
-
     useEffect(() => {
+        const fetchSaved = async () => {
+            try {
+                const response = await fetch(
+                    `${import.meta.env.VITE_BACKEND_SERVER}/savedOpportunities`, {
+                    credentials: "include",
+                }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Saved not found");
+                }
+
+                const data = await response.json();
+                setSaved(data);
+            } catch {
+                console.error("Error fetching saved opportunities");
+                setSaved([]);
+            }
+        }
         fetchSaved();
     }, []);
     return (
         <div className="p-4">
             <div className="overflow-x-auto">
-            {(saved === null) ? "Loading..." : (
                 <table className="w-full border-collapse">
                     <thead>
                         <tr className="bg-gray-100">
@@ -59,7 +55,15 @@ export default function SavedPage() {
                         </tr>
                     </thead>
                     <tbody>
-                      {saved.length > 0 ? 
+                      {(saved === null) ? (
+                        <tr>
+                          <td colSpan={10} className="p-3 border text-center">
+                            Loading...
+                          </td>
+                        </tr>
+                      ) : 
+                      
+                      saved.length > 0 ? 
                         (saved.map((opportunity) => (
                           <tr key={opportunity.id}>
                               <td className="p-3 border font-medium">{opportunity.name}</td>
@@ -128,7 +132,6 @@ export default function SavedPage() {
                       )}
                     </tbody>
                 </table>
-            )}
             </div>
         </div>
     );

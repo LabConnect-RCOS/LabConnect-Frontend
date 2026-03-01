@@ -5,7 +5,7 @@
   "type": "module",
   "dependencies": {
     "@eslint/config-array": "^0.19.0",
-    "@eslint/object-schema": "^2.1.5",
+    "@eslint/object-schema": "^3.0.2",
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.1.5",
     "@hookform/error-message": "^2.0.1",
